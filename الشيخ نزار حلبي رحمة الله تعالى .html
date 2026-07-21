@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>مشغل دروس الشيخ نزار حلبي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --bg: #0a0e1a;
+            --bg2: #141b2d;
+            --bg3: #1a2340;
+            --card: #1e2a45;
+            --text: #e8edf5;
+            --text2: #8899bb;
+            --primary: #4a9eff;
+            --primary2: #6ab0ff;
+            --gold: #f0c060;
+            --shadow: 0 8px 32px rgba(0,0,0,0.5);
+            --radius: 18px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="light"] {
+            --bg: #f0f4fa;
+            --bg2: #e4eaf2;
+            --bg3: #d5dde8;
+            --card: #ffffff;
+            --text: #1a2332;
+            --text2: #556688;
+            --shadow: 0 8px 32px rgba(0,0,0,0.12);
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            transition: background var(--transition), color var(--transition);
+            padding: 16px 12px 100px 12px;
+            overflow-x: hidden;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 4px 16px 4px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .header h1 {
+            font-size: 18px;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .header-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .header-btn {
+            background: var(--bg2);
+            border: none;
+            color: var(--text);
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .header-btn:hover {
+            background: var(--bg3);
+            transform: scale(1.05);
+        }
+        .header-btn.active {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        /* ===== SEARCH ===== */
+        .search-box {
+            width: 100%;
+            padding: 10px 16px;
+            border-radius: 14px;
+            border: none;
+            background: var(--bg2);
+            color: var(--text);
+            font-size: 15px;
+            font-family: 'Tajawal', sans-serif;
+            margin-bottom: 14px;
+            transition: var(--transition);
+            outline: 2px solid transparent;
+        }
+        .search-box:focus {
+            outline-color: var(--primary);
+            background: var(--bg3);
+        }
+        .search-box::placeholder {
+            color: var(--text2);
+        }
+
+        /* ===== PLAYER CARD ===== */
+        .player-card {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 24px 18px 18px 18px;
+            box-shadow: var(--shadow);
+            margin-bottom: 18px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .player-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 70% 20%, rgba(74, 158, 255, 0.06), transparent 70%);
+            pointer-events: none;
+        }
+
+        .player-top {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .player-cover {
+            width: 70px;
+            height: 70px;
+            border-radius: 16px;
+            object-fit: cover;
+            flex-shrink: 0;
+            background: var(--bg2);
+            border: 2px solid var(--bg3);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        .player-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .player-info .title {
+            font-size: 16px;
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .player-info .sub {
+            font-size: 13px;
+            color: var(--text2);
+        }
+
+        /* ===== PROGRESS ===== */
+        .progress-area {
+            margin: 8px 0 6px 0;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 5px;
+            background: var(--bg2);
+            border-radius: 10px;
+            cursor: pointer;
+            position: relative;
+            transition: height 0.2s;
+        }
+        .progress-bar:hover {
+            height: 7px;
+        }
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--primary), var(--gold));
+            border-radius: 10px;
+            position: relative;
+            transition: width 0.05s linear;
+        }
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            right: -6px;
+            top: -4px;
+            width: 14px;
+            height: 14px;
+            background: var(--primary);
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.2s;
+            box-shadow: 0 0 12px var(--primary);
+        }
+        .progress-bar:hover .progress-fill::after {
+            opacity: 1;
+        }
+        .time-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--text2);
+            margin-top: 4px;
+        }
+
+        /* ===== CONTROLS ===== */
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin: 12px 0 8px 0;
+            flex-wrap: wrap;
+        }
+        .ctrl-btn {
+            background: var(--bg2);
+            border: none;
+            color: var(--text);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .ctrl-btn:hover {
+            background: var(--bg3);
+            transform: scale(1.05);
+        }
+        .ctrl-btn.play-btn {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--primary), var(--primary2));
+            color: #fff;
+            font-size: 26px;
+            box-shadow: 0 4px 20px rgba(74, 158, 255, 0.35);
+        }
+        .ctrl-btn.play-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 6px 28px rgba(74, 158, 255, 0.5);
+        }
+        .ctrl-btn.muted {
+            color: var(--gold);
+        }
+
+        .volume-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 6px;
+            justify-content: center;
+        }
+        .volume-row input[type="range"] {
+            width: 100px;
+            height: 4px;
+            -webkit-appearance: none;
+            background: var(--bg2);
+            border-radius: 10px;
+            outline: none;
+        }
+        .volume-row input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+        }
+
+        /* ===== PLAYLIST ===== */
+        .playlist-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 4px 12px 4px;
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--text2);
+        }
+        .playlist-header span:last-child {
+            font-size: 13px;
+            background: var(--bg2);
+            padding: 2px 12px;
+            border-radius: 20px;
+        }
+
+        .song-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-height: 420px;
+            overflow-y: auto;
+            padding: 2px 0 10px 0;
+            scroll-behavior: smooth;
+        }
+        .song-list::-webkit-scrollbar {
+            width: 4px;
+        }
+        .song-list::-webkit-scrollbar-track {
+            background: var(--bg2);
+            border-radius: 10px;
+        }
+        .song-list::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+
+        .song-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            border-radius: 14px;
+            background: var(--bg2);
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+        .song-item:hover {
+            background: var(--bg3);
+        }
+        .song-item.active {
+            border-color: var(--primary);
+            background: var(--bg3);
+        }
+        .song-item.active .song-title {
+            color: var(--primary);
+        }
+        .song-item .idx {
+            font-size: 13px;
+            color: var(--text2);
+            width: 28px;
+            text-align: center;
+            font-weight: 700;
+        }
+        .song-item .song-cover {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            object-fit: cover;
+            flex-shrink: 0;
+            background: var(--bg);
+        }
+        .song-item .song-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .song-item .song-title {
+            font-size: 14px;
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .song-item .song-art {
+            font-size: 12px;
+            color: var(--text2);
+        }
+        .song-item .song-dur {
+            font-size: 12px;
+            color: var(--text2);
+            background: var(--bg);
+            padding: 2px 10px;
+            border-radius: 20px;
+        }
+        .song-item .playing-indicator {
+            color: var(--primary);
+            font-size: 14px;
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* ===== MINI PLAYER ===== */
+        .mini-player {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--card);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 10px 16px;
+            display: none;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 -4px 30px rgba(0,0,0,0.3);
+            border-top: 1px solid var(--bg3);
+            z-index: 999;
+            transition: var(--transition);
+        }
+        .mini-player.show {
+            display: flex;
+        }
+        .mini-player .mini-cover {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+        .mini-player .mini-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .mini-player .mini-title {
+            font-size: 13px;
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .mini-player .mini-sub {
+            font-size: 11px;
+            color: var(--text2);
+        }
+        .mini-player .mini-controls {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .mini-player .mini-controls button {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 20px;
+            cursor: pointer;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        .mini-player .mini-controls button:hover {
+            background: var(--bg2);
+        }
+        .mini-player .mini-controls .mini-play {
+            background: var(--primary);
+            color: #fff;
+            font-size: 18px;
+        }
+        .mini-player .mini-controls .mini-play:hover {
+            background: var(--primary2);
+        }
+
+        /* ===== FULLSCREEN ===== */
+        .fullscreen-active .player-card {
+            border-radius: 0;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px 20px;
+        }
+        .fullscreen-active .player-cover {
+            width: 180px;
+            height: 180px;
+            border-radius: 24px;
+        }
+        .fullscreen-active .player-info .title {
+            font-size: 24px;
+            white-space: normal;
+            text-align: center;
+        }
+        .fullscreen-active .player-info .sub {
+            font-size: 18px;
+            text-align: center;
+        }
+        .fullscreen-active .controls .ctrl-btn {
+            width: 56px;
+            height: 56px;
+            font-size: 24px;
+        }
+        .fullscreen-active .controls .play-btn {
+            width: 72px;
+            height: 72px;
+            font-size: 32px;
+        }
+
+        /* ===== TOAST ===== */
+        .toast {
+            position: fixed;
+            bottom: 90px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--card);
+            color: var(--text);
+            padding: 10px 24px;
+            border-radius: 14px;
+            font-size: 14px;
+            font-weight: 700;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--bg3);
+            opacity: 0;
+            transition: opacity 0.4s;
+            z-index: 1000;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+        .toast.show {
+            opacity: 1;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 480px) {
+            .header h1 { font-size: 16px; }
+            .header-btn { width: 34px; height: 34px; font-size: 16px; }
+            .player-cover { width: 56px; height: 56px; }
+            .player-info .title { font-size: 14px; }
+            .ctrl-btn { width: 38px; height: 38px; font-size: 17px; }
+            .ctrl-btn.play-btn { width: 48px; height: 48px; font-size: 22px; }
+            .song-item { padding: 8px 10px; }
+            .song-item .song-title { font-size: 13px; }
+            .volume-row input[type="range"] { width: 70px; }
+        }
+        @media (max-width: 380px) {
+            .controls { gap: 6px; }
+            .ctrl-btn { width: 34px; height: 34px; font-size: 15px; }
+            .ctrl-btn.play-btn { width: 42px; height: 42px; font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== TOAST ===== -->
+    <div class="toast" id="toast"></div>
+
+    <!-- ===== HEADER ===== -->
+    <div class="header">
+        <h1>🎙️ دروس نزار حلبي</h1>
+        <div class="header-actions">
+            <button class="header-btn" id="themeToggle" title="الوضع">🌙</button>
+            <button class="header-btn" id="fullscreenToggle" title="ملء الشاشة">⛶</button>
+            <button class="header-btn" id="shareBtn" title="مشاركة">📤</button>
+        </div>
+    </div>
+
+    <!-- ===== SEARCH ===== -->
+    <input class="search-box" id="searchInput" type="text" placeholder="🔍 ابحث في الدروس..." />
+
+    <!-- ===== PLAYER CARD ===== -->
+    <div class="player-card" id="playerCard">
+        <div class="player-top">
+            <img class="player-cover" id="cover" src="https://telegra.ph/file/c20ddd85eb01705cb54ca.jpg" alt="cover" />
+            <div class="player-info">
+                <div class="title" id="songTitle">شرح العقيدة الطحاوية</div>
+                <div class="sub" id="songArtist">الشيخ نزار حلبي</div>
+            </div>
+        </div>
+
+        <div class="progress-area">
+            <div class="progress-bar" id="progressBar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="time-row">
+                <span id="currentTime">00:00</span>
+                <span id="duration">00:00</span>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="ctrl-btn" id="shuffleBtn" title="خلط">🔀</button>
+            <button class="ctrl-btn" id="prevBtn" title="السابق">⏮</button>
+            <button class="ctrl-btn play-btn" id="playBtn" title="تشغيل">▶</button>
+            <button class="ctrl-btn" id="nextBtn" title="التالي">⏭</button>
+            <button class="ctrl-btn" id="repeatBtn" title="تكرار">🔁</button>
+        </div>
+
+        <div class="volume-row">
+            <button class="ctrl-btn" id="muteBtn" title="كتم" style="width:32px;height:32px;font-size:16px;border-radius:50%;">🔊</button>
+            <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.8" />
+            <button class="ctrl-btn" id="skipBackBtn" title="تأخير 10 ث" style="width:32px;height:32px;font-size:14px;border-radius:50%;">⏪</button>
+            <button class="ctrl-btn" id="skipForwardBtn" title="تقديم 10 ث" style="width:32px;height:32px;font-size:14px;border-radius:50%;">⏩</button>
+        </div>
+    </div>
+
+    <!-- ===== PLAYLIST ===== -->
+    <div class="playlist-header">
+        <span>📋 قائمة الدروس</span>
+        <span id="songCount">0</span>
+    </div>
+    <div class="song-list" id="songList"></div>
+
+    <!-- ===== MINI PLAYER ===== -->
+    <div class="mini-player" id="miniPlayer">
+        <img class="mini-cover" id="miniCover" src="https://telegra.ph/file/c20ddd85eb01705cb54ca.jpg" alt="cover" />
+        <div class="mini-info">
+            <div class="mini-title" id="miniTitle">شرح العقيدة</div>
+            <div class="mini-sub" id="miniSub">نزار حلبي</div>
+        </div>
+        <div class="mini-controls">
+            <button id="miniPrev">⏮</button>
+            <button class="mini-play" id="miniPlay">▶</button>
+            <button id="miniNext">⏭</button>
+        </div>
+    </div>
+
+    <!-- ===== AUDIO ===== -->
+    <audio id="audio" preload="auto"></audio>
+
+    <script>
+        (function() {
+            'use strict';
+
+            // =============================================
+            //  SONGS DATA
+            // =============================================
+            const Songs = [
+                { name: "شرح العقيدة الطحاوية 1", art: "01", dur: "1", iurl: "https://telegra.ph/file/c20ddd85eb01705cb54ca.jpg", surl: "http://www.sunnaonline.org/lessons/s-nizar/ta7awiya-1.mp3" },
+                { name: "شرح العقيدة الطحاوية 2", art: "02", dur: "2", iurl: "https://telegra.ph/file/c20ddd85eb01705cb54ca.jpg", surl: "http://www.sunnaonline.org/lessons/s-nizar/ta7awiya-2.mp3" },
+                { name: "شرح العقيدة الطحاوية 3", art: "03", dur: "3", iurl: "https://telegra.ph/file/c20ddd85eb01705cb54ca.jpg", surl: "http://www.sunnaonline.org/lessons/s-nizar/ta7awiya-3.mp3" },
+                { name: "شرح العقيدة الطحاوية 4", art: "04", dur: "4", iurl: "https://telegra.ph/file/c20ddd85eb01705cb54ca.jpg", surl: "http://www.sunnaonline.org/lessons/s-nizar/ta7awiya-4.mp3" },
+                { name: "شرح العقيدة الطحاوية 5", art: "05", dur: "5", iurl: "https://telegra.ph/file/c20ddd85eb01705cb54ca.jpg", surl: "http://www.sunnaonline.org/lessons/s-nizar/ta7awiya-5.mp3" },
+                { name: "شرح العقيدة الطحاوية 6", art: "06", dur: "6", iurl: "https://telegra.ph/file/c20ddd85eb01705cb54ca.jpg", surl: "http://www.sunnaonline.org/lessons/s-nizar/ta7awiya-6.mp3" },
+                { name: "شرح العقيدة الطحاوية 7", art: "07", dur: "7", iurl: "https://telegra.ph/file/c20ddd85eb01705cb54ca.jpg", surl: "http://www.sunnaonline.org/lessons/s-nizar/ta7awiya-7.mp3" },
+                { name: "شرح العقيدة الطحاوية 8", art: "08", dur: "8", iurl: "https://telegra.ph/file/c20ddd85eb01705cb54ca.jpg", surl: "http://www.sunnaonline.org/lessons/s-nizar/ta7awiya-8.mp3" },
+                { name: "نعمة الإيمان وحماية الوطن", art: "09", dur: "9", iurl: "https://telegra.ph/file/c20ddd85eb01705cb54ca.jpg", surl: "https://www.mika2eel.com/lessons/nizar/022-Ni%5emat_Al-Iman_Wa_Himayat_Al-Watan.mp3" },
+                { name: "الهجرة", art: "10", dur: "10", iurl: "https://telegra.ph/file/c20ddd85eb01705cb54ca.jpg", surl: "https://www.mika2eel.com/lessons/nizar/029-Al-Hijra.mp3" },
+                { name: "عقوق الوالدين", art: "11", dur: "11", iurl: "https://telegra.ph/file/c20ddd85eb01705cb54ca.jpg", surl: "https://www.mika2eel.com/lessons/nizar/019-%5eUququl_Walidayn.mp3" },
+                { name: "صيام رمضان", art: "12", dur: "12", iurl: "https://telegra.ph/file/c20ddd85eb01705cb54ca.jpg", surl: "https://www.mika2eel.com/lessons/nizar/011-Siyam_Ramadan.mp3" },
+                { name: "صبر الأنبياء", art: "13", dur: "13", iurl: "https://telegra.ph/file/c20ddd85eb01705cb54ca.jpg", surl: "https://www.mika2eel.com/lessons/nizar/012-Sabrul_Anbiya'.mp3" },
+                { name: "بناء الأسرة", art: "14", dur: "14", iurl: "https://telegra.ph/file/c20ddd85eb01705cb54ca.jpg", surl: "https://www.mika2eel.com/lessons/nizar/015-Bina'_Al-Usra.mp3" },
+                { name: "انقطاع الوحي", art: "15", dur: "15", iurl: "https://telegra.ph/file/c20ddd85eb01705cb54ca.jpg", surl: "https://www.mika2eel.com/lessons/nizar/006-Inqita%5e_Al-Wahiyy.mp3" },
+                { name: "المولد النبوي 1", art: "16", dur: "16", iurl: "https://telegra.ph/file/c20ddd85eb01705cb54ca.jpg", surl: "https://www.mika2eel.com/lessons/nizar/007-Al-Mawlid-(1).mp3" },
+                { name: "المولد النبوي 2", art: "17", dur: "17", iurl: "https://telegra.ph/file/c20ddd85eb01705cb54ca.jpg", surl: "https://www.mika2eel.com/lessons/nizar/008-Al-Mawlid-(2).mp3" },
+                { name: "المعجزات", art: "18", dur: "18", iurl: "https://telegra.ph/file/c20ddd85eb01705cb54ca.jpg", surl: "https://www.mika2eel.com/lessons/nizar/013-Al-Mu%5ejizat.mp3" },
+                { name: "القناعة", art: "19", dur: "19", iurl: "https://telegra.ph/file/c20ddd85eb01705cb54ca.jpg", surl: "https://www.mika2eel.com/lessons/nizar/001-Al-Qana%5ea.mp3" },
+                { name: "العقيدة الحقة 2", art: "20", dur: "20", iurl: "https://telegra.ph/file/c20ddd85eb01705cb54ca.jpg", surl: "https://www.mika2eel.com/lessons/nizar/005-Al-%5eAqidatul-Haqa-(2).mp3" },
+                { name: "ذي الحجة ويوم عرفة", art: "21", dur: "21", iurl: "https://telegra.ph/file/c20ddd85eb01705cb54ca.jpg", surl: "https://www.mika2eel.com/lessons/nizar/027-%5eAshr_Al-Awa'il_Min_Thil-Hijja_Yowm-%5eArafat.mp3" },
+                { name: "العاشر من محرم", art: "22", dur: "22", iurl: "https://telegra.ph/file/c20ddd85eb01705cb54ca.jpg", surl: "https://www.mika2eel.com/lessons/nizar/016-Al-%5eashir_Min_Muharam.mp3" },
+                { name: "عيسى ومريم", art: "23", dur: "23", iurl: "https://telegra.ph/file/c20ddd85eb01705cb54ca.jpg", surl: "https://www.mika2eel.com/lessons/nizar/020-%5eIssa_wa_Maryam_%5eAlayhim_As-salam.mp3" },
+                { name: "الصوفية", art: "24", dur: "24", iurl: "https://telegra.ph/file/c20ddd85eb01705cb54ca.jpg", surl: "https://www.mika2eel.com/lessons/nizar/002-Al-Sufiyah.mp3" },
+                { name: "الرضى والتسليم", art: "25", dur: "25", iurl: "https://telegra.ph/file/c20ddd85eb01705cb54ca.jpg", surl: "https://www.aicpmadih.de/Multimedia/quran/Jouz_Amma_tajweed/25.mp3" },
+                { name: "الدنيا سجن المؤمن", art: "26", dur: "26", iurl: "https://telegra.ph/file/c20ddd85eb01705cb54ca.jpg", surl: "https://www.mika2eel.com/lessons/nizar/021-Al-Dunya_Sijn_Al-Mu'min_Wa-Janat_Al-Kafir.mp3" },
+                { name: "الدنيا الى الفناء", art: "27", dur: "27", iurl: "https://telegra.ph/file/c20ddd85eb01705cb54ca.jpg", surl: "https://www.mika2eel.com/lessons/nizar/010-Al-Dunya-ilal-Fana'.mp3" },
+                { name: "الدعاء", art: "28", dur: "28", iurl: "https://telegra.ph/file/c20ddd85eb01705cb54ca.jpg", surl: "https://www.mika2eel.com/lessons/nizar/017-Al-Du%5ea.mp3" },
+                { name: "الخوارج", art: "29", dur: "29", iurl: "https://telegra.ph/file/c20ddd85eb01705cb54ca.jpg", surl: "https://www.mika2eel.com/lessons/nizar/028-Al-Khawarij.mp3" },
+                { name: "الحج والعمرة", art: "30", dur: "30", iurl: "https://telegra.ph/file/c20ddd85eb01705cb54ca.jpg", surl: "https://www.mika2eel.com/lessons/nizar/026-Al-Haju_Wal-%5eumra.mp3" },
+                { name: "التحذير من الوهابية", art: "31", dur: "31", iurl: "https://telegra.ph/file/c20ddd85eb01705cb54ca.jpg", surl: "https://www.mika2eel.com/lessons/nizar/024-Tahzeer_Min_Al-Wahabiya_Wa_Zanadiqat_Al-Mutasawifa.mp3" },
+                { name: "الالتزام بأحكام دين الله", art: "32", dur: "32", iurl: "https://telegra.ph/file/c20ddd85eb01705cb54ca.jpg", surl: "https://www.mika2eel.com/lessons/nizar/009-Al-Iltizam_Bi-Ahkam-Deen-Allah.mp3" },
+                { name: "الإيمان", art: "33", dur: "33", iurl: "https://telegra.ph/file/c20ddd85eb01705cb54ca.jpg", surl: "https://www.mika2eel.com/lessons/nizar/018-Al-Iman.mp3" },
+                { name: "الإخلاص من الرياء والبدعة", art: "34", dur: "34", iurl: "https://telegra.ph/file/c20ddd85eb01705cb54ca.jpg", surl: "https://www.mika2eel.com/lessons/nizar/023-Ikhlas_Al-%5eAmal_Min-Al-Riya'_Wal-Bid%5ea.mp3" },
+                { name: "الإخلاص", art: "35", dur: "35", iurl: "https://telegra.ph/file/c20ddd85eb01705cb54ca.jpg", surl: "https://www.mika2eel.com/lessons/nizar/030-Ikhlas_Al-Niyah-Sawt_Al-Mar'a_Laysa_Bi-%5eawra.mp3" },
+                { name: "الأمانة الشرعية", art: "36", dur: "36", iurl: "https://telegra.ph/file/c20ddd85eb01705cb54ca.jpg", surl: "https://www.mika2eel.com/lessons/nizar/031-Al-Amanatul_Shar%5eiyah.mp3" },
+                { name: "اجتناب الافتاء بغير علم", art: "37", dur: "37", iurl: "https://telegra.ph/file/c20ddd85eb01705cb54ca.jpg", surl: "https://www.mika2eel.com/lessons/nizar/003-Ijtinab_Al-Ifta'_Bi_Ghayr_%5eIlm,Al-Junub-Wal-Hayd.mp3" },
+                { name: "إصلاح الوطن", art: "38", dur: "38", iurl: "https://telegra.ph/file/c20ddd85eb01705cb54ca.jpg", surl: "https://www.mika2eel.com/lessons/nizar/025-Islah_Al-Watan.mp3" }
+            ];
+
+            // =============================================
+            //  DOM REFS
+            // =============================================
+            const audio = document.getElementById('audio');
+            const cover = document.getElementById('cover');
+            const songTitle = document.getElementById('songTitle');
+            const songArtist = document.getElementById('songArtist');
+            const progressFill = document.getElementById('progressFill');
+            const progressBar = document.getElementById('progressBar');
+            const currentTimeEl = document.getElementById('currentTime');
+            const durationEl = document.getElementById('duration');
+            const playBtn = document.getElementById('playBtn');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const shuffleBtn = document.getElementById('shuffleBtn');
+            const repeatBtn = document.getElementById('repeatBtn');
+            const muteBtn = document.getElementById('muteBtn');
+            const volumeSlider = document.getElementById('volumeSlider');
+            const skipBackBtn = document.getElementById('skipBackBtn');
+            const skipForwardBtn = document.getElementById('skipForwardBtn');
+            const songList = document.getElementById('songList');
+            const songCount = document.getElementById('songCount');
+            const searchInput = document.getElementById('searchInput');
+            const themeToggle = document.getElementById('themeToggle');
+            const fullscreenToggle = document.getElementById('fullscreenToggle');
+            const shareBtn = document.getElementById('shareBtn');
+            const toast = document.getElementById('toast');
+            const miniPlayer = document.getElementById('miniPlayer');
+            const miniCover = document.getElementById('miniCover');
+            const miniTitle = document.getElementById('miniTitle');
+            const miniSub = document.getElementById('miniSub');
+            const miniPlay = document.getElementById('miniPlay');
+            const miniPrev = document.getElementById('miniPrev');
+            const miniNext = document.getElementById('miniNext');
+            const playerCard = document.getElementById('playerCard');
+
+            // =============================================
+            //  STATE
+            // =============================================
+            let currentIndex = 0;
+            let isPlaying = false;
+            let isShuffled = false;
+            let repeatMode = 'all'; // 'all', 'one', 'none'
+            let isMuted = false;
+            let isFullscreen = false;
+            let theme = 'dark';
+            let filteredSongs = [...Songs];
+
+            // =============================================
+            //  HELPERS
+            // =============================================
+            function formatTime(sec) {
+                if (!sec || isNaN(sec)) return '00:00';
+                const m = Math.floor(sec / 60);
+                const s = Math.floor(sec % 60);
+                return String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+            }
+
+            function showToast(msg) {
+                toast.textContent = msg;
+                toast.classList.add('show');
+                clearTimeout(toast._hide);
+                toast._hide = setTimeout(() => toast.classList.remove('show'), 2200);
+            }
+
+            function shuffleArray(arr) {
+                for (let i = arr.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [arr[i], arr[j]] = [arr[j], arr[i]];
+                }
+                return arr;
+            }
+
+            function getPlaylist() {
+                return isShuffled ? shuffleArray([...Songs]) : Songs;
+            }
+
+            function getSongIndex(index) {
+                const list = getPlaylist();
+                return list[index] ? list[index] : list[0];
+            }
+
+            function saveState() {
+                try {
+                    localStorage.setItem('nizar_player_index', String(currentIndex));
+                    localStorage.setItem('nizar_player_time', String(audio.currentTime || 0));
+                    localStorage.setItem('nizar_player_theme', theme);
+                    localStorage.setItem('nizar_player_shuffle', String(isShuffled));
+                    localStorage.setItem('nizar_player_repeat', repeatMode);
+                } catch (e) {}
+            }
+
+            function loadState() {
+                try {
+                    const idx = localStorage.getItem('nizar_player_index');
+                    if (idx !== null) currentIndex = parseInt(idx) || 0;
+                    const t = localStorage.getItem('nizar_player_time');
+                    if (t !== null) audio.currentTime = parseFloat(t) || 0;
+                    const th = localStorage.getItem('nizar_player_theme');
+                    if (th === 'light') setTheme('light');
+                    else setTheme('dark');
+                    const sh = localStorage.getItem('nizar_player_shuffle');
+                    if (sh === 'true') isShuffled = true;
+                    const rep = localStorage.getItem('nizar_player_repeat');
+                    if (rep) repeatMode = rep;
+                } catch (e) {}
+            }
+
+            // =============================================
+            //  UI UPDATE
+            // =============================================
+            function updatePlayerUI(song) {
+                if (!song) return;
+                cover.src = song.iurl;
+                songTitle.textContent = song.name;
+                songArtist.textContent = '🎙️ الشيخ نزار حلبي • ' + song.art;
+                miniCover.src = song.iurl;
+                miniTitle.textContent = song.name;
+                miniSub.textContent = 'نزار حلبي • ' + song.art;
+                durationEl.textContent = song.dur || '00:00';
+                document.title = song.name + ' - نزار حلبي';
+                // Update active song in list
+                document.querySelectorAll('.song-item').forEach((el, i) => {
+                    const idx = isShuffled ? parseInt(el.dataset.originalIndex) : i;
+                    el.classList.toggle('active', idx === currentIndex);
+                });
+                saveState();
+            }
+
+            function updatePlayButton() {
+                const icon = isPlaying ? '⏸' : '▶';
+                playBtn.textContent = icon;
+                miniPlay.textContent = icon;
+            }
+
+            function updateProgress() {
+                if (!audio.duration || isNaN(audio.duration)) return;
+                const pct = (audio.currentTime / audio.duration) * 100;
+                progressFill.style.width = pct + '%';
+                currentTimeEl.textContent = formatTime(audio.currentTime);
+                durationEl.textContent = formatTime(audio.duration);
+            }
+
+            function updateRepeatUI() {
+                const icons = { all: '🔁', one: '🔂', none: '⏹' };
+                repeatBtn.textContent = icons[repeatMode] || '🔁';
+            }
+
+            function updateShuffleUI() {
+                shuffleBtn.style.color = isShuffled ? 'var(--gold)' : '';
+            }
+
+            function updateMuteUI() {
+                muteBtn.textContent = isMuted ? '🔇' : '🔊';
+                volumeSlider.value = isMuted ? 0 : (audio.volume || 0.8);
+            }
+
+            // =============================================
+            //  LOAD SONG
+            // =============================================
+            function loadSong(index) {
+                const list = getPlaylist();
+                if (!list.length) return;
+                const safeIdx = Math.max(0, Math.min(index, list.length - 1));
+                currentIndex = safeIdx;
+                const song = list[safeIdx];
+                if (!song) return;
+                audio.src = song.surl;
+                audio.load();
+                updatePlayerUI(song);
+                // Restore saved time if same song
+                if (song.surl === audio.src) {
+                    try {
+                        const saved = localStorage.getItem('nizar_player_time');
+                        if (saved !== null) audio.currentTime = parseFloat(saved) || 0;
+                    } catch (e) {}
+                }
+                // Auto-play if was playing
+                if (isPlaying) {
+                    audio.play().catch(() => {});
+                }
+                // scroll to active
+                const activeEl = document.querySelector('.song-item.active');
+                if (activeEl) activeEl.scrollIntoView({ block: 'center', behavior: 'smooth' });
+                saveState();
+            }
+
+            function playSong(index) {
+                loadSong(index);
+                isPlaying = true;
+                audio.play().catch(() => {});
+                updatePlayButton();
+                showToast('▶ ' + (getPlaylist()[index]?.name || ''));
+            }
+
+            // =============================================
+            //  CONTROLS
+            // =============================================
+            function togglePlay() {
+                if (isPlaying) {
+                    audio.pause();
+                    isPlaying = false;
+                } else {
+                    audio.play().catch(() => {});
+                    isPlaying = true;
+                }
+                updatePlayButton();
+                saveState();
+            }
+
+            function nextSong() {
+                const list = getPlaylist();
+                if (!list.length) return;
+                let nextIdx = currentIndex + 1;
+                if (nextIdx >= list.length) nextIdx = 0;
+                playSong(nextIdx);
+            }
+
+            function prevSong() {
+                const list = getPlaylist();
+                if (!list.length) return;
+                if (audio.currentTime > 3) {
+                    audio.currentTime = 0;
+                    return;
+                }
+                let prevIdx = currentIndex - 1;
+                if (prevIdx < 0) prevIdx = list.length - 1;
+                playSong(prevIdx);
+            }
+
+            function toggleShuffle() {
+                isShuffled = !isShuffled;
+                updateShuffleUI();
+                // Rebuild list
+                renderSongs();
+                // Reload current song from new list
+                const list = getPlaylist();
+                if (list.length) {
+                    const currentSong = Songs[currentIndex];
+                    const newIdx = list.findIndex(s => s.surl === currentSong?.surl);
+                    if (newIdx >= 0) {
+                        currentIndex = newIdx;
+                        loadSong(currentIndex);
+                    } else {
+                        currentIndex = 0;
+                        loadSong(0);
+                    }
+                }
+                showToast(isShuffled ? '🔀 خلط تفعيل' : '🔀 خلط إلغاء');
+                saveState();
+            }
+
+            function toggleRepeat() {
+                const modes = ['all', 'one', 'none'];
+                const idx = modes.indexOf(repeatMode);
+                const next = modes[(idx + 1) % modes.length];
+                repeatMode = next;
+                updateRepeatUI();
+                const labels = { all: 'تكرار الكل', one: 'تكرار واحد', none: 'إلغاء التكرار' };
+                showToast(labels[repeatMode] || '');
+                saveState();
+            }
+
+            function toggleMute() {
+                isMuted = !isMuted;
+                audio.muted = isMuted;
+                updateMuteUI();
+                if (!isMuted) audio.volume = parseFloat(volumeSlider.value);
+                saveState();
+            }
+
+            function skipForward() {
+                audio.currentTime = Math.min(audio.currentTime + 10, audio.duration || 0);
+                showToast('⏩ +10 ث');
+            }
+
+            function skipBackward() {
+                audio.currentTime = Math.max(audio.currentTime - 10, 0);
+                showToast('⏪ -10 ث');
+            }
+
+            // =============================================
+            //  THEME
+            // =============================================
+            function setTheme(mode) {
+                theme = mode;
+                document.documentElement.setAttribute('data-theme', mode);
+                themeToggle.textContent = mode === 'dark' ? '🌙' : '☀️';
+                localStorage.setItem('nizar_player_theme', mode);
+            }
+
+            function toggleTheme() {
+                setTheme(theme === 'dark' ? 'light' : 'dark');
+                showToast(theme === 'dark' ? '🌙 ليلي' : '☀️ نهاري');
+            }
+
+            // =============================================
+            //  FULLSCREEN
+            // =============================================
+            function toggleFullscreen() {
+                if (!document.fullscreenElement) {
+                    document.documentElement.requestFullscreen?.().catch(() => {});
+                    document.body.classList.add('fullscreen-active');
+                    isFullscreen = true;
+                    showToast('⛶ ملء الشاشة');
+                } else {
+                    document.exitFullscreen?.();
+                    document.body.classList.remove('fullscreen-active');
+                    isFullscreen = false;
+                }
+            }
+            document.addEventListener('fullscreenchange', () => {
+                if (!document.fullscreenElement) {
+                    document.body.classList.remove('fullscreen-active');
+                    isFullscreen = false;
+                }
+            });
+
+            // =============================================
+            //  SHARE
+            // =============================================
+            function shareSong() {
+                const song = getPlaylist()[currentIndex];
+                if (!song) return;
+                const text = `🎙️ ${song.name} - الشيخ نزار حلبي\n🔗 ${song.surl}`;
+                if (navigator.share) {
+                    navigator.share({ title: song.name, text: text, url: song.surl }).catch(() => {});
+                } else {
+                    navigator.clipboard.writeText(text).then(() => {
+                        showToast('📋 تم نسخ الاسم والرابط');
+                    }).catch(() => {
+                        showToast('📤 ' + text.substring(0, 60) + '...');
+                    });
+                }
+            }
+
+            // =============================================
+            //  RENDER SONGS
+            // =============================================
+            function renderSongs(filter = '') {
+                const list = getPlaylist();
+                const filtered = filter ? list.filter(s => s.name.includes(filter) || s.art.includes(filter)) : list;
+                filteredSongs = filtered;
+                songCount.textContent = filtered.length;
+                let html = '';
+                filtered.forEach((song, idx) => {
+                    const origIdx = Songs.findIndex(s => s.surl === song.surl);
+                    const isActive = (origIdx === currentIndex && !filter) || (filter && song.surl === getPlaylist()[currentIndex]?.surl);
+                    html += `
+                        <div class="song-item ${isActive ? 'active' : ''}" data-index="${idx}" data-original="${origIdx}">
+                            <span class="idx">${String(idx+1).padStart(2,'0')}</span>
+                            <img class="song-cover" src="${song.iurl}" alt="" />
+                            <div class="song-info">
+                                <div class="song-title">${song.name}</div>
+                                <div class="song-art">🎙️ ${song.art}</div>
+                            </div>
+                            <span class="song-dur">${song.dur || '--'}</span>
+                            ${isActive && isPlaying ? '<span class="playing-indicator">●</span>' : ''}
+                        </div>
+                    `;
+                });
+                songList.innerHTML = html || '<div style="padding:20px;text-align:center;color:var(--text2);">لا توجد نتائج</div>';
+
+                // Click handlers
+                document.querySelectorAll('.song-item').forEach(el => {
+                    el.addEventListener('click', function() {
+                        const idx = parseInt(this.dataset.index);
+                        const orig = parseInt(this.dataset.original);
+                        if (!isNaN(orig)) {
+                            // Map to actual index in current playlist
+                            const list2 = getPlaylist();
+                            const song2 = list2.find(s => s.surl === Songs[orig]?.surl);
+                            const newIdx = list2.indexOf(song2);
+                            if (newIdx >= 0) {
+                                playSong(newIdx);
+                            } else {
+                                playSong(0);
+                            }
+                        } else if (!isNaN(idx)) {
+                            playSong(idx);
+                        }
+                    });
+                });
+            }
+
+            // =============================================
+            //  MINI PLAYER
+            // =============================================
+            function updateMiniPlayerVisibility() {
+                if (isPlaying) {
+                    miniPlayer.classList.add('show');
+                } else {
+                    miniPlayer.classList.remove('show');
+                }
+            }
+
+            // =============================================
+            //  EVENT LISTENERS
+            // =============================================
+            // Audio events
+            audio.addEventListener('loadedmetadata', updateProgress);
+            audio.addEventListener('timeupdate', () => {
+                updateProgress();
+                saveState();
+            });
+            audio.addEventListener('play', () => {
+                isPlaying = true;
+                updatePlayButton();
+                updateMiniPlayerVisibility();
+                renderSongs(searchInput.value);
+                saveState();
+            });
+            audio.addEventListener('pause', () => {
+                isPlaying = false;
+                updatePlayButton();
+                updateMiniPlayerVisibility();
+                renderSongs(searchInput.value);
+                saveState();
+            });
+            audio.addEventListener('ended', () => {
+                if (repeatMode === 'one') {
+                    audio.currentTime = 0;
+                    audio.play().catch(() => {});
+                    return;
+                }
+                if (repeatMode === 'none') {
+                    isPlaying = false;
+                    updatePlayButton();
+                    updateMiniPlayerVisibility();
+                    renderSongs(searchInput.value);
+                    return;
+                }
+                nextSong();
+            });
+            audio.addEventListener('error', (e) => {
+                showToast('⚠️ خطأ في التحميل، حاول مرة أخرى');
+                console.warn('Audio error', e);
+            });
+
+            // Progress bar click/drag
+            let isDragging = false;
+            progressBar.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                const rect = progressBar.getBoundingClientRect();
+                const pct = (e.clientX - rect.left) / rect.width;
+                audio.currentTime = pct * (audio.duration || 0);
+                updateProgress();
+            });
+            document.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                const rect = progressBar.getBoundingClientRect();
+                const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+                audio.currentTime = pct * (audio.duration || 0);
+                updateProgress();
+            });
+            document.addEventListener('mouseup', () => { isDragging = false; });
+            // Touch
+            progressBar.addEventListener('touchstart', (e) => {
+                const rect = progressBar.getBoundingClientRect();
+                const touch = e.touches[0];
+                const pct = (touch.clientX - rect.left) / rect.width;
+                audio.currentTime = pct * (audio.duration || 0);
+                updateProgress();
+            }, { passive: true });
+            progressBar.addEventListener('touchmove', (e) => {
+                const rect = progressBar.getBoundingClientRect();
+                const touch = e.touches[0];
+                const pct = Math.max(0, Math.min(1, (touch.clientX - rect.left) / rect.width));
+                audio.currentTime = pct * (audio.duration || 0);
+                updateProgress();
+            }, { passive: true });
+
+            // Buttons
+            playBtn.addEventListener('click', togglePlay);
+            miniPlay.addEventListener('click', togglePlay);
+            prevBtn.addEventListener('click', prevSong);
+            miniPrev.addEventListener('click', prevSong);
+            nextBtn.addEventListener('click', nextSong);
+            miniNext.addEventListener('click', nextSong);
+            shuffleBtn.addEventListener('click', toggleShuffle);
+            repeatBtn.addEventListener('click', toggleRepeat);
+            muteBtn.addEventListener('click', toggleMute);
+            skipBackBtn.addEventListener('click', skipBackward);
+            skipForwardBtn.addEventListener('click', skipForward);
+
+            volumeSlider.addEventListener('input', function() {
+                const val = parseFloat(this.value);
+                audio.volume = val;
+                isMuted = val === 0;
+                audio.muted = isMuted;
+                updateMuteUI();
+                saveState();
+            });
+
+            // Theme
+            themeToggle.addEventListener('click', toggleTheme);
+
+            // Fullscreen
+            fullscreenToggle.addEventListener('click', toggleFullscreen);
+
+            // Share
+            shareBtn.addEventListener('click', shareSong);
+
+            // Search
+            searchInput.addEventListener('input', function() {
+                renderSongs(this.value.trim());
+            });
+
+            // Mini player click to expand
+            miniPlayer.addEventListener('click', (e) => {
+                if (e.target.closest('button')) return;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // =============================================
+            //  KEYBOARD SHORTCUTS
+            // =============================================
+            document.addEventListener('keydown', (e) => {
+                if (e.target.tagName === 'INPUT') return;
+                if (e.key === ' ' || e.key === 'Space') {
+                    e.preventDefault();
+                    togglePlay();
+                }
+                if (e.key === 'ArrowRight') skipForward();
+                if (e.key === 'ArrowLeft') skipBackward();
+                if (e.key === 'ArrowUp') {
+                    volumeSlider.value = Math.min(1, parseFloat(volumeSlider.value) + 0.05);
+                    volumeSlider.dispatchEvent(new Event('input'));
+                }
+                if (e.key === 'ArrowDown') {
+                    volumeSlider.value = Math.max(0, parseFloat(volumeSlider.value) - 0.05);
+                    volumeSlider.dispatchEvent(new Event('input'));
+                }
+                if (e.key === 'f' || e.key === 'F') toggleFullscreen();
+            });
+
+            // =============================================
+            //  INIT
+            // =============================================
+            function init() {
+                loadState();
+                updateRepeatUI();
+                updateShuffleUI();
+                updateMuteUI();
+                // Set volume
+                audio.volume = parseFloat(volumeSlider.value) || 0.8;
+                // Load first song
+                const list = getPlaylist();
+                if (list.length) {
+                    if (currentIndex >= list.length) currentIndex = 0;
+                    loadSong(currentIndex);
+                }
+                renderSongs();
+                updatePlayButton();
+                updateMiniPlayerVisibility();
+                // Auto-play if was playing
+                if (isPlaying) {
+                    audio.play().catch(() => {});
+                }
+                // Handle visibility change to save time
+                document.addEventListener('visibilitychange', () => {
+                    if (document.hidden) saveState();
+                });
+                showToast('🎵 مرحباً بك في مشغل دروس نزار حلبي');
+            }
+
+            init();
+
+            // Also save on beforeunload
+            window.addEventListener('beforeunload', saveState);
+
+        })();
+    </script>
+</body>
+</html>
