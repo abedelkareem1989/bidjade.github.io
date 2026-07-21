@@ -1,0 +1,1535 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>🎵 Premium Music Player - مدائح الحاج محمد الخير</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ========== CSS Variables ========== */
+        :root {
+            --primary: #6C3CE1;
+            --primary-dark: #4A1FA6;
+            --primary-light: #8B6CE6;
+            --secondary: #FFD700;
+            --gold: #FFD700;
+            --gold-dark: #C8A000;
+            --bg-dark: #0a0a1a;
+            --bg-card: #1a1a2e;
+            --bg-card-hover: #252545;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0c8;
+            --shadow: 0 8px 32px rgba(108, 60, 225, 0.3);
+            --gradient: linear-gradient(135deg, #6C3CE1, #4A1FA6);
+            --gradient-gold: linear-gradient(135deg, #FFD700, #C8A000);
+            --radius: 16px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --logo-image: url('https://s5files.mobeasy.com/static/u/722316/file-722316-239841.jpg');
+        }
+
+        /* ========== Dark/Light Mode ========== */
+        [data-theme="light"] {
+            --bg-dark: #f0f0f5;
+            --bg-card: #ffffff;
+            --bg-card-hover: #e8e8f0;
+            --text-primary: #1a1a2e;
+            --text-secondary: #555570;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ========== Reset & Base ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            transition: var(--transition);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ========== Background Logo Watermark ========== */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 600px;
+            height: 80%;
+            max-height: 600px;
+            background-image: var(--logo-image);
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.05;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ========== Scrollbar ========== */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+
+        /* ========== App Container ========== */
+        .app-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px 20px 120px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ========== Header ========== */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        [data-theme="light"] .header {
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            flex-shrink: 0;
+            background: var(--gradient);
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: 900;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-sub {
+            font-size: 12px;
+            color: var(--text-secondary);
+            -webkit-text-fill-color: var(--text-secondary);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* ========== Theme Toggle ========== */
+        .theme-toggle {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: none;
+            background: var(--bg-card);
+            color: var(--text-primary);
+            font-size: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.05);
+        }
+
+        /* ========== Search Bar ========== */
+        .search-container {
+            position: relative;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 20px 12px 48px;
+            border-radius: 50px;
+            border: 2px solid transparent;
+            background: var(--bg-card);
+            color: var(--text-primary);
+            font-size: 14px;
+            font-family: 'Tajawal', sans-serif;
+            transition: var(--transition);
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(108, 60, 225, 0.2);
+        }
+
+        .search-input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
+        /* ========== Stats ========== */
+        .stats {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            flex-wrap: wrap;
+        }
+
+        .stats span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .stats .num {
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        /* ========== Songs Grid ========== */
+        .songs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        /* ========== Song Card ========== */
+        .song-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .song-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow);
+            background: var(--bg-card-hover);
+        }
+
+        .song-card.playing {
+            border-color: var(--gold);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.15);
+        }
+
+        /* ========== Song Thumbnail ========== */
+        .song-thumb {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            overflow: hidden;
+            flex-shrink: 0;
+            background: var(--gradient);
+        }
+
+        .song-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .song-number {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            min-width: 28px;
+            text-align: center;
+        }
+
+        .song-card.playing .song-number {
+            color: var(--gold);
+        }
+
+        .song-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .song-title {
+            font-size: 15px;
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .song-title.playing {
+            color: var(--gold);
+        }
+
+        .song-artist {
+            font-size: 12px;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .song-duration {
+            font-size: 12px;
+            color: var(--text-secondary);
+            min-width: 44px;
+            text-align: left;
+        }
+
+        /* ========== Play Button ========== */
+        .play-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: var(--gradient);
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .play-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .play-btn.playing {
+            background: var(--gradient-gold);
+        }
+
+        /* ========== Download Button ========== */
+        .download-btn {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255,255,255,0.05);
+            color: var(--text-secondary);
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .download-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .download-btn.downloaded {
+            color: #4CAF50;
+        }
+
+        /* ========== Share Button ========== */
+        .share-btn {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255,255,255,0.05);
+            color: var(--text-secondary);
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .share-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        /* ========== Mini Player ========== */
+        .mini-player {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-card);
+            padding: 12px 20px;
+            display: none;
+            align-items: center;
+            gap: 16px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            box-shadow: 0 -8px 32px rgba(0,0,0,0.3);
+        }
+
+        .mini-player.active {
+            display: flex;
+        }
+
+        .mini-player .mini-thumb {
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            overflow: hidden;
+            flex-shrink: 0;
+            background: var(--gradient);
+        }
+
+        .mini-player .mini-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .mini-player .info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .mini-player .title {
+            font-size: 14px;
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .mini-player .artist {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .mini-player .controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .mini-player .controls button {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: transparent;
+            color: var(--text-primary);
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mini-player .controls button:hover {
+            background: rgba(255,255,255,0.05);
+        }
+
+        .mini-player .controls .play-pause {
+            background: var(--gradient);
+            color: white;
+        }
+
+        .mini-player .controls .play-pause:hover {
+            transform: scale(1.1);
+        }
+
+        .mini-player .progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--gradient);
+            transition: width 0.3s;
+            border-radius: 0 0 4px 4px;
+        }
+
+        /* ========== Fullscreen Player Modal ========== */
+        .fullscreen-player {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--bg-dark);
+            z-index: 2000;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 24px;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .fullscreen-player.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .fullscreen-player .close-btn {
+            position: absolute;
+            top: 24px;
+            left: 24px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: none;
+            background: var(--bg-card);
+            color: var(--text-primary);
+            font-size: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .fullscreen-player .close-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .fullscreen-player .cover {
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            background-image: var(--logo-image);
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 0 60px rgba(108, 60, 225, 0.3);
+            animation: pulse 3s ease-in-out infinite;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fullscreen-player .cover::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.15);
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 60px rgba(108, 60, 225, 0.3); }
+            50% { box-shadow: 0 0 100px rgba(255, 215, 0, 0.2); }
+        }
+
+        .fullscreen-player .cover.playing {
+            animation: spin 20s linear infinite, pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .fullscreen-player .fs-title {
+            font-size: 24px;
+            font-weight: 900;
+            margin-bottom: 4px;
+            text-align: center;
+            margin-top: 24px;
+        }
+
+        .fullscreen-player .fs-artist {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .fullscreen-player .fs-progress {
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .fullscreen-player .fs-progress input[type="range"] {
+            flex: 1;
+            -webkit-appearance: none;
+            height: 4px;
+            background: var(--bg-card);
+            border-radius: 4px;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .fullscreen-player .fs-progress input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--gradient);
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(108, 60, 225, 0.4);
+        }
+
+        .fullscreen-player .fs-progress .time {
+            font-size: 13px;
+            color: var(--text-secondary);
+            min-width: 44px;
+        }
+
+        .fullscreen-player .fs-controls {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .fullscreen-player .fs-controls button {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: none;
+            background: var(--bg-card);
+            color: var(--text-primary);
+            font-size: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .fullscreen-player .fs-controls button:hover {
+            transform: scale(1.1);
+            background: var(--primary);
+            color: white;
+        }
+
+        .fullscreen-player .fs-controls .main-play {
+            width: 64px;
+            height: 64px;
+            background: var(--gradient);
+            color: white;
+            font-size: 28px;
+        }
+
+        .fullscreen-player .fs-controls .main-play:hover {
+            transform: scale(1.1);
+        }
+
+        /* ========== Visualizer ========== */
+        .visualizer {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            height: 30px;
+            margin: 12px 0;
+        }
+
+        .visualizer .bar {
+            width: 4px;
+            background: var(--gradient);
+            border-radius: 4px;
+            animation: visualizerAnim 0.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes visualizerAnim {
+            from { height: 8px; }
+            to { height: 28px; }
+        }
+
+        /* ========== Responsive ========== */
+        @media (max-width: 768px) {
+            .app-container {
+                padding: 12px 12px 120px;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .logo-text {
+                font-size: 16px;
+            }
+
+            .stats {
+                font-size: 12px;
+                gap: 12px;
+                justify-content: center;
+            }
+
+            .songs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .song-card {
+                padding: 12px;
+            }
+
+            .song-title {
+                font-size: 13px;
+            }
+
+            .fullscreen-player .cover {
+                width: 180px;
+                height: 180px;
+            }
+
+            .fullscreen-player .fs-title {
+                font-size: 20px;
+            }
+
+            .mini-player .controls button {
+                width: 30px;
+                height: 30px;
+                font-size: 14px;
+            }
+
+            .download-btn, .share-btn {
+                width: 30px;
+                height: 30px;
+                font-size: 12px;
+            }
+
+            .song-thumb {
+                width: 32px;
+                height: 32px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .song-card {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .song-info {
+                flex: 1 1 100%;
+                order: 2;
+            }
+
+            .song-number {
+                order: 1;
+            }
+
+            .song-thumb {
+                order: 0;
+            }
+
+            .play-btn {
+                order: 3;
+                width: 36px;
+                height: 36px;
+                font-size: 14px;
+            }
+
+            .song-duration {
+                order: 4;
+            }
+
+            .download-btn, .share-btn {
+                order: 5;
+            }
+        }
+
+        /* ========== Toast ========== */
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 14px;
+            box-shadow: var(--shadow);
+            z-index: 3000;
+            opacity: 0;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255,255,255,0.05);
+            pointer-events: none;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ========== No Results ========== */
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-secondary);
+        }
+
+        .no-results i {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.3;
+        }
+
+        .no-results h3 {
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== Toast ========== -->
+    <div class="toast" id="toast"></div>
+
+    <!-- ========== App Container ========== -->
+    <div class="app-container">
+
+        <!-- ========== Header ========== -->
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <img src="https://s5files.mobeasy.com/static/u/722316/file-722316-239841.jpg" alt="مدائح الحاج محمد الخير">
+                </div>
+                <div>
+                    <div class="logo-text">🎵 مدائح الحاج</div>
+                    <div class="logo-sub">محمد الخير · 90+ نشيد</div>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <div class="stats">
+                    <span><i class="fas fa-music"></i> <span class="num" id="songCount">0</span></span>
+                    <span><i class="fas fa-clock"></i> <span class="num" id="totalDuration">0:00</span></span>
+                </div>
+                <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- ========== Search ========== -->
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input 
+                type="text" 
+                class="search-input" 
+                id="searchInput"
+                placeholder="🔍 ابحث في المدائح... بالاسم أو الفنان"
+                oninput="filterSongs(this.value)"
+            />
+        </div>
+
+        <!-- ========== Songs Grid ========== -->
+        <div class="songs-grid" id="songsGrid"></div>
+    </div>
+
+    <!-- ========== Mini Player ========== -->
+    <div class="mini-player" id="miniPlayer">
+        <div class="progress" id="miniProgress" style="width:0%"></div>
+        <div class="mini-thumb">
+            <img src="https://s5files.mobeasy.com/static/u/722316/file-722316-239841.jpg" alt="مدائح الحاج">
+        </div>
+        <div class="info">
+            <div class="title" id="miniTitle">اختر نشيداً</div>
+            <div class="artist" id="miniArtist">الحاج محمد الخير</div>
+        </div>
+        <div class="controls">
+            <button onclick="toggleRepeat()" id="repeatBtn">
+                <i class="fas fa-repeat"></i>
+            </button>
+            <button onclick="prevSong()">
+                <i class="fas fa-step-backward"></i>
+            </button>
+            <button class="play-pause" onclick="togglePlay()" id="miniPlayBtn">
+                <i class="fas fa-play"></i>
+            </button>
+            <button onclick="nextSong()">
+                <i class="fas fa-step-forward"></i>
+            </button>
+            <button onclick="toggleFullscreen()">
+                <i class="fas fa-expand"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- ========== Fullscreen Player ========== -->
+    <div class="fullscreen-player" id="fullscreenPlayer">
+        <button class="close-btn" onclick="toggleFullscreen()">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <div class="cover" id="fsCover"></div>
+
+        <div class="fs-title" id="fsTitle">اختر نشيداً</div>
+        <div class="fs-artist" id="fsArtist">الحاج محمد الخير</div>
+
+        <!-- Visualizer -->
+        <div class="visualizer" id="visualizer">
+            <div class="bar" style="animation-delay:0s"></div>
+            <div class="bar" style="animation-delay:0.1s"></div>
+            <div class="bar" style="animation-delay:0.2s"></div>
+            <div class="bar" style="animation-delay:0.3s"></div>
+            <div class="bar" style="animation-delay:0.4s"></div>
+            <div class="bar" style="animation-delay:0.5s"></div>
+            <div class="bar" style="animation-delay:0.6s"></div>
+            <div class="bar" style="animation-delay:0.7s"></div>
+            <div class="bar" style="animation-delay:0.8s"></div>
+            <div class="bar" style="animation-delay:0.9s"></div>
+        </div>
+
+        <div class="fs-progress">
+            <span class="time" id="fsCurrentTime">0:00</span>
+            <input type="range" min="0" max="100" value="0" id="fsSeekBar" oninput="seekTo(this.value)" />
+            <span class="time" id="fsDuration">0:00</span>
+        </div>
+
+        <div class="fs-controls">
+            <button onclick="toggleRepeat()" id="fsRepeatBtn">
+                <i class="fas fa-repeat"></i>
+            </button>
+            <button onclick="prevSong()">
+                <i class="fas fa-step-backward"></i>
+            </button>
+            <button class="main-play" onclick="togglePlay()" id="fsPlayBtn">
+                <i class="fas fa-play"></i>
+            </button>
+            <button onclick="nextSong()">
+                <i class="fas fa-step-forward"></i>
+            </button>
+            <button onclick="toggleShuffle()" id="fsShuffleBtn">
+                <i class="fas fa-random"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- ========== Audio Element ========== -->
+    <audio id="audioPlayer" preload="auto"></audio>
+
+    <script>
+        // ============================================================
+        // ========== DATA ==========
+        // ============================================================
+        const LOGO_URL = 'https://s5files.mobeasy.com/static/u/722316/file-722316-239841.jpg';
+
+        const songsData = [
+            { number: 1, title: "يا قلبي اللي داب", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-248751.mp3" },
+            { number: 2, title: "يا سيدي مدد", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-198726.mp3" },
+            { number: 3, title: "زهت وتسامت الأنوار", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-652696.mp3" },
+            { number: 4, title: "واشوقاه .. يا رسول الله", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-535448.mp3" },
+            { number: 5, title: "عطفا يا أسياد - يا أهل الرضا", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-119665.mp3" },
+            { number: 6, title: "سبحان الله - يا رب - دعاء", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-90400.mp3" },
+            { number: 7, title: "هبط الليل والنور بمكة وضّاء", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-728061.mp3" },
+            { number: 8, title: "يا سيد الكونين - أحمد يا حبيبي", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-992478.mp3" },
+            { number: 9, title: "حنيت انا حنيت لاهل المدينة", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-571939.mp3" },
+            { number: 10, title: "هل شموس. حبيبي يا أبا الزهراء", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-413247.mp3" },
+            { number: 11, title: "ايها الركب اليماني", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-773578.mp3" },
+            { number: 12, title: "يا باز - أمسية جوهرة التاج", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-40149.mp3" },
+            { number: 13, title: "يا هناي وسعدي ومناي", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-860410.mp3" },
+            { number: 14, title: "طيري يا حمامة - سر بنا ياحادي", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-381092.mp3" },
+            { number: 15, title: "الله يا الله - إلهي إرحم حالي", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-287101.mp3" },
+            { number: 16, title: "بالذل قد وافيت بابك خاشعا", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-368350.mp3" },
+            { number: 17, title: "دعوني دعوني أناجي حبيبي", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-134214.mp3" },
+            { number: 18, title: "يا إله الكون", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-128391.mp3" },
+            { number: 19, title: "عطفا علي", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-823983.mp3" },
+            { number: 20, title: "يا أيها المختار", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-545174.mp3" },
+            { number: 21, title: "فيك كل ما يرى حسن", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-895044.mp3" },
+            { number: 22, title: "يا اهل المدينة", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-814875.mp3" },
+            { number: 23, title: "يا بارئ الاكوان", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-32770.mp3" },
+            { number: 24, title: "زين العمامة", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-793472.mp3" },
+            { number: 25, title: "قلت لما غاب عني", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-254328.mp3" },
+            { number: 26, title: "مدينة رسول الله", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-832464.mp3" },
+            { number: 27, title: "جيناكم جينا - يا أهل الرضا", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-950464.mp3" },
+            { number: 28, title: "أزكى صلاة مع سلام", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-431463.mp3" },
+            { number: 29, title: "لجأت إليك. طرقت باب الرجا", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-124637.mp3" },
+            { number: 30, title: "يا طيبة فيك محبوبي", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-573278.mp3" },
+            { number: 31, title: "دعاء بصوت الحاج محمد الخير", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-955138.mp3" },
+            { number: 32, title: "يا سيدي غوثاه", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-299201.mp3" },
+            { number: 33, title: "أنوارك يا هادينا", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-952429.mp3" },
+            { number: 34, title: "فما التزمت - صلاة الله - البدوي", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-28650.mp3" },
+            { number: 35, title: "يا مادحا خير الأنام", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-926958.mp3" },
+            { number: 36, title: "أسماء الله الحسنى", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-411217.mp3" },
+            { number: 37, title: "ناديت وقلبي منكسر", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-854766.mp3" },
+            { number: 38, title: "الله يا رب النسم", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-552952.mp3" },
+            { number: 39, title: "دنياي تغريني - صليت في الأسحار", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-86116.mp3" },
+            { number: 40, title: "ربنا الله الإله - الحمد لك والشكر لك", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-911490.mp3" },
+            { number: 41, title: "واني داخل عالاعتاب", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-380324.mp3" },
+            { number: 42, title: "يا هناي وسعدي ومناي", artist: "الحاج محمد الخير", url: "https://archive.org/download/32_20230914_20230914/42.m4a" },
+            { number: 43, title: "روحولوا عطول", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-494442.mp3" },
+            { number: 44, title: "ميلاد الهادي", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-740477.mp3" },
+            { number: 45, title: "أنوار الهادي طه", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-722088.mp3" },
+            { number: 46, title: "على درب حبيبي", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-625862.mp3" },
+            { number: 47, title: "أنوار الإسلام لمعت في الدنيا", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-282373.mp3" },
+            { number: 48, title: "سايح في حب الله", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-563476.mp3" },
+            { number: 49, title: "للهادي لما راحوا", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-56524.mp3" },
+            { number: 50, title: "يا مين ياخدني لطه", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-533221.mp3" },
+            { number: 51, title: "قصة المولد", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-51125.mp3" },
+            { number: 52, title: "يا ليلة ضاءت الآلاء مغناها", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-830227.mp3" },
+            { number: 53, title: "يا نور الحق - ليلة الاثنين", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-830097.mp3" },
+            { number: 54, title: "لي في المدينة أحباب. سلامي على طه", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-745787.mp3" },
+            { number: 55, title: "فما التزمت قوافي الشعر. البدوي", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-759158.mp3" },
+            { number: 56, title: "عم يمضي الزمان", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-209000.mp3" },
+            { number: 57, title: "يا ليل طاب السمر", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-105452.mp3" },
+            { number: 58, title: "أنس الليالي", artist: "الحاج محمد الخير", url: "https://s5files.mobeasy.com/static/u/722316/file-722316-678593.mp3" },
+            { number: 59, title: "يا نور الحق", artist: "الحاج محمد الخير", url: "https://archive.org/download/32_20230914_20230914/59.m4a" },
+            { number: 60, title: "يا ليلة ضاءت الآلاء مغناها", artist: "الحاج محمد الخير", url: "https://archive.org/download/32_20230914_20230914/60.m4a" },
+            { number: 61, title: "يا مين ياخدني لطه", artist: "الحاج محمد الخير", url: "https://archive.org/download/32_20230914_20230914/61.m4a" },
+            { number: 62, title: "بالذل قد وافيت بابك خاشعا", artist: "الحاج محمد الخير", url: "https://archive.org/download/32_20230914_20230914/62.m4a" },
+            { number: 63, title: "للهادي لما راحوا", artist: "الحاج محمد الخير", url: "https://archive.org/download/32_20230914_20230914/63.m4a" },
+            { number: 64, title: "سايح في حب الله", artist: "الحاج محمد الخير", url: "https://archive.org/download/32_20230914_20230914/64.m4a" },
+            { number: 65, title: "أنوار الإسلام لمعت في الدنيا", artist: "الحاج محمد الخير", url: "https://archive.org/download/32_20230914_20230914/65.m4a" },
+            { number: 66, title: "الحمد لله والشكر لله", artist: "الحاج محمد الخير", url: "https://archive.org/download/32_20230914_20230914/66.m4a" },
+            { number: 67, title: "مولاي صل وسلم", artist: "الحاج محمد الخير", url: "https://archive.org/download/32_20230914_20230914/67.m4a" },
+            { number: 68, title: "على درب حبيبي", artist: "الحاج محمد الخير", url: "https://archive.org/download/32_20230914_20230914/68.m4a" },
+            { number: 69, title: "أنوار الهادي طه", artist: "الحاج محمد الخير", url: "https://archive.org/download/32_20230914_20230914/69.m4a" },
+            { number: 70, title: "ميلاد الهادي", artist: "الحاج محمد الخير", url: "https://archive.org/download/32_20230914_20230914/70.m4a" },
+            { number: 71, title: "زهت وتسامت الأنوار", artist: "الحاج محمد الخير", url: "https://archive.org/download/32_20230914_20230914/71.m4a" },
+            { number: 72, title: "أنشودة سيرته نهج حياة", artist: "الحاج محمد الخير", url: "https://archive.org/download/32_20230914_20230914/72.m4a" },
+            { number: 73, title: "يا سيدي مدد", artist: "الحاج محمد الخير", url: "https://archive.org/download/32_20230914_20230914/73.m4a" },
+            { number: 74, title: "قلت لما غاب عني نور", artist: "الحاج محمد الخير", url: "https://archive.org/download/32_20230914_20230914/74.m4a" },
+            { number: 75, title: "مدينة رسول الله", artist: "الحاج محمد الخير", url: "https://archive.org/download/32_20230914_20230914/75.m4a" },
+            { number: 76, title: "جيناكم جينا - يا أهل الرضا", artist: "الحاج محمد الخير", url: "https://archive.org/download/32_20230914_20230914/76.m4a" },
+            { number: 77, title: "أزكى صلاة مع سلام", artist: "الحاج محمد الخير", url: "https://archive.org/download/32_20230914_20230914/77.m4a" },
+            { number: 78, title: "لجأت إليك", artist: "الحاج محمد الخير", url: "https://archive.org/download/32_20230914_20230914/78.m4a" },
+            { number: 79, title: "دعاء", artist: "الحاج محمد الخير", url: "https://archive.org/download/32_20230914_20230914/79.m4a" },
+            { number: 80, title: "يا طيبة فيك محبوبي", artist: "الحاج محمد الخير", url: "https://archive.org/download/32_20230914_20230914/80.m4a" },
+            { number: 81, title: "إلهي يا إلهي", artist: "الحاج محمد الخير", url: "https://archive.org/download/32_20230914_20230914/81.m4a" },
+            { number: 82, title: "يا سيدي غوثاه", artist: "الحاج محمد الخير", url: "https://archive.org/download/32_20230914_20230914/82.m4a" },
+            { number: 83, title: "أنوارك يا هادينا", artist: "الحاج محمد الخير", url: "https://archive.org/download/32_20230914_20230914/83.m4a" },
+            { number: 84, title: "فما التزمت - صلاة الله", artist: "الحاج محمد الخير", url: "https://archive.org/download/32_20230914_20230914/84.m4a" },
+            { number: 85, title: "يا مادحا خير الأنام", artist: "الحاج محمد الخير", url: "https://archive.org/download/32_20230914_20230914/85.m4a" },
+            { number: 86, title: "أسماء الله الحسنى", artist: "الحاج محمد الخير", url: "https://archive.org/download/32_20230914_20230914/86.m4a" },
+            { number: 87, title: "ناديت وقلبي منكسر", artist: "الحاج محمد الخير", url: "https://archive.org/download/32_20230914_20230914/87.m4a" },
+            { number: 88, title: "الله يا رب النسم", artist: "الحاج محمد الخير", url: "https://archive.org/download/32_20230914_20230914/88.m4a" },
+            { number: 89, title: "دنياي تغريني", artist: "الحاج محمد الخير", url: "https://archive.org/download/32_20230914_20230914/89.m4a" },
+            { number: 90, title: "ربنا الله الإله", artist: "الحاج محمد الخير", url: "https://archive.org/download/32_20230914_20230914/90.m4a" }
+        ];
+
+        // ============================================================
+        // ========== STATE ==========
+        // ============================================================
+        let currentSongIndex = 0;
+        let isPlaying = false;
+        let isRepeat = false;
+        let isShuffle = false;
+        let filteredSongs = [...songsData];
+        let currentTime = 0;
+
+        // DOM refs
+        const audio = document.getElementById('audioPlayer');
+        const songsGrid = document.getElementById('songsGrid');
+        const searchInput = document.getElementById('searchInput');
+        const miniPlayer = document.getElementById('miniPlayer');
+        const miniTitle = document.getElementById('miniTitle');
+        const miniArtist = document.getElementById('miniArtist');
+        const miniPlayBtn = document.getElementById('miniPlayBtn');
+        const miniProgress = document.getElementById('miniProgress');
+        const fsPlayer = document.getElementById('fullscreenPlayer');
+        const fsTitle = document.getElementById('fsTitle');
+        const fsArtist = document.getElementById('fsArtist');
+        const fsCover = document.getElementById('fsCover');
+        const fsPlayBtn = document.getElementById('fsPlayBtn');
+        const fsSeekBar = document.getElementById('fsSeekBar');
+        const fsCurrentTime = document.getElementById('fsCurrentTime');
+        const fsDuration = document.getElementById('fsDuration');
+        const fsRepeatBtn = document.getElementById('fsRepeatBtn');
+        const fsShuffleBtn = document.getElementById('fsShuffleBtn');
+        const songCount = document.getElementById('songCount');
+        const totalDuration = document.getElementById('totalDuration');
+        const themeBtn = document.getElementById('themeBtn');
+
+        // ============================================================
+        // ========== FORMAT TIME ==========
+        // ============================================================
+        function formatTime(seconds) {
+            if (isNaN(seconds)) return '0:00';
+            const min = Math.floor(seconds / 60);
+            const sec = Math.floor(seconds % 60);
+            return `${min}:${sec.toString().padStart(2, '0')}`;
+        }
+
+        // ============================================================
+        // ========== RENDER SONGS ==========
+        // ============================================================
+        function renderSongs(songs) {
+            if (songs.length === 0) {
+                songsGrid.innerHTML = `
+                    <div class="no-results" style="grid-column:1/-1">
+                        <i class="fas fa-search"></i>
+                        <h3>لا توجد نتائج</h3>
+                        <p>جرب كلمات بحث مختلفة</p>
+                    </div>
+                `;
+                return;
+            }
+
+            songsGrid.innerHTML = songs.map((song, index) => {
+                const isCurrent = song.number === songsData[currentSongIndex]?.number;
+                const isPlayingNow = isCurrent && isPlaying;
+                return `
+                    <div class="song-card ${isPlayingNow ? 'playing' : ''}" 
+                         onclick="playSong(${song.number - 1})"
+                         data-index="${song.number - 1}">
+                        <div class="song-thumb">
+                            <img src="${LOGO_URL}" alt="مدائح الحاج">
+                        </div>
+                        <span class="song-number">${isPlayingNow ? '▶' : song.number}</span>
+                        <div class="song-info">
+                            <div class="song-title ${isPlayingNow ? 'playing' : ''}">${song.title}</div>
+                            <div class="song-artist">${song.artist}</div>
+                        </div>
+                        <button class="share-btn" onclick="event.stopPropagation(); shareSong(${song.number - 1})" title="مشاركة">
+                            <i class="fas fa-share-alt"></i>
+                        </button>
+                        <button class="download-btn" onclick="event.stopPropagation(); downloadSong(${song.number - 1})" title="تحميل">
+                            <i class="fas fa-download"></i>
+                        </button>
+                        <span class="song-duration">${formatTime(song.duration || 0)}</span>
+                        <button class="play-btn ${isPlayingNow ? 'playing' : ''}" onclick="event.stopPropagation(); playSong(${song.number - 1})">
+                            <i class="fas ${isPlayingNow ? 'fa-pause' : 'fa-play'}"></i>
+                        </button>
+                    </div>
+                `;
+            }).join('');
+
+            // Update stats
+            songCount.textContent = songs.length;
+            
+            // Calculate total duration
+            let total = 0;
+            songs.forEach(s => { if (s.duration) total += s.duration; });
+            totalDuration.textContent = formatTime(total);
+        }
+
+        // ============================================================
+        // ========== PLAY SONG ==========
+        // ============================================================
+        function playSong(index) {
+            const song = songsData[index];
+            if (!song) return;
+
+            currentSongIndex = index;
+            audio.src = song.url;
+            audio.load();
+            audio.play().catch(e => console.log('Auto-play prevented'));
+
+            isPlaying = true;
+            updateUI();
+
+            // Save to localStorage
+            try {
+                localStorage.setItem('lastSong', JSON.stringify({ index, time: 0 }));
+            } catch(e) {}
+
+            // Fetch duration when loaded
+            audio.addEventListener('loadedmetadata', function onLoaded() {
+                songsData[currentSongIndex].duration = audio.duration;
+                updateUI();
+                audio.removeEventListener('loadedmetadata', onLoaded);
+            });
+        }
+
+        // ============================================================
+        // ========== TOGGLE PLAY ==========
+        // ============================================================
+        function togglePlay() {
+            if (!audio.src) {
+                playSong(0);
+                return;
+            }
+
+            if (isPlaying) {
+                audio.pause();
+            } else {
+                audio.play().catch(e => console.log('Play error'));
+            }
+            isPlaying = !isPlaying;
+            updateUI();
+        }
+
+        // ============================================================
+        // ========== NEXT / PREV ==========
+        // ============================================================
+        function nextSong() {
+            if (isShuffle) {
+                const randomIndex = Math.floor(Math.random() * songsData.length);
+                playSong(randomIndex);
+                return;
+            }
+            const next = (currentSongIndex + 1) % songsData.length;
+            playSong(next);
+        }
+
+        function prevSong() {
+            if (isShuffle) {
+                const randomIndex = Math.floor(Math.random() * songsData.length);
+                playSong(randomIndex);
+                return;
+            }
+            const prev = currentSongIndex === 0 ? songsData.length - 1 : currentSongIndex - 1;
+            playSong(prev);
+        }
+
+        // ============================================================
+        // ========== TOGGLE REPEAT / SHUFFLE ==========
+        // ============================================================
+        function toggleRepeat() {
+            isRepeat = !isRepeat;
+            audio.loop = isRepeat;
+            updateUI();
+            showToast(isRepeat ? '🔁 التكرار مفعل' : '🔁 التكرار غير مفعل');
+        }
+
+        function toggleShuffle() {
+            isShuffle = !isShuffle;
+            updateUI();
+            showToast(isShuffle ? '🎲 التشغيل العشوائي مفعل' : '🎲 التشغيل العشوائي غير مفعل');
+        }
+
+        // ============================================================
+        // ========== SEEK ==========
+        // ============================================================
+        function seekTo(value) {
+            const percent = value / 100;
+            if (audio.duration) {
+                audio.currentTime = percent * audio.duration;
+            }
+        }
+
+        // ============================================================
+        // ========== UPDATE UI ==========
+        // ============================================================
+        function updateUI() {
+            const song = songsData[currentSongIndex];
+            if (!song) return;
+
+            // Mini Player
+            miniTitle.textContent = song.title;
+            miniArtist.textContent = song.artist;
+            miniPlayBtn.querySelector('i').className = `fas ${isPlaying ? 'fa-pause' : 'fa-play'}`;
+            
+            // Fullscreen
+            fsTitle.textContent = song.title;
+            fsArtist.textContent = song.artist;
+            if (isPlaying) {
+                fsCover.classList.add('playing');
+            } else {
+                fsCover.classList.remove('playing');
+            }
+            fsPlayBtn.querySelector('i').className = `fas ${isPlaying ? 'fa-pause' : 'fa-play'}`;
+
+            // Repeat/Shuffle buttons
+            fsRepeatBtn.style.color = isRepeat ? '#FFD700' : '';
+            fsShuffleBtn.style.color = isShuffle ? '#FFD700' : '';
+            document.getElementById('repeatBtn').style.color = isRepeat ? '#FFD700' : '';
+
+            // Show mini player
+            miniPlayer.classList.add('active');
+
+            // Update song cards
+            document.querySelectorAll('.song-card').forEach(card => {
+                const idx = parseInt(card.dataset.index);
+                const isCurrent = idx === currentSongIndex;
+                card.classList.toggle('playing', isCurrent && isPlaying);
+                const num = card.querySelector('.song-number');
+                if (isCurrent && isPlaying) {
+                    num.textContent = '▶';
+                } else {
+                    num.textContent = songsData[idx]?.number || '';
+                }
+                const btn = card.querySelector('.play-btn');
+                if (btn) {
+                    btn.classList.toggle('playing', isCurrent && isPlaying);
+                    btn.querySelector('i').className = `fas ${isCurrent && isPlaying ? 'fa-pause' : 'fa-play'}`;
+                }
+                const title = card.querySelector('.song-title');
+                if (title) {
+                    title.classList.toggle('playing', isCurrent && isPlaying);
+                }
+            });
+        }
+
+        // ============================================================
+        // ========== AUDIO EVENTS ==========
+        // ============================================================
+        audio.addEventListener('timeupdate', () => {
+            const percent = (audio.currentTime / audio.duration) * 100 || 0;
+            miniProgress.style.width = `${Math.min(percent, 100)}%`;
+            fsSeekBar.value = percent;
+            fsCurrentTime.textContent = formatTime(audio.currentTime);
+            fsDuration.textContent = formatTime(audio.duration);
+
+            // Save progress
+            try {
+                localStorage.setItem('lastSong', JSON.stringify({
+                    index: currentSongIndex,
+                    time: audio.currentTime
+                }));
+            } catch(e) {}
+        });
+
+        audio.addEventListener('ended', () => {
+            if (isRepeat) {
+                audio.currentTime = 0;
+                audio.play();
+            } else if (isShuffle) {
+                nextSong();
+            } else {
+                if (currentSongIndex < songsData.length - 1) {
+                    playSong(currentSongIndex + 1);
+                } else {
+                    isPlaying = false;
+                    updateUI();
+                }
+            }
+        });
+
+        audio.addEventListener('play', () => {
+            isPlaying = true;
+            updateUI();
+        });
+
+        audio.addEventListener('pause', () => {
+            isPlaying = false;
+            updateUI();
+        });
+
+        // ============================================================
+        // ========== FILTER SONGS ==========
+        // ============================================================
+        function filterSongs(query) {
+            const q = query.toLowerCase().trim();
+            if (!q) {
+                filteredSongs = [...songsData];
+            } else {
+                filteredSongs = songsData.filter(s => 
+                    s.title.toLowerCase().includes(q) || 
+                    s.artist.toLowerCase().includes(q)
+                );
+            }
+            renderSongs(filteredSongs);
+        }
+
+        // ============================================================
+        // ========== SHARE SONG ==========
+        // ============================================================
+        function shareSong(index) {
+            const song = songsData[index];
+            if (!song) return;
+            
+            const text = `🎵 ${song.title}\n🎤 ${song.artist}\n🔗 ${song.url}`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: song.title,
+                    text: text,
+                    url: song.url
+                }).catch(() => {});
+            } else {
+                navigator.clipboard.writeText(text).then(() => {
+                    showToast('📋 تم نسخ معلومات الأغنية');
+                }).catch(() => {
+                    const textarea = document.createElement('textarea');
+                    textarea.value = text;
+                    document.body.appendChild(textarea);
+                    textarea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textarea);
+                    showToast('📋 تم نسخ معلومات الأغنية');
+                });
+            }
+        }
+
+        // ============================================================
+        // ========== DOWNLOAD SONG ==========
+        // ============================================================
+        function downloadSong(index) {
+            const song = songsData[index];
+            if (!song) return;
+
+            showToast('⏳ جاري التحميل...');
+            
+            fetch(song.url)
+                .then(res => res.blob())
+                .then(blob => {
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `${song.title}.mp3`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                    showToast('✅ تم التحميل بنجاح');
+                })
+                .catch(() => {
+                    window.open(song.url, '_blank');
+                    showToast('📥 تم فتح رابط التحميل');
+                });
+        }
+
+        // ============================================================
+        // ========== FULLSCREEN TOGGLE ==========
+        // ============================================================
+        function toggleFullscreen() {
+            fsPlayer.classList.toggle('active');
+            if (fsPlayer.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        // ============================================================
+        // ========== THEME TOGGLE ==========
+        // ============================================================
+        function toggleTheme() {
+            const html = document.documentElement;
+            const isLight = html.getAttribute('data-theme') === 'light';
+            html.setAttribute('data-theme', isLight ? 'dark' : 'light');
+            themeBtn.innerHTML = isLight ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+            
+            try {
+                localStorage.setItem('theme', isLight ? 'dark' : 'light');
+            } catch(e) {}
+        }
+
+        // ============================================================
+        // ========== TOAST ==========
+        // ============================================================
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            clearTimeout(toast._timeout);
+            toast._timeout = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2500);
+        }
+
+        // ============================================================
+        // ========== LOAD LAST SESSION ==========
+        // ============================================================
+        function loadLastSession() {
+            try {
+                const last = localStorage.getItem('lastSong');
+                if (last) {
+                    const data = JSON.parse(last);
+                    if (data.index !== undefined && songsData[data.index]) {
+                        currentSongIndex = data.index;
+                        const song = songsData[currentSongIndex];
+                        audio.src = song.url;
+                        if (data.time > 0) {
+                            audio.currentTime = data.time;
+                        }
+                        updateUI();
+                    }
+                }
+            } catch(e) {}
+        }
+
+        // ============================================================
+        // ========== LOAD THEME ==========
+        // ============================================================
+        function loadTheme() {
+            try {
+                const theme = localStorage.getItem('theme');
+                if (theme) {
+                    document.documentElement.setAttribute('data-theme', theme);
+                    themeBtn.innerHTML = theme === 'light' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+                }
+            } catch(e) {}
+        }
+
+        // ============================================================
+        // ========== INIT ==========
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', () => {
+            loadTheme();
+            renderSongs(songsData);
+            loadLastSession();
+            
+            // Keyboard shortcuts
+            document.addEventListener('keydown', (e) => {
+                if (e.target.tagName === 'INPUT') return;
+                if (e.code === 'Space') {
+                    e.preventDefault();
+                    togglePlay();
+                }
+                if (e.code === 'ArrowRight') nextSong();
+                if (e.code === 'ArrowLeft') prevSong();
+            });
+        });
+
+        // ============================================================
+        // ========== SERVICE WORKER (PWA) ==========
+        // ============================================================
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js').catch(() => {});
+        }
+    </script>
+</body>
+  </html>
