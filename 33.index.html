@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>    -  </title>
+    <title>📖 شرح العقيدة الطحاوية - الدرة البهية</title>
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -848,11 +848,11 @@
         <header class="header">
             <div class="logo">
                 <div class="logo-icon">
-                    <img src="https://s5files.mobeasy.com/static/u/722316/file-722316-81515.jpg" alt=" ">
+                    <img src="https://s5files.mobeasy.com/static/u/722316/file-722316-81515.jpg" alt="الدرة البهية">
                 </div>
                 <div>
-                    <div class="logo-text">  </div>
-                    <div class="logo-sub"><span class="sheikh">   </span> · <span id="totalLessons">41</span> </div>
+                    <div class="logo-text">📖 العقيدة الطحاوية</div>
+                    <div class="logo-sub"><span class="sheikh">🎙 الشيخ سمير القاضي</span> · <span id="totalLessons">41</span> درس</div>
                 </div>
             </div>
 
@@ -870,16 +870,16 @@
         <!-- ========== Book Banner ========== -->
         <div class="book-banner">
             <div class="book-cover">
-                <img src="https://s5files.mobeasy.com/static/u/722316/file-722316-81515.jpg" alt=" ">
+                <img src="https://s5files.mobeasy.com/static/u/722316/file-722316-81515.jpg" alt="الدرة البهية">
             </div>
             <div class="book-info">
-                <div class="book-title">   </div>
-                <div class="book-desc">   </div>
-                <div class="book-author">        </div>
+                <div class="book-title">📖 شرح العقيدة الطحاوية</div>
+                <div class="book-desc">من كتاب الدرة البهية</div>
+                <div class="book-author">🎙 بصوت فضيلة الشيخ الدكتور سمير القاضي حفظه الله</div>
                 <div class="book-meta">
-                    <span><i class="fas fa-book-open"></i> 41 </span>
-                    <span><i class="fas fa-clock"></i>  </span>
-                    <span><i class="fas fa-tag"></i>  </span>
+                    <span><i class="fas fa-book-open"></i> 41 درساً</span>
+                    <span><i class="fas fa-clock"></i> سلسلة علمية</span>
+                    <span><i class="fas fa-tag"></i> العقيدة الطحاوية</span>
                 </div>
             </div>
         </div>
@@ -891,15 +891,15 @@
                 type="text" 
                 class="search-input" 
                 id="searchInput"
-                placeholder="   ...   "
+                placeholder="🔍 ابحث في الدروس... بالرقم أو العنوان"
                 oninput="filterLessons(this.value)"
             />
         </div>
 
         <!-- ========== Filter Tabs ========== -->
         <div class="filter-tabs">
-            <button class="filter-tab active" data-filter="all" onclick="setFilter('all')"> </button>
-            <button class="filter-tab" data-filter="favorites" onclick="setFilter('favorites')"> </button>
+            <button class="filter-tab active" data-filter="all" onclick="setFilter('all')">📚 الكل</button>
+            <button class="filter-tab" data-filter="favorites" onclick="setFilter('favorites')">❤️ المفضلة</button>
         </div>
 
         <!-- ========== Lessons Grid ========== -->
@@ -910,11 +910,11 @@
     <div class="mini-player" id="miniPlayer">
         <div class="mini-progress" id="miniProgress" style="width:0%"></div>
         <div class="mini-thumb">
-            <img src="https://s5files.mobeasy.com/static/u/722316/file-722316-81515.jpg" alt=" ">
+            <img src="https://s5files.mobeasy.com/static/u/722316/file-722316-81515.jpg" alt="الدرة البهية">
         </div>
         <div class="mini-info">
-            <div class="mini-title" id="miniTitle"> </div>
-            <div class="mini-artist" id="miniArtist">  </div>
+            <div class="mini-title" id="miniTitle">اختر درساً</div>
+            <div class="mini-artist" id="miniArtist">الشيخ سمير القاضي</div>
         </div>
         <div class="mini-controls">
             <button onclick="toggleRepeat()" id="repeatBtn"><i class="fas fa-repeat"></i></button>
@@ -933,8 +933,8 @@
 
         <div class="cover" id="fsCover"></div>
 
-        <div class="fs-title" id="fsTitle"> </div>
-        <div class="fs-artist" id="fsArtist">  </div>
+        <div class="fs-title" id="fsTitle">اختر درساً</div>
+        <div class="fs-artist" id="fsArtist">الشيخ سمير القاضي</div>
 
         <!-- Visualizer -->
         <div class="visualizer" id="visualizer">
@@ -978,47 +978,47 @@
         const COVER_URL = 'https://s5files.mobeasy.com/static/u/722316/file-722316-81515.jpg';
 
         const lessons = [
-            { n: 1, t: "   1", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: false },
-            { n: 2, t: "   2", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/002.ogg", fav: true },
-            { n: 3, t: "   3", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/003.ogg", fav: false },
-            { n: 4, t: "   4", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/004.ogg", fav: false },
-            { n: 5, t: "   5", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/005.ogg", fav: true },
-            { n: 6, t: "   6", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/006.ogg", fav: false },
-            { n: 7, t: "   7", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/007.ogg", fav: true },
-            { n: 8, t: "  8", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/008.ogg", fav: true },
-            { n: 9, t: "  9", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/009.ogg", fav: true },
-            { n: 10, t: "  10", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/010.ogg", fav: true },
-            { n: 11, t: "  11", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/011.ogg", fav: true },
-            { n: 12, t: "  12", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/012.ogg", fav: true },
-            { n: 13, t: "  13", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/013.ogg", fav: true },
-            { n: 14, t: "  14", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/014.ogg", fav: true },
-            { n: 15, t: "  15", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/015.ogg", fav: true },
-            { n: 16, t: "  16", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/016.ogg", fav: true },
-            { n: 17, t: "  17", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/017.ogg", fav: true },
-            { n: 18, t: "  18", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/018.ogg", fav: true },
-            { n: 19, t: "  19", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/019.ogg", fav: true },
-            { n: 20, t: "  20", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/020.ogg", fav: true },
-            { n: 21, t: "  21", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/021.ogg", fav: true },
-            { n: 22, t: "  22", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
-            { n: 23, t: "  23", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
-            { n: 24, t: "  24", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
-            { n: 25, t: "  25", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
-            { n: 26, t: "  26", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
-            { n: 27, t: "  27", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
-            { n: 28, t: "  28", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
-            { n: 29, t: "  29", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: false },
-            { n: 30, t: "  30", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
-            { n: 31, t: "  31", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
-            { n: 32, t: "  32", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
-            { n: 33, t: "  33", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
-            { n: 34, t: "  34", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
-            { n: 35, t: "  35", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
-            { n: 36, t: "  36", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
-            { n: 37, t: "  37", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
-            { n: 38, t: "  38", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/038.ogg", fav: true },
-            { n: 39, t: "   39", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/039.ogg", fav: true },
-            { n: 40, t: "   40", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/040.ogg", fav: true },
-            { n: 41, t: "   41", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/041.ogg", fav: false }
+            { n: 1, t: "شرح العقيدة الطحاوية 1", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: false },
+            { n: 2, t: "شرح العقيدة الطحاوية 2", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/002.ogg", fav: true },
+            { n: 3, t: "شرح العقيدة الطحاوية 3", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/003.ogg", fav: false },
+            { n: 4, t: "شرح العقيدة الطحاوية 4", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/004.ogg", fav: false },
+            { n: 5, t: "شرح العقيدة الطحاوية 5", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/005.ogg", fav: true },
+            { n: 6, t: "شرح العقيدة الطحاوية 6", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/006.ogg", fav: false },
+            { n: 7, t: "شرح العقيدة الطحاوية 7", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/007.ogg", fav: true },
+            { n: 8, t: "الدرة البهية 8", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/008.ogg", fav: true },
+            { n: 9, t: "الدرة البهية 9", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/009.ogg", fav: true },
+            { n: 10, t: "الدرة البهية 10", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/010.ogg", fav: true },
+            { n: 11, t: "الدرة البهية 11", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/011.ogg", fav: true },
+            { n: 12, t: "الدرة البهية 12", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/012.ogg", fav: true },
+            { n: 13, t: "الدرة البهية 13", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/013.ogg", fav: true },
+            { n: 14, t: "الدرة البهية 14", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/014.ogg", fav: true },
+            { n: 15, t: "الدرة البهية 15", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/015.ogg", fav: true },
+            { n: 16, t: "الدرة البهية 16", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/016.ogg", fav: true },
+            { n: 17, t: "الدرة البهية 17", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/017.ogg", fav: true },
+            { n: 18, t: "الدرة البهية 18", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/018.ogg", fav: true },
+            { n: 19, t: "الدرة البهية 19", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/019.ogg", fav: true },
+            { n: 20, t: "الدرة البهية 20", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/020.ogg", fav: true },
+            { n: 21, t: "الدرة البهية 21", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/021.ogg", fav: true },
+            { n: 22, t: "الدرة البهية 22", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
+            { n: 23, t: "الدرة البهية 23", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
+            { n: 24, t: "الدرة البهية 24", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
+            { n: 25, t: "الدرة البهية 25", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
+            { n: 26, t: "الدرة البهية 26", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
+            { n: 27, t: "الدرة البهية 27", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
+            { n: 28, t: "الدرة البهية 28", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
+            { n: 29, t: "الدرة البهية 29", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: false },
+            { n: 30, t: "الدرة البهية 30", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
+            { n: 31, t: "الدرة البهية 31", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
+            { n: 32, t: "الدرة البهية 32", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
+            { n: 33, t: "الدرة البهية 33", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
+            { n: 34, t: "الدرة البهية 34", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
+            { n: 35, t: "الدرة البهية 35", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
+            { n: 36, t: "الدرة البهية 36", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
+            { n: 37, t: "الدرة البهية 37", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
+            { n: 38, t: "الدرة البهية 38", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/038.ogg", fav: true },
+            { n: 39, t: "شرح العقيدة الطحاوية 39", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/039.ogg", fav: true },
+            { n: 40, t: "شرح العقيدة الطحاوية 40", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/040.ogg", fav: true },
+            { n: 41, t: "شرح العقيدة الطحاوية 41", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/041.ogg", fav: false }
         ];
 
         // ============================================================
@@ -1082,7 +1082,7 @@
             const l = lessons[index];
             if (!l) return;
             
-            const shareText = ` ${l.t}\n    \n ${l.u}\n\n#_ #_ #_`;
+            const shareText = `📖 ${l.t}\n🎙 الشيخ الدكتور سمير القاضي\n🔗 ${l.u}\n\n#العقيدة_الطحاوية #الدرة_البهية #سمير_القاضي`;
             
             if (navigator.share) {
                 navigator.share({
@@ -1092,7 +1092,7 @@
                 }).catch(() => {});
             } else {
                 navigator.clipboard.writeText(shareText).then(() => {
-                    showToast('      ');
+                    showToast('📋 تم نسخ رابط الدرس مع الاسم');
                 }).catch(() => {
                     const textarea = document.createElement('textarea');
                     textarea.value = shareText;
@@ -1100,7 +1100,7 @@
                     textarea.select();
                     document.execCommand('copy');
                     document.body.removeChild(textarea);
-                    showToast('      ');
+                    showToast('📋 تم نسخ رابط الدرس مع الاسم');
                 });
             }
         }
@@ -1112,7 +1112,7 @@
             const l = lessons[index];
             if (!l) return;
 
-            showToast('  ...');
+            showToast('⏳ جاري التحميل...');
             
             fetch(l.u)
                 .then(res => res.blob())
@@ -1120,12 +1120,12 @@
                     const url = URL.createObjectURL(blob);
                     const a = document.createElement('a');
                     a.href = url;
-                    a.download = `${l.t} -   .ogg`;
+                    a.download = `${l.t} - الشيخ سمير القاضي.ogg`;
                     document.body.appendChild(a);
                     a.click();
                     document.body.removeChild(a);
                     URL.revokeObjectURL(url);
-                    showToast('    ');
+                    showToast('✅ تم تحميل الدرس بنجاح');
                     
                     const btn = document.querySelector(`.lesson-card[data-i="${index}"] .download-btn`);
                     if (btn) {
@@ -1135,7 +1135,7 @@
                 })
                 .catch(() => {
                     window.open(l.u, '_blank');
-                    showToast('    ');
+                    showToast('📥 تم فتح رابط التحميل');
                 });
         }
 
@@ -1149,7 +1149,7 @@
             } else {
                 render(filteredLessons);
             }
-            showToast(lessons[index].fav ? '  ' : '   ');
+            showToast(lessons[index].fav ? '❤️ أضيفت للمفضلة' : '💔 أزيلت من المفضلة');
         }
 
         // ============================================================
@@ -1157,7 +1157,7 @@
         // ============================================================
         function render(list) {
             if (!list.length) {
-                grid.innerHTML = `<div class="no-results"><i class="fas fa-search"></i><h3>  </h3><p>   </p></div>`;
+                grid.innerHTML = `<div class="no-results"><i class="fas fa-search"></i><h3>لا توجد نتائج</h3><p>جرب كلمات بحث مختلفة</p></div>`;
                 return;
             }
 
@@ -1167,19 +1167,19 @@
                 const isPlay = isCur && isPlaying;
                 return `
                     <div class="lesson-card ${isPlay ? 'playing' : ''}" onclick="playLesson(${idx})" data-i="${idx}">
-                        <span class="lesson-number">${isPlay ? '' : l.n}</span>
+                        <span class="lesson-number">${isPlay ? '▶' : l.n}</span>
                         <div class="lesson-info">
                             <div class="lesson-title ${isPlay ? 'playing' : ''}">${l.t}</div>
-                            <div class="lesson-sub">    </div>
+                            <div class="lesson-sub">🎙 الشيخ الدكتور سمير القاضي</div>
                         </div>
                         <span class="lesson-duration">${fmt(l.d || 0)}</span>
-                        <button class="action-btn fav-btn ${l.fav ? 'active' : ''}" onclick="event.stopPropagation();toggleFavorite(${idx})" title="">
+                        <button class="action-btn fav-btn ${l.fav ? 'active' : ''}" onclick="event.stopPropagation();toggleFavorite(${idx})" title="المفضلة">
                             <i class="fas ${l.fav ? 'fa-heart' : 'fa-heart-o'}"></i>
                         </button>
-                        <button class="action-btn share-btn" onclick="event.stopPropagation();shareLesson(${idx})" title=" ">
+                        <button class="action-btn share-btn" onclick="event.stopPropagation();shareLesson(${idx})" title="مشاركة الدرس">
                             <i class="fas fa-share-alt"></i>
                         </button>
-                        <button class="action-btn download-btn" onclick="event.stopPropagation();downloadLesson(${idx})" title=" ">
+                        <button class="action-btn download-btn" onclick="event.stopPropagation();downloadLesson(${idx})" title="تحميل الدرس">
                             <i class="fas fa-download"></i>
                         </button>
                         <button class="play-btn ${isPlay ? 'playing' : ''}" onclick="event.stopPropagation();playLesson(${idx})">
@@ -1304,13 +1304,13 @@
             isRepeat = !isRepeat;
             audio.loop = isRepeat;
             updateUI();
-            showToast(isRepeat ? '  ' : '   ');
+            showToast(isRepeat ? '🔁 التكرار مفعل' : '🔁 التكرار غير مفعل');
         }
 
         function toggleShuffle() {
             isShuffle = !isShuffle;
             updateUI();
-            showToast(isShuffle ? '  ' : '   ');
+            showToast(isShuffle ? '🎲 عشوائي مفعل' : '🎲 عشوائي غير مفعل');
         }
 
         function seekTo(v) {
@@ -1332,12 +1332,12 @@
             if (!l) return;
 
             miniTitle.textContent = l.t;
-            miniArtist.textContent = '  ';
+            miniArtist.textContent = 'الشيخ سمير القاضي';
             miniPlay.innerHTML = `<i class="fas ${isPlaying ? 'fa-pause' : 'fa-play'}"></i>`;
             mini.classList.add('active');
 
             fsTitle.textContent = l.t;
-            fsArtist.textContent = '  ';
+            fsArtist.textContent = 'الشيخ سمير القاضي';
             fsCover.classList.toggle('playing', isPlaying);
             fsPlay.innerHTML = `<i class="fas ${isPlaying ? 'fa-pause' : 'fa-play'}"></i>`;
             fsRep.style.color = isRepeat ? '#d4a853' : '';
@@ -1349,7 +1349,7 @@
                 const isCur = idx === currentIndex;
                 c.classList.toggle('playing', isCur && isPlaying);
                 const num = c.querySelector('.lesson-number');
-                if (isCur && isPlaying) num.textContent = '';
+                if (isCur && isPlaying) num.textContent = '▶';
                 else num.textContent = lessons[idx]?.n || '';
                 const btn = c.querySelector('.play-btn');
                 if (btn) {
@@ -1449,4 +1449,4 @@
         });
     </script>
 </body>
-</html>
+    </html>
