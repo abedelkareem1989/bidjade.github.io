@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>    -  </title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ========== CSS Variables ========== */
+        :root {
+            --primary: #1a5276;
+            --primary-dark: #0e2f45;
+            --primary-light: #2e86c1;
+            --gold: #d4a853;
+            --gold-light: #f0d58c;
+            --bg-dark: #0d1a26;
+            --bg-card: #162b3d;
+            --bg-card-hover: #1f3d55;
+            --text-primary: #f0ece6;
+            --text-secondary: #a8c4d0;
+            --shadow: 0 8px 32px rgba(26, 82, 118, 0.5);
+            --gradient: linear-gradient(135deg, #1a5276, #0e2f45);
+            --gradient-gold: linear-gradient(135deg, #d4a853, #a8893a);
+            --radius: 16px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --cover-image: url('https://s5files.mobeasy.com/static/u/722316/file-722316-81515.jpg');
+        }
+
+        /* ========== Dark/Light Mode ========== */
+        [data-theme="light"] {
+            --bg-dark: #f0ebe3;
+            --bg-card: #ffffff;
+            --bg-card-hover: #f5f0e8;
+            --text-primary: #1a2e3a;
+            --text-secondary: #4a6a7a;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ========== Reset & Base ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', 'Segoe UI', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            transition: var(--transition);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ========== Background Watermark ========== */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70%;
+            max-width: 500px;
+            height: 70%;
+            max-height: 500px;
+            background-image: var(--cover-image);
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ========== Scrollbar ========== */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+
+        /* ========== App Container ========== */
+        .app-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 16px 20px 120px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ========== Header ========== */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        [data-theme="light"] .header {
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .logo-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            flex-shrink: 0;
+            border: 2px solid var(--gold);
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--gold);
+        }
+
+        .logo-sub {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .logo-sub .sheikh {
+            color: var(--gold-light);
+            font-weight: 500;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .stats {
+            display: flex;
+            gap: 16px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .stats .num {
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        .theme-toggle {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+            background: transparent;
+            color: var(--text-primary);
+            font-size: 18px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            background: var(--gold);
+            color: var(--bg-dark);
+            transform: scale(1.05);
+        }
+
+        /* ========== Book Banner ========== */
+        .book-banner {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(212, 168, 83, 0.2);
+            box-shadow: var(--shadow);
+            flex-wrap: wrap;
+        }
+
+        .book-cover {
+            width: 120px;
+            height: 160px;
+            border-radius: 12px;
+            overflow: hidden;
+            flex-shrink: 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            border: 2px solid var(--gold);
+        }
+
+        .book-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .book-info {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .book-info .book-title {
+            font-size: 22px;
+            font-weight: 900;
+            color: var(--gold);
+            margin-bottom: 4px;
+        }
+
+        .book-info .book-desc {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 2px;
+        }
+
+        .book-info .book-author {
+            font-size: 14px;
+            color: var(--gold-light);
+            font-weight: 500;
+        }
+
+        .book-info .book-meta {
+            display: flex;
+            gap: 16px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+
+        .book-info .book-meta span {
+            font-size: 12px;
+            background: rgba(212, 168, 83, 0.1);
+            padding: 4px 12px;
+            border-radius: 20px;
+            color: var(--text-secondary);
+            border: 1px solid rgba(212, 168, 83, 0.1);
+        }
+
+        /* ========== Search ========== */
+        .search-container {
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 20px 12px 48px;
+            border-radius: 50px;
+            border: 2px solid rgba(212, 168, 83, 0.2);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            font-size: 14px;
+            font-family: 'Tajawal', sans-serif;
+            transition: var(--transition);
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 20px rgba(212, 168, 83, 0.15);
+        }
+
+        .search-input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
+        /* ========== Filter Tabs ========== */
+        .filter-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .filter-tab {
+            padding: 6px 18px;
+            border-radius: 20px;
+            border: 1px solid rgba(212, 168, 83, 0.2);
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-family: 'Tajawal', sans-serif;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-tab:hover {
+            border-color: var(--gold);
+            color: var(--text-primary);
+        }
+
+        .filter-tab.active {
+            background: var(--gold);
+            color: var(--bg-dark);
+            border-color: var(--gold);
+        }
+
+        /* ========== Lessons Grid ========== */
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .lesson-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid transparent;
+            position: relative;
+        }
+
+        .lesson-card:hover {
+            transform: translateX(-4px);
+            border-color: var(--gold);
+            box-shadow: var(--shadow);
+            background: var(--bg-card-hover);
+        }
+
+        .lesson-card.playing {
+            border-color: var(--gold);
+            box-shadow: 0 0 30px rgba(212, 168, 83, 0.15);
+            background: rgba(212, 168, 83, 0.05);
+        }
+
+        .lesson-number {
+            font-size: 14px;
+            font-weight: 900;
+            color: var(--gold);
+            min-width: 36px;
+            text-align: center;
+        }
+
+        .lesson-card.playing .lesson-number {
+            color: var(--gold-light);
+        }
+
+        .lesson-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .lesson-title {
+            font-size: 15px;
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .lesson-card.playing .lesson-title {
+            color: var(--gold);
+        }
+
+        .lesson-sub {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .lesson-duration {
+            font-size: 12px;
+            color: var(--text-secondary);
+            min-width: 44px;
+            text-align: left;
+        }
+
+        /* ========== Action Buttons ========== */
+        .action-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255,255,255,0.05);
+            color: var(--text-secondary);
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .action-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.08);
+        }
+
+        .action-btn.share-btn:hover {
+            background: #1a73e8;
+        }
+
+        .action-btn.download-btn:hover {
+            background: #e8a01a;
+        }
+
+        .action-btn.fav-btn.active {
+            color: #e74c3c;
+        }
+
+        .action-btn.fav-btn:hover {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .action-btn.downloaded {
+            color: #4CAF50;
+        }
+
+        .action-btn.downloaded:hover {
+            background: #4CAF50;
+            color: white;
+        }
+
+        /* ========== Play Button ========== */
+        .play-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: var(--gradient);
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .play-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(26, 82, 118, 0.4);
+        }
+
+        .play-btn.playing {
+            background: var(--gradient-gold);
+        }
+
+        /* ========== Mini Player ========== */
+        .mini-player {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-card);
+            padding: 10px 16px;
+            display: none;
+            align-items: center;
+            gap: 14px;
+            border-top: 2px solid var(--gold);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            box-shadow: 0 -8px 32px rgba(0,0,0,0.4);
+        }
+
+        .mini-player.active {
+            display: flex;
+        }
+
+        .mini-thumb {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            overflow: hidden;
+            flex-shrink: 0;
+            border: 2px solid var(--gold);
+        }
+
+        .mini-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .mini-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .mini-title {
+            font-size: 14px;
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .mini-artist {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .mini-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .mini-controls button {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: none;
+            background: transparent;
+            color: var(--text-primary);
+            font-size: 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mini-controls button:hover {
+            background: rgba(255,255,255,0.05);
+        }
+
+        .mini-controls .play-pause {
+            background: var(--gradient);
+            color: white;
+            width: 40px;
+            height: 40px;
+            font-size: 16px;
+        }
+
+        .mini-controls .play-pause:hover {
+            transform: scale(1.08);
+        }
+
+        .mini-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--gradient-gold);
+            transition: width 0.3s;
+            border-radius: 0 0 4px 4px;
+        }
+
+        /* ========== Fullscreen Player ========== */
+        .fullscreen-player {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--bg-dark);
+            z-index: 2000;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 24px;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .fullscreen-player.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .fullscreen-player .close-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+            background: transparent;
+            color: var(--text-primary);
+            font-size: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .fullscreen-player .close-btn:hover {
+            background: var(--gold);
+            color: var(--bg-dark);
+        }
+
+        .fullscreen-player .cover {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-image: var(--cover-image);
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 0 60px rgba(212, 168, 83, 0.3);
+            animation: pulse 3s ease-in-out infinite;
+            flex-shrink: 0;
+            border: 3px solid var(--gold);
+        }
+
+        .fullscreen-player .cover.playing {
+            animation: spin 20s linear infinite, pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 60px rgba(212, 168, 83, 0.3); }
+            50% { box-shadow: 0 0 100px rgba(212, 168, 83, 0.15); }
+        }
+
+        .fullscreen-player .fs-title {
+            font-size: 22px;
+            font-weight: 900;
+            margin-top: 20px;
+            text-align: center;
+            color: var(--gold);
+        }
+
+        .fullscreen-player .fs-artist {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .fullscreen-player .fs-progress {
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .fullscreen-player .fs-progress input[type="range"] {
+            flex: 1;
+            -webkit-appearance: none;
+            height: 4px;
+            background: var(--bg-card);
+            border-radius: 4px;
+            outline: none;
+        }
+
+        .fullscreen-player .fs-progress input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--gradient-gold);
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(212, 168, 83, 0.3);
+        }
+
+        .fullscreen-player .fs-progress .time {
+            font-size: 13px;
+            color: var(--text-secondary);
+            min-width: 44px;
+        }
+
+        .fullscreen-player .fs-controls {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin-top: 20px;
+        }
+
+        .fullscreen-player .fs-controls button {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: none;
+            background: var(--bg-card);
+            color: var(--text-primary);
+            font-size: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(212, 168, 83, 0.1);
+        }
+
+        .fullscreen-player .fs-controls button:hover {
+            transform: scale(1.08);
+            background: var(--gold);
+            color: var(--bg-dark);
+        }
+
+        .fullscreen-player .fs-controls .main-play {
+            width: 64px;
+            height: 64px;
+            background: var(--gradient-gold);
+            color: var(--bg-dark);
+            font-size: 28px;
+            border: none;
+        }
+
+        .fullscreen-player .fs-controls .main-play:hover {
+            transform: scale(1.08);
+        }
+
+        /* ========== Visualizer ========== */
+        .visualizer {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            height: 28px;
+            margin: 8px 0;
+        }
+
+        .visualizer .bar {
+            width: 4px;
+            background: var(--gradient-gold);
+            border-radius: 4px;
+            animation: vizAnim 0.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes vizAnim {
+            from { height: 6px; }
+            to { height: 26px; }
+        }
+
+        /* ========== Toast ========== */
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            padding: 10px 24px;
+            border-radius: 12px;
+            font-size: 14px;
+            box-shadow: var(--shadow);
+            z-index: 3000;
+            opacity: 0;
+            transition: all 0.4s ease;
+            border: 1px solid var(--gold);
+            pointer-events: none;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ========== No Results ========== */
+        .no-results {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-secondary);
+        }
+
+        .no-results i {
+            font-size: 40px;
+            margin-bottom: 12px;
+            display: block;
+            opacity: 0.3;
+        }
+
+        /* ========== Responsive ========== */
+        @media (max-width: 768px) {
+            .app-container { padding: 12px 12px 110px; }
+            .header { flex-direction: column; align-items: stretch; }
+            .stats { justify-content: center; font-size: 12px; }
+            .book-banner { flex-direction: column; text-align: center; padding: 16px; }
+            .book-cover { width: 100px; height: 140px; }
+            .book-info .book-title { font-size: 18px; }
+            .book-info .book-meta { justify-content: center; }
+            .lesson-card { padding: 12px; gap: 8px; }
+            .lesson-info { flex: 1 1 100%; order: 2; }
+            .lesson-number { order: 1; }
+            .play-btn { order: 3; width: 36px; height: 36px; font-size: 14px; }
+            .lesson-duration { order: 4; }
+            .action-btn { order: 5; width: 32px; height: 32px; font-size: 12px; }
+            .fullscreen-player .cover { width: 160px; height: 160px; }
+            .fullscreen-player .fs-title { font-size: 18px; }
+            .filter-tabs { justify-content: center; }
+        }
+
+        @media (max-width: 480px) {
+            .lesson-card { padding: 10px; }
+            .lesson-title { font-size: 13px; }
+            .mini-player { padding: 8px 12px; }
+            .mini-controls .play-pause { width: 36px; height: 36px; font-size: 14px; }
+            .action-btn { width: 28px; height: 28px; font-size: 11px; }
+            .play-btn { width: 32px; height: 32px; font-size: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== Toast ========== -->
+    <div class="toast" id="toast"></div>
+
+    <!-- ========== App Container ========== -->
+    <div class="app-container">
+
+        <!-- ========== Header ========== -->
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <img src="https://s5files.mobeasy.com/static/u/722316/file-722316-81515.jpg" alt=" ">
+                </div>
+                <div>
+                    <div class="logo-text">  </div>
+                    <div class="logo-sub"><span class="sheikh">   </span> · <span id="totalLessons">41</span> </div>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <div class="stats">
+                    <span><i class="fas fa-headphones"></i> <span class="num" id="lessonCount">0</span></span>
+                    <span><i class="fas fa-clock"></i> <span class="num" id="totalDuration">0:00</span></span>
+                </div>
+                <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- ========== Book Banner ========== -->
+        <div class="book-banner">
+            <div class="book-cover">
+                <img src="https://s5files.mobeasy.com/static/u/722316/file-722316-81515.jpg" alt=" ">
+            </div>
+            <div class="book-info">
+                <div class="book-title">   </div>
+                <div class="book-desc">   </div>
+                <div class="book-author">        </div>
+                <div class="book-meta">
+                    <span><i class="fas fa-book-open"></i> 41 </span>
+                    <span><i class="fas fa-clock"></i>  </span>
+                    <span><i class="fas fa-tag"></i>  </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== Search ========== -->
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input 
+                type="text" 
+                class="search-input" 
+                id="searchInput"
+                placeholder="   ...   "
+                oninput="filterLessons(this.value)"
+            />
+        </div>
+
+        <!-- ========== Filter Tabs ========== -->
+        <div class="filter-tabs">
+            <button class="filter-tab active" data-filter="all" onclick="setFilter('all')"> </button>
+            <button class="filter-tab" data-filter="favorites" onclick="setFilter('favorites')"> </button>
+        </div>
+
+        <!-- ========== Lessons Grid ========== -->
+        <div class="lessons-grid" id="lessonsGrid"></div>
+    </div>
+
+    <!-- ========== Mini Player ========== -->
+    <div class="mini-player" id="miniPlayer">
+        <div class="mini-progress" id="miniProgress" style="width:0%"></div>
+        <div class="mini-thumb">
+            <img src="https://s5files.mobeasy.com/static/u/722316/file-722316-81515.jpg" alt=" ">
+        </div>
+        <div class="mini-info">
+            <div class="mini-title" id="miniTitle"> </div>
+            <div class="mini-artist" id="miniArtist">  </div>
+        </div>
+        <div class="mini-controls">
+            <button onclick="toggleRepeat()" id="repeatBtn"><i class="fas fa-repeat"></i></button>
+            <button onclick="prevLesson()"><i class="fas fa-step-backward"></i></button>
+            <button class="play-pause" onclick="togglePlay()" id="miniPlayBtn"><i class="fas fa-play"></i></button>
+            <button onclick="nextLesson()"><i class="fas fa-step-forward"></i></button>
+            <button onclick="toggleFullscreen()"><i class="fas fa-expand"></i></button>
+        </div>
+    </div>
+
+    <!-- ========== Fullscreen Player ========== -->
+    <div class="fullscreen-player" id="fullscreenPlayer">
+        <button class="close-btn" onclick="toggleFullscreen()">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <div class="cover" id="fsCover"></div>
+
+        <div class="fs-title" id="fsTitle"> </div>
+        <div class="fs-artist" id="fsArtist">  </div>
+
+        <!-- Visualizer -->
+        <div class="visualizer" id="visualizer">
+            <div class="bar" style="animation-delay:0s"></div>
+            <div class="bar" style="animation-delay:0.1s"></div>
+            <div class="bar" style="animation-delay:0.2s"></div>
+            <div class="bar" style="animation-delay:0.3s"></div>
+            <div class="bar" style="animation-delay:0.4s"></div>
+            <div class="bar" style="animation-delay:0.5s"></div>
+            <div class="bar" style="animation-delay:0.6s"></div>
+            <div class="bar" style="animation-delay:0.7s"></div>
+            <div class="bar" style="animation-delay:0.8s"></div>
+            <div class="bar" style="animation-delay:0.9s"></div>
+        </div>
+
+        <div class="fs-progress">
+            <span class="time" id="fsCurrentTime">0:00</span>
+            <input type="range" min="0" max="100" value="0" id="fsSeekBar" oninput="seekTo(this.value)" />
+            <span class="time" id="fsDuration">0:00</span>
+        </div>
+
+        <div class="fs-controls">
+            <button onclick="toggleRepeat()" id="fsRepeatBtn"><i class="fas fa-repeat"></i></button>
+            <button onclick="prevLesson()"><i class="fas fa-step-backward"></i></button>
+            <button class="main-play" onclick="togglePlay()" id="fsPlayBtn">
+                <i class="fas fa-play"></i>
+            </button>
+            <button onclick="nextLesson()"><i class="fas fa-step-forward"></i></button>
+            <button onclick="toggleShuffle()" id="fsShuffleBtn"><i class="fas fa-random"></i></button>
+        </div>
+    </div>
+
+    <!-- ========== Audio ========== -->
+    <audio id="audioPlayer" preload="auto"></audio>
+
+    <!-- ========== JavaScript ========== -->
+    <script>
+        // ============================================================
+        // ========== DATA ==========
+        // ============================================================
+        const COVER_URL = 'https://s5files.mobeasy.com/static/u/722316/file-722316-81515.jpg';
+
+        const lessons = [
+            { n: 1, t: "   1", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: false },
+            { n: 2, t: "   2", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/002.ogg", fav: true },
+            { n: 3, t: "   3", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/003.ogg", fav: false },
+            { n: 4, t: "   4", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/004.ogg", fav: false },
+            { n: 5, t: "   5", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/005.ogg", fav: true },
+            { n: 6, t: "   6", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/006.ogg", fav: false },
+            { n: 7, t: "   7", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/007.ogg", fav: true },
+            { n: 8, t: "  8", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/008.ogg", fav: true },
+            { n: 9, t: "  9", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/009.ogg", fav: true },
+            { n: 10, t: "  10", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/010.ogg", fav: true },
+            { n: 11, t: "  11", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/011.ogg", fav: true },
+            { n: 12, t: "  12", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/012.ogg", fav: true },
+            { n: 13, t: "  13", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/013.ogg", fav: true },
+            { n: 14, t: "  14", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/014.ogg", fav: true },
+            { n: 15, t: "  15", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/015.ogg", fav: true },
+            { n: 16, t: "  16", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/016.ogg", fav: true },
+            { n: 17, t: "  17", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/017.ogg", fav: true },
+            { n: 18, t: "  18", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/018.ogg", fav: true },
+            { n: 19, t: "  19", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/019.ogg", fav: true },
+            { n: 20, t: "  20", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/020.ogg", fav: true },
+            { n: 21, t: "  21", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/021.ogg", fav: true },
+            { n: 22, t: "  22", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
+            { n: 23, t: "  23", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
+            { n: 24, t: "  24", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
+            { n: 25, t: "  25", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
+            { n: 26, t: "  26", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
+            { n: 27, t: "  27", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
+            { n: 28, t: "  28", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
+            { n: 29, t: "  29", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: false },
+            { n: 30, t: "  30", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
+            { n: 31, t: "  31", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
+            { n: 32, t: "  32", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
+            { n: 33, t: "  33", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
+            { n: 34, t: "  34", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
+            { n: 35, t: "  35", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
+            { n: 36, t: "  36", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
+            { n: 37, t: "  37", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/001.ogg", fav: true },
+            { n: 38, t: "  38", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/038.ogg", fav: true },
+            { n: 39, t: "   39", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/039.ogg", fav: true },
+            { n: 40, t: "   40", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/040.ogg", fav: true },
+            { n: 41, t: "   41", u: "https://archive.org/download/Ta7aouiya_SHEIKH_SAMIR_ALQADI/041.ogg", fav: false }
+        ];
+
+        // ============================================================
+        // ========== STATE ==========
+        // ============================================================
+        let currentIndex = 0;
+        let isPlaying = false;
+        let isRepeat = false;
+        let isShuffle = false;
+        let currentFilter = 'all';
+        let filteredLessons = [...lessons];
+
+        const audio = document.getElementById('audioPlayer');
+
+        // ============================================================
+        // ========== DOM REFS ==========
+        // ============================================================
+        const grid = document.getElementById('lessonsGrid');
+        const search = document.getElementById('searchInput');
+        const mini = document.getElementById('miniPlayer');
+        const miniTitle = document.getElementById('miniTitle');
+        const miniArtist = document.getElementById('miniArtist');
+        const miniPlay = document.getElementById('miniPlayBtn');
+        const miniProg = document.getElementById('miniProgress');
+        const fs = document.getElementById('fullscreenPlayer');
+        const fsTitle = document.getElementById('fsTitle');
+        const fsArtist = document.getElementById('fsArtist');
+        const fsCover = document.getElementById('fsCover');
+        const fsPlay = document.getElementById('fsPlayBtn');
+        const fsSeek = document.getElementById('fsSeekBar');
+        const fsCur = document.getElementById('fsCurrentTime');
+        const fsDur = document.getElementById('fsDuration');
+        const fsRep = document.getElementById('fsRepeatBtn');
+        const fsShuf = document.getElementById('fsShuffleBtn');
+        const repBtn = document.getElementById('repeatBtn');
+        const countEl = document.getElementById('lessonCount');
+        const durEl = document.getElementById('totalDuration');
+        const toast = document.getElementById('toast');
+
+        // ============================================================
+        // ========== HELPERS ==========
+        // ============================================================
+        function fmt(t) {
+            if (isNaN(t) || !t) return '0:00';
+            const m = Math.floor(t / 60);
+            const s = Math.floor(t % 60);
+            return m + ':' + String(s).padStart(2, '0');
+        }
+
+        function showToast(msg) {
+            toast.textContent = msg;
+            toast.classList.add('show');
+            clearTimeout(toast._t);
+            toast._t = setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+
+        // ============================================================
+        // ========== SHARE LESSON ==========
+        // ============================================================
+        function shareLesson(index) {
+            const l = lessons[index];
+            if (!l) return;
+            
+            const shareText = ` ${l.t}\n    \n ${l.u}\n\n#_ #_ #_`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: l.t,
+                    text: shareText,
+                    url: l.u
+                }).catch(() => {});
+            } else {
+                navigator.clipboard.writeText(shareText).then(() => {
+                    showToast('      ');
+                }).catch(() => {
+                    const textarea = document.createElement('textarea');
+                    textarea.value = shareText;
+                    document.body.appendChild(textarea);
+                    textarea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textarea);
+                    showToast('      ');
+                });
+            }
+        }
+
+        // ============================================================
+        // ========== DOWNLOAD LESSON ==========
+        // ============================================================
+        function downloadLesson(index) {
+            const l = lessons[index];
+            if (!l) return;
+
+            showToast('  ...');
+            
+            fetch(l.u)
+                .then(res => res.blob())
+                .then(blob => {
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `${l.t} -   .ogg`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                    showToast('    ');
+                    
+                    const btn = document.querySelector(`.lesson-card[data-i="${index}"] .download-btn`);
+                    if (btn) {
+                        btn.innerHTML = '<i class="fas fa-check"></i>';
+                        btn.classList.add('downloaded');
+                    }
+                })
+                .catch(() => {
+                    window.open(l.u, '_blank');
+                    showToast('    ');
+                });
+        }
+
+        // ============================================================
+        // ========== TOGGLE FAVORITE ==========
+        // ============================================================
+        function toggleFavorite(index) {
+            lessons[index].fav = !lessons[index].fav;
+            if (currentFilter === 'favorites') {
+                applyFilter('favorites');
+            } else {
+                render(filteredLessons);
+            }
+            showToast(lessons[index].fav ? '  ' : '   ');
+        }
+
+        // ============================================================
+        // ========== RENDER ==========
+        // ============================================================
+        function render(list) {
+            if (!list.length) {
+                grid.innerHTML = `<div class="no-results"><i class="fas fa-search"></i><h3>  </h3><p>   </p></div>`;
+                return;
+            }
+
+            grid.innerHTML = list.map((l, i) => {
+                const idx = lessons.indexOf(l);
+                const isCur = idx === currentIndex;
+                const isPlay = isCur && isPlaying;
+                return `
+                    <div class="lesson-card ${isPlay ? 'playing' : ''}" onclick="playLesson(${idx})" data-i="${idx}">
+                        <span class="lesson-number">${isPlay ? '' : l.n}</span>
+                        <div class="lesson-info">
+                            <div class="lesson-title ${isPlay ? 'playing' : ''}">${l.t}</div>
+                            <div class="lesson-sub">    </div>
+                        </div>
+                        <span class="lesson-duration">${fmt(l.d || 0)}</span>
+                        <button class="action-btn fav-btn ${l.fav ? 'active' : ''}" onclick="event.stopPropagation();toggleFavorite(${idx})" title="">
+                            <i class="fas ${l.fav ? 'fa-heart' : 'fa-heart-o'}"></i>
+                        </button>
+                        <button class="action-btn share-btn" onclick="event.stopPropagation();shareLesson(${idx})" title=" ">
+                            <i class="fas fa-share-alt"></i>
+                        </button>
+                        <button class="action-btn download-btn" onclick="event.stopPropagation();downloadLesson(${idx})" title=" ">
+                            <i class="fas fa-download"></i>
+                        </button>
+                        <button class="play-btn ${isPlay ? 'playing' : ''}" onclick="event.stopPropagation();playLesson(${idx})">
+                            <i class="fas ${isPlay ? 'fa-pause' : 'fa-play'}"></i>
+                        </button>
+                    </div>
+                `;
+            }).join('');
+
+            countEl.textContent = list.length;
+            let total = 0;
+            list.forEach(l => total += (l.d || 0));
+            durEl.textContent = fmt(total);
+        }
+
+        // ============================================================
+        // ========== FILTERS ==========
+        // ============================================================
+        function setFilter(filter) {
+            currentFilter = filter;
+            document.querySelectorAll('.filter-tab').forEach(tab => {
+                tab.classList.toggle('active', tab.dataset.filter === filter);
+            });
+            applyFilter(filter);
+        }
+
+        function applyFilter(filter) {
+            const query = search.value.trim().toLowerCase();
+            let result = [...lessons];
+            
+            if (filter === 'favorites') {
+                result = result.filter(l => l.fav);
+            }
+            
+            if (query) {
+                result = result.filter(l => 
+                    l.t.toLowerCase().includes(query) || 
+                    String(l.n).includes(query)
+                );
+            }
+            
+            filteredLessons = result;
+            render(result);
+        }
+
+        function filterLessons(q) {
+            applyFilter(currentFilter);
+        }
+
+        // ============================================================
+        // ========== PLAY ==========
+        // ============================================================
+        function playLesson(i) {
+            const l = lessons[i];
+            if (!l) return;
+            currentIndex = i;
+            audio.src = l.u;
+            audio.load();
+            audio.play().catch(() => {});
+            isPlaying = true;
+            updateUI();
+            localStorage.setItem('lastLesson', JSON.stringify({ i, t: 0 }));
+            audio.onloadedmetadata = () => {
+                l.d = audio.duration;
+                updateUI();
+            };
+        }
+
+        // ============================================================
+        // ========== CONTROLS ==========
+        // ============================================================
+        function togglePlay() {
+            if (!audio.src) { playLesson(0); return; }
+            if (isPlaying) {
+                audio.pause();
+            } else {
+                audio.play().catch(() => {});
+            }
+            isPlaying = !isPlaying;
+            updateUI();
+        }
+
+        function nextLesson() {
+            if (isShuffle) {
+                const randomIndex = Math.floor(Math.random() * filteredLessons.length);
+                const song = filteredLessons[randomIndex];
+                const idx = lessons.indexOf(song);
+                if (idx >= 0) playLesson(idx);
+                return;
+            }
+            const currentList = filteredLessons;
+            const currentIdx = currentList.indexOf(lessons[currentIndex]);
+            if (currentIdx >= 0 && currentIdx < currentList.length - 1) {
+                const next = lessons.indexOf(currentList[currentIdx + 1]);
+                if (next >= 0) playLesson(next);
+            } else if (currentList.length > 0) {
+                const next = lessons.indexOf(currentList[0]);
+                if (next >= 0) playLesson(next);
+            }
+        }
+
+        function prevLesson() {
+            if (isShuffle) {
+                const randomIndex = Math.floor(Math.random() * filteredLessons.length);
+                const song = filteredLessons[randomIndex];
+                const idx = lessons.indexOf(song);
+                if (idx >= 0) playLesson(idx);
+                return;
+            }
+            const currentList = filteredLessons;
+            const currentIdx = currentList.indexOf(lessons[currentIndex]);
+            if (currentIdx > 0) {
+                const prev = lessons.indexOf(currentList[currentIdx - 1]);
+                if (prev >= 0) playLesson(prev);
+            } else if (currentList.length > 0) {
+                const prev = lessons.indexOf(currentList[currentList.length - 1]);
+                if (prev >= 0) playLesson(prev);
+            }
+        }
+
+        function toggleRepeat() {
+            isRepeat = !isRepeat;
+            audio.loop = isRepeat;
+            updateUI();
+            showToast(isRepeat ? '  ' : '   ');
+        }
+
+        function toggleShuffle() {
+            isShuffle = !isShuffle;
+            updateUI();
+            showToast(isShuffle ? '  ' : '   ');
+        }
+
+        function seekTo(v) {
+            if (audio.duration) {
+                audio.currentTime = (v / 100) * audio.duration;
+            }
+        }
+
+        function toggleFullscreen() {
+            fs.classList.toggle('active');
+            document.body.style.overflow = fs.classList.contains('active') ? 'hidden' : '';
+        }
+
+        // ============================================================
+        // ========== UPDATE UI ==========
+        // ============================================================
+        function updateUI() {
+            const l = lessons[currentIndex];
+            if (!l) return;
+
+            miniTitle.textContent = l.t;
+            miniArtist.textContent = '  ';
+            miniPlay.innerHTML = `<i class="fas ${isPlaying ? 'fa-pause' : 'fa-play'}"></i>`;
+            mini.classList.add('active');
+
+            fsTitle.textContent = l.t;
+            fsArtist.textContent = '  ';
+            fsCover.classList.toggle('playing', isPlaying);
+            fsPlay.innerHTML = `<i class="fas ${isPlaying ? 'fa-pause' : 'fa-play'}"></i>`;
+            fsRep.style.color = isRepeat ? '#d4a853' : '';
+            fsShuf.style.color = isShuffle ? '#d4a853' : '';
+            repBtn.style.color = isRepeat ? '#d4a853' : '';
+
+            document.querySelectorAll('.lesson-card').forEach(c => {
+                const idx = parseInt(c.dataset.i);
+                const isCur = idx === currentIndex;
+                c.classList.toggle('playing', isCur && isPlaying);
+                const num = c.querySelector('.lesson-number');
+                if (isCur && isPlaying) num.textContent = '';
+                else num.textContent = lessons[idx]?.n || '';
+                const btn = c.querySelector('.play-btn');
+                if (btn) {
+                    btn.classList.toggle('playing', isCur && isPlaying);
+                    btn.innerHTML = `<i class="fas ${isCur && isPlaying ? 'fa-pause' : 'fa-play'}"></i>`;
+                }
+                const title = c.querySelector('.lesson-title');
+                if (title) title.classList.toggle('playing', isCur && isPlaying);
+            });
+        }
+
+        // ============================================================
+        // ========== AUDIO EVENTS ==========
+        // ============================================================
+        audio.ontimeupdate = () => {
+            const p = (audio.currentTime / audio.duration) * 100 || 0;
+            miniProg.style.width = Math.min(p, 100) + '%';
+            fsSeek.value = p;
+            fsCur.textContent = fmt(audio.currentTime);
+            fsDur.textContent = fmt(audio.duration);
+            localStorage.setItem('lastLesson', JSON.stringify({ i: currentIndex, t: audio.currentTime }));
+        };
+
+        audio.onended = () => {
+            if (isRepeat) {
+                audio.currentTime = 0;
+                audio.play();
+            } else {
+                const currentList = filteredLessons;
+                const currentIdx = currentList.indexOf(lessons[currentIndex]);
+                if (currentIdx >= 0 && currentIdx < currentList.length - 1) {
+                    const next = lessons.indexOf(currentList[currentIdx + 1]);
+                    if (next >= 0) playLesson(next);
+                } else if (isShuffle) {
+                    nextLesson();
+                } else {
+                    isPlaying = false;
+                    updateUI();
+                }
+            }
+        };
+
+        audio.onplay = () => { isPlaying = true;
+            updateUI(); };
+        audio.onpause = () => { isPlaying = false;
+            updateUI(); };
+
+        // ============================================================
+        // ========== THEME ==========
+        // ============================================================
+        function toggleTheme() {
+            const html = document.documentElement;
+            const isLight = html.getAttribute('data-theme') === 'light';
+            html.setAttribute('data-theme', isLight ? 'dark' : 'light');
+            document.getElementById('themeBtn').innerHTML = isLight ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+            localStorage.setItem('theme', isLight ? 'dark' : 'light');
+        }
+
+        // ============================================================
+        // ========== LOAD STATE ==========
+        // ============================================================
+        function loadState() {
+            const theme = localStorage.getItem('theme');
+            if (theme) {
+                document.documentElement.setAttribute('data-theme', theme);
+                document.getElementById('themeBtn').innerHTML = theme === 'light' ? '<i class="fas fa-sun"></i>' :
+                    '<i class="fas fa-moon"></i>';
+            }
+
+            const last = localStorage.getItem('lastLesson');
+            if (last) {
+                try {
+                    const d = JSON.parse(last);
+                    if (d.i !== undefined && lessons[d.i]) {
+                        currentIndex = d.i;
+                        audio.src = lessons[d.i].u;
+                        if (d.t > 0) audio.currentTime = d.t;
+                        updateUI();
+                    }
+                } catch (e) {}
+            }
+        }
+
+        // ============================================================
+        // ========== INIT ==========
+        // ============================================================
+        render(lessons);
+        loadState();
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.target.tagName === 'INPUT') return;
+            if (e.code === 'Space') { e.preventDefault();
+                togglePlay(); }
+            if (e.code === 'ArrowRight') nextLesson();
+            if (e.code === 'ArrowLeft') prevLesson();
+        });
+    </script>
+</body>
+</html>
