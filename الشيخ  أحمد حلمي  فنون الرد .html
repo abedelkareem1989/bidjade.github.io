@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>📖 شرح فنون الرد - الشيخ أحمد حلمي</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ========== CSS Variables ========== */
+        :root {
+            --primary: #1a6b3c;
+            --primary-dark: #0f4a28;
+            --primary-light: #2a8c4e;
+            --gold: #c9a84c;
+            --gold-light: #e8d5a3;
+            --bg-dark: #0d1f14;
+            --bg-card: #1a3324;
+            --bg-card-hover: #244530;
+            --text-primary: #f5f0e8;
+            --text-secondary: #b8c9b8;
+            --shadow: 0 8px 32px rgba(26, 107, 60, 0.4);
+            --gradient: linear-gradient(135deg, #1a6b3c, #0f4a28);
+            --gradient-gold: linear-gradient(135deg, #c9a84c, #a8893a);
+            --radius: 16px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --cover-image: url('https://s5files.mobeasy.com/static/u/722316/file-722316-324672.jpg');
+        }
+
+        /* ========== Dark/Light Mode ========== */
+        [data-theme="light"] {
+            --bg-dark: #f5f0e8;
+            --bg-card: #ffffff;
+            --bg-card-hover: #f0ebe0;
+            --text-primary: #1a2e1a;
+            --text-secondary: #4a5a4a;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ========== Reset & Base ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', 'Segoe UI', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            transition: var(--transition);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ========== Background Watermark ========== */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70%;
+            max-width: 400px;
+            height: 70%;
+            max-height: 400px;
+            background-image: var(--cover-image);
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ========== Scrollbar ========== */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+
+        /* ========== App Container ========== */
+        .app-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 16px 20px 120px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ========== Header ========== */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        [data-theme="light"] .header {
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .logo-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            flex-shrink: 0;
+            border: 2px solid var(--gold);
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--gold);
+        }
+
+        .logo-sub {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .logo-sub .sheikh {
+            color: var(--gold-light);
+            font-weight: 500;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .stats {
+            display: flex;
+            gap: 16px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .stats .num {
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        .theme-toggle {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+            background: transparent;
+            color: var(--text-primary);
+            font-size: 18px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            background: var(--gold);
+            color: var(--bg-dark);
+            transform: scale(1.05);
+        }
+
+        /* ========== Book Banner ========== */
+        .book-banner {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(201, 168, 76, 0.2);
+            box-shadow: var(--shadow);
+            flex-wrap: wrap;
+        }
+
+        .book-cover {
+            width: 120px;
+            height: 160px;
+            border-radius: 12px;
+            overflow: hidden;
+            flex-shrink: 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            border: 2px solid var(--gold);
+        }
+
+        .book-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .book-info {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .book-info .book-title {
+            font-size: 22px;
+            font-weight: 900;
+            color: var(--gold);
+            margin-bottom: 4px;
+        }
+
+        .book-info .book-desc {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 2px;
+        }
+
+        .book-info .book-author {
+            font-size: 14px;
+            color: var(--gold-light);
+            font-weight: 500;
+        }
+
+        .book-info .book-meta {
+            display: flex;
+            gap: 16px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+
+        .book-info .book-meta span {
+            font-size: 12px;
+            background: rgba(201, 168, 76, 0.1);
+            padding: 4px 12px;
+            border-radius: 20px;
+            color: var(--text-secondary);
+            border: 1px solid rgba(201, 168, 76, 0.1);
+        }
+
+        /* ========== Search ========== */
+        .search-container {
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 20px 12px 48px;
+            border-radius: 50px;
+            border: 2px solid rgba(201, 168, 76, 0.2);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            font-size: 14px;
+            font-family: 'Tajawal', sans-serif;
+            transition: var(--transition);
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 20px rgba(201, 168, 76, 0.15);
+        }
+
+        .search-input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
+        /* ========== Lessons Grid ========== */
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .lesson-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid transparent;
+            position: relative;
+            flex-wrap: wrap;
+        }
+
+        .lesson-card:hover {
+            transform: translateX(-4px);
+            border-color: var(--gold);
+            box-shadow: var(--shadow);
+            background: var(--bg-card-hover);
+        }
+
+        .lesson-card.playing {
+            border-color: var(--gold);
+            box-shadow: 0 0 30px rgba(201, 168, 76, 0.15);
+            background: rgba(201, 168, 76, 0.05);
+        }
+
+        .lesson-number {
+            font-size: 14px;
+            font-weight: 900;
+            color: var(--gold);
+            min-width: 44px;
+            text-align: center;
+        }
+
+        .lesson-card.playing .lesson-number {
+            color: var(--gold-light);
+        }
+
+        .lesson-info {
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .lesson-title {
+            font-size: 15px;
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .lesson-card.playing .lesson-title {
+            color: var(--gold);
+        }
+
+        .lesson-sub {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .lesson-duration {
+            font-size: 12px;
+            color: var(--text-secondary);
+            min-width: 44px;
+            text-align: left;
+        }
+
+        /* ========== Action Buttons ========== */
+        .action-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255,255,255,0.05);
+            color: var(--text-secondary);
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .action-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.08);
+        }
+
+        .action-btn.share-btn:hover {
+            background: #1a73e8;
+        }
+
+        .action-btn.download-btn:hover {
+            background: #e8a01a;
+        }
+
+        .action-btn.downloaded {
+            color: #4CAF50;
+        }
+
+        .action-btn.downloaded:hover {
+            background: #4CAF50;
+            color: white;
+        }
+
+        /* ========== Play Button ========== */
+        .play-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: var(--gradient);
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .play-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(26, 107, 60, 0.4);
+        }
+
+        .play-btn.playing {
+            background: var(--gradient-gold);
+        }
+
+        /* ========== Mini Player ========== */
+        .mini-player {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-card);
+            padding: 10px 16px;
+            display: none;
+            align-items: center;
+            gap: 14px;
+            border-top: 2px solid var(--gold);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            box-shadow: 0 -8px 32px rgba(0,0,0,0.4);
+        }
+
+        .mini-player.active {
+            display: flex;
+        }
+
+        .mini-thumb {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            overflow: hidden;
+            flex-shrink: 0;
+            border: 2px solid var(--gold);
+        }
+
+        .mini-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .mini-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .mini-title {
+            font-size: 14px;
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .mini-artist {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .mini-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .mini-controls button {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: none;
+            background: transparent;
+            color: var(--text-primary);
+            font-size: 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mini-controls button:hover {
+            background: rgba(255,255,255,0.05);
+        }
+
+        .mini-controls .play-pause {
+            background: var(--gradient);
+            color: white;
+            width: 40px;
+            height: 40px;
+            font-size: 16px;
+        }
+
+        .mini-controls .play-pause:hover {
+            transform: scale(1.08);
+        }
+
+        .mini-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--gradient-gold);
+            transition: width 0.3s;
+            border-radius: 0 0 4px 4px;
+        }
+
+        /* ========== Fullscreen Player ========== */
+        .fullscreen-player {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--bg-dark);
+            z-index: 2000;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 24px;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .fullscreen-player.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .fullscreen-player .close-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+            background: transparent;
+            color: var(--text-primary);
+            font-size: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .fullscreen-player .close-btn:hover {
+            background: var(--gold);
+            color: var(--bg-dark);
+        }
+
+        .fullscreen-player .cover {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-image: var(--cover-image);
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 0 60px rgba(201, 168, 76, 0.3);
+            animation: pulse 3s ease-in-out infinite;
+            flex-shrink: 0;
+            border: 3px solid var(--gold);
+        }
+
+        .fullscreen-player .cover.playing {
+            animation: spin 20s linear infinite, pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 60px rgba(201, 168, 76, 0.3); }
+            50% { box-shadow: 0 0 100px rgba(201, 168, 76, 0.15); }
+        }
+
+        .fullscreen-player .fs-title {
+            font-size: 22px;
+            font-weight: 900;
+            margin-top: 20px;
+            text-align: center;
+            color: var(--gold);
+        }
+
+        .fullscreen-player .fs-artist {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .fullscreen-player .fs-progress {
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .fullscreen-player .fs-progress input[type="range"] {
+            flex: 1;
+            -webkit-appearance: none;
+            height: 4px;
+            background: var(--bg-card);
+            border-radius: 4px;
+            outline: none;
+        }
+
+        .fullscreen-player .fs-progress input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--gradient-gold);
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(201, 168, 76, 0.3);
+        }
+
+        .fullscreen-player .fs-progress .time {
+            font-size: 13px;
+            color: var(--text-secondary);
+            min-width: 44px;
+        }
+
+        .fullscreen-player .fs-controls {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin-top: 20px;
+        }
+
+        .fullscreen-player .fs-controls button {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: none;
+            background: var(--bg-card);
+            color: var(--text-primary);
+            font-size: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(201, 168, 76, 0.1);
+        }
+
+        .fullscreen-player .fs-controls button:hover {
+            transform: scale(1.08);
+            background: var(--gold);
+            color: var(--bg-dark);
+        }
+
+        .fullscreen-player .fs-controls .main-play {
+            width: 64px;
+            height: 64px;
+            background: var(--gradient-gold);
+            color: var(--bg-dark);
+            font-size: 28px;
+            border: none;
+        }
+
+        .fullscreen-player .fs-controls .main-play:hover {
+            transform: scale(1.08);
+        }
+
+        /* ========== Visualizer ========== */
+        .visualizer {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            height: 28px;
+            margin: 8px 0;
+        }
+
+        .visualizer .bar {
+            width: 4px;
+            background: var(--gradient-gold);
+            border-radius: 4px;
+            animation: vizAnim 0.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes vizAnim {
+            from { height: 6px; }
+            to { height: 26px; }
+        }
+
+        /* ========== Toast ========== */
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            padding: 10px 24px;
+            border-radius: 12px;
+            font-size: 14px;
+            box-shadow: var(--shadow);
+            z-index: 3000;
+            opacity: 0;
+            transition: all 0.4s ease;
+            border: 1px solid var(--gold);
+            pointer-events: none;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ========== No Results ========== */
+        .no-results {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-secondary);
+        }
+
+        .no-results i {
+            font-size: 40px;
+            margin-bottom: 12px;
+            display: block;
+            opacity: 0.3;
+        }
+
+        /* ========== Responsive ========== */
+        @media (max-width: 768px) {
+            .app-container { padding: 12px 12px 110px; }
+            .header { flex-direction: column; align-items: stretch; }
+            .stats { justify-content: center; font-size: 12px; }
+            .book-banner { flex-direction: column; text-align: center; padding: 16px; }
+            .book-cover { width: 100px; height: 140px; }
+            .book-info .book-title { font-size: 18px; }
+            .book-info .book-meta { justify-content: center; }
+            .lesson-card { padding: 12px; gap: 8px; }
+            .lesson-info { flex: 1 1 100%; order: 2; }
+            .lesson-number { order: 1; }
+            .play-btn { order: 3; width: 36px; height: 36px; font-size: 14px; }
+            .lesson-duration { order: 4; }
+            .action-btn { order: 5; width: 32px; height: 32px; font-size: 12px; }
+            .fullscreen-player .cover { width: 160px; height: 160px; }
+            .fullscreen-player .fs-title { font-size: 18px; }
+        }
+
+        @media (max-width: 480px) {
+            .lesson-card { padding: 10px; }
+            .lesson-title { font-size: 13px; }
+            .mini-player { padding: 8px 12px; }
+            .mini-controls .play-pause { width: 36px; height: 36px; font-size: 14px; }
+            .action-btn { width: 28px; height: 28px; font-size: 11px; }
+            .play-btn { width: 32px; height: 32px; font-size: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== Toast ========== -->
+    <div class="toast" id="toast"></div>
+
+    <!-- ========== App Container ========== -->
+    <div class="app-container">
+
+        <!-- ========== Header ========== -->
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <img src="https://s5files.mobeasy.com/static/u/722316/file-722316-324672.jpg" alt="فنون الرد - الشيخ أحمد حلمي">
+                </div>
+                <div>
+                    <div class="logo-text">📖 فنون الرد</div>
+                    <div class="logo-sub"><span class="sheikh">🎙 الشيخ أحمد حلمي</span> · <span id="totalLessons">16</span> درس</div>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <div class="stats">
+                    <span><i class="fas fa-headphones"></i> <span class="num" id="lessonCount">0</span></span>
+                    <span><i class="fas fa-clock"></i> <span class="num" id="totalDuration">0:00</span></span>
+                </div>
+                <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- ========== Book Banner ========== -->
+        <div class="book-banner">
+            <div class="book-cover">
+                <img src="https://s5files.mobeasy.com/static/u/722316/file-722316-324672.jpg" alt="فنون الرد - الشيخ أحمد حلمي">
+            </div>
+            <div class="book-info">
+                <div class="book-title">📖 شرح فنون الرد</div>
+                <div class="book-desc">تفنيد شبهات الملاحدة والمخالفين بالعقل والنقل</div>
+                <div class="book-author">🎙 بصوت فضيلة الشيخ أحمد حلمي حفظه الله تعالى</div>
+                <div class="book-meta">
+                    <span><i class="fas fa-book-open"></i> 16 درساً</span>
+                    <span><i class="fas fa-clock"></i> سلسلة علمية</span>
+                    <span><i class="fas fa-tag"></i> فنون الرد</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== Search ========== -->
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input 
+                type="text" 
+                class="search-input" 
+                id="searchInput"
+                placeholder="🔍 ابحث في الدروس... بالرقم أو العنوان"
+                oninput="filterLessons(this.value)"
+            />
+        </div>
+
+        <!-- ========== Lessons Grid ========== -->
+        <div class="lessons-grid" id="lessonsGrid"></div>
+    </div>
+
+    <!-- ========== Mini Player ========== -->
+    <div class="mini-player" id="miniPlayer">
+        <div class="mini-progress" id="miniProgress" style="width:0%"></div>
+        <div class="mini-thumb">
+            <img src="https://s5files.mobeasy.com/static/u/722316/file-722316-324672.jpg" alt="فنون الرد">
+        </div>
+        <div class="mini-info">
+            <div class="mini-title" id="miniTitle">اختر درساً</div>
+            <div class="mini-artist" id="miniArtist">الشيخ أحمد حلمي</div>
+        </div>
+        <div class="mini-controls">
+            <button onclick="prevLesson()"><i class="fas fa-step-backward"></i></button>
+            <button class="play-pause" onclick="togglePlay()" id="miniPlayBtn"><i class="fas fa-play"></i></button>
+            <button onclick="nextLesson()"><i class="fas fa-step-forward"></i></button>
+            <button onclick="toggleFullscreen()"><i class="fas fa-expand"></i></button>
+        </div>
+    </div>
+
+    <!-- ========== Fullscreen Player ========== -->
+    <div class="fullscreen-player" id="fullscreenPlayer">
+        <button class="close-btn" onclick="toggleFullscreen()">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <div class="cover" id="fsCover"></div>
+
+        <div class="fs-title" id="fsTitle">اختر درساً</div>
+        <div class="fs-artist" id="fsArtist">الشيخ أحمد حلمي</div>
+
+        <!-- Visualizer -->
+        <div class="visualizer" id="visualizer">
+            <div class="bar" style="animation-delay:0s"></div>
+            <div class="bar" style="animation-delay:0.1s"></div>
+            <div class="bar" style="animation-delay:0.2s"></div>
+            <div class="bar" style="animation-delay:0.3s"></div>
+            <div class="bar" style="animation-delay:0.4s"></div>
+            <div class="bar" style="animation-delay:0.5s"></div>
+            <div class="bar" style="animation-delay:0.6s"></div>
+            <div class="bar" style="animation-delay:0.7s"></div>
+            <div class="bar" style="animation-delay:0.8s"></div>
+            <div class="bar" style="animation-delay:0.9s"></div>
+        </div>
+
+        <div class="fs-progress">
+            <span class="time" id="fsCurrentTime">0:00</span>
+            <input type="range" min="0" max="100" value="0" id="fsSeekBar" oninput="seekTo(this.value)" />
+            <span class="time" id="fsDuration">0:00</span>
+        </div>
+
+        <div class="fs-controls">
+            <button onclick="prevLesson()"><i class="fas fa-step-backward"></i></button>
+            <button class="main-play" onclick="togglePlay()" id="fsPlayBtn">
+                <i class="fas fa-play"></i>
+            </button>
+            <button onclick="nextLesson()"><i class="fas fa-step-forward"></i></button>
+            <button onclick="toggleRepeat()" id="fsRepeatBtn"><i class="fas fa-repeat"></i></button>
+        </div>
+    </div>
+
+    <!-- ========== Audio ========== -->
+    <audio id="audioPlayer" preload="auto"></audio>
+
+    <!-- ========== JavaScript ========== -->
+    <script>
+        // ============================================================
+        // ========== DATA ==========
+        // ============================================================
+        const COVER_URL = 'https://s5files.mobeasy.com/static/u/722316/file-722316-324672.jpg';
+
+        const lessons = [
+            { n: 1, t: "زواج النبي والرد على مزاعم الملاحدة أن النبي كان شهوانيًا", u: "https://archive.org/download/20240814_20240814_0943/01.m4a" },
+            { n: 2, t: "الرد على من يدعي همجية الإسلام والنبيّ", u: "https://archive.org/download/20240814_20240814_0943/02.m4a" },
+            { n: 3, t: "المسمون القرآنيون", u: "https://archive.org/download/20240814_20240814_0943/03.m4a" },
+            { n: 4, t: "رد شبهة التبني", u: "https://archive.org/download/20240814_20240814_0943/04.m4a" },
+            { n: 5, t: "نصرة صحيح البخاري من الطعن", u: "https://archive.org/download/20240814_20240814_0943/05.m4a" },
+            { n: 6, t: "الدليل على تحريم الخمر في الإسلام", u: "https://archive.org/download/20240814_20240814_0943/06.m4a" },
+            { n: 7, t: "البيضة أو الدجاجة", u: "https://archive.org/download/20240814_20240814_0943/07.m4a" },
+            { n: 8, t: "الرحمن على العرش استوى - التفسير الصحيح", u: "https://archive.org/download/20240814_20240814_0943/08.m4a" },
+            { n: 9, t: "ماذا نرد على من يسأل هل الإنسان مسير أو مخير؟", u: "https://archive.org/download/20240814_20240814_0943/09.m4a" },
+            { n: 10, t: "ماذا نرد على من يقول لماذا يعاقب الله الأشرار وهو خلقهم وخلق شرهم", u: "https://archive.org/download/20240814_20240814_0943/10.m4a" },
+            { n: 11, t: "ثبوت صحة الإسلام بالعقل", u: "https://archive.org/download/20240814_20240814_0943/11.m4a" },
+            { n: 12, t: "التكفير", u: "https://archive.org/download/20240814_20240814_0943/12.m4a" },
+            { n: 13, t: "بدعة تقسيم التوحيد", u: "https://archive.org/download/20240814_20240814_0943/13.m4a" },
+            { n: 14, t: "تقسيم البدعة", u: "https://archive.org/download/20240814_20240814_0943/14.m4a" },
+            { n: 15, t: "حقيقة التصوف", u: "https://archive.org/download/20240814_20240814_0943/15.m4a" },
+            { n: 16, t: "فرضية الحجاب", u: "https://archive.org/download/20240814_20240814_0943/16.m4a" }
+        ];
+
+        // ============================================================
+        // ========== STATE ==========
+        // ============================================================
+        let currentIndex = 0;
+        let isPlaying = false;
+        let isRepeat = false;
+        let filteredLessons = [...lessons];
+
+        const audio = document.getElementById('audioPlayer');
+
+        // ============================================================
+        // ========== DOM REFS ==========
+        // ============================================================
+        const grid = document.getElementById('lessonsGrid');
+        const search = document.getElementById('searchInput');
+        const mini = document.getElementById('miniPlayer');
+        const miniTitle = document.getElementById('miniTitle');
+        const miniArtist = document.getElementById('miniArtist');
+        const miniPlay = document.getElementById('miniPlayBtn');
+        const miniProg = document.getElementById('miniProgress');
+        const fs = document.getElementById('fullscreenPlayer');
+        const fsTitle = document.getElementById('fsTitle');
+        const fsArtist = document.getElementById('fsArtist');
+        const fsCover = document.getElementById('fsCover');
+        const fsPlay = document.getElementById('fsPlayBtn');
+        const fsSeek = document.getElementById('fsSeekBar');
+        const fsCur = document.getElementById('fsCurrentTime');
+        const fsDur = document.getElementById('fsDuration');
+        const fsRep = document.getElementById('fsRepeatBtn');
+        const countEl = document.getElementById('lessonCount');
+        const durEl = document.getElementById('totalDuration');
+        const toast = document.getElementById('toast');
+
+        // ============================================================
+        // ========== HELPERS ==========
+        // ============================================================
+        function fmt(t) {
+            if (isNaN(t) || !t) return '0:00';
+            const m = Math.floor(t / 60);
+            const s = Math.floor(t % 60);
+            return m + ':' + String(s).padStart(2, '0');
+        }
+
+        function showToast(msg) {
+            toast.textContent = msg;
+            toast.classList.add('show');
+            clearTimeout(toast._t);
+            toast._t = setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+
+        // ============================================================
+        // ========== SHARE LESSON ==========
+        // ============================================================
+        function shareLesson(index) {
+            const l = lessons[index];
+            if (!l) return;
+            
+            const shareText = `📖 ${l.t}\n🎙 الشيخ أحمد حلمي\n🔗 ${l.u}\n\n#فنون_الرد #الشيخ_أحمد_حلمي`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: l.t,
+                    text: shareText,
+                    url: l.u
+                }).catch(() => {});
+            } else {
+                navigator.clipboard.writeText(shareText).then(() => {
+                    showToast('📋 تم نسخ رابط الدرس مع الاسم');
+                }).catch(() => {
+                    // Fallback
+                    const textarea = document.createElement('textarea');
+                    textarea.value = shareText;
+                    document.body.appendChild(textarea);
+                    textarea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textarea);
+                    showToast('📋 تم نسخ رابط الدرس مع الاسم');
+                });
+            }
+        }
+
+        // ============================================================
+        // ========== DOWNLOAD LESSON ==========
+        // ============================================================
+        function downloadLesson(index) {
+            const l = lessons[index];
+            if (!l) return;
+
+            showToast('⏳ جاري التحميل...');
+            
+            fetch(l.u)
+                .then(res => res.blob())
+                .then(blob => {
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `${l.t} - الشيخ أحمد حلمي.mp3`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                    showToast('✅ تم تحميل الدرس بنجاح');
+                    
+                    // Mark as downloaded
+                    const btn = document.querySelector(`.lesson-card[data-i="${index}"] .download-btn`);
+                    if (btn) {
+                        btn.innerHTML = '<i class="fas fa-check"></i>';
+                        btn.classList.add('downloaded');
+                    }
+                })
+                .catch(() => {
+                    // Fallback: open in new tab
+                    window.open(l.u, '_blank');
+                    showToast('📥 تم فتح رابط التحميل');
+                });
+        }
+
+        // ============================================================
+        // ========== RENDER ==========
+        // ============================================================
+        function render(list) {
+            if (!list.length) {
+                grid.innerHTML = `<div class="no-results"><i class="fas fa-search"></i><h3>لا توجد نتائج</h3><p>جرب كلمات بحث مختلفة</p></div>`;
+                return;
+            }
+
+            grid.innerHTML = list.map((l, i) => {
+                const idx = lessons.indexOf(l);
+                const isCur = idx === currentIndex;
+                const isPlay = isCur && isPlaying;
+                return `
+                    <div class="lesson-card ${isPlay ? 'playing' : ''}" onclick="playLesson(${idx})" data-i="${idx}">
+                        <span class="lesson-number">${isPlay ? '▶' : l.n}</span>
+                        <div class="lesson-info">
+                            <div class="lesson-title ${isPlay ? 'playing' : ''}">${l.t}</div>
+                            <div class="lesson-sub">🎙 الشيخ أحمد حلمي</div>
+                        </div>
+                        <span class="lesson-duration">${fmt(l.d || 0)}</span>
+                        <button class="action-btn share-btn" onclick="event.stopPropagation();shareLesson(${idx})" title="مشاركة الدرس">
+                            <i class="fas fa-share-alt"></i>
+                        </button>
+                        <button class="action-btn download-btn" onclick="event.stopPropagation();downloadLesson(${idx})" title="تحميل الدرس">
+                            <i class="fas fa-download"></i>
+                        </button>
+                        <button class="play-btn ${isPlay ? 'playing' : ''}" onclick="event.stopPropagation();playLesson(${idx})">
+                            <i class="fas ${isPlay ? 'fa-pause' : 'fa-play'}"></i>
+                        </button>
+                    </div>
+                `;
+            }).join('');
+
+            countEl.textContent = list.length;
+            let total = 0;
+            list.forEach(l => total += (l.d || 0));
+            durEl.textContent = fmt(total);
+        }
+
+        // ============================================================
+        // ========== PLAY ==========
+        // ============================================================
+        function playLesson(i) {
+            const l = lessons[i];
+            if (!l) return;
+            currentIndex = i;
+            audio.src = l.u;
+            audio.load();
+            audio.play().catch(() => {});
+            isPlaying = true;
+            updateUI();
+            localStorage.setItem('lastLesson', JSON.stringify({ i, t: 0 }));
+            audio.onloadedmetadata = () => {
+                l.d = audio.duration;
+                updateUI();
+            };
+        }
+
+        // ============================================================
+        // ========== CONTROLS ==========
+        // ============================================================
+        function togglePlay() {
+            if (!audio.src) { playLesson(0); return; }
+            if (isPlaying) {
+                audio.pause();
+            } else {
+                audio.play().catch(() => {});
+            }
+            isPlaying = !isPlaying;
+            updateUI();
+        }
+
+        function nextLesson() {
+            const next = (currentIndex + 1) % lessons.length;
+            playLesson(next);
+        }
+
+        function prevLesson() {
+            const prev = currentIndex === 0 ? lessons.length - 1 : currentIndex - 1;
+            playLesson(prev);
+        }
+
+        function toggleRepeat() {
+            isRepeat = !isRepeat;
+            audio.loop = isRepeat;
+            updateUI();
+            showToast(isRepeat ? '🔁 التكرار مفعل' : '🔁 التكرار غير مفعل');
+        }
+
+        function seekTo(v) {
+            if (audio.duration) {
+                audio.currentTime = (v / 100) * audio.duration;
+            }
+        }
+
+        function toggleFullscreen() {
+            fs.classList.toggle('active');
+            document.body.style.overflow = fs.classList.contains('active') ? 'hidden' : '';
+        }
+
+        // ============================================================
+        // ========== FILTER ==========
+        // ============================================================
+        function filterLessons(q) {
+            const query = q.trim().toLowerCase();
+            if (!query) {
+                filteredLessons = [...lessons];
+            } else {
+                filteredLessons = lessons.filter(l =>
+                    l.t.includes(query) ||
+                    String(l.n).includes(query)
+                );
+            }
+            render(filteredLessons);
+        }
+
+        // ============================================================
+        // ========== UPDATE UI ==========
+        // ============================================================
+        function updateUI() {
+            const l = lessons[currentIndex];
+            if (!l) return;
+
+            miniTitle.textContent = l.t;
+            miniArtist.textContent = 'الشيخ أحمد حلمي';
+            miniPlay.innerHTML = `<i class="fas ${isPlaying ? 'fa-pause' : 'fa-play'}"></i>`;
+            mini.classList.add('active');
+
+            fsTitle.textContent = l.t;
+            fsArtist.textContent = 'الشيخ أحمد حلمي';
+            fsCover.classList.toggle('playing', isPlaying);
+            fsPlay.innerHTML = `<i class="fas ${isPlaying ? 'fa-pause' : 'fa-play'}"></i>`;
+            fsRep.style.color = isRepeat ? '#c9a84c' : '';
+
+            document.querySelectorAll('.lesson-card').forEach(c => {
+                const idx = parseInt(c.dataset.i);
+                const isCur = idx === currentIndex;
+                c.classList.toggle('playing', isCur && isPlaying);
+                const num = c.querySelector('.lesson-number');
+                if (isCur && isPlaying) num.textContent = '▶';
+                else num.textContent = lessons[idx]?.n || '';
+                const btn = c.querySelector('.play-btn');
+                if (btn) {
+                    btn.classList.toggle('playing', isCur && isPlaying);
+                    btn.innerHTML = `<i class="fas ${isCur && isPlaying ? 'fa-pause' : 'fa-play'}"></i>`;
+                }
+                const title = c.querySelector('.lesson-title');
+                if (title) title.classList.toggle('playing', isCur && isPlaying);
+            });
+        }
+
+        // ============================================================
+        // ========== AUDIO EVENTS ==========
+        // ============================================================
+        audio.ontimeupdate = () => {
+            const p = (audio.currentTime / audio.duration) * 100 || 0;
+            miniProg.style.width = Math.min(p, 100) + '%';
+            fsSeek.value = p;
+            fsCur.textContent = fmt(audio.currentTime);
+            fsDur.textContent = fmt(audio.duration);
+            localStorage.setItem('lastLesson', JSON.stringify({ i: currentIndex, t: audio.currentTime }));
+        };
+
+        audio.onended = () => {
+            if (isRepeat) {
+                audio.currentTime = 0;
+                audio.play();
+            } else if (currentIndex < lessons.length - 1) {
+                playLesson(currentIndex + 1);
+            } else {
+                isPlaying = false;
+                updateUI();
+            }
+        };
+
+        audio.onplay = () => { isPlaying = true;
+            updateUI(); };
+        audio.onpause = () => { isPlaying = false;
+            updateUI(); };
+
+        // ============================================================
+        // ========== THEME ==========
+        // ============================================================
+        function toggleTheme() {
+            const html = document.documentElement;
+            const isLight = html.getAttribute('data-theme') === 'light';
+            html.setAttribute('data-theme', isLight ? 'dark' : 'light');
+            document.getElementById('themeBtn').innerHTML = isLight ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+            localStorage.setItem('theme', isLight ? 'dark' : 'light');
+        }
+
+        // ============================================================
+        // ========== LOAD STATE ==========
+        // ============================================================
+        function loadState() {
+            const theme = localStorage.getItem('theme');
+            if (theme) {
+                document.documentElement.setAttribute('data-theme', theme);
+                document.getElementById('themeBtn').innerHTML = theme === 'light' ? '<i class="fas fa-sun"></i>' :
+                    '<i class="fas fa-moon"></i>';
+            }
+
+            const last = localStorage.getItem('lastLesson');
+            if (last) {
+                try {
+                    const d = JSON.parse(last);
+                    if (d.i !== undefined && lessons[d.i]) {
+                        currentIndex = d.i;
+                        audio.src = lessons[d.i].u;
+                        if (d.t > 0) audio.currentTime = d.t;
+                        updateUI();
+                    }
+                } catch (e) {}
+            }
+        }
+
+        // ============================================================
+        // ========== INIT ==========
+        // ============================================================
+        render(lessons);
+        loadState();
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.target.tagName === 'INPUT') return;
+            if (e.code === 'Space') { e.preventDefault();
+                togglePlay(); }
+            if (e.code === 'ArrowRight') nextLesson();
+            if (e.code === 'ArrowLeft') prevLesson();
+        });
+    </script>
+</body>
+</html>
