@@ -1,0 +1,1845 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الدُّرَّةُ الْبَهِيَّةُ | العقيدة الطحاوية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@400;500;600;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+/* ========== CSS Variables & Reset ========== */
+:root {
+  --primary: #0d6b4f;
+  --primary-dark: #084c38;
+  --primary-light: #1a8a68;
+  --gold: #c9a227;
+  --gold-light: #e8d48b;
+  --gold-dark: #a07d15;
+  --bg: #f7f3e9;
+  --bg-card: #ffffff;
+  --bg-soft: #f0ebe0;
+  --text: #1a1a1a;
+  --text-muted: #5a5a5a;
+  --border: #e0d9c8;
+  --shadow: 0 4px 20px rgba(13,107,79,0.08);
+  --shadow-hover: 0 8px 32px rgba(13,107,79,0.15);
+  --radius: 16px;
+  --radius-sm: 10px;
+  --font: 'Cairo', sans-serif;
+  --font-size-base: 17px;
+  --transition: 0.25s cubic-bezier(0.4,0,0.2,1);
+  --header-h: 64px;
+  --nav-h: 60px;
+}
+[data-theme="dark"] {
+  --primary: #2ecc9a;
+  --primary-dark: #1a9b70;
+  --primary-light: #3ee0ad;
+  --gold: #e0b83a;
+  --gold-light: #f0d878;
+  --gold-dark: #c9a227;
+  --bg: #0f1419;
+  --bg-card: #1a222d;
+  --bg-soft: #151c26;
+  --text: #e8e6e0;
+  --text-muted: #9a9a90;
+  --border: #2a3441;
+  --shadow: 0 4px 20px rgba(0,0,0,0.3);
+  --shadow-hover: 0 8px 32px rgba(0,0,0,0.45);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: var(--font-size-base); }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.8;
+  transition: background var(--transition), color var(--transition);
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+img { max-width: 100%; }
+ul, ol { list-style: none; }
+
+/* ========== Layout ========== */
+.app { display: flex; flex-direction: column; min-height: 100vh; }
+.header {
+  position: sticky; top: 0; z-index: 100;
+  height: var(--header-h);
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 1.25rem;
+  box-shadow: var(--shadow);
+  transition: background var(--transition);
+}
+.header-brand {
+  display: flex; align-items: center; gap: 0.6rem;
+  font-weight: 700; font-size: 1.05rem; color: var(--primary);
+}
+.header-brand i { color: var(--gold); font-size: 1.3rem; }
+.header-actions { display: flex; align-items: center; gap: 0.5rem; }
+.icon-btn {
+  width: 40px; height: 40px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; color: var(--text-muted);
+  transition: all var(--transition); position: relative; overflow: hidden;
+}
+.icon-btn:hover { background: var(--bg-soft); color: var(--primary); }
+.icon-btn.active { color: var(--gold); }
+
+/* Search bar */
+.search-wrap {
+  flex: 1; max-width: 420px; margin: 0 1rem; position: relative;
+}
+.search-input {
+  width: 100%; padding: 0.55rem 1rem 0.55rem 2.6rem;
+  border: 1.5px solid var(--border); border-radius: 50px;
+  background: var(--bg-soft); color: var(--text);
+  font-size: 0.95rem; outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.search-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(13,107,79,0.12);
+}
+.search-icon {
+  position: absolute; right: 1rem; top: 50%; transform: translateY(-50%);
+  color: var(--text-muted); pointer-events: none;
+}
+.search-results {
+  position: absolute; top: calc(100% + 6px); right: 0; left: 0;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); box-shadow: var(--shadow-hover);
+  max-height: 360px; overflow-y: auto; z-index: 200;
+  display: none; animation: fadeSlide 0.2s ease;
+}
+.search-results.show { display: block; }
+.search-item {
+  padding: 0.75rem 1rem; border-bottom: 1px solid var(--border);
+  cursor: pointer; transition: background var(--transition);
+}
+.search-item:last-child { border-bottom: none; }
+.search-item:hover { background: var(--bg-soft); }
+.search-item .s-title { font-weight: 600; color: var(--primary); font-size: 0.95rem; }
+.search-item .s-snippet { font-size: 0.82rem; color: var(--text-muted); margin-top: 0.2rem;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.search-empty { padding: 1.5rem; text-align: center; color: var(--text-muted); }
+
+/* Bottom Nav */
+.bottom-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+  height: var(--nav-h);
+  background: var(--bg-card);
+  border-top: 1px solid var(--border);
+  display: flex; justify-content: space-around; align-items: center;
+  box-shadow: 0 -2px 16px rgba(0,0,0,0.06);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.nav-item {
+  flex: 1; display: flex; flex-direction: column; align-items: center;
+  gap: 0.2rem; padding: 0.4rem; color: var(--text-muted);
+  font-size: 0.72rem; transition: color var(--transition);
+}
+.nav-item i { font-size: 1.25rem; }
+.nav-item.active { color: var(--primary); font-weight: 600; }
+.nav-item:hover { color: var(--primary-light); }
+
+/* Main content area */
+.main {
+  flex: 1; padding: 1.25rem 1rem calc(var(--nav-h) + 1.5rem);
+  max-width: 960px; margin: 0 auto; width: 100%;
+}
+
+/* ========== Pages ========== */
+.page { display: none; animation: fadeIn 0.3s ease; }
+.page.active { display: block; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes fadeSlide { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+@keyframes scaleIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+@keyframes ripple {
+  to { transform: scale(4); opacity: 0; }
+}
+
+/* Home - Cards */
+.page-title {
+  font-size: 1.5rem; font-weight: 700; color: var(--primary);
+  margin-bottom: 0.3rem; display: flex; align-items: center; gap: 0.5rem;
+}
+.page-subtitle { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.1rem;
+}
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.35rem;
+  cursor: pointer;
+  transition: all var(--transition);
+  position: relative; overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.card::before {
+  content: ''; position: absolute; top: 0; right: 0; left: 0; height: 4px;
+  background: linear-gradient(90deg, var(--primary), var(--gold));
+  opacity: 0; transition: opacity var(--transition);
+}
+.card:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--primary-light);
+}
+.card:hover::before { opacity: 1; }
+.card:active { transform: scale(0.98); }
+.card-icon {
+  width: 48px; height: 48px; border-radius: 12px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: #fff; display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; margin-bottom: 0.9rem;
+}
+.card-title { font-weight: 700; font-size: 1.05rem; margin-bottom: 0.4rem; color: var(--text); }
+.card-desc {
+  font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  margin-bottom: 0.85rem;
+}
+.card-meta {
+  display: flex; align-items: center; gap: 0.8rem;
+  font-size: 0.78rem; color: var(--text-muted);
+}
+.card-meta span { display: flex; align-items: center; gap: 0.3rem; }
+.card-fav {
+  position: absolute; top: 1rem; left: 1rem;
+  color: var(--text-muted); font-size: 1.1rem;
+  transition: color var(--transition), transform var(--transition);
+}
+.card-fav.favorited { color: var(--gold); }
+.card-fav:hover { transform: scale(1.2); }
+
+/* Ripple effect */
+.ripple {
+  position: absolute; border-radius: 50%;
+  background: rgba(13,107,79,0.2); transform: scale(0);
+  animation: ripple 0.6s linear; pointer-events: none;
+}
+
+/* Section page */
+.section-header {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.5rem;
+  margin-bottom: 1.25rem; box-shadow: var(--shadow);
+}
+.section-header h1 {
+  font-size: 1.4rem; font-weight: 700; color: var(--primary);
+  margin-bottom: 0.6rem; line-height: 1.5;
+}
+.section-stats {
+  display: flex; flex-wrap: wrap; gap: 1rem;
+  font-size: 0.85rem; color: var(--text-muted);
+}
+.section-stats span { display: flex; align-items: center; gap: 0.35rem; }
+.section-tools {
+  display: flex; flex-wrap: wrap; gap: 0.5rem;
+  margin-top: 1rem; padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+.tool-btn {
+  display: flex; align-items: center; gap: 0.4rem;
+  padding: 0.45rem 0.9rem; border-radius: 50px;
+  background: var(--bg-soft); border: 1px solid var(--border);
+  font-size: 0.82rem; color: var(--text-muted);
+  transition: all var(--transition);
+}
+.tool-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+.tool-btn.favorited { color: var(--gold); border-color: var(--gold); }
+.tool-btn.favorited:hover { background: var(--gold); color: #fff; }
+
+.reading-progress {
+  position: fixed; top: var(--header-h); left: 0; right: 0; height: 3px;
+  background: transparent; z-index: 99;
+}
+.reading-progress-bar {
+  height: 100%; width: 0;
+  background: linear-gradient(90deg, var(--primary), var(--gold));
+  transition: width 0.1s linear;
+}
+
+.content-body {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.75rem 1.5rem;
+  box-shadow: var(--shadow); line-height: 2;
+  font-size: 1.05em;
+}
+.content-body p {
+  margin-bottom: 1.1rem; text-align: justify;
+}
+.content-body p:last-child { margin-bottom: 0; }
+.content-body .matn-quote {
+  background: var(--bg-soft); border-right: 4px solid var(--gold);
+  padding: 0.9rem 1.1rem; margin: 1.2rem 0;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-weight: 600; color: var(--primary-dark);
+}
+[data-theme="dark"] .content-body .matn-quote { color: var(--gold-light); }
+
+.back-top {
+  position: fixed; bottom: calc(var(--nav-h) + 1.2rem); left: 1.2rem;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--primary); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--shadow-hover); opacity: 0; pointer-events: none;
+  transition: all var(--transition); z-index: 90;
+}
+.back-top.show { opacity: 1; pointer-events: auto; }
+.back-top:hover { background: var(--primary-dark); transform: scale(1.08); }
+
+/* Favorites empty */
+.empty-state {
+  text-align: center; padding: 3.5rem 1.5rem; color: var(--text-muted);
+}
+.empty-state i { font-size: 3rem; margin-bottom: 1rem; color: var(--border); }
+.empty-state h3 { font-size: 1.15rem; margin-bottom: 0.4rem; color: var(--text); }
+
+/* Settings */
+.settings-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.5rem;
+  margin-bottom: 1rem; box-shadow: var(--shadow);
+}
+.settings-card h3 {
+  font-size: 1rem; font-weight: 600; margin-bottom: 1rem;
+  display: flex; align-items: center; gap: 0.5rem; color: var(--primary);
+}
+.setting-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.75rem 0; border-bottom: 1px solid var(--border);
+}
+.setting-row:last-child { border-bottom: none; }
+.setting-label { font-size: 0.95rem; }
+.toggle {
+  width: 52px; height: 28px; border-radius: 14px;
+  background: var(--border); position: relative; cursor: pointer;
+  transition: background var(--transition);
+}
+.toggle.on { background: var(--primary); }
+.toggle::after {
+  content: ''; position: absolute; top: 3px; right: 3px;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: #fff; transition: transform var(--transition);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+.toggle.on::after { transform: translateX(-24px); }
+.font-options { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.font-opt {
+  padding: 0.45rem 0.9rem; border-radius: 50px;
+  border: 1.5px solid var(--border); font-size: 0.85rem;
+  transition: all var(--transition);
+}
+.font-opt.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+.font-opt:hover:not(.active) { border-color: var(--primary-light); }
+.range-wrap { display: flex; align-items: center; gap: 0.75rem; width: 100%; max-width: 280px; }
+.range-wrap input[type=range] {
+  flex: 1; -webkit-appearance: none; height: 6px;
+  border-radius: 3px; background: var(--border); outline: none;
+}
+.range-wrap input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 20px; height: 20px;
+  border-radius: 50%; background: var(--primary); cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+.reset-btn {
+  width: 100%; padding: 0.75rem; border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: #fff; font-weight: 600; font-size: 0.95rem;
+  transition: all var(--transition); margin-top: 0.5rem;
+}
+.reset-btn:hover { opacity: 0.9; transform: scale(1.01); }
+
+/* Toast */
+.toast {
+  position: fixed; bottom: calc(var(--nav-h) + 1.5rem); left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--primary-dark); color: #fff;
+  padding: 0.7rem 1.4rem; border-radius: 50px;
+  font-size: 0.88rem; opacity: 0; pointer-events: none;
+  transition: all 0.3s ease; z-index: 300;
+  white-space: nowrap; box-shadow: var(--shadow-hover);
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* Responsive */
+@media (max-width: 600px) {
+  .header-brand span { display: none; }
+  .search-wrap { max-width: none; margin: 0 0.5rem; }
+  .cards-grid { grid-template-columns: 1fr; }
+  .content-body { padding: 1.25rem 1rem; }
+  .section-header h1 { font-size: 1.2rem; }
+  .main { padding: 1rem 0.75rem calc(var(--nav-h) + 1.2rem); }
+}
+@media (min-width: 768px) {
+  .bottom-nav { display: none; }
+  .header { padding: 0 2rem; }
+  .main { padding: 1.75rem 1.5rem 2rem; }
+  .desktop-nav {
+    display: flex; gap: 0.25rem; margin-right: auto; margin-left: 1rem;
+  }
+  .desktop-nav .nav-item {
+    flex-direction: row; gap: 0.4rem; padding: 0.45rem 0.9rem;
+    border-radius: 50px; font-size: 0.88rem;
+  }
+  .desktop-nav .nav-item.active { background: var(--bg-soft); }
+}
+@media (max-width: 767px) {
+  .desktop-nav { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <!-- Header -->
+  <header class="header">
+    <div class="header-brand" onclick="showPage('home')" style="cursor:pointer">
+      <i class="fas fa-moon"></i>
+      <span>الدُّرَّةُ الْبَهِيَّةُ</span>
+    </div>
+    <div class="search-wrap" id="searchWrap">
+      <i class="fas fa-search search-icon"></i>
+      <input type="text" class="search-input" id="searchInput" placeholder="ابحث في العقيدة..." autocomplete="off">
+      <div class="search-results" id="searchResults"></div>
+    </div>
+    <div class="desktop-nav">
+      <button class="nav-item active" data-page="home" onclick="showPage('home')">
+        <i class="fas fa-home"></i> الرئيسية
+      </button>
+      <button class="nav-item" data-page="favorites" onclick="showPage('favorites')">
+        <i class="fas fa-star"></i> المفضلة
+      </button>
+      <button class="nav-item" data-page="settings" onclick="showPage('settings')">
+        <i class="fas fa-cog"></i> الإعدادات
+      </button>
+    </div>
+    <div class="header-actions">
+      <button class="icon-btn" id="themeToggle" title="تبديل الوضع" onclick="toggleTheme()">
+        <i class="fas fa-moon"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Reading progress (section page only) -->
+  <div class="reading-progress" id="readingProgress" style="display:none">
+    <div class="reading-progress-bar" id="progressBar"></div>
+  </div>
+
+  <!-- Main -->
+  <main class="main" id="main">
+    <!-- HOME -->
+    <div class="page active" id="page-home">
+      <h1 class="page-title"><i class="fas fa-book-open" style="color:var(--gold)"></i> أقسام العقيدة</h1>
+      <p class="page-subtitle">الدُّرَّةُ الْبَهِيَّةُ في حلِّ ألفاظ العقيدة الطحاوية — شرح كامل</p>
+      <div class="cards-grid" id="cardsGrid"></div>
+    </div>
+
+    <!-- SECTION -->
+    <div class="page" id="page-section">
+      <div class="section-header" id="sectionHeader"></div>
+      <div class="content-body" id="contentBody"></div>
+    </div>
+
+    <!-- FAVORITES -->
+    <div class="page" id="page-favorites">
+      <h1 class="page-title"><i class="fas fa-star" style="color:var(--gold)"></i> المفضلة</h1>
+      <p class="page-subtitle">الأقسام التي أضفتها إلى قائمة المفضلة</p>
+      <div class="cards-grid" id="favGrid"></div>
+      <div class="empty-state" id="favEmpty" style="display:none">
+        <i class="far fa-star"></i>
+        <h3>لا توجد مفضلات بعد</h3>
+        <p>اضغط على أيقونة النجمة في أي قسم لإضافته هنا</p>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div class="page" id="page-settings">
+      <h1 class="page-title"><i class="fas fa-cog" style="color:var(--gold)"></i> الإعدادات</h1>
+      <p class="page-subtitle">خصص تجربة القراءة حسب تفضيلاتك</p>
+
+      <div class="settings-card">
+        <h3><i class="fas fa-moon"></i> المظهر</h3>
+        <div class="setting-row">
+          <span class="setting-label">الوضع الليلي</span>
+          <div class="toggle" id="darkToggle" onclick="toggleTheme()"></div>
+        </div>
+      </div>
+
+      <div class="settings-card">
+        <h3><i class="fas fa-font"></i> نوع الخط</h3>
+        <div class="font-options" id="fontOptions">
+          <button class="font-opt active" data-font="'Cairo', sans-serif" style="font-family:'Cairo',sans-serif">Cairo</button>
+          <button class="font-opt" data-font="'Tajawal', sans-serif" style="font-family:'Tajawal',sans-serif">Tajawal</button>
+          <button class="font-opt" data-font="'Noto Kufi Arabic', sans-serif" style="font-family:'Noto Kufi Arabic',sans-serif">Noto Kufi</button>
+          <button class="font-opt" data-font="'Amiri', serif" style="font-family:'Amiri',serif">Amiri</button>
+        </div>
+      </div>
+
+      <div class="settings-card">
+        <h3><i class="fas fa-text-height"></i> حجم الخط</h3>
+        <div class="setting-row" style="flex-direction:column;align-items:stretch;gap:0.75rem">
+          <div class="range-wrap">
+            <span style="font-size:0.8rem">أ</span>
+            <input type="range" id="fontSizeRange" min="14" max="24" value="17" step="1">
+            <span style="font-size:1.2rem">أ</span>
+          </div>
+          <span id="fontSizeLabel" style="font-size:0.85rem;color:var(--text-muted);text-align:center">17 بكسل</span>
+        </div>
+      </div>
+
+      <div class="settings-card">
+        <h3><i class="fas fa-undo"></i> إعادة الضبط</h3>
+        <button class="reset-btn" onclick="resetSettings()">
+          <i class="fas fa-redo"></i> إعادة ضبط جميع الإعدادات
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Bottom Nav (mobile) -->
+  <nav class="bottom-nav">
+    <button class="nav-item active" data-page="home" onclick="showPage('home')">
+      <i class="fas fa-home"></i> الرئيسية
+    </button>
+    <button class="nav-item" data-page="favorites" onclick="showPage('favorites')">
+      <i class="fas fa-star"></i> المفضلة
+    </button>
+    <button class="nav-item" data-page="settings" onclick="showPage('settings')">
+      <i class="fas fa-cog"></i> الإعدادات
+    </button>
+  </nav>
+
+  <!-- Back to top -->
+  <button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+</div>
+
+<script>
+const SECTIONS = [
+  {
+    id: "sec-1",
+    title: `المقدمة وبيان عقيدة أهل السنة`,
+    description: `عنوان الكتاب وبيان عقيدة أهل السنة والجماعة على مذهب فقهاء الملة أبي حنيفة وأصحابه`,
+    content: `الدُّرَّةُ الْبَهِيَّةُ
+
+فِى حَلِّ أَلْفَاظِ الْعَقِيدَةِ الطَّحَاوِيَّةِ
+
+بِسْمِ اللَّهِ الرَّحْمٰنِ الرَّحِيمِ
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: هَذَا ذِكْرُ بَيَانِ عَقِيدَةِ أَهْلِ السُّنَّةِ وَالْجَمَاعَةِ عَلَى مَذْهَبِ فُقَهَاءِ الْمِلَّةِ أَبِى حَنِيفَةَ النُّعْمَانِ بنِ ثَابِتٍ الْكُوفِىِّ وَأَبِى يُوسُفَ يَعْقُوبَ بنِ إِبْرَاهِيمَ الأَنْصَارِىِّ وَأَبِى عَبْدِ اللَّهِ مُحَمَّدِ بنِ الْحَسَنِ الشَّيْبَانِىِّ رِضْوَانُ اللَّهِ عَلَيْهِمْ أَجْمَعِينَ وَمَا يَعْتَقِدُونَ مِنْ أُصُولِ الدِّينِ وَيَدِينُونَ بِهِ لِرَبِّ الْعَالَمِينَ.
+
+الشَّرْحُ يَقُولُ الطَّحَاوِىُّ إِنَّ هَذِهِ الرِّسَالَةَ هِىَ ذِكْرُ عَقِيدَةِ أَهْلِ السُّنَّةِ وَالْجَمَاعَةِ عَلَى حَسَبِ مَا قَرَّرَهُ أَبُو حَنِيفَةَ وَأَبُو يُوسُفَ يَعْقُوبُ بنُ إِبْرَاهِيمَ وَأَبُو عَبْدِ اللَّهِ مُحَمَّدُ بنُ الْحَسَنِ الشَّيْبَانِىُّ أَىْ مِنْ حَيْثُ سَبْكُ الْعِبَارَاتِ أَضَعُ هَذِهِ الرِّسَالَةَ عَلَى أُسْلُوبِ هَؤُلاءِ الأَئِمَّةِ الثَّلاثَةِ أَمَّا مِنْ حَيْثُ الْمَعْنَى فَهُوَ مَذْهَبُ أَهْلِ الْحَقِّ أَهْلِ السُّنَّةِ وَالْجَمَاعَةِ كُلِّهِمْ بِلا اسْتِثْنَاءٍ وَأَهْلُ السُّنَّةِ وَالْجَمَاعَةِ هُمُ الصَّحَابَةُ وَمَنْ تَبِعَهُمْ فِى الْمُعْتَقَدِ وَلَوْ كَانَ مِنْ حَيْثُ الأَعْمَالُ مُقَصِّرًا إِلَى حَدٍّ كَبِيرٍ.
+
+وَنَصَّ الطَّحَاوِىُّ عَلَى ذِكْرِ هَؤُلاءِ الْفُقَهَاءِ لِأَنَّهُ كَانَ فِى الْفُرُوعِ عَلَى مَذْهَبِ الإِمَامِ أَبِى حَنِيفَةَ رَضِىَ اللَّهُ عَنْهُ وَلَيْسَتْ هَذِهِ الْعَقِيدَةُ خَاصَّةً بِهَؤُلاءِ بَلْ هِىَ مُعْتَقَدُ أَهْلِ السُّنَّةِ وَالْجَمَاعَةِ.
+
+وَقَوْلُهُ فِى افْتِتَاحِ هَذِهِ الْعَقِيدَةِ هَذَا ذِكْرُ بَيَانِ عَقِيدَةِ أَهْلِ السُّنَّةِ وَالْجَمَاعَةِ إِنَّمَا قَالَ ذَلِكَ لِقَوْلِهِ تَعَالَى لِنَبِيِّهِ ﴿قُلْ هَذِهِ سَبِيلِى أَدْعُو إِلَى اللَّهِ عَلَى بَصِيرَةٍ أَنَا وَمَنِ اتَّبَعَنِى﴾ [سُورَةَ يُوسُف/108] فَالسُّنَّةُ عِبَارَةٌ عَنِ الطَّرِيقَةِ، وَمَعْنَى عَلَى بَصِيرَةٍ أَىْ أَنَّ كُلَّ مَا جَاءَ بِهِ الإِسْلامُ لا يَرُدُّهُ الْعَقْلُ الصَّحِيحُ وَأَمَّا الْجَمَاعَةُ فَهُمُ الَّذِينَ اتَّبَعُوهُ عَلَى مِلَّتِهِ.
+
+وَقَوْلُهُ «وَيَدِينُونَ بِهِ لِرَبِّ الْعَالَمِينَ» أَىْ مَا يَتَّخِذُونَهُ دِينًا وَيَطْلُبُونَ بِهِ الْجَزَاءَ مِنَ اللَّهِ مَالِكِ الْعَالَمِينَ.`,
+    paragraphs: 8,
+    words: 234
+  },
+  {
+    id: "sec-2",
+    title: `توحيد الله عز وجل`,
+    description: `نقول في توحيد الله معتقدين بتوفيق الله إن الله واحد لا شريك له`,
+    content: `قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: نَقُولُ فِى تَوْحِيدِ اللَّهِ مُعْتَقِدِينَ بِتَوْفِيقِ اللَّهِ إِنَّ اللَّهَ وَاحِدٌ لا شَرِيكَ لَهُ.
+
+الشَّرْحُ قَوْلُهُ نَقُولُ فِى تَوْحِيدِ اللَّهِ ابْتَدَأَ بِالتَّوْحِيدِ لِأَنَّهُ أَوَّلُ خِطَابٍ يَجِبُ عَلَى الْمُكَلَّفِينَ وَإِلَيْهِ دَعَتِ الأَنْبِيَاءُ وَالرُّسُلُ وَبِهِ نَزَلَتِ الْكُتُبُ السَّمَاوِيَّةُ، أَمَّا الرُّسُلُ وَالأَنْبِيَاءُ الَّذِينَ قَامَتْ عَلَى أَيْدِيهِمُ الْمُعْجِزَاتُ الْخَارِجَةُ عَنْ وُسْعِ الْخَلائِقِ كَصَيْرُورَةِ النَّارِ بَرْدًا وَسَلامًا عَلَى إِبْرَاهِيمَ وَانْقِلابِ عَصَا مُوسَى ثُعْبَانًا يَسْعَى وَتَسْخِيرِ الرِّيحِ وَالْجِنِّ وَالطَّيْرِ لِسُلَيْمَانَ وَتَسْبِيحِ الْجِبَالِ وَتَلْيِينِ الْحَدِيدِ لِدَاوُدَ وَخُرُوجِ النَّاقَةِ مِنَ الصَّخْرَةِ لِصَالِحٍ وَإِحْيَاءِ الْمَوْتَى لِعِيسَى وَانْشِقَاقِ الْقَمَرِ وَنَبْعِ الْمَاءِ مِنْ بَيْنِ الأَصَابِعِ وَكَلامِ الشَّاةِ الْمَسْمُومَةِ وَشَهَادَةِ الضَبِّ وَالذِّئْبِ وَتَسْبِيحِ الْحَصَى فِى الْكَفِّ لِسِيِّدِنَا مُحَمَّدٍ ﷺ وَعَلَى جَمِيعِ إِخْوَانِهِ الأَنْبِيَاءِ وَالْمُرْسَلِينَ، كُلُّهُمْ دَعَوْا إِلَى تَوْحِيدِ اللَّهِ بِدَلِيلِ قَوْلِهِ تَعَالَى ﴿وَمَا أَرْسَلْنَا مِنْ قَبْلِكَ مِنْ رَّسُولٍ إِلَّا نُوحِى إِلَيْهِ أَنَّهُ لا إِلَهَ إِلَّا أَنَا فَاعْبُدُونِ﴾ [سُورَةَ الأَنْبِيَاء/25].
+
+وَقَوْلُهُ مُعْتَقِدِينَ فِيهِ نَفْىٌ لِلنِّفَاقِ وَتَحْقِيقٌ لِلإِيـمَانِ لِأَنَّ النِّفَاقَ يَجْتَمِعُ مَعَ الِاعْتِرَافِ اللَّفْظِىِّ لَكِنْ لا يَكُونُ مُقْتَرِنًا بِالِاعْتِرَافِ الْقَلْبِىِّ عَلَى وَجْهِ الْجَزْمِ فَالإِيـمَانُ وَالتَّصْدِيقُ وَالِاعْتِقَادُ يَكُونُ كُلُّ ذَلِكَ بِالْقَلْبِ قَالَ تَعَالَى فِيمَنْ أَقَرَّ بِاللِّسَانِ دُونَ الْقَلْبِ ﴿قَالُوا ءَامَنَّا بِأَفْوَاهِهِمْ وَلَمْ تُؤْمِنْ قُلُوبُهُمْ﴾ [سُورَةَ الْمَائِدَة/41] وَفِى قَوْلِهِ «مُعْتَقِدِينَ» بَيَانُ أَنَّ الْقَوْلَ وَحْدَهُ لا يَكْفِى عِنْدَ اللَّهِ بِدُونِ اعْتِقَادٍ فَمَنْ نَطَقَ بِالشَّهَادَتَيْنِ وَلَمْ يُذْعِنْ فِى نَفْسِهِ بِمَعْنَاهُمَا فَهُوَ عِنْدَنَا مُسْلِمٌ أَمَّا عِنْدَ اللَّهِ فَلَيْسَ بِمُسْلِمٍ.
+
+وَقَوْلُهُ «بِتَوْفِيقِ اللَّهِ» لِأَنَّ الْوُصُولَ إِلَى تَوْفِيقِ اللَّهِ يَكُونُ بِتَوْفِيقِ اللَّهِ وَهِدَايَتِهِ وَهُوَ مَذْهَبُ أَهْلِ السُّنَّةِ وَالْجَمَاعَةِ عَلَى مَا قَالَ رَبُّنَا عَزَّ وَجَلَّ ﴿وَالَّذِينَ جَاهَدُوا فِينَا لَنَهْدِيَنَّهُمْ سُبُلَنَا﴾ [سُورَةَ الْعَنْكَبُوت/69] أَىْ إِلَى تَوْفِيقِنَا وَهِدَايَتِنَا.
+
+وَمَعْنَى الْوَاحِدِ فِى حَقِّ اللَّهِ تَعَالَى فُسِّرَ بِأَنَّهُ الَّذِى لا شَرِيكَ لَهُ فِى ذَاتِهِ وَلا فِى صِفَاتِهِ وَلا فِى أَفْعَالِهِ.`,
+    paragraphs: 5,
+    words: 257
+  },
+  {
+    id: "sec-3",
+    title: `نفي المثل والعجز عن الله`,
+    description: `لا شيء مثله ولا شيء يعجزه - تنزيه الله عن المماثلة والعجز`,
+    content: `قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَلا شَىْءَ مِثْلُهُ.
+
+الشَّرْحُ أَىْ لا يُوجَدُ شَىْءٌ يُمَاثِلُهُ مِنْ جَمِيعِ الْوُجُوهِ أَوْ بَعْضِ الْوُجُوهِ لِأَنَّ الْمُمَاثَلَةَ إِمَّا أَنْ تَكُونَ مِنْ جَمِيعِ الْوُجُوهِ وَهِىَ الْمُرَادَةُ عِنْدَ الإِطْلاقِ وَإِمَّا مِنْ بَعْضِ الْوُجُوهِ وَهِىَ الْمُرَادَةُ بِبَعْضِ الْعِبَارَاتِ وَهِىَ أَنْ يُقَالَ فُلانٌ مِثْلُ فُلانٍ إِذَا أُرِيدَ بِهِ أَنَّهُ يُمَاثِلُهُ فِى بَعْضِ الْوُجُوهِ وَهَذِهِ مُمَاثَلَةٌ جُزْئِيَّةٌ أَمَّا الإِطْلاقُ الْوَارِدُ بِحَيْثُ يَسُدُّ مَسَدَّهُ يُقَالُ فُلانٌ مِثْلُ فُلانٍ وَهَذِهِ مُمَاثَلَةٌ مُطْلَقَةٌ. وَقَدْ تُطْلَقُ الْمُمَاثَلَةُ عَلَى مَا هُوَ أَقَلُّ مِنْ ذَلِكَ وَهَذَا بِالنِّسْبَةِ لِلْمَخْلُوقِ أَمَّا بِالنِّسْبَةِ لِلْخَالِقِ فَلا يُقَالُ اللَّهُ يُمَاثِلُ كَذَا فِى كَذَا. أَمَّا الِاتِّفَاقُ بِاللَّفْظِ فَلَيْسَ ذَلِكَ مُمَاثَلَةً فَلَيْسَ مِنَ الْمُمَاثَلَةِ أَنْ يُقَالَ عَنِ اللَّهِ حَىٌّ وَعَنِ الْمَخْلُوقِ حَىٌّ أَوِ اللَّهُ مَوْجُودٌ وَفُلانٌ مَوْجُودٌ فَاللَّهُ تَعَالَى وُجُودُهُ لَيْسَ كَوُجُودِنَا الْحَادِثِ وُجُودُهُ بِذَاتِهِ لا يَحْتَاجُ إِلَى شَىْءٍ وَكُلُّ شَىْءٍ يَحْتَاجُ إِلَيْهِ. فَالْمِثْلِيَّةُ الْمَنْفِيَّةُ عَنِ اللَّهِ الْمِثْلِيَّةُ فِى الْمَعْنَى فَبَطَلَ قَوْلُ الْفَلاسِفَةِ إِنَّهُ لا يُقَالُ عَنِ اللَّهِ حَىٌّ وَلا دَائِمٌ وَلا قَادِرٌ وَلا سَمِيعٌ وَلا بَصِيرٌ وَلا مُتَكَلِّمٌ وَإِنْ زَعَمَ بَعْضُهُمْ أَنَّ هَذَا يَقْتَضِى الْمُمَاثَلَةَ لِأَنَّ هَذَا لَيْسَ مُمَاثَلَةً بَلْ اتِّفَاقٌ بِاللَّفْظِ فَاللَّهُ تَعَالَى يُطْلَقُ عَلَيْهِ هَذِهِ الْعِبَارَةُ مَوْجُودٌ حَىٌّ سَمِيعٌ بَصِيرٌ مُتَكَلِّمٌ مُرِيدٌ عَالِمٌ وَيُطْلَقُ هَذَا اللَّفْظُ عَلَى غَيْرِهِ لِأَنَّ هَذَا اتِّفَاقٌ فِى اللَّفْظِ لا فِى الْمَعْنَى فَلا يَقْتَضِى الْمُمَاثَلَةَ وَالْمُشَارَكَةَ.
+
+تَنْبِيهٌ الْمِثْلانِ هُمَا الأَمْرَانِ الَّذِى يَسُدُّ كُلُّ وَاحِدٍ مِنْهُمَا مَسَدَّ الآخَرِ وَهَذَا فِى الإِطْلاقِ الْغَالِبِ، إِذَا كَانَ هُنَاكَ عَالِمَانِ وَكُلٌّ مِنْهُمَا يَقُومُ مَقَامَ الآخَرِ يُقَالُ عَنْهُمَا مِثْلانِ.
+
+فَائِدَةٌ عِلْمُ التَّوْحِيدِ يُقَالُ لَهُ عِلْمُ الْكَلامِ وَذَلِكَ لِأَنَّ أَكْثَرَ مَا يُبْحَثُ فِيهِ فِى الْمَاضِي مَسْئَلَةُ الْكَلامِ لِأَنَّهُ صَارَتْ مَعَارِكُ كَبِيرَةٌ بَيْنَ أَهْلِ السُّنَّةِ وَبَيْنَ الْمُعْتَزِلَةِ حَتَّى إِنَّ بَعْضَ الْخُلَفَاءِ الْعَبَّاسِيِّينَ أَخَذَ بِكَلامِهِمْ فَصَارَ يَقُولُ الْقُرْءَانُ مَخْلُوقٌ وَمَنْ لَمْ يَقُلِ الْقُرْءَانُ مَخْلُوقٌ يُعَذِّبُهُ وَذَلِكَ مِمَّا أَخَذَهُ مِنَ الْمُعْتَزِلَةِ وَلَمْ يَأْخُذْ عَنْهُمْ غَيْرَهَا كَالْقَوْلِ بِخَلْقِ الأَفْعَالِ.
+
+الْمُعْتَزِلَةُ كَانُوا يَقُولُونَ بِنَفْىِ الْكَلامِ الذَّاتِىِّ، وَالْحَشَوِيَّةُ وَهُمُ الْمُجْسِمَّة كَابْنِ تَيْمِيَةَ وَأَسْلافِهِ وَمَنْ تَبِعَهُ بَعْدَ ذَلِكَ هَؤُلاءِ يَقُولُونَ اللَّهُ لَهُ كَلامٌ وَكَلامُهُ حُرُوفٌ وَأَصْوَاتٌ تَحْدُثُ ثُمَّ تَنْقَضِى وَلا يَزَالُ عَلَى هَذَا الْحَالِ فَبِزَعْمِهِمْ هَذَا جَعَلُوهُ مِثْلَ الْبَشَرِ تَعَالَى اللَّهُ عَنْ ذَلِكَ.
+
+وَأَهْلُ الْحَقِّ ثَبَتُوا عَلَى مُعْتَقَدِهِمْ وَهُوَ أَنَّ اللَّهَ مُتَكَلِّمٌ بِكَلامٍ هُوَ صِفَةٌ أَزَلِيَّةٌ أَبَدِيَّةٌ لَيْسَ بِحَرْفٍ وَلا صَوْتٍ وَأَنْزَلَ كُتُبًا عَلَى بَعْضِ أَنْبِيَائِهِ تُقْرَأُ بِحُرُوفٍ هِىَ عِبَارَاتٌ عَنْ كَلامِهِ الذَّاتِىِّ الَّذِى لَيْسَ حَرْفًا وَلا صَوْتًا لِأَنَّهُ لَوْلا هَذَا الْفَرْقُ بَيْنَ الْكَلامِ الَّذِى هُوَ عِبَارَةٌ عَنْ هَذَا اللَّفْظِ الْمُنَزَّلِ وَالْكَلامِ الَّذِى هُوَ صِفَةٌ أَزَلِيَّةٌ الْقَائِمِ بِذَاتِ اللَّهِ لَكَانَ مَنْ سَمِعَ هَذَا اللَّفْظَ كَلِيمَ اللَّهِ كَمَا أَنَّ مُوسَى كَلِيمُ اللَّهِ وَهَذَا لا يَجُوزُ، وَيَدُلُّ عَلَى ذَلِكَ قَوْلُهُ تَعَالَى ﴿وَإِنْ أَحَدٌ مِنَ الْمُشْرِكِينَ اسْتَجَارَكَ فَأَجِرْهُ حَتَّى يَسْمَعَ كَلامَ اللَّهِ﴾ [سُورَةَ التَّوْبَة/6] أَىْ أَنَّ اللَّهَ أَمَرَ نَبِيَّهَ بِأَنَّهُ إِنِ اسْتَجَارَهُ أَحَدٌ مِنَ الْمُشْرِكِينَ لِيَسْمَعَ الْقُرْءَانَ أَنْ يُؤَمِّنَهُ ثُمَّ بَعْدَ ذَلِكَ إِذَا لَمْ يُسْلِمْ يُبَلِّغْهُ مَأْمَنَهُ أَىْ نَاحِيَتَهُ.
+
+ثُمَّ عِلْمُ الْكَلامِ عِلْمٌ يُقَرِّرُهُ أَهْلُ الْحَقِّ وَلَيْسَ مَذْمُومًا كَمَا تَظُنُّ الْمُجَسِّمَةُ فَإِنَّ السَّلَفَ الصَّالِحَ مِنْهُمْ مَنِ اشْتَغَلَ بِهِ تَأْلِيفًا وَتَعْلِيمًا وَتَفْهِيمًا وَمِنْهُمْ مَنْ عَرَفَهُ لِنَفْسِهِ وَلَمْ يَشْتَغِلْ بِهِ تَأْلِيفًا وَتَفْهِيمًا لِأَنَّ الْحَاجَةَ لِلتَّأْلِيفِ فِى أَيَّامِهِ كَانَتْ أَقَلَّ ثُمَّ اشْتَدَّتِ الْحَاجَةُ إِلَى الِاشْتِغَالِ بِهِ تَأْلِيفًا وَتَفْهِيمًا وَهَذَا لَيْسَ فِيهِ مَا يُخَالِفُ شَرْعَ اللَّهِ بَلْ هُوَ مَحْضُ الدِّينِ، وَهُوَ أَشْرَفُ عُلُومِ الدِّينِ لِأَنَّهُ يُعْرَفُ بِهِ مَا يَجِبُ لِلَّهِ مِنَ الصِّفَاتِ الأَزَلِيَّةِ الَّتِى افْتَرَضَ اللَّهُ مَعْرِفَتَهَا عَلَى عِبَادِهِ وَمَا يَسْتَحِيلُ عَلَى اللَّهِ مِنَ النَّقَائِصِ وَمَا يَجُوزُ عَلَى اللَّهِ مَعَ مَا يَتْبَعُ ذَلِكَ مِنْ أُمُورِ النُّبُوَّةِ وَأُمُورِ الآخِرَةِ. وَقَدْ أَلَّفَ الإِمَامُ أَبُو حَنِيفَةَ فِى عِلْمِ الْكَلامِ خَمْسَ رَسَائِلَ وَكَانَ يَذْهَبُ مِنْ بَغْدَادَ إِلَى الْبَصْرَةِ لِمُنَاظَرَةِ الْمُعْتَزِلَةِ وَالْمُشَبِّهَةِ وَالْمَلاحِدَةِ حَتَّى إِنَّهُ تَرَدَّدَ إِلَيْهِمْ نَيِّفًا وَعِشْرِينَ مَرَّةً، وَكَذَا الإِمَامُ الشَّافِعِىُّ رَضِىَ اللَّهُ عَنْهُ كَانَ يُتْقِنُ هَذَا الْعِلْمَ وَالَّذِى ذَمَّهُ لَيْسَ هَذَا الْعِلْمَ بَلْ كَلامَ أَهْلِ الأَهْوَاءِ وَهُمْ مَنْ خَرَجَ عَنْ أَهْلِ السُّنَّةِ كالْمُرْجِئَةِ وَالْجَهْمِيَّةِ وَالْمُعْتَزِلَةِ وَالْخَوَارِجِ وَمَا أَشْبَهَهُمْ فَقَدْ قَالَ الشَّافِعِىُّ رَضِىَ اللَّهُ عَنْهُ «لَأَنْ يَلْقَى اللَّهَ الْعَبْدُ بِكُلِّ ذَنْبٍ مَا سِوَى الشِّرْكَ خَيْرٌ لَهُ مِنْ أَنْ يَلْقَاهُ بِشَىْءٍ مِنَ الأَهْوَاءِ».
+
+وَالأَهْوَاءُ جَمْعُ هَوًى وَهُوَ مَا مَالَتْ إِلَيْهِ نُفُوسُ الْمُبْتَدِعَةِ الْخَارِجِينَ عَمَّا كَانَ عَلَيْهِ السَّلَفُ وَلَيْسَ مُرَادُ الشَّافِعِىِّ بِالأَهْوَاءِ هَذَا الْعِلْمَ الَّذِى هُوَ فَرْضٌ تَعَلُّمُهُ. كَذَلِكَ اشْتَغَلَ بِهَذَا الْعِلْمِ عُمَرُ بنُ عَبْدِ الْعَزِيزِ الْخَلِيفَةُ الرَّاشِدُ وَعَمِلَ رِسَالَةً يُبَيِّنُ فِيهَا مَذْهَبَ أَهْلِ الْحَقِّ وَيَدْحَضُ بِهَا رَأْىَ الْمُعْتَزِلَةِ كَذَلِكَ الْحَسَنُ الْبَصْرِىُّ الَّذِى هُوَ مِنْ أَكَابِرِ التَّابِعِينَ وَتَكَلَّمَ فِيهِ الإِمَامُ مَالِكٌ وَغَيْرُهُ مِنْ أَئِمَّةِ السَّلَفِ فَلا يَلْحَقُ شَىْءٌ مِنْ ذَمِّ هَذَا الْعِلْمِ الَّذِى يَشْتَغِلُ بِهِ أَهْلُ السُّنَّةِ وَقَدْ أَحْسَنَ فِى ذَلِكَ مَنْ قَالَ
+
+عَابَ  الْكَلامَ  أُنَاسٌ  لا  عُقُولَ  لَهُمْ           وَمَا   عَلَيْهِ  إِذَا  عَابُوهُ   مِنْ  ضَرَرِ
+
+مَا ضَرَّ شَمْسَ الضُّحَى فِى الأُفْقِ طَالِعَةً          أَنْ لا يَرَى ضَوْءَهَا مَنْ لَيْسَ ذَا بَصَرِ
+
+وَالإِمَامُ أَحْمَدُ لَيْسَ كَمَا يَظُنُّ الْمُشَبِّهَةُ عَنْهُ حَيْثُ قَالُوا إِنَّ الْقَوْلَ بِأَنَّ كَلامَ اللَّهِ حَرْفٌ وَصَوْتٌ مَذْهَبُ أَحْمَدَ بَلْ هُوَ لَمْ يَكُنْ يَرَى أَنْ يُطْلَقَ هَذَا اللَّفْظُ «الْقُرْءَانُ مَخْلُوقٌ» وَلا أَنْ يُقَالَ «لَفْظِى بِالْقُرْءَانِ مَخْلُوقٌ» لِأَنَّهُ قَدْ يَتَوَهَّمُ مُتَوَهِّمٌ مِنْ هَذَا اللَّفْظِ أَنَّ الْقُرْءَانَ مَخْلُوقٌ أَىِ الْكَلامَ الذَّاتِىَّ مَخْلُوقٌ أَىْ وَصْفَ الْكَلامِ الذَّاتِىِّ بِالْمَخْلُوقِيَّةِ أَمَّا أَنْ يَعْتَقِدَ أَنَّ اللَّهَ تَبَارَكَ وَتَعَالَى يَتَكَلَّمُ بِحَرْفٍ وَصَوْتٍ قَائِمٍ بِذَاتِهِ فَهُوَ بَرِىءٌ مِنْ ذَلِكَ فَحَذَرًا مِنْ ذَلِكَ يَمْنَعُ مِنَ الأَمْرَيْنِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَلا شَىْءَ يُعْجِزُهُ.
+
+الشَّرْحُ هَذَا فِيهِ رَدٌّ عَلَى قَوْلِ الْمُعْتَزِلَةِ إِنَّ اللَّهَ لا يَسْتَطِيعُ أَنْ يَخْلُقَ مَقْدُورَ الْعَبْدِ لِأَنَّ اللَّهَ أَعْطَاهُ الْقُدْرَةَ عَلَيْهِ فَصَارَ عَاجِزًا أَمَّا قَبْلَ ذَلِكَ فَكَانَ قَادِرًا عَلَيْهِ وَالْقَائِلُونَ بِهَذَا لا يَجُوزُ الِاخْتِلافُ فِى تَكْفِيرِهِمْ. وَقَدِ الْتَبَسَ عَلَى كَثِيرٍ مِنَ النَّاسِ هَذَا فَيَقُولُونَ الْمُعْتَزِلَةُ لا يُكَفَّرُونَ عَلَى الْقَوْلِ الأَصَحِّ فَلَيْسَ الْمَقْصُودُ بِتَرْكِ بَعْضِ الْعُلَمَاءِ تَكْفِيرَ بَعْضِ الْمُعْتَزِلَةِ هَؤُلاءِ وَمَنْ كَانَ عَلَى شَاكِلَتِهِمْ.`,
+    paragraphs: 13,
+    words: 862
+  },
+  {
+    id: "sec-4",
+    title: `لا إله غيره`,
+    description: `بيان معنى الإله والإلهية ونفي الشرك`,
+    content: `قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَلا إِلَهَ غَيْرُهُ.
+
+الشَّرْحُ الإِلَهُ مَنْ لَهُ الإِلَهِيَّةُ وَهِىَ قُدْرَةُ الإِبْدَاعِ وَالِاخْتِرَاعِ فَلا يُطْلَقُ لَفْظُ الإِلَهِ بِحَسَبِ الأَصْلِ عَلَى غَيْرِ اللَّهِ تَعَالَى إِنَّمَا الْمُشْرِكُونَ اسْتَعَارُوا هَذَا اللَّفْظَ وَأَطْلَقُوا عَلَى مَعْبُودَاتِهِمْ كَلِمَةَ الإِلَهِ. هَكَذَا ذَكَرَ الْفَيُّومِىُّ اللُّغَوِىُّ فِى كِتَابِهِ الْمِصْبَاحُ الْمُنِيرُ حَيْثُ قَالَ «الإِلَهُ الْمَعْبُودُ وَهُوَ اللَّهُ سُبْحَانَهُ وَتَعَالَى ثُمَّ اسْتَعَارَهُ الْمُشْرِكُونَ لِمَا عَبَدُوهُ مِنْ دُونِ اللَّهِ تَعَالَى» وَأَمَّا الْمُبَرِّدُ فَقَالَ «الإِلَهُ مَنْ لَهُ الإِلَهِيَّةُ وَالإِلَهِيَّةُ قُدْرَةُ الإِبْدَاعِ وَالِاخْتِرَاعِ» فَلا يَجُوزُ أَنْ يُقَالَ الإِلَهُ هُوَ مَنْ يُعْبَدُ بِحَقٍّ أَوْ بِبَاطِلٍ. وَقَدْ عَدَّ الإِمَامُ أَبُو مَنْصُورٍ الْبَغْدَادِىُّ الإِلَهَ مِنْ أَسْمَاءِ اللَّهِ. وَكُلُّ هَذَا حُجَّةٌ عَلَى هَؤُلاءِ الَّذِينَ يَزْعُمُونَ أَنَّ الإِلَهَ مَعْنَاهُ الْمَعْبُودُ إِنْ كَانَ بِحَقٍّ أَوْ بِبَاطِلٍ. أَمَّا إِذَا قُيِّدَ فَلا إِشْكَالَ فَإِذَا قِيلَ لِلْكُفَّارِ هَذَا إِلَهُهُمْ بِمَعْنَى هَذَا مَعْبُودُهُمْ لا بِمَعْنَى الْمُوَافَقَةِ لَهُمْ بَلْ بِمَعْنَى الذَّمِّ لَهُمْ.`,
+    paragraphs: 2,
+    words: 130
+  },
+  {
+    id: "sec-5",
+    title: `القدم والبقاء والتنزيه`,
+    description: `قديم بلا ابتداء دائم بلا انتهاء لا يفنى ولا يبيد ولا يكون إلا ما يريد`,
+    content: `قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: قَدِيمٌ  بِلا ابْتِدَاءٍ.
+
+الشَّرْحُ الْقَدِيمُ مَعْنَاهُ الَّذِى لَيْسَ لِوُجُودِهِ ابْتِدَاءٌ هَذَا مَعْنَى الْقَدِيمِ إِذَا أُطْلِقَ عَلَى اللَّهِ وَيُرَادِفُهُ الأَزَلِىُّ أَمَّا إِذَا أُطْلِقَ عَلَى غَيْرِ اللَّهِ فَهُوَ مَا تَوَالَتْ عَلَيْهِ السِّنُونَ الطِّوَالُ وَقَدْ يُقَالُ مَا تَقَادَمَ عَهْدُهُ فَيُقَالُ بِنَاءٌ قَدِيمٌ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: دَائِمٌ بِلا انْتِهَاءٍ.
+
+الشَّرْحُ هَذِهِ عِبَارَةٌ عَنْ بَقَائِهِ تَعَالَى وَهُوَ بَقَاءٌ لِذَاتِهِ لَيْسَ بَقَاءً بِغَيْرِهِ كَالْجَنَّةِ وَالنَّارِ فَلا يَلْحَقُهُ عَدَمٌ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: لا يَفْنَى وَلا يَبِيدُ.
+
+الشَّرْحُ هَذَا تَفْسِيرٌ لِقَوْلِهِ بَاقٍ فَلا يَلْحَقُ الْقَدِيمَ فَنَاءٌ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَلا يَكُونُ إِلَّا مَا يُرِيدُ.
+
+الشَّرْحُ أَىْ لا يَدْخُلُ فِى الْوُجُودِ مِنَ الأَعْيَانِ مَهْمَا صَغُرَتْ وَالْحَرَكَاتِ وَالسُّكُونِ وَالْخَوَاطِرِ وَغَيْرِ ذَلِكَ مِمَّا سِوَى اللَّهِ إِلَّا بِإِرَادَتِهِ وَمَشِيئَتِهِ فَلا فَرْقَ بَيْنَ مَا كَانَ خَيْرًا مِنْ أَعْمَالِ الْعِبَادِ وَمَا كَانَ مِنْهَا شَرًّا لِأَنَّ الْكُلَّ دَاخِلٌ فِى الإِمْكَانِ، وَلَوْ كَانَتْ إِرَادَةُ اللَّهِ خَاصَّةً بِالْخَيْرِ مِنْهَا لَاقْتَضَى ذَلِكَ مُخَصِّصًا خَصَّصَ إِرَادَتَهُ بِالْخَيْرِ وَاللَّهُ مُنَزَّهٌ عَنِ الْمُخَصِّصِ لِأَنَّ الْخَيْرَ وَالشَّرَّ مُسْتَوِيَانِ فِى الإِمْكَانِ.
+
+وَالإِرَادَةُ هُنَا بِمَعْنَى الْمَشِيئَةِ لَيْسَ بِمَعْنَى الْمَحَبَّةِ فَإِرَادَةُ الْمَحَبَّةِ كَقَوْلِهِ تَعَالَى ﴿يُرِيدُ اللَّهُ بِكُمُ الْيُسْرَ وَلا يُرِيدُ بِكُمُ الْعُسْرَ﴾ [سُورَةَ الْبَقَرَة/185] أَىْ يُحِبُّ لَكُمُ الْيُسْرَ لِأَنَّهُ مَا جَعَلَ فِى دِينِكُمْ مِنْ حَرَجٍ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: لا تَبْلُغُهُ الأَوْهَامُ.
+
+الشَّرْحُ الأَوْهَامُ جَمْعُ وَهْمٍ أَىْ لا تَتَصَوَّرُهُ أَوْهَامُ الْخَلائِقِ أَىْ تَصَوُّرَاتُهُمْ فَالإِنْسَانُ وَهْمُهُ يَدُورُ حَوْلَ مَا أَلِفَهُ مِنَ الشَّىْءِ الْمَحْسُوسِ الَّذِى لَهُ حَدٌّ وَشَكْلٌ وَلَوْنٌ وَاللَّهُ تَعَالَى لَيْسَ كَذَلِكَ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَلا تُدْرِكُهُ الأَفْهَامُ.
+
+الشَّرْحُ أَىْ لا تُدْرِكُهُ الْعُقُولُ أَىْ لا تُحِيطُ بِهِ لِأَنَّ ذَلِكَ يَقْتَضِى الْحُدُوثَ وَالْحُدُوثُ مُحَالٌ عَلَيْهِ وَهُوَ كَمَا قَالَ ذُو النُّونِ الْمِصْرِىُّ «مَهْمَا تَصَوَّرْتَ بِبَالِكَ فَاللَّهُ بِخِلافِ ذَلِكَ» رَوَى ذَلِكَ عَنْهُ الْحَافِظُ الْخَطِيبُ الْبَغْدَادِىُّ فِى تَارِيخِ بَغْدَادَ بِالإِسْنَادِ وَرَوَى ذَلِكَ أَيْضًا أَبُو الْفَضْلِ عَبْدُ الْوَاحِدِ بنُ عَبْدِ الْغَنِىِّ التَّمِيمِىُّ عَنِ الإِمَامِ أَحْمَدَ بنِ حَنْبَلٍ وَكَانَ ذُو النُّونِ الْمِصْرِىُّ وَأَحْمَدُ بنُ حَنْبَلٍ مُتَعَاصِرَيْنِ.`,
+    paragraphs: 13,
+    words: 292
+  },
+  {
+    id: "sec-6",
+    title: `الحي القيوم الخالق الرازق`,
+    description: `حي لا يموت قيوم لا ينام خالق بلا حاجة رازق بلا مؤنة مميت باعث`,
+    content: `قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَلا يُشْبِهُ الأَنَامَ.
+
+الشَّرْحُ الأَنَامُ الْخَلْقُ، وَالشَّبِيهُ مَا يُشَارِكُ غَيْرَهُ وَلَوْ فِى وَجْهٍ وَاحِدٍ فَنَفْىُ الْمِثْلِ عَنْهُ يَقْتَضِى نَفْىَ الشَّبِيهِ فَقَوْلُنَا اللَّهُ لا مِثْلَ لَهُ أَبْلَغُ فِى التَّنْزِيهِ مِنْ قَوْلِنَا اللَّهُ لا شَبِيهَ لَهُ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: حَىٌّ لا يَمُوتُ قَيُّومٌ لا يَنَامُ.
+
+الشَّرْحُ الْحَىُّ فِى حَقِّ اللَّهِ تَعَالَى يُفَسَّرُ بِأَنَّهُ الْمُتَّصِفُ بِالْحَيَاةِ الَّتِى هِىَ أَزَلِيَّةٌ أَبَدِيَّةٌ، وَالْقَيُّومُ مَعْنَاهُ الدَّائِمُ الَّذِى لا يَزُولُ وَقِيلَ الْقَائِمُ بِتَدْبِيرِ خَلْقِهِ لِأَنَّ تَدْبِيرَ جَمِيعِ الأَشْيَاءِ لا يَكُونُ إِلَّا لِلَّهِ أَمَّا الْمَلائِكَةُ الَّذِينَ وَصَفَهُمُ اللَّهُ بِقَوْلِهِ ﴿فَالْمُدَبِّرَاتِ أَمْرًا﴾ [سُورَةَ النَّازِعَات/5] فَإِنَّمَا يُدَبِّرُونَ فِى أُمُورٍ خَاصَّةٍ كَالْمَطَرِ وَالرِّيحِ وَالْنَبَاتِ وَأَشْيَاءَ أُخْرَى وَلَيْسَ فِى كُلِّ شَىْءٍ، وَالتَّسْمِيَّةُ بِالْقَيُّومِ لا تَجُوزُ إِلَّا لِلَّهِ.
+
+وَلْيُحْذَرْ مِنْ طَائِفَةٍ تَنْتَسِبُ لِلتَّصَوُّفِ تُسَمَّى الشَّاذِلِيَّةَ الْيَشْرُطِيَّةَ تَقُولُ الْقَيُّومُ مَعْنَاهُ الْقَائِمُ فِينَا فَيَقُولُ أَحَدُهُمْ لِلآخَرِ أَنْتَ اللَّهُ وَهَذَا الْجِدَارُ اللَّهُ فَكُفْرُهُمْ هَذَا مِنْ أَشْنَعِ الْكُفْرِ وَأَمَّا الشَّيْخُ عَلِىُّ نُورُ الدِّينِ الْيَشْرُطِىُّ الَّذِينَ يَنْتَسِبُونَ إِلَيْهِ فَهُوَ بَرِىءٌ مِمَّا يَقُولُونَ بَلْ هُوَ كَانَ عَلَى التَّنْزِيهِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: خَالِقٌ بِلا حَاجَةٍ.
+
+الشَّرْحُ أَىْ خَلَقَ الْعَالَمَ  وَأَحْدَثَهُ مِنْ غَيْرِ أَنْ يَكُونَ لَهُ احْتِيَاجٌ إِلَيْهِ لِجَلْبِ مَنْفَعَةٍ لِنَفْسِهِ أَوْ دَفْعِ مَضَرَّةٍ عَنْ نَفْسِهِ إِنَّمَا خَلَقَهُ إِظْهَارًا لِقُدْرَتِهِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: رَازِقٌ بِلا مُؤْنَةٍ.
+
+الشَّرْحُ أَىْ أَنَّهُ تَعَالَى يُوصِلُ إِلَى الْعِبَادِ أَرْزَاقَهُمْ مِنْ غَيْرِ أَنْ تَلْحَقَهُ كُلْفَةٌ وَمَشَقَّةٌ فَاللَّهُ لا يَفْعَلُ شَيْئًا بِالْمُبَاشَرَةِ وَالْحَرَكَةِ بَلْ بِمُجَرَّدِ تَعَلُّقِ إِرَادَتِهِ الأَزَلِيَّةِ وَتَكْوِينِهِ الأَزَلِىِّ يُوجِدُ الشَّىْءَ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: مُمِيتٌ بِلا مَخَافَةٍ.
+
+الشَّرْحُ أَىْ أَنَّ اللَّهَ تَعَالَى يُمِيتُ الأَحْيَاءَ مِنْ عِبَادِهِ بِلا مَخَافَةٍ أَىْ لا لِخَوْفٍ مِنْ أَنْ يَلْحَقَهُ ضَرَرٌ إِنَّما يُمِيتُ مَنْ شَاءَ مِنْهُمْ بِمُقْتَضَى حِكْمَتِهِ وَإِظْهَارًا لِكَمَالِ قُدْرَتِهِ كَمَا قَالَ تَعَالَى ﴿وَلا يَخَافُ عُقْبَاهَا﴾ [سُورَةَ الشَّمْس/15].`,
+    paragraphs: 11,
+    words: 264
+  },
+  {
+    id: "sec-7",
+    title: `أزلية صفات الله`,
+    description: `ما زال بصفاته قديما قبل خلقه ولم يزدد بكونهم شيئا من صفته`,
+    content: `قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: بَاعِثٌ بِلا مَشَقَّةٍ.
+
+الشَّرْحُ أَىْ أَنَّ اللَّهَ تَعَالَى يَبْعَثُ الأَمْوَاتَ بِلا مَشَقَّةٍ تَلْحَقُهُ بَلْ بِمُجَرَّدِ تَعَلُّقِ إِرَادَتِهِ كَمَا أَنَّ تَكْوِينَهُمْ كَذَلِكَ قَالَ تَعَالَى تَنْبِيهًا لِذَلِكَ ﴿مَّا خَلْقُكُمْ وَلا بَعْثُكُمْ إِلَّا كَنَفْسٍ وَاحِدَةٍ﴾ [سُورَةَ لُقْمَان/28].
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: مَا زَالَ بِصِفَاتِهِ قَدِيمًا قَبْلَ خَلْقِهِ لَمْ يَزْدَدْ بِكَوْنِهِمْ شَيْئًا لَمْ يَكُنْ قَبْلَهُمْ مِنْ صِفَتِهِ وَكَمَا كَانَ بِصِفَاتِهِ أَزَلِيًّا كَذَلِكَ لا يَزَالُ عَلَيْهَا أَبَدِيًّا.
+
+الشَّرْحُ يَجِبُ لِلَّهِ تَعَالَى الْقِدَمُ وَوَجُوبُهُ بِالشَّرْعِ وَالْعَقْلِ أَىْ لَوْ لَمْ يَكُنْ قَدِيمًا أَىْ أَزَلِيًّا لَكَانَ حَادِثًا وَلَوْ كَانَ حَادِثًا لَاحْتَاجَ إِلَى مُحْدِثٍ وَذَلِكَ يُنَافِى الأُلُوهِيَّةَ ثُمَّ الْحُدُوثُ مُسْتَحِيلٌ عَلَيْهِ شَرْعًا أَيْضًا لِأَنَّ اللَّهَ تَعَالَى قَالَ ﴿هُوَ الأَوَّلُ﴾ [سُورَةَ الْحَدِيد/3] أَىِ الْمَوْجُودُ الَّذِى لَيْسَ لَهُ ابْتِدَاءٌ فَالأَوَّلُ فِى هَذِهِ الآيَةِ الْمَوْجُودُ الَّذِى لَيْسَ لِوُجُودِهِ ابْتِدَاءٌ لِأَنَّ الأَوَلِيَّةَ النِّسْبِيَّةَ يَقْتَرِنُ بِهَا الْحُدُوثُ الَّذِى هُوَ مُسْتَحِيلٌ عَلَى اللَّهِ فَلا مَعْنَى لِلأَوَّلِيَّةِ فِى حَقِّ اللَّهِ إِلَّا الأَوَّلِيَّةَ الْمُطْلَقَةَ. وَيَجِبُ الْقِدَمُ أَيْضًا لِصِفَاتِهِ لِأَنَّهُ لَوْ لَمْ تَكُنْ صِفَاتُهُ أَزَلِيَّةً بَلْ كَانَتْ تَحْدُثُ فِى الذَّاتِ لَكَانَ ذَلِكَ مُوجِبًا لِحُدُوثِ الذَّاتِ، فَتَغَيُّرُ الأَحْوَالِ عَلَى الذَّاتِ هُوَ أَكْبَرُ أَدِلَّةِ الْحُدُوثِ فَصِفَاتُهُ أَزَلِيَّةٌ بِأَزَلِيَّةِ الذَّاتِ أَىْ لا يَجُوزُ أَنْ تَخْتَلِفَ الصِّفَاتُ عَنِ الذَّاتِ الْقَدِيمِ الأَزَلِىِّ. فَنَعْلَمُ مِنْ ذَلِكَ أَنَّهُ لا يَطْرَأُ عَلَى اللَّهِ صِفَةٌ لَمْ تَكُنْ فِى الأَزَلِ وَلا يَتَجَدَّدُ لِلَّهِ عِلْمٌ وَلا إِرَادَةٌ وَلا قُدْرَةٌ وَلا حَيَاةٌ وَلا سَمْعٌ وَلا بَصَرٌ.
+
+ثُمَّ الصِّفَاتُ الَّتِى يَجِبُ لَهَا الْقِدَمُ اخْتَلَفَ فِيهَا طَائِفَةُ أَهْلِ السُّنَّةِ فَمِنْهُمْ مَنْ قَالَ صِفَاتٌ أَزَلِيَّةٌ أَىْ صِفَاتُ الذَّاتِ فَعِنْدَ هَؤُلاءِ صِفَاتُ الأَفْعَالِ حَادِثَةٌ لِأَنَّهَا لا تَقُومُ بِالذَّاتِ إِنَّمَا هِىَ ءَاثَارُ الْقُدْرَةِ الأَزَلِيَّةِ، هَؤُلاءِ هُمُ الأَشَاعِرَةُ أَىِ الطَّائِفَةُ الْمَنْسُوبَةُ إِلَى الإِمَامِ أَبِى الْحَسَنِ الأَشْعَرِىِّ رَضِىَ اللَّهُ عَنْهُ وَلَيْسَ ذَلِكَ قَوْلُ جَمِيعِ الأَشَاعِرَةِ بَلْ هُوَ قَوْلُ بَعْضِهِمْ وَغَلَبَ ذَلِكَ عَلَى أَكْثَرِ الأَشَاعِرَةِ الْمُتَأَخِّرِينَ أَمَّا الْمُتَقَدِّمُونَ فَكَانَ كَثِيرٌ مِنْهُمْ يَقُولُ بِأَزَلِيَّةِ صِفَاتِ الأَفْعَالِ أَيْضًا وَصِفَاتُ الأَفْعَالِ هِىَ إِحْيَاؤُهُ لِمَنْ شَاءَ حَيَاتَهُ مِنَ الْمَخْلُوقَاتِ وَإِمَاتَتُهُ لِمَنْ يُمِيتُهُ وَالإِسْعَادُ وَالإِشْقَاءُ وَغَيْرُ ذَلِكَ مِمَّا لا يُحْصَى وَيُعَبَّرُ عَنْ ذَلِكَ عِنْدَ الْمَاتُرِيدِيَّةِ بِالتَّكْوِينِ فَالتَّكْوِينُ عِنْدَهُمْ صِفَةٌ مِنَ الصِّفَاتِ الْقَدِيمَةِ الأَزَلِيَّةِ. وَلا يَلْزَمُ مِنْ قِدَمِ التَّكْوِينِ قِدَمُ الْمُكَوَّنِ، قَالُوا كَمَا لا يَلْزَمُ مِنْ قِدَمِ الْقُدْرَةِ الإِلَهِيَّةِ قِدَمُ الْمَقْدُورَاتِ فَهَذَا الْعَالَمُ مَقْدُورَاتُ اللَّهِ أَحْدَثَهُ اللَّهُ بِقُدْرَتِهِ الأَزَلِيَّةِ فَالْقُدْرَةُ أَزَلِيَّةٌ وَمُتَعَلَّقُهَا وَهُوَ الْعَالَمُ حَادِثٌ قَالُوا كَذَلِكَ التَّكْوِينُ أَزَلِىٌّ وَالْمُكَوَّنَاتُ حَادِثَةٌ وَيُعَبَّرُ عَنْ ذَلِكَ أَيْضًا بِالْفِعْلِ فَيُقَالُ فِعْلُ اللَّهِ أَزَلِىٌّ وَمَفْعُولُهُ حَادِثٌ فَإِذَا كَانَ كَذَلِكَ تَبَيَّنَ وَظَهَرَ أَنَّهُ تَبَارَكَ وَتَعَالَى لَمْ يَزْدَدْ بِإِحْدَاثِهِ الْخَلْقَ صِفَةً حَادِثَةً.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: لَيْسَ بَعْدَ خَلْقِ الْخَلْقِ اسْتَفَادَ اسْمَ الْخَالِقِ وَلا بِإِحْدَاثِهِ الْبَرِيَّةَ اسْتَفَادَ اسْمَ الْبَارِئِ.
+
+الشَّرْحُ أَىْ أَنَّهُ لَمْ يَتَجَدَّدْ لِلَّهِ تَعَالَى صِفَةٌ بِإِحْدَاثِهِ الْبَرِيَّةَ وَالْبَرِيَّةُ الْخَلْقُ فَهُوَ تَبَارَكَ وَتَعَالَى خَالِقٌ قَبْلَ حُدُوثِ الْخَلْقِ وَبَارِئٌ قَبْلَ حُدُوثِ الْبَرِيَّةِ كَمَا أَنَّهُ قَادِرٌ قَبْلَ وُجُودِ الْمَقْدُورَاتِ أَىِ الْعَالَمِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: لَهُ مَعْنَى الرُّبُوبِيَّةِ وَلا مَرْبُوبَ وَمَعْنَى الْخَالِقِ وَلا مَخْلُوقَ.
+
+الشَّرْحُ يَعْنِى أَنَّ اللَّهَ تَعَالَى كَانَ مُتَّصِفًا بِالْخَالِقِيَّةِ وَالرُّبُوبِيَّةِ قَبْلَ وُجُودِ الْمَخْلُوقِينَ وَالْمَرْبُوبِينَ، نَحْنُ الْعَالَمُ مَرْبُوبُونَ لِلَّهِ أَىْ مَخْلُوقُونَ لَهُ فَقَبْلَ وُجُودِنَا كَانَ تَعَالَى مُتَّصِفًا بِالرُّبُوبِيَّةِ وَبِصِفَةِ الْخَالِقِيَّةِ لَمْ تَحْدُثْ لَهُ صِفَةُ الرُّبُوبِيَّةِ بِوُجُودِنَا وَلا الْخَالِقِيَّةِ بِوُجُودِ الْمَخْلُوقِينَ.
+
+صِفَاتُ الأَفْعَالِ عِنْدَ الْمَاتُرِيدِيَّةِ كَصِفَاتِ الذَّاتِ فِى الأَزَلِيَّةِ وَحُجَّتُهُمْ ظَاهِرَةٌ مَا فِيهَا إِشْكَالٌ فَإِذَا قِيلَ أَحْيَا اللَّهُ كَذَا أَوْ أَمَاتَ كَذَا الْمَعْنَى الْمَقْصُودُ عِنْدَهُمْ أَنَّ اللَّهَ أَحْيَا هَذَا الْمَخْلُوقَ الْجَائِزَ الْعَقْلِىَّ بِصِفَتِهِ الَّتِى هِىَ أَزَلِيَّةٌ وَهِىَ صِفَةُ الإِحْيَاءِ فَالْمُحْيَا حَادِثٌ أَمَّا إِحْيَاءُ اللَّهِ لَهُ فَهُوَ أَزَلِىٌّ وَكَذَلِكَ يُقَالُ عِنْدَهُمْ فِى إِمَاتَةِ اللَّهِ لِمَنْ يُمِيتُ مِنْ خَلْقِهِ إِمَاتَةُ اللَّهِ لِهَذِهِ الأَشْيَاءِ الَّتِى يُمِيتُهَا صِفَةٌ أَزَلِيَّةٌ أَبَدِيَّةٌ لَهُ لَكِنْ هَذِهِ الأَشْيَاءُ الَّتِى تَتَّصِفُ بِالْمَوْتِ هِىَ الْمُحْدَثَةُ. وَهَذَا لا إِشْكَالَ فِيهِ لِمَنْ فَهِمَ الْمَعْنَى الْمَقْصُودَ وَهَذَا الأَمْرُ يَضْطَرِدُ فِيمَا أَشْبَهَ ذَلِكَ فَإِذَا قِيلَ اللَّهُ تَعَالَى أَسْعَدَ السُّعَدَاءَ مِنْ خَلْقِهِ أَوْ أَشْقَى الأَشْقِيَاءَ مِنْ خَلْقِهِ فَالإِسْعَادُ وَالإِشْقَاءُ اللَّذَانِ هُمَا صِفَتَانِ أَزَلِيَتَانِ لِلَّهِ مِنْ غَيْرِ لُزُومِ أَزَلِيَّةِ الْمُشْقَى أَوِ الْمُسْعَدِ فَالْعِبَادُ الَّذِينَ يُشْقِيهُمُ اللَّهُ مُحْدَثُونَ وَشَقَاوَتُهُمْ حَادِثَةٌ وَكَذَلِكَ الْعِبَادُ الَّذِينَ أَسْعَدَهُمُ اللَّهُ تَعَالَى هُمْ مُحْدَثُونَ وَسَعَادَتُهُمْ حَادِثَةٌ أَمَّا إِشْقَاءُ اللَّهِ لِلَّذِينَ أَشْقَاهُمْ وَإِسْعَادُ الَّذِينَ أَسْعَدَهُمْ أَزَلِىٌّ.
+
+وَهَذَا الِاعْتِقَادُ كَانَ هُوَ اعْتِقَادُ السَّلَفِ وَلَوْ لَمْ يُشْهَرْ هَذَا التَّعْبِيرُ عَنْهُمْ لَكِنَّ الْمَعْنَى كَانَ مَوْجُودًا وَقَدْ صَرَّحَ الإِمَامُ أَبُو حَنِيفَةَ فِى بَعْضِ رَسَائِلِهِ بِأَنَّ فِعْلَ اللَّهِ صِفَةٌ لَهُ فِى الأَزَلِ وَمَفْعُولَهُ حَادِثٌ وَهُوَ فِى النِّصْفِ الأَوَّلِ مِنْ عَصْرِ السَّلَفِ [السَّلَفُ يَنْتَهِى عَصْرُهُ بِالثَّلاثِمِائَةِ سَنَةٍ وَأَبُو حَنِيفَةَ كَانَتْ وَفَاتُهُ سَنَةَ مِائَةٍ وَخَمْسِينَ هِجْرِيَّةً] فَلا يُقَالُ لَوْ كَانَ هَذَا مُعْتَقَدَ السَّلَفِ كَانَ يُسْمَعُ مِنْ فُلانٍ وَفُلانٍ مِنَ الصَّحَابَةِ وَمِنَ التَّابِعِينَ وَمِنْ أَتْبَاعِ التَّابِعِينَ. فَلا يَضُرُّ مُثْبِتَ الْقِدَمِ لِصِفَاتِ الأَفْعَالِ عَدَمُ ظُهُورِ هَذَا التَّعْبِيرِ عَنْهُمْ أَىِ الْقَوْلِ بِأَنَّ صِفَاتِ الأَفْعَالَ قَدِيمَةٌ فَاشْتِهَارُ هَذَا لَيْسَ شَرْطًا فِى ثُبُوتِ اعْتِقَادِ السَّلَفِ لِذَلِكَ.
+
+أَمَّا الأَشَاعِرَةُ أَكْثَرُهُمْ يَقُولُونَ يُحْيِى مَنْ شَاءَ أَىْ يُحْدِثُ فِيهِ الْحَيَاةَ بِقُدْرَتِهِ فَالإِحْيَاءُ عِنْدَهُمْ أَثَرُ الْقُدْرَةِ لَيْسَ قَائِمًا بِذَاتِ اللَّهِ لِذَلِكَ تَجَرَّأُوا عَلَى قَوْلِهِمُ الإِحْيَاءُ صِفَةُ فِعْلٍ حَادِثَةٌ، عِنْدَهُمْ هَكَذَا لَيْسَ قَائِمًا بِذَاتِ اللَّهِ أَمَّا أَنْ يَعْتَقِدُوا أَنَّ إِحْيَاءَهُ صِفَةٌ قَائِمَةٌ بِهِ وَحَادِثٌ فَلَيْسَ مِنْ مُعْتَقَدِهِمْ فَلا يَلْزَمُهُمْ مِنْ ذَلِكَ أَنْ يَكُونُوا وَصَفُوا اللَّهَ بِالْحُدُوثِ وَلا أَنْ يَكُونُوا نَسَبُوا إِلَيْهِ صِفَةً حَادِثَةً قَائِمَةً بِذَاتِهِ وَكَذَلِكَ فِى الإِمَاتَةِ وَكَذَلِكَ فِى الإِسْعَادِ وَالإِشْقَاءِ وَقَدْ نَاقَشَ كَثِيرٌ مِنَ الأَشَاعِرَةِ الْمَاتُرِيدِيَّةَ فِى هَذِهِ الْمَسْأَلَةِ فَقَالُوا بِأَنَّهُ يَلْزَمُكُمْ عَلَى مَا ذَهَبْتُمْ إِلَيْهِ جَعْلَ الْمُكَوَّنِ أَزَلِيًّا قَدِيمًا.
+
+فَبَعْدَ اتِّفَاقِ الْفَرِيقَيْنِ أَنَّهُ لا يَقُومُ بِذَاتِ اللَّهِ صِفَةٌ لَمْ تَكُنْ لَهُ فِى الأَزَلِ لَيْسَ فِى اخْتِلافِهِمْ هَذَا مَا يَضُرُّ فِى أَصْلِ الِاعْتِقَادِ بَلْ هَذَا اخْتِلافٌ لَفْظِىٌّ اخْتِلافٌ فِى التَّعْبِيرِ وَكِلا الْفَرِيقَيْنِ عَلَى هُدًى إِنَّمَا الضَّرَرُ الأَعْظَمُ وَالْكُفْرُ وَالإِلْحَادُ هُوَ أَنْ يَقُولَ الْقَائِلُ اللَّهُ تَعَالَى يَقُومُ بِهِ صِفَةٌ حَادِثَةٌ كَابْنِ تَيْمِيَةَ.
+
+قَالَ الْمُؤْلِفُ رَحِمَهُ اللَّهُ: وَكَمَا أَنَّهُ مُحْيِى الْمَوْتَى بَعْدَمَا أَحْيَا اسْتَحَقَّ هَذَا الِاسْمَ قَبْلَ إِحْيَائِهِمْ.
+
+الشَّرْحُ الْمَعْنَى أَنَّ اللَّهَ تَبَارَكَ وَتَعَالَى كَانَ مُتَّصِفًا بِالإِحْيَاءِ قَبْلَ حُدُوثِ الْخَلْقِ ثُمَّ أَجْرَى عَلَيْهِمُ الْحَيَاةَ الَّتِى هِىَ حَادِثَةٌ وَكَذَلِكَ يُقَالُ فِى كَوْنِهِ تَعَالَى مُمِيتًا أَىْ أَنَّهُ تَبَارَكَ وَتَعَالَى كَانَ مُحْيِى الْمَوْتَى فِى الأَزَلِ قَبْلَ حُدُوثِ الْمَوْتَى وَحُدُوثُ الْمَوْتَى لا يُنَافِى قِدَمَ إِمَاتَتِهِ لَهُمْ وَكَذَلِكَ إِحْيَاءُ الْعِبَادِ الَّذِينَ أَجْرَى عَلَيْهِمْ صِفَةَ الْحَيَاةِ الْحَادِثَةِ لا يَقْتَضِى حُدُوثَ كَوْنِهِ مُحْيِيًا لَهُمْ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: كَذَلِكَ اسْتَحَقَّ اسْمَ الْخَالِقِ قَبْلَ إِنْشَائِهِمْ.
+
+الشَّرْحُ أَىْ أَنَّهُ مُسْتَحِقٌّ لِلِاتِّصَافِ بِمَعْنَى الْخَالِقِ قَبْلَ إِنْشَاءِ الْخَلْقِ وَالْمُرَادُ بِالإِنْشَاءِ هُنَا أَثَرُهُ لِأَنَّ الإِنْشَاءَ إِذَا أُرِيدَ بِهِ صِفَةُ اللَّهِ فَهُوَ مِنَ الصِّفَاتِ الأَزَلِيَّةِ.
+
+وَأَزَلِيَّةُ خَالِقِيَّتِهِ وَرُبُوبِيَّتِهِ يَسْتَلْزِمُ بِأَنْ لا يَحْدُثَ لَهُ بِإِنْشَاءِ الْخَلْقِ صِفَةٌ حَادِثَةٌ وَهُوَ بِصِفَتِهِ الأَزَلِيَّةِ أَنْشَأَ مَا أَنْشَأَ مِنَ الْمُحْدَثَاتِ فَثُبُوتُ قُدْرَتِهِ عَلَى كُلِّ شَىْءٍ يُفْهَمُ مِنْهُ حُدُوثُ مُنْشَآتِهِ وَمَخْلُوقَاتِهِ وَأَزَلِيَّةُ إِحْيَائِهِ وَإِمَاتَتِهِ لِمَا أَحْيَاهُ وَأَمَاتَهُ مِنَ الْمَخْلُوقَاتِ، هَذَا الْحُكْمُ يَنْطَبِقُ عَلَى الإِجْمَالِ وَعَلَى التَّفْصِيلِ فَإِذَا قُلْنَا أَنْشَأَ اللَّهُ تَعَالَى الْمُحْدَثَاتِ الَّتِى شَاءَ لَهَا الْحَيَاةَ بِإِحْدَاثِهِ الأَزَلِىِّ وَإِحْيَائِهِ الأَزَلِىِّ فَهُوَ كَقَوْلِنَا عِنْدَ التَّفْصِيلِ أَحْيَا اللَّهُ تَعَالَى فُلانًا بِصِفَةِ الإِحْيَاءِ الَّتِى هِىَ ثَابِتَةٌ لَهُ فِى الأَزَلِ وَهَذَا الْمَذْهَبُ الَّذِى قَرَّرْنَا وَالَّذِى هُوَ مَذْهَبُ السَّلَفِ أَنْسَبُ وَأَقْوَى لإِبْطَالِ الْقَوْلِ بِحَوَادِثَ لا أَوَّلَ لَهَا لِأَنَّهُ عَلَيْهِ فِعْلُهُ لِلْحَوَادِثِ أَزَلِىٌّ فَلا يَحْتَاجُ إِلَى فِعْلٍ ءَاخَرَ.`,
+    paragraphs: 18,
+    words: 1066
+  },
+  {
+    id: "sec-8",
+    title: `خلق الخلق بعلمه وتقديره`,
+    description: `خلق الخلق بعلمه وقدر لهم أقدارا وضرب لهم آجالا`,
+    content: `قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: ذَلِكَ بِأَنَّهُ عَلَى كُلِّ شَىْءٍ قَدِيرٌ وَكُلُّ شَىْءٍ إِلَيْهِ فَقِيرٌ وَكُلُّ أَمْرٍ عَلَيْهِ يَسِيرٌ لا يَحْتَاجُ إِلَى شَىْءٍ لَيْسَ كَمِثْلِهِ شَىْءٌ وَهُوَ السَّمِيعُ الْبَصِيرُ.
+
+الشَّرْحُ قَوْلُهُ «ذَلِكَ» إِشَارَةٌ إِلَى جَمِيعِ مَا تَقَدَّمَ مِمَّا ذُكِرَ مِنْ صِفَاتِهِ وَاللَّهُ تَعَالَى قُدْرَتُهُ مُؤَثِّرَةٌ فِى كُلِّ شَىْءٍ أَىْ فِى كُلِّ مَا يَقْبَلُ الدُّخُولَ فِى الْوُجُودِ وَكُلُّ مَا هُوَ كَذَلِكَ فَهُوَ فَقِيرٌ إِلَيْهِ أَىْ مُحْتَاجٌ إِلَيْهِ وَكُلُّ مَا هُوَ كَذَلِكَ فَهُوَ عَلَيْهِ يَسِيرٌ وَالْمُرَادُ بِنَفْىِ الْمُمَاثَلَةِ عَنِ اللَّهِ تَعَالَى الْمُمَاثَلَةُ مِنْ جَمِيعِ الْوُجُوهِ وَالْمُمَاثَلَةُ مِنْ وَجْهٍ وَاحِدٍ فَكُلُّ ذَلِكَ مُسْتَحِيلٌ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: خَلَقَ الْخَلْقَ بِعِلْمِهِ وَقَدَّرَ لَهُمْ أَقْدَارًا وَضَرَبَ لَهُمْ ءَاجَالًا وَلَمْ يَخْفَ عَلَيْهِ شَىْءٌ قَبْلَ أَنْ يَخْلُقَهُمْ وَعَلِمَ مَا هُمْ عَامِلُونَ قَبْلَ أَنْ يَخْلُقَهُمْ.
+
+الشَّرْحُ الْمَعْنَى أَنَّ اللَّهَ تَبَارَكَ وَتَعَالَى خَلَقَ الْخَلْقَ عَلَى حَسَبِ عِلْمِهِ الأَزَلِىِّ وَتَقْدِيرِهِ الأَزَلِىِّ وَقَدَّرَ سُبْحَانَهُ مَقَادِيرَ الْخَلْقِ مِنَ الْخَيْرِ وَالشَّرِّ وَالطَّاعَةِ وَالْمَعْصِيَةِ وَالرِّزْقِ وَالسَّعَادَةِ وَالشَّقَاوَةِ وَنَحْوِ ذَلِكَ وَقَدَّرَ ءَاجَالَ الْخَلائِقِ وَلَمْ يَخْفَ عَلَيْهِ شَىْءٌ مِمَّا حَدَثَ وَمِمَّا يَحْدُثُ إِلَى مَا لا نِهَايَةَ لَهُ فَالْمَخْلُوقَاتُ الَّتِى خَلَقَهَا فَدَخَلَتْ فِى الْوُجُودِ وَالَّتِى سَتُخْلَقُ وَلَمْ تَدْخُلْ فِى الْوُجُودِ بَعْدُ كُلٌّ بِعِلْمِهِ الأَزَلِىِّ الَّذِى هُوَ عِلْمٌ وَاحِدٌ شَامِلٌ يَتَعَلَّقُ بِسَائِرِ الْمُمْكِنَاتِ الْعَقْلِيَّةِ وَبِالْوَاجِبِ الْعَقْلِىِّ وَبِالْمُسْتَحِيلِ الْعَقْلِىِّ بِهِ هُوَ عَالِمٌ كُلَّ مَا حَدَثَ وَكُلَّ مَا سَيَحْدُثُ إِجْمَالًا وَتَفْصِيلًا وَلا يَلْزَمُ مِنْ ذَلِكَ تَغَيُّرُ الْعِلْمِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَأَمَرَهُمْ بِطَاعَتِهِ وَنَهَاهُمْ عَنْ مَعْصِيَتِهِ.
+
+الشَّرْحُ أَىْ أَنَّ اللَّهَ تَعَالَى أَمَرَ الْعِبَادَ بِالطَّاعَةِ وَنَهَاهُمْ عَنِ الْمَعْصِيَةِ تَحْقِيقًا لِمَعْنَى الِابْتِلاءِ قَالَ اللَّهُ تَعَالَى ﴿وَمَا خَلَقْتُ الْجِنَّ وَالإِنْسَ إِلَّا لِيَعْبُدُونِ﴾ [سُورَةَ الذَّارِيَات/56] أَىْ لِآمُرَهُمْ بِعِبَادَتِى وَأَنْهَاهُمْ عَنْ مَعْصِيَتِى.`,
+    paragraphs: 6,
+    words: 246
+  },
+  {
+    id: "sec-9",
+    title: `المشيئة والهداية والإضلال`,
+    description: `كل شيء يجري بتقديره ومشيئته يهدي من يشاء ويضل من يشاء`,
+    content: `قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَكُلُّ شَىْءٍ يَجْرِى بِتَقْدِيرِهِ وَمَشِيئَتِهِ.
+
+الشَّرْحُ شَرَعَ الْمُؤَلِّفُ هُنَا بِشَرْحِ الْمَشِيئَةِ الَّتِى هِىَ إِحْدَى الصِّفَاتِ الأَزَلِيَّةِ الَّتِى مَعْرِفَتُهَا لَهَا أَهَمِيَّةٌ كَبِيرَةٌ فِى أُصُولِ الدِّينِ وَتَفْسِيرُهَا تَخْصِيصُ الْمُمْكِنِ الْعَقْلِىِّ بِبَعْضِ مَا يَجُوزُ عَلَيْهِ دُونَ بَعْضٍ فَالشَّرُّ الَّذِى دَخَلَ فِى الْوُجُودِ بِتَخْصِيصِ اللَّهِ تَعَالَى دَخَلَ وَفِى الْعَقْلِ كَانَ جَائِزًا أَنْ يَبْقَى فِى الْعَدَمِ وَإِنَّمَا اللَّهُ تَعَالَى أَخْرَجَهُ مِنَ الْعَدَمِ لِتَعَلُّقِ مَشِيئَتِهِ الأَزَلِيَّةِ فِى وُجُودِهِ فَدَخَلَ فِى الْوُجُودِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَمَشِيئَتُهُ تَنْفُذُ لا مَشِيئَةَ لِلْعِبَادِ إِلَّا مَا شَاءَ لَهُمْ فَمَا شَاءَ لَهُمْ كَانَ وَمَا لَمْ يَشَأْ لَمْ يَكُنْ.
+
+الشَّرْحُ يُعْلَمُ مِنْ ذَلِكَ أَنَّهُ لا مَشِيئَةَ لِلْعِبَادِ إِلَّا مَا شَاءَ لَهُمْ وَالْمَعْنَى أَنَّ مَشِيئَةَ الْعِبَادِ مِنْ جُمْلَةِ الْحَادِثَاتِ أَىْ لا تَحْدُثُ إِلَّا بِمَشِيئَتِهِ فَلا مَشِيئَةَ لِلْعِبَادِ إِلَّا أَنْ يَشَاءَ دُخُولَهَا فِى الْوُجُودِ فَمَشِيئَتُنَا حَادِثَةٌ لَمْ تَحْدُثْ إِلَّا بِمَشِيئَةِ اللَّهِ تَعَالَى فِى الأَزَلِ حُدُوثَهَا، وَقَبْلَ أَنْ تَحْدُثَ مَشِيئَتُنَا شَاءَ اللَّهُ فِى الأَزَلِ حُدُوثَهَا. أَمَّا أَنْ يَشَاءَ الْعِبَادُ شَيْئًا لَمْ يَشَإِ اللَّهُ تَعَالَى فِى الأَزَلِ حُدُوثَهُ فَلا يَكُونُ ذَلِكَ بَلْ هُوَ مُسْتَحِيلٌ وَالدَّلِيلُ السَّمْعِىُّ عَلَى ذَلِكَ قَوْلُهُ تَعَالَى ﴿وَمَا تَشَاءُونَ إِلَّا أَنْ يَشَاءَ اللَّهُ﴾ [سُورَةَ التَّكْوِير/29].
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: يَهْدِى مَنْ يَشَاءُ وَيَعْصِمُ وَيُعَافِى فَضْلًا وَيُضِلُّ مَنْ يَشَاءُ وَيَخْذُلُ وَيَبْتَلِى عَدْلًا.
+
+الشَّرْحُ أَىْ أَنَّ اللَّهَ يَخْلُقُ الِاهْتِدَاءَ فِيمَنْ يَشَاءُ مِنْ عِبَادِهِ بِفَضْلِهِ وَكَرَمِهِ هُوَ هَدَاهُمْ فَضْلًا مِنْهُ وَكَرَمًا فَلَوْ لَمْ يَخْلُقْ فِيهِمُ الِاهْتِدَاءَ لَمْ يَكُنْ هُوَ ظَالِمًا لِأَنَّهُ لا يَجِبُ عَلَيْهِ شَىْءٌ فَلا حَاكِمَ لَهُ وَلَيْسَ لَهُ ءَامِرٌ وَلا نَاهٍ، لَمْ يَخْلُقْ سُبْحَانَهُ فِى الْكُفَّارِ الِاهْتِدَاءَ خَذَلَهُمْ عَدْلًا مِنْهُ أَىْ لَيْسَ ظُلْمًا مِنْهُ لِأَنَّ الظُّلْمَ لا يُتَصَوَّرُ مِنْهُ لِأَنَّهُ لا يَتَصَرَّفُ إِلَّا فِيمَا هُوَ مِلْكٌ لَهُ حَقِيقَةً لَيْسَ مِلْكُهُ مَجَازِيًا عَقْلًا كَمِلْكِنَا وَأَمَّا مِلْكُنَا فَهُوَ مِلْكٌ مَجَازِىٌّ عَقْلًا لِأَنَّ الْعِبَادَ وَمَا يَمْلِكُونَ كُلٌّ مِلْكٌ لِلَّهِ تَعَالَى لا فَرْقَ بَيْنَكَ وَبَيْنَ مَا تَمْلِكُهُ بِالنَّظَرِ إِلَى كَوْنِ كُلٍّ مِلْكًا لِلَّهِ تَعَالَى، أَنْتَ خَلَقَكَ وَأَحْدَثَكَ مِنَ الْعَدَمِ وَكَذَلِكَ مَا تَمْلِكُهُ هُوَ خَلَقَهُ وَأَحْدَثَهُ مِنَ الْعَدَمِ، لَهُ سُبْحَانَهُ الْحَاكِمِيَّةُ عَلَى الْعِبَادِ فَمَا مَنَعَهُمْ وَنَهَاهُمْ عَنْهُ فَعَلَيْهِمْ أَنْ يَنْتَهُوا عَنْهُ فَإِنْ لَمْ يَنْتَهُوا تَوَجَّهَ اللَّوْمُ عَلَيْهِمْ وَاسْتَحَقُّوا الْعُقُوبَةَ وَالْعَذَابَ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَكُلُّهُمْ يَتَقَلَّبُونَ فِى مَشِيئَتِهِ بَيْنَ فَضْلِهِ وَعَدْلِهِ.
+
+الشَّرْحُ يَعْنِى أَنَّ الْعِبَادَ يَتَصَرَّفُونَ بِمَشِيئِةِ اللَّهِ تَبَارَكَ وَتَعَالَى فَإِنْ تَصَرَّفُوا بِالْخَيْرِ فَبِفَضْلِ اللَّهِ تَعَالَى وَإِنْ تَصَرَّفُوا فِى الْمَعَاصِى وَالشُّرُورِ فَبِعَدْلِ اللَّهِ تَبَارَكَ وَتَعَالَى وَهَذَا فِيهِ إِبْطَالُ مَا ذَهَبَتْ إِلَيْهِ الْمُعْتَزَلِةُ مِنْ أَنَّ الْعِبَادَ تَصَرُّفُهُمْ فِى الشَّرِّ لَيْسَ بِإِرَادَةِ اللَّهِ أَمَّا تَصَرُّفُهُمْ فِي الْخَيْرِ فَبِإِرَادَةِ اللَّهِ فَهَذِهِ التَّفْرِقَةُ بَاطِلَةٌ وَالْحَقُّ خِلافُ ذَلِكَ فَالْعِبَادُ مَهْمَا فَعَلُوا مِنْ فِعْلٍ خَيْرًا كَانَ أَوْ شَرًّا فَبِمَشِيئَةِ اللَّهِ وَفِى ذَلِكَ بَيَانُ أَنَّهُ لَيْسَ وَاجِبًا عَلَى اللَّهِ أَنْ يَفْعَلَ لِعِبَادِهِ مَا فِيهِ صَلاحُهُمْ أَوْ مَا هُوَ أَصْلَحُ لَهُمْ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَهُوَ مُتَعَالٍ عَنِ الأَضْدَادِ وَالأَنْدَادِ.
+
+الشَّرْحُ يَعْنِى أَنَّ اللَّهَ تَبَارَكَ وَتَعَالَى مُنَزَّهٌ عَنْ أَنْ يَكُونَ لَهُ أَنْدَادٌ أَىْ أَمْثَالٌ وَأَضْدَادٌ أَىْ مُضَادُّونَ لَهُ وَمَعْنَى الْمُضَادِّ مَنْ يَتَصَرَّفُ تَصَرُّفًا يُرِيدُ أَنْ يَغْلِبَ اللَّهَ بِهِ عَلَى زَعْمِهِ وَاللَّهُ تَبَارَكَ وَتَعَالَى لَيْسَ لَهُ مُغَالِبٌ لِأَنَّ كُلَّ شَىْءٍ فِى قَبْضَتِهِ وَكُلُّ شَىْءٍ مِلْكُهُ فَلا يَكُونُ لَهُ أَضْدَادٌ أَىْ يَتَصَرَّفُونَ عَلَى خِلافِ إِرَادَتِهِ، وَالأَنْدَادُ جَمْعُ نِدٍّ وَهُوَ الْمِثْلُ وَالأَضْدَادُ جَمْعُ ضِدٍّ.`,
+    paragraphs: 10,
+    words: 488
+  },
+  {
+    id: "sec-10",
+    title: `الإيمان بالرسول والقرآن`,
+    description: `محمد عبده المصطفى خاتم الأنبياء والقرآن كلام الله غير مخلوق`,
+    content: `قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: لا رَادَّ لِقَضَائِهِ.
+
+الشَّرْحُ أَىْ لا أَحَدَ يَرُدُّ قَضَاءَ اللَّهِ تَبَارَكَ وَتَعَالَى وَالْقَضَاءُ هُوَ عَلَى قَوْلِ بَعْضِ الْفُقَهَاءِ مِنْ أَهْلِ السُّنَّةِ إِرَادَةُ اللَّهِ الْمُتَعَلِّقَةُ بِالْحَادِثَاتِ وَهُوَ عِنْدَ بَعْضِهِمْ قَضَاءُ اللَّهِ أَىْ خَلْقُ اللَّهِ لِلأَشْيَاءِ أَىْ إِبْرَازُهُ إِيَّاهَا مِنَ الْعَدَمِ قَالَ تَعَالَى ﴿فَقَضَاهُنَّ سَبْعَ سَمَاوَاتٍ﴾ [سُورَةَ فُصِّلَت/12] فَالتَّفْسِيرُ الأَوَّلُ لِلْقَضَاءِ هُوَ مَشْهُورٌ عِنْدَ الأَشَاعِرَةِ قَالَ قَائِلُهُمْ
+
+إِرَادَةُ اللَّهِ مَعَ التَّعَلُّقِ      فِى أَزَلٍ قَضَاؤُهُ فَحَقِّقِ
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَلا مُعَقِّبَ لِحُكْمِهِ وَلا غَالِبَ لِأَمْرِهِ.
+
+الشَّرْحُ أَىْ لا مُعَقِّبَ لِحُكْمِ اللَّهِ تَبَارَكَ وَتَعَالَى أَىْ لا يَجْعَلُهُ بَاطِلًا فَإِنْ أُرِيدَ بِالْحُكْمِ الْخِطَابُ التَّكْلِيفِىُّ لِلْعِبَادِ كَانَ هَذَا تَفْسِيرَهُ وَإِنْ أُرِيدَ بِالْحُكْمِ الْحُكْمُ التَّكْوِينِىُّ وَهُوَ بِمَعْنَى أَنْ لا أَحَدَ يَسْتَطِيعُ أَنْ يَمْنَعَ نَفَاذَ إِرَادَةِ اللَّهِ فَمَا أَرَادَهُ تَمَّ لا مَحَالَةَ أَىْ نَفَذَ.
+
+وَقَوْلُهُ وَلا غَالِبَ لِأَمْرِهِ أَىْ لا يَغْلِبُ أَمْرَ اللَّهِ غَالِبٌ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: ءَامَنَّا بِذَلِكَ كُلِّهِ وَأَيْقَنَّا أَنَّ كُلًّا مِنْ عِنْدِهِ.
+
+الشَّرْحُ الْمَعْنَى أَنَّنَا صَدَّقْنَا وَأَيْقَنَّا أَنَّ كُلًّا مِنْ عِنْدِهِ أَىْ أَنَّ كُلَّ شَىْءٍ دَخَلَ فِى الْوُجُودِ فَإِنَّمَا حَصَلَ بِعِلْمِ اللَّهِ الأَزَلِىِّ وَتَقْدِيرِهِ وَقَضَائِهِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَإِنَّ مُحَمَّدًا ﷺ عَبْدُهُ الْمُصْطَفَى وَنَبِيُّهُ الْمُجْتَبَى وَرَسُولُهُ الْمُرْتَضَى وَإِنَّهُ خَاتَمُ الأَنْبِيَاءِ وَإِمَامُ الأَتْقِيَاءِ وَسَيِّدُ الْمُرْسَلِينَ وَحَبِيبُ رَبِّ الْعَالَمِينَ.
+
+الشَّرْحُ الْمُصْطَفَى وَالْمُجْتَبَى مَعْنَاهُمَا وَاحِدٌ وَفِيهِمَا زِيَادَةُ مَدْحٍ عَلَى الْمُرْتَضَى فَيَجِبُ الإِيـمَانُ بِأَنَّهُ ﷺ عَبْدُ اللَّهِ وَرَسُولُهُ وَأَنَّهُ ءَاخِرُ الأَنْبِيَاءِ وَأَفْضَلُهُمْ.
+
+وَقَوْلُهُ «خَاتَمُ» يُقَالُ بِالْفَتْحِ وَيُقَالُ بِالْكَسْرِ وَالْمَعْنَى وَاحِدٌ أَىْ ءَاخِرُ النَّبِيِّينَ قَالَ تَعَالَى ﴿وَلَكِنْ رَّسُولَ اللَّهِ وَخَاتَمَ النَّبِيِّينَ﴾ [سُورَةَ الأَحْزَاب/40] وَقَدْ تَأَوَّلَ الْقَادِيَانِيَّةُ الْخَاتَمَ بِمَعْنَى الزِّينَةِ وَذَلِكَ لِأَنَّ رَئِيسَهُمْ غُلام أَحْمَد ادَّعَى أَنَّهُ نَبِىٌّ رَسُولٌ وَهَذَا كُفْرٌ وَضَلالٌ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَكُلُّ دَعْوَى نُبُوَّةٍ بَعْدَ نُبُوَّتِهِ فَغَىٌّ وَهَوًى.
+
+الشَّرْحُ أَىْ أَنَّ مَنِ ادَّعَى النُّبُوَّةَ بَعْدَهُ ﷺ فَدَعْوَاهُ بَاطِلَةٌ لِقَوْلِهِ ﷺ «لا نَبِىَّ بَعْدِى» رَوَاهُ الْبُخَارِىُّ وَالْحَاكِمُ فِى الْمُسْتَدْرَكِ وَهَذَا حَدِيثٌ ثَابِتٌ فَالْقَادِيَانِيَّةُ يَقُولُونَ ﴿اللَّهُ يَصْطَفِى مِنَ الْمَلائِكَةِ رُسُلًا وَمِنَ النَّاسِ﴾ [سُورَةَ الْحَج/75] ﴿يَصْطَفِى﴾ فِعْلٌ مُضَارِعٌ فَيُقَالُ لَهُمْ يَصْطَفِى فِعْلٌ مُضَارِعٌ وُضِعَ مَوْضِعَ الْمَاضِى بِالنِّسْبَةِ لِلْمُصْطَفِينَ أَمَّا بِالنِّسْبَةِ لِلَّهِ تَعَالَى الْفِعْلُ يَتَجَرَّدُ عَنِ الزَّمَانِ الْمَاضِى وَالْمُضَارِعِ وَالْحَالِ لِأَنَّ فِعْلَهُ أَزَلِىٌّ لا مَحَالَةَ، لا يُقَالُ عَنِ الأَزَلِىِّ مَضَى وَانْقَطَعَ وَيُقَالُ لَهُمْ وَلِذَلِكَ نَظَائِرُ كَثِيرَةٌ فِى الْقُرْءَانِ كَقَوْلِهِ تَعَالَى ﴿فَفَرِيقًا كَذَّبْتُمْ وَفَرِيقًا تَقْتُلُونَ﴾ [سُورَةَ الْبَقَرَة/87] تَقْتُلُونَ أَىْ قَتَلْتُمْ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَهُوَ الْمَبْعُوثُ إِلَى عَامَّةِ الْجِنِّ وَكَافَّةِ الْوَرَى بِالْحَقِّ وَالْهُدَى وَبِالنُّورِ وَالضِّيَاءِ.
+
+الشَّرْحُ يَعْنِى أَنَّ سَيِّدَنَا مُحَمَّدًا ﷺ مُرْسَلٌ إِلَى الإِنْسِ وَالْجِنِّ وَلَيْسَ إِلَى جَمِيعِ الْخَلْقِ مِنْ مَلائِكَةٍ وَبَهَائِمَ وَجِنٍّ وَإِنْسٍ وَبَعْضُهُمْ يَقُولُونَ مُرْسَلٌ إِلَى الْمَلائِكَةِ رِسَالَةَ تَشْرِيفٍ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَإِنَّ الْقُرْءَانَ كَلامُ اللَّهِ مِنْهُ بَدَا بِلا كَيْفِيَّةٍ قَوْلًا.
+
+الشَّرْحُ مَعْنَاهُ أَنَّ الْقُرْءَانَ مِنَ اللَّهِ بَدَا أَىْ ظَهَرَ أَىْ إِنْزَالًا عَلَى نَبِيِّهِ وَلَيْسَ الْمُرَادُ مِنْ كَلِمَةِ بَدَا أَنَّهُ خَرَجَ مِنْهُ تَلَفُّظًا كَمَا يَخْرُجُ كَلامُ أَحَدِنَا مِنْ لِسَانِهِ تَلَفُّظًا كَمَا تَقُولُ الْمُشَبِّهَةُ وَلَيْسَ مَعْنَى مِنْهُ بَدَا أَنَّهُ نَطَقَ بِهِ كَمَا يَنْطِقُ الْوَاحِدُ مِنَّا بِكَلامِهِ بَعْدَ أَنْ كَانَ سَاكِتًا بِدَلِيلِ قَوْلِهِ بِلا كَيْفِيَّةٍ أَىْ لَيْسَ بِحَرْفٍ وَلا صَوْتٍ لِأَنَّ الْحَرْفَ وَالصَّوْتَ كَيْفِيَّةٌ مِنَ الْكَيْفِيَّاتِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَأَنْزَلَهُ عَلَى رَسُولِهِ وَحْيًا وَصَدَّقَهُ الْمُؤْمِنُونَ عَلَى ذَلِكَ حَقًّا وَأَيْقَنُوا أَنَّهُ كَلامُ اللَّهِ تَعَالَى بِالْحَقِيقَةِ لَيْسَ بِمَخْلُوقٍ كَكَلامِ الْبَرِيَّةِ فَمَنْ سَمِعَهُ فَزَعَمَ أَنَّهُ كَلامُ الْبَشَرِ فَقَدْ كَفَرَ وَقَدْ ذَمَّهُ اللَّهُ وَعَابَهُ وَأَوْعَدَهُ بِسَقَرَ حَيْثُ قَالَ تَعَالَى ﴿سَأُصْلِيهِ سَقَرَ﴾ [سُورَةَ الْمُدَّثِر/26].
+
+الشَّرْحُ أَنْزَلَهُ عَلَى سَيِّدِنَا مُحَمَّدٍ وَحْيًا وَالْوَحْىُ يُطْلَقُ عَلَى مَا يَأْتِى بِهِ الْمَلَكُ مِنَ الْخَبَرِ عَنِ اللَّهِ تَبَارَكَ وَتَعَالَى إِلَى النَّبِىِّ وَيُطْلَقُ عَلَى مَا يُنْزِلُهُ اللَّهُ تَعَالَى عَلَى قَلْبِ النَّبِىِّ بِلا وَاسِطَةِ مَلَكٍ وَهُوَ الْكَلامُ الذَّاتِىُّ كَمَا سَمِعَ مُوسَى وَكَمَا سَمِعَ سَيِّدُنَا مُحَمَّدٌ لَيْلَةَ الْمِعْرَاجِ بَعْدَ أَنْ وَصَلَ إِلَى الْمُسْتَوَى الَّذِى كَانَ يَسْمَعُ فِيهِ صَرِيفَ الأَقْلامِ كُلُّ ذَلِكَ يُقَالُ لَهُ وَحْىٌ.
+
+وَأَمَّا قَوْلُهُ «وَإِنَّ الْقُرْءَانَ كَلامُ اللَّهِ» إِلَى قَوْلِهِ «أَنَّهُ كَلامُ اللَّهِ تَعَالَى بِالْحَقِيقَةِ لَيْسَ بِمَخْلُوقٍ كَكَلامِ الْبَرِيَّةِ» ظَاهِرُهُ يُوهِمُ أَنَّ كَلامَ اللَّهِ تَعَالَى حَادِثٌ لِأَنَّ كَلِمَةَ «مِنْهُ بَدَا» تُوهِمُ ذَلِكَ وَلَيْسَ مُرَادُهُ عَقِيدَةَ الصَّوْتِيِّينَ الَّذِينَ يَقُولُونَ كَلامُ اللَّهِ بِصَوْتٍ وَحَرْفٍ وَلا يَعْتَقِدُونَ لِلَّهِ كَلامًا غَيْرَ ذَلِكَ هَؤُلاءِ مُشَبِّهَةٌ لَكِنَّ الطَّحَاوِىَّ نَفَى ذَلِكَ بِقَوْلِهِ «بِلا كَيْفِيَّةٍ قَوْلًا» فَنَفَى أَنْ يَكُونَ كَلامُ اللَّهِ الذَّاتِىُّ حَرْفًا وَصَوْتًا لِأَنَّ الْحَرْفَ وَالصَّوْتَ كَيْفِيَّةٌ مِنَ الْكَيْفِيَّاتِ.
+
+فَإِنْ قِيلَ مَا مَعْنَى قَوْلِهِ «مِنْهُ بَدَا» قِيلَ مَعْنَاهُ أَنَّ اللَّهَ أَظْهَرَهُ لِمَنْ شَاءَ مِنْ خَلْقِهِ بِأَنْ أَسْمَعَهُ مِنْ غَيْرِ أَنْ يَكُونَ الْكَلامُ حَادِثًا وَإِنَّمَا الْحُدُوثُ لِسَمَاعِ مَنْ شَاءَ اللَّهُ مِنْ خَلْقِهِ فَسَمَاعُ أُولَئِكَ حَادِثٌ أَمَّا مَسْمُوعُهُمْ لَيْسَ حَادِثًا كَمَا أَنَّهُ يُرِى الْمُؤْمِنِينَ يَوْمَ الْقِيَامَةِ ذَاتَهُ الأَزَلِىَّ الأَبَدِىَّ وَرُؤْيَتُهُمْ لَهُ حَادِثَةٌ أَمَّا الْوَهَّابِيَّةُ حِينَ يَقْرَءُونَ هَذَا الْكِتَابَ يُعْجِبُهُمْ مِنْهُ قَوْلُهُ «مِنْهُ بَدَا» وَلا يَفْهَمُونَ مَعْنَى «بِلا كَيْفِيَّةٍ» عَلَى حَسَبِ مُرَادِ الْمُؤَلِّفِ وَيُعْجِبُهُمْ أَيْضًا قَوْلُهُ «بِالْحَقِيقَةِ» فَيُقَالُ لَهُمْ مُرَادُهُ بِالْحَقِيقَةِ أَنَّ الْقُرْءَانَ يُطْلَقُ عَلَى الْكَلامِ الذَّاتِىِّ وَعَلَى اللَّفْظِ الْمُنَزَّلِ لِأَنَّ قَوْلَ اللَّهِ يُطْلَقُ عَلَى هَذَا وَعَلَى هَذَا إِطْلاقًا مِنْ بَابِ الْحَقِيقَةِ لِأَنَّ كِلا الإِطْلاقَيْنِ حَقِيقَةٌ شَرْعِيَّةٌ وَلَيْسَ مُرَادُهُ أَنَّ اللَّفْظَ الْمُنَزَّلَ قَائِمٌ بِذَاتِ اللَّهِ لِأَنَّ ذَلِكَ يُنَافِى قَوْلَهُ السَّابِقَ «بِلا كَيْفِيَّةٍ» فَهَذِهِ الْعِبَارَةُ فِيهَا غُمُوضٌ الْوَهَّابِىُّ يَتَعَلَّقُ بِهَا لِجِهَتِهِ وَالسُّنِّىُّ يَتَعَلَّقُ بِهَا لِجِهَتِهِ الْوَهَّابِىُّ يَقُولُ «مِنْهُ بَدَا بِلا كَيْفِيَّةٍ قَوْلًا» هَذَا هُوَ اللَّفْظُ وَيَقُولُ الإِنْزَالُ لا نَعْرِفُ كَيْفِيَّتَهُ لَكِنْ هُوَ اللَّهُ تَبَارَكَ وَتَعَالَى يَتَكَلَّمُ بِحَرْفٍ وَصَوْتٍ أَمَّا أَهْلُ السُّنَّةِ فَيَقُولُونَ «بِلا كَيْفِيَّةٍ قَوْلًا» يَعْنِى تَكَلُّمُهُ بِهِ بِلا حَرْفٍ وَصَوْتٍ لِأَنَّ الْحَرْفَ وَالصَّوْتَ كَيْفِيَّةٌ وَهُوَ مُرَادُ الْمُؤَلِّفِ وَهُوَ مَذْهَبُ أَهْلِ الْحَقِّ لِأَنَّ أَبَا حَنِيفَةَ ذَكَرَ فِى بَعْضِ رَسَائِلِهِ أَنَّ اللَّهَ يَتَكَلَّمُ لا كَتَكَلُّمِنَا يَتَكَلَّمُ بِلا حَرْفٍ وَلا صَوْتٍ وَالطَّحَاوِىُّ مِنْ أَهْلِ مَذْهَبِهِ أَلَيْسَ قَالَ فِى ابْتِدَاءِ الْكِتَابِ «عَلَى مَذْهَبِ فُقَهَاءِ الْمِلَّةِ أَبِى حَنِيفَةَ النُّعْمَانِ... ».
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: فَلَمَّا أَوْعَدَ اللَّهُ بِسَقَرَ لِمَنْ قَالَ ﴿إِنْ هَذَا إِلَّا قَوْلُ الْبَشَرِ﴾ [سُورَةَ الْمُدَّثِر/25] عَلِمْنَا وَأَيْقَنَّا أَنَّهُ قَوْلُ خَالِقِ الْبَشَرِ وَلا يُشْبِهُ قَوْلَ الْبَشَرِ.
+
+الشَّرْحُ يَقُولُ الْمُؤَلِّفُ إِنَّ مَنْ سَمِعَ الْقُرْءَانَ وَقَالَ إِنَّهُ مِنْ تَأْلِيفِ بَشَرٍ فَقَدْ كَفَرَ وَاللَّهُ أَوْعَدَ مَنْ قَالَ بِذَلِكَ بِسَقَرَ فَاللَّفْظُ لا يَسْتَطِيعُ الإِنْسَانُ أَنْ يَأْتِىَ بِمِثْلِهِ وَأَمَّا الْكَلامُ الذَّاتِىُّ فَهُوَ صِفَةٌ ذَاتِيَّةٌ لِلَّهِ كَسَائِرِ صِفَاتِهِ لا يَجُوزُ عَقْلًا أَنْ يَكُونَ لَهُ شَبِيهٌ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَمَنْ وَصَفَ اللَّهَ بِمَعْنًى مِنْ مَعَانِى الْبَشَرِ فَقَدْ كَفَرَ فَمَنْ أَبْصَرَ هَذَا اعْتَبَرَ وَعَنْ مِثْلِ قَوْلِ الْكُفَّارِ انْزَجَرَ وَعَلِمَ أَنَّهُ بِصِفَاتِهِ لَيْسَ كَالْبَشَرِ.
+
+الشَّرْحُ أَىْ أَنَّ مَنْ وَصَفَ اللَّهَ بِوَصْفٍ مِنْ أَوْصَافِ الْبَشَرِ الْمُحْدَثَةِ بِمَعْنًى مِنْ مَعَانِى الْبَشَرِ قَوْلًا أَوِ اعْتِقَادًا فَهُوَ كَافِرٌ لِأَنَّهُ كَذَّبَ قَوْلَهُ تَعَالَى ﴿لَيْسَ كَمِثْلِهِ شَىْءٌ﴾ [سُورَةَ الشُّورَى/11] فَمِنْ صِفَاتِ الْبَشَرِ الْحُدُوثُ وَالتَّطَوُّرُ وَالِانْفِعَالُ وَالتَّأَثُّرُ وَاللَّوْنُ وَالْحَرَكَةُ وَالسُّكُونُ وَالتَّحَيُّزُ بِالْمَكَانِ وَمَا أَشْبَهَ ذَلِكَ كُلُّ هَذَا مِنْ صِفَاتِ الْبَشَرِ فَمَنِ اعْتَقَدَ هَذَا أَوْ قَالَهُ بِلِسَانِهِ فَقَدْ كَفَرَ. فَصِفَاتُ اللَّهِ لا تُشْبِهُ صِفَاتِ الْبَشَرِ لِأَنَّ صِفَاتِهِ قَدِيمَةٌ وَصِفَاتِهِمْ مُحْدَثَةٌ وَلا مُشَابَهَةَ بَيْنَ الْقَدِيمِ وَالْحَادِثِ.
+
+وَقَوْلُهُ «أَبْصَرَ» كَأَنَّهُ أَرَادَ بَصَرَ الْقَلْبِ لا بَصَرَ الْعَيْنِ إِذِ الْمَعَانِى لا تُبْصَرُ بِالْعَيْنِ عَادَةً.`,
+    paragraphs: 26,
+    words: 1036
+  },
+  {
+    id: "sec-11",
+    title: `الرؤية والمعراج والحوض`,
+    description: `رؤية أهل الجنة لله والمعراج والحوض والشفاعة والميثاق`,
+    content: `قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَالرُّؤْيَةُ حَقٌّ لِأَهْلِ الْجَنَّةِ بِغَيْرِ إِحَاطَةٍ وَلا كَيْفِيَّةٍ.
+
+الشَّرْحُ أَىْ أَنَّ الْمُؤْمِنِينَ يَرَوْنَهُ سُبْحَانَهُ فِى الآخِرَةِ مِنْ غَيْرِ أَنْ يُحِيطُوا بِهِ لِأَنَّ الإِحَاطَةَ بِهِ مُسْتَحِيلَةٌ وَهَذَا حَقٌّ يَجِبُ الإِيـمَانُ بِهِ. أَمَّا الْمُعْتَزِلَةُ وَالْفَلاسِفَةُ فَقَدْ خَالَفُوا أَهْلَ السُّنَّةِ حَيْثُ إِنَّهُمْ نَفَوْا رُؤْيَةَ اللَّهِ فِى الآخِرَةِ وَاحْتَجُّوا أَنَّهُ يَلْزَمُ الْقَوْلَ بِالرُّؤْيَةِ تَشْبِيهُهُ بِالْخَلْقِ فَقَالُوا لِأَنَّ الَّذِى يُرَى لا بُدَّ أَنْ يَكُونَ فِى جِهَةٍ أَمَّا نَحْنُ مَعَاشِرَ أَهْلِ السُّنَّةِ فَنَقُولُ هَذَا بِالنِّسْبَةِ لِلْمَخْلُوقِ مُسَلَّمٌ أَمَّا بِالنِّسْبَةِ لِلَّهِ فَغَيْرُ مُسَلَّمٍ، كَمَا صَحَّ عِلْمُهُمْ بِهِ مِنْ غَيْرِ جِهَةٍ صَحَّ أَنْ يُرَى بِلا جِهَةٍ وَلَيْسَ وَاجِبًا عَقْلًا أَنْ تَكُونَ رُؤْيَةُ الْمُؤْمِنِينَ لَهُ كَرُؤْيَتِهِمْ لِلْمَخْلُوقِ فِى اسْتِلْزَامِ الْجِهَةِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: كَمَا نَطَقَ بِهِ كِتَابُ رَبِّنَا ﴿وُجُوهٌ يَوْمَئِذٍ نَّاضِرَةٌ إِلَى رَبِّهَا نَاظِرَةٌ﴾ [سُورَةَ الْقِيَامَة].
+
+الشَّرْحُ قَالَ أَهْلُ الْحَقِّ رُؤْيَةُ اللَّهِ بِالأَبْصَارِ لِلْمُؤْمِنِينَ فِى الآخِرَةِ بَعْدَ دُخُولِهِمُ الْجَنَّةَ جَائِزَةٌ عَقْلًا وَسَمْعًا وَاحْتَجُّوا بِقَوْلِهِ تَعَالَى ﴿وُجُوهٌ يَوْمَئِذٍ نَّاضِرَةٌ إِلَى رَبِّهَا نَاظِرَةٌ﴾ [سُورَةَ الْقِيَامَة] وَقَوْلُهُ ﴿نَاظِرَةٌ﴾ مَعْنَاهُ تَرَى رَبَّهَا ذَلِكَ الْيَوْمَ وَهَذِهِ الْوُجُوهُ عِبَارَةٌ عَنِ الْمُؤْمِنِينَ، وَالأَحَادِيثُ الثَّابِتَةُ لَيْسَ فِيهَا تَحْدِيدُ أَوْقَاتِ الرُّؤْيَةِ وَتَفْصِيلُهَا لَكِنْ وَرَدَ حَدِيثٌ فِى إِسْنَادِهِ ضَعْفٌ بِأَنَّ الْمُقَرَّبِّينَ يَرَوْنَهُ غُدُوًّا وَعَشِيًّا وَأَمَّا غَيْرُهُمْ فَفِى الْجُمُعَةِ مَرَّةً.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَتَفْسِيرُهُ عَلَى مَا أَرَادَهُ اللَّهُ تَعَالَى وَعَلِمَهُ.
+
+الشَّرْحُ يَعْنِى أَنَّ تَفْسِيرَ هَذِهِ الآيَةِ ﴿وُجُوهٌ يَوْمَئِذٍ نَّاضِرَةٌ إِلَى رَبِّهَا نَاظِرَةٌ﴾ [سُورَةَ الْقِيَامَة] أَىْ عَلَى حَسَبِ مَا عَلِمَ اللَّهُ تَعَالَى وَأَرَادَهُ مَعْنًى بِكَلامِهِ هَذَا.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَكُلُّ مَا جَاءَ فِى ذَلِكَ مِنَ الْحَدِيثِ الصَّحِيحِ عَنِ الرَّسُولِ ﷺ فَهُوَ كَمَا قَالَ وَمَعْنَاهُ عَلَى مَا أَرَادَ.
+
+الشَّرْحُ أَىْ أَنَّ كُلَّ مَا جَاءَ فِى الْحَدِيثِ الثَّابِتِ الصَّحِيحِ عَنْهُ ﷺ فَهُوَ عَلَى حَسَبِ مَا أَرَادَهُ ﷺ وَأَمَّا الْمُشَبِّهَةُ مِنْ وَهَّابِيَّةٍ وَأَسْلافِهِمْ فَالرُّؤْيَةُ عِنْدَهُمْ تَكُونُ بِالْكَيْفِيَّةِ وَالْجِهَةِ وَإِنْ كَانُوا يَقُولُونَ لَفْظًا بِلا كَيْفِيَّةٍ لَكِنَّهُمْ يَعْتَقِدُونَ الْكَيْفِيَّةَ لِأَنَّهُمْ يُثْبِتُونَ الْجِهَةَ لِلَّهِ فَالرُّؤْيَةُ عِنْدَهُمْ لا بُدَّ أَنْ تَكُونَ بِكَيْفِيَّةٍ بِالْمُقَابَلَةِ لِأَنَّهُمْ يُفَسِّرُونَ الْحَدِيثَ «أَمَا إِنَّكُمْ سَتَرَوْنَ رَبَّكُمْ كَمَا تَرَوْنَ هَذَا الْقَمَرَ لا تُضَامُّونَ» رَوَاهُ مُسْلِمٌ، مَعْنَاهُ عِنْدَهُمْ تَرَوْنَهُ مُوَاجَهَةً كَمَا تَرَوْنَ الْقَمَرَ مُوَاجَهَةً وَأَجَابَ أَهْلُ السُّنَّةِ عَلَى هَذِهِ الشُّبْهَةِ بِقَوْلِهِمْ التَّشْبِيهُ هُنَا وَارِدٌ عَلَى غَيْرِ ذَلِكَ الْمَعْنَى الَّذِى تَدَّعُونَ أَىْ أَنَّ الْعِبَادَ يَرَوْنَهُ رُؤْيَةً لا شَكَّ فِيهَا كَمَا أَنَّ الْقَمَرَ لَيْلَةَ الْبَدْرِ إِذَا لَمْ يَكُنْ سَحَابٌ يُرَى رُؤْيَةً لا شَكَّ فِيهَا.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: لا نَدْخُلُ فِى ذَلِكَ مُتَأَوِّلِينَ بِآرَائِنَا وَلا مُتَوَهِّمِينَ بِأَهْوَائِنَا.
+
+الشَّرْحُ يَعْنِى أَنَّهُ لا يَدْخُلُ فِى ذَلِكَ مُتَأَوِّلًا بِرَأْيِهِ تَأَوُّلًا بِلا دَلِيلٍ عَقْلِىٍّ قَطْعِىٍّ وَلا دَلِيلٍ سَمْعِىٍّ ثَابِتٍ كَتَأْوِيلِ الْمُعْتَزِلَةِ لِلآيَةِ الْمَذْكُورَةِ وَأَنَّهُ لا يَدْخُلُ فِى ذَلِكَ مُتَصَوِّرًا بِوَهْمِهِ يَعْنِى لا كَمَا ذَهَبَتِ الْمُعْتَزِلَةُ فِى نَفْيِهِمْ لِلرُّؤْيَةِ وَتَحْرِيفِهِمْ لِلآيَةِ وَلا كَمَا ذَهَبَتِ الْمُشَبِّهَةُ فِى جَعْلِهِمُ الرُّؤْيَةَ بِكَيْفِيَّةٍ حَيْثُ أَثْبَتُوا لِلَّهِ تَعَالَى الْجِهَةَ فَهُمْ حَيْثُ أَثْبَتُوا لِلذَّاتِ الْمُقَدَّسِ الْجِهَةَ فَلا بُدَّ أَنَّهُمْ يُثْبِتُونَ الرُّؤْيَةَ فِى جِهَةٍ أَمَّا أَهْلُ السُّنَّةِ فَبَعِيدُونَ مِنْ ذَلِكَ يَعْتَقِدُونَ أَنَّهُ يُرَى بِلا مُقَابَلَةٍ وَلا مُدَابَرَةٍ مِنْ دُونِ أَنْ يَكُونَ الرَّائِى فِى جِهَةٍ مِنَ اللَّهِ لا يَمْنَةً وَلا يَسْرَةً وَلا فَوْقَ وَلا أَسْفَلَ وَلا قُدَّامَ وَلا خَلْفَ.
+
+وَلا يَعْنِى كَلامُ الطَّحَاوِىِّ رَدَّ تَأْوِيلِ أَهْلِ السُّنَّةِ الإِجْمَالِىِّ وَالتَّفْصِيلِىِّ لِآيَاتِ الصِّفَاتِ وَأَحَادِيثِهَا الْمُتَشَابِهَةِ فَقَدْ ثَبَتَ ذَلِكَ عَنِ الإِمَامِ أَحْمَدَ وَغَيْرِهِ مِنَ السَّلَفِ فَإِنَّ تَرْكَ التَّأْوِيلَيْنِ عَيْنُ التَّشْبِيهِ وَالتَّجْسِيمِ الْمَنْفِيَيْنِ بِقَوْلِهِ تَعَالَى ﴿لَيْسَ كَمِثْلِهِ شَىْءٌ﴾ [سُورَةَ الشُّورَى/11].
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: فَإِنَّهُ مَا سَلِمَ فِى دِينِهِ إِلَّا مَنْ سَلَّمَ لِلَّهِ عَزَّ وَجَلَّ وَلِرَسُولِهِ ﷺ وَرَدَّ عِلْمَ مَا اشْتَبَهَ عَلَيْهِ إِلَى عَالِمِهِ.
+
+الشَّرْحُ يَعْنِى أَنَّ السَّلامَةَ فِى التَّسْلِيمِ لِلَّهِ وَلِرَسُولِهِ أَىِ اعْتِقَادِ أَنَّ مَا جَاءَ فِى الشَّرْعِ مِنْ أُمُورِ الدِّينِ فَهُوَ عَلَى حَسَبِ مَا أَرَادَ اللَّهُ تَعَالَى وَرَسُولُهُ لَيْسَ مَبْنِيًّا عَلَى التَّوَهُّمِ وَالتَّصَوُّرِ الْمُعْتَمَدِ عَلَى الرَّأْىِ أَوْ عَلَى مَا جَرَتْ بِهِ الْعَادَةُ بَيْنَ الْمَخْلُوقَاتِ.
+
+فَالْمُعْتَزِلَةُ رَجَعُوا إِلَى الرَّأْىِ الَّذِى هُمُ اتَّخَذُوهُ أَصْلًا وَالْمُشَبِّهَةُ رَجَعُوا إِلَى مَا هُوَ مَأْلُوفٌ بَيْنَ الْمَخْلُوقِ وَفَتَنَهُمْ أَنَّهُمْ قَاسُوا اللَّهَ عَلَى الْخَلْقِ فَقَالُوا كَمَا أَنَّهُ لا يُرَى الشَّىْءُ إِلَّا فِى جِهَةٍ مِنَ الرَّائِى فَاللَّهُ يُرَى فِى جِهَةٍ وَكِلا الْمَذْهَبَيْنِ بَاطِلٌ.
+
+وَقَوْلُهُ «عَالِمِهِ» الْمُرَادُ بِذَلِكَ أَنَّ الَّذِى اشْتَبَهَ عَلَيْهِ فَهْمُ شَىْءٍ مِنَ الأُمُورِ الْمُتَعَلِّقَةِ بِالآخِرَةِ وَغَيْرِهَا يَرْجِعُ بِهِ إِلَى أَهْلِ الْعِلْمِ الرَّاسِخِينَ فَإِمَّا أَنْ يَسْتَفِيدَ مِنْهُمُ السَّائِلُ التَّأْوِيلَ التَّفْصِيلِىَّ أَوِ التَّأْوِيلَ الإِجْمَالِىَّ وَهُوَ أَنْ يَعْتَقِدَ الإِنْسَانُ أَنَّ مَا يُضَافُ إِلَى اللَّهِ مِنَ الصِّفَاتِ هِىَ مُنَزَّهَةٌ عَنِ الْهَيْئَةِ وَالشَّكْلِ وَءَاثَارِ الْحُدُوثِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَلا تَثْبُتُ قَدَمٌ فِى الإِسْلامِ إِلَّا عَلَى ظَهْرِ التَّسْلِيمِ وَالِاسْتِسْلامِ.
+
+الشَّرْحُ التَّسْلِيمُ هُوَ الرِّضَى بِمَا جَاءَ عَنِ اللَّهِ تَعَالَى وَأَمَّا الِاسْتِسْلامُ فَهُوَ الِانْقِيَادُ لِلشَّرْعِ أَىْ قَبُولُ مَا جَاءَ فِيهِ مِنَ الْعَقَائِدِ وَالأَحْكَامِ فَلا يَصِحُّ الثَّبَاتُ عَلَى الإِسْلامِ إِلَّا لِمَنْ سَلَّمَ لِلَّهِ تَعَالَى وَلَمْ يَعْتَرِضْ عَلَيْهِ وَلَمْ يَصِفْهُ بِمَا لا يَلِيقُ بِهِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: فَمَنْ رَامَ عِلْمَ مَا حُظِرَ عَنْهُ عِلْمُهُ وَلَمْ يَقْنَعْ بِالتَّسْلِيمِ فَهْمُهُ حَجَبَهُ مَرَامُهُ عَنْ خَالِصِ التَّوْحِيدِ وَصَافِى الْمَعْرِفَةِ وَصَحِيحِ الإِيـمَانِ فَيَتَذَبْذَبُ بَيْنَ الْكُفْرِ وَالإِيـمَانِ وَالتَّصْدِيقِ وَالتَّكْذِيبِ وَالإِقْرَارِ وَالإِنْكَارِ مُوَسْوِسًا تَائِهًا شَاكًّا لا مُؤْمِنًا مُصَدِّقًا وَلا جَاحِدًا مُكَذِّبًا.
+
+الشَّرْحُ مَعْنَاهُ أَنَّ مَنْ طَلَبَ أَنْ يَعْلَمَ مَا مُنِعَ عَنْهُ عِلْمُهُ وَلَمْ يَقْنَعْ بِتَسْلِيمِهِ إِلَى عَالِمِهِ حَجَبَهُ مَطْلُوبُهُ عَنْ خَالِصِ التَّوْحِيدِ فَيَكُونُ مُضْطَرِبًا مُؤْمِنًا بِبَعْضٍ وَكَافِرًا بِبَعْضٍ لا كَالْكَافِرِ الْمُعْلِنِ كُفْرَهُ وَلا كَالْمُؤْمِنِ الَّذِى صَدَقَ فِى الإِيـمَانِ وَءَامَنَ عَنْ حَقِيقَةٍ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَلا يَصِحُّ الإِيـمَانُ بِالرُّؤْيَةِ لِأَهْلِ دَارِ السَّلامِ لِمَنِ اعْتَبَرَهَا مِنْهُمْ بِوَهْمٍ أَوْ تَأَوَّلَهَا بِفَهْمٍ.
+
+الشَّرْحُ أَنَّهُ مَنِ اعْتَبَرَ الرُّؤْيَةَ عَلَى غَيْرِ الْوَجْهِ الْمَشْرُوحِ الْمُتَقَدِّمِ ذِكْرُهُ الَّذِى هُوَ مُعْتَقَدُ أَهْلِ السُّنَّةِ وَالْجَمَاعَةِ فَهُوَ غَيْرُ مُصَدِّقٍ بِهِ كَمَا أُمِرَ فَالْمُشَبِّهَةُ ظَاهِرًا يَقُولُونَ ءَامَنَّا بِالرُّؤْيَةِ أَمَّا فِى الْحَقِيقَةِ فَلَمْ يُؤْمِنُوا وَأَمَّا الْمُعْتَزِلَةُ فَقَدْ نَفَوْا نَفْيًا صَرِيحًا حَيْثُ إِنَّهُمْ قَالُوا لا يُرَى وَهُمْ يُفَسِّرُونَ قَوْلَهُ تَعَالَى ﴿إِلَى رَبِّهَا نَاظِرَةٌ﴾ [سُورَةَ الْقِيَامَة/23] يَقُولُونَ نِعْمَةَ رَبِّهَا نَاظِرَةٌ أَىْ مُنْتَظِرَةٌ وَأَمَّا الْحَدِيثُ فَيَزْعُمُونَ أَنَّهُ غَيْرُ ثَابِتٍ فَالْمُعْتَزِلَةُ وَالْمُشَبِّهَةُ عَلَى طَرَفَيْ نَقِيضٍ.
+
+وَقَوْلُهُ «دَارِ السَّلامِ» اسْمٌ لِلْجَنَّةِ وَجَمِيعُ طَبَقَاتِهَا يَشْمَلُهُ هَذَا الِاسْمُ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: إِذْ كَانَ تَأْوِيلُ الرُّؤْيَةِ وَتَأْوِيلُ كُلِّ مَعْنًى يُضَافُ إِلَى الرُّبُوبِيَّةِ بِتَرْكِ التَّأْوِيلِ وَلُزُومِ التَّسْلِيمِ وَعَلَيْهِ دِينُ الْمُسْلِمِينَ.
+
+الشَّرْحُ يُرِيدُ الطَّحَاوِىُّ بِتَرْكِ التَّأْوِيلِ التَّأْوِيلَ الَّذِى هُوَ بَعِيدٌ عَنِ الْحَقِّ وَالإِصَابَةِ وَلا يَعْنِى التَّأْوِيلَ الَّذِى يَفْعَلُهُ أَهْلُ السُّنَّةِ إِنْ كَانَ إِجْمَالِيًّا أَوْ كَانَ تَفْصِيلِيًّا وَهَذَا الَّذِى يَنْبَغِى حَمْلُ كَلامِ الْمُؤَلِّفِ عَلَيْهِ أَمَّا ظَاهِرُهُ فَمَنْعُ الذَّهَابِ إِلَى التَّأْوِيلِ أَىِ التَّفْصِيلِىِّ أَمَّا التَّأْوِيلُ الإِجْمَالِىُّ فَلا يَنْفِيهِ لِأَنَّ مَنْ نَفَى التَّأْوِيلَ الإِجْمَالِىَّ وَقَعَ فِى التَّشْبِيهِ لا مَحَالَةَ.
+
+وَيُقَوِّى كَوْنَ مُرَادِ الطَّحَاوِىِّ بِنَفْىِ التَّأْوِيلِ لَيْسَ مُطْلَقَ التَّأْوِيلِ قَوْلُهُ فِى مَسْأَلَةِ الْكَلامِ «مِنْهُ بَدَا بِلا كَيْفِيَّةٍ قَوْلًا» لِأَنَّ هَذَا تَأْوِيلٌ.`,
+    paragraphs: 25,
+    words: 988
+  },
+  {
+    id: "sec-12",
+    title: `القدر واللوح والقلم`,
+    description: `أصل القدر سر الله في خلقه واللوح والقلم والعرش والكرسي`,
+    content: `قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَمَنْ لَمْ يَتَوَقَّ النَّفْىَ وَالتَّشْبِيهَ زَلَّ وَلَمْ يُصِبِ التَّنْزِيهَ.
+
+الشَّرْحُ يُرِيدُ بِالنَّفْىِ التَّعْطِيلَ وَيُرِيدُ بِالتَّشْبِيهِ إِثْبَاتَ الْجِهَةِ لِلَّهِ تَعَالَى أَوْ شَىْءٍ مِنْ أَمَارَاتِ الْحُدُوثِ كَالْحَرَكَةِ وَالسُّكُونِ وَكَالِانْتِقَالِ مِنْ عُلْوٍ إِلَى سُفْلٍ أَوْ مِنْ سُفْلٍ إِلَى عُلْوٍ، وَهَذَانِ الْفَرِيقَانِ زَلَّ أَىْ ضَلَّ عَنِ الطَّرِيقِ وَلَمْ يُصِبِ التَّنْزِيهَ أَىْ فَقَدَ وَحُرِمَ التَّنْزِيهَ أَىْ تَنْزِيهَ اللَّهِ عَنْ مُشَابَهَةِ خَلْقِهِ وَيَصِحُّ أَنْ يُفَسَّرَ قَوْلُهُ «زَلَّ وَلَمْ يُصِبِ التَّنْزِيهَ» بِأَنْ يُقَالَ زَلَّ رَاجِعٌ إِلَى النَّافِى أَىِ الْمُعَطِّلِ، وَقَوْلُهُ «وَلَمْ يُصِبِ التَّنْزِيهَ» رَاجِعٌ إِلَى مَنْ شَبَّهَ فَيَكُونُ الْمَعْنَى أَنَّ الْمُعَطِّلَ الَّذِى نَفَى مَا أَثْبَتَهُ اللَّهُ تَعَالَى زَلَّ أَىْ حَادَ عَنِ الْحَقِّ وَضَلَّ وَأَنَّ الَّذِى أَثْبَتَ لَفْظًا وَلَمْ يُنَزِّهْ مَعْنًى بَلْ شَبَّهَ لَمْ يُصِبِ التَّنْزِيهَ أَىْ لَمْ يُنَزِّهِ اللَّهَ عَمَّا يَجِبُ تَنْزِيهُهُ عَنْهُ فَيَكُونُ هَذَا التَّفْسِيرُ مُطَابِقًا لِمَا عَلَيْهِ الْفَرِيقَانِ فَرِيقُ التَّعْطِيلِ وَفَرِيقُ التَّشْبِيهِ كَالْوَهَّابِيَّةِ فَإِنَّ إِثْبَاتَ أَصْلِ الْجُلُوسِ عِنْدَهُمْ لَيْسَ تَشْبِيهًا، وَيُرَادُ بِالْمُعَطِّلَةِ الْمُعْتَزِلَةُ وَالْفَلاسِفَةُ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: فَإِنَّ رَبَّنَا جَلَّ وَعَلا مَوْصُوفٌ بِصِفَاتِ الْوَحْدَانِيَّةِ.
+
+الشَّرْحُ أَىْ مَوْصُوفٌ بِالصِّفَاتِ الَّتِى تَنْفِى عَنِ اللَّهِ تَعَالَى الْمُشَابَهَةَ لِغَيْرِهِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: مَنْعُوتٌ بِنُعُوتِ الْفَرْدَانِيَّةِ.
+
+الشَّرْحُ هَذَا بِمَعْنَى مَا قَبْلَهُ وَإِنَّمَا عَبَّرَ بِالْعِبَارَةِ الثَّانِيَةِ لِتَأْكِيدِ الْعِبَارَةِ الأُولَى، وَالنَّعْتُ وَالصِّفَةُ بِمَعْنًى وَاحِدٍ وَالْوَحْدَانِيَّةُ وَالْفَرْدَانِيَّةُ مُتَرَادِفَانِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: لَيْسَ فِى مَعْنَاهُ أَحَدٌ مِنَ الْبَرِيَّةِ.
+
+الشَّرْحُ أَىْ لَيْسَ فِى صِفَاتِهِ تَعَالَى أَحَدٌ مِنَ الْخَلْقِ أَىْ لا يَصِحُّ عَقْلًا وَلا شَرْعًا أَنْ يَتَّصِفَ الْعَبْدُ أَوْ أَىُّ شَىْءٍ مِنَ الأَشْيَاءِ الْحَادِثَةِ بِشَىْءٍ مِنْ صِفَاتِ اللَّهِ تَعَالَى. وَلَقَدْ أَسَاءَ التَّعْبِيرَ مَنْ قَالَ فِى تَفْسِيرِ الْحَدِيثِ الَّذِى رَوَاهُ الْبُخَارِىُّ «إِنَّ اللَّهَ خَلَقَ ءَادَمَ عَلَى صُورَتِهِ» إِنَّ اللَّهَ جَعَلَ ءَادَمَ مُتَّصِفًا بِصِفَاتِهِ مِنْ سَمْعٍ وَبَصَرٍ وَنَحْوِ ذَلِكَ وَهَذَا التَّعْبِيرُ فَاسِدٌ. وَمَعْنَى «عَلَى صُورَتِهِ» أَىْ عَلَى الصُّورَةِ الَّتِى خَلَقَهَا اللَّهُ وَشَرَّفَهَا كَمَا هُوَ الْمَعْنَى فِى قَوْلِهِ تَعَالَى فِى حَقِّ عِيسَى ﴿فَنَفَخْنَا فِيهِ مِنْ رُّوحِنَا﴾ [سُورَةَ التَّحْرِيم/12].
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَتَعَالَى عَنِ الْحُدُودِ وَالْغَايَاتِ وَالأَعْضَاءِ وَالأَرْكَانِ وَالأَدَوَاتِ لا تَحْوِيهِ الْجِهَاتُ السِّتُّ كَسَائِرِ الْمُبْتَدَعَاتِ.
+
+الشَّرْحُ أَىْ أَنَّ اللَّهَ تَعَالَى لَيْسَ لَهُ حَدٌّ وَالْحَدُّ مَعْنَاهُ نِهَايَةُ الشَّىْءِ فَلا يَجُوزُ عَلَيْهِ الْحُدُودُ وَالْمِسَاحَةُ وَالْمِقْدَارُ فَنَفْىُ الْحَدِّ عَنْهُ عِبَارَةٌ عَنْ نَفْىِ الْحَجْمِ. وَمَعْنَى الْغَايَاتِ النِّهَايَاتُ وَهَذَا مِنْ صِفَاتِ الأَجْسَامِ. وَمَعْنَى الأَرْكَانِ الْجَوَانِبُ وَمَعْنَى الأَعْضَاءِ جَمْعُ عُضْوٍ وَذَلِكَ مِنْ خَصَائِصِ الأَجْسَامِ وَمَعْنَى الأَدَوَاتِ الأَجْزَاءُ الصَّغِيرَةُ كَاللَّهَاةِ.
+
+وَمَعْنَى قَوْلِهِ لا تَحْوِيهِ الْجِهَاتُ السِّتُّ أَىْ لا تُحِيطُ بِهِ الْجِهَاتُ السِّتُّ وَهِىَ فَوْقٌ وَتَحْتٌ وَيَمِينٌ وَشِمَالٌ وَقُدَّامٌ وَخَلْفٌ لِأَنَّ هَذِهِ لا تَصِحُّ إِلَّا لِمَنْ هُوَ جِرْمٌ وَفِى هَذَا رَدٌّ عَلَى ابْنِ تَيْمِيَةَ حَيْثُ قَالَ إِنَّ لِلَّهِ حَدًّا يَعْلَمُهُ هُوَ، وَأَمَّا إِثْبَاتُ الْحَدِّ لِلَّهِ فَلَمْ يَصِحَّ عَنْ أَحَدٍ مِنَ السَّلَفِ كَمَا أَوْهَمَ ذَلِكَ ابْنُ تَيْمِيَةَ بَلْ نَقْلُ الطَّحَاوِىِّ هَذَا فِيهِ أَنَّ السَّلَفَ كَانُوا عَلَى تَنْزِيهِ اللَّهِ عَنِ الْحَدِّ.
+
+وَاللَّهُ سُبْحَانَهُ وَتَعَالَى لَيْسَ دَاخِلَ الْعَالَمِ وَلَيْسَ خَارِجَهُ وَلَيْسَ مُتَّصِلًا بِهِ أَوْ مُنْفَصِلًا عَنْهُ لِأَنَّهُ لَوْ كَانَ كَذَلِكَ لَكَانَ لَهُ أَمْثَالٌ لا تُحْصَى وَهُوَ سُبْحَانَهُ نَفَى عَنْ نَفْسِهِ الْمُمَاثَلَةَ لِشَىْءٍ بِقَوْلِهِ ﴿لَيْسَ كَمِثْلِهِ شَىْءٌ﴾ [سُورَةَ الشُّورَى/11]. وَقَدْ نَصَّ عَلَى نَفْىِ التَّحَيُّزِ فِى الْمَكَانِ وَالِاتِّصَالِ وَالِانْفِصَالِ وَالِاجْتِمَاعِ وَالِافْتِرَاقِ عَنِ اللَّهِ تَعَالَى خَلْقٌ كَثِيرٌ مِنْ مَشَاهِيرِ عُلَمَاءِ الْمَذَاهِبِ الأَرْبَعَةِ فَلْتُرَاجَعْ نُصُوصُهُمْ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَالْمِعْرَاجُ حَقٌّ.
+
+الشَّرْحُ الْمِعْرَاجُ هُوَ الصُّعُودُ إِلَى السَّمَوَاتِ السَّبْعِ وَمَا شَاءَ اللَّهُ مِنَ الْعُلَى وَهَذَا حَقٌّ يَجِبُ الإِيـمَانُ بِهِ فِى حَقِّ رَسُولِ اللَّهِ وَمَنْ نَفَاهُ فَهُوَ فَاسِقٌ. وَالْمِعْرَاجُ حَصَلَ بَعْدَ الإِسْرَاءِ أَىْ بَعْدَ وُصُولِهِ إِلَى الْمَسْجِدِ الأَقْصَى خَارِجًا مِنَ الْمَسْجِدِ الْحَرَامِ عُرِجَ بِهِ إِلَى السَّمَوَاتِ وَمَا فَوْقَهَا إِلَى حَيْثُ شَاءَ اللَّهُ فَالإِسْرَاءُ مُصَرَّحٌ بِهِ فِى الْقُرْءَانِ بِقَوْلِهِ تَعَالَى ﴿سُبْحَانَ الَّذِى أَسْرَى بِعَبْدِهِ لَيْلًا مِّنَ الْمَسْجِدِ الْحَرَامِ إِلَى الْمَسْجِدِ الأَقْصَى الَّذِى بَارَكْنَا حَوْلَهُ لِنُرِيَهُ مِنْ ءَايَاتِنَا﴾ [سُورَةَ الإِسْرَاء/1] فَلِذَلِكَ يَكْفُرُ مُنْكِرُهُ وَالْمِعْرَاجُ يَكَادُ يَكُونُ نَصًّا صَرِيحًا لِقَوْلِهِ تَعَالَى ﴿وَلَقَدْ رَءَاهُ نَزْلَةً أُخْرَى عِنْدَ سِدْرَةِ الْمُنْتَهَى عِنْدَهَا جَنَّةُ الْمَأْوَى﴾ [سُورَةَ النَّجْم] وَإِنَّمَا لَمْ يَكُنْ ذَلِكَ صَرِيحًا لِأَنَّهُ لَمْ يَثْبُتْ بِنَصٍّ قَطْعِىٍّ كَوْنُ سِدْرَةِ الْمُنْتَهَى فَوْقَ السَّمَوَاتِ السَّبْعِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَقَدْ أُسْرِىَ بِالنَّبِىِّ ﷺ.
+
+الشَّرْحُ أَىْ ذُهِبَ بِهِ لَيْلًا مِنَ الْمَسْجِدِ الْحَرَامِ إِلَى الْمَسْجِدِ الأَقْصَى كَمَا تَقَدَّمَ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَعُرِجَ بِشَخْصِهِ فِى الْيَقَظَةِ إِلَى السَّمَاءِ ثُمَّ إِلَى حَيْثُ شَاءَ اللَّهُ مِنَ الْعُلَى.
+
+الشَّرْحُ أَىْ عُرِجَ بِهِ عَقِيبَ الإِسْرَاءِ فَالإِسْرَاءُ وَالْمِعْرَاجُ كَانَا فِى لَيْلَةٍ وَاحِدَةٍ مُتَعَاقِبَيْنِ وَهُمَا عِنْدَ أَهْلِ الْحَقِّ فِى الْيَقَظَةِ بِشَخْصِهِ بِرُوحِهِ وَجَسَدِهِ ﷺ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَأَكْرَمَهُ اللَّهُ بِمَا شَاءَ وَأَوْحَى إِلَيْهِ مَا أَوْحَى ﴿مَا كَذَبَ الْفُؤَادُ مَا رَأَى﴾ [سُورَةَ النَّجْم/11] فَصَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ فِى الآخِرَةِ وَالأُولَى.
+
+الشَّرْحُ اسْتَدَلَّ الْجُمْهُورُ مِنْ أَهْلِ الْحَقِّ بِقَوْلِهِ تَعَالَى ﴿مَا كَذَبَ الْفُؤَادُ مَا رَأَى﴾ [سُورَةَ النَّجْم/11] عَلَى أَنَّ النَّبِىَّ رَأَى رَبَّهُ بِقَلْبِهِ تِلْكَ اللَّيْلَةَ لا بِعَيْنِهِ وَالْمُرَادُ بِالْفُؤَادِ فَؤُادُ النَّبِىِّ ﷺ لَيْسَ جِبْرِيلَ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَالْحَوْضُ الَّذِى أَكْرَمَهُ اللَّهُ تَعَالَى بِهِ غِيَاثًا لِأُمَّتِهِ حَقٌّ.
+
+الشَّرْحُ يَجِبُ الإِيـمَانُ بِالْحَوْضِ الَّذِى يَشْرَبُ مِنْهُ الْمُؤْمِنُونَ يَوْمَ الْقِيَامَةِ أَىْ أَنَّ اللَّهَ تَبَارَكَ وَتَعَالَى أَعَدَّ الْحَوْضَ لِنَبِيِّنَا مُحَمَّدٍ ﷺ إِنْقَاذًا لِمَنْ كَانَ عَطِشًا مِنْ أُمَّتِهِ فِى الْقِيَامَةِ فَإِنَّ مَنْ شَرِبَ مِنْهُ لا يَظْمَأُ بَعْدَ ذَلِكَ وَأَمَّا مَنْ لَمْ يَكُنْ أَصَابَهُ عَطَشٌ وَهُمُ الأَتْقِيَاءُ فَإِنَّمَا يَشْرَبُونَ تَلَذُّذًا.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَالشَّفَاعَةُ الَّتِى ادَّخَرَهَا لَهُمْ حَقٌّ كَمَا رُوِىَ فِى الأَخْبَارِ.
+
+الشَّرْحُ يَجِبُ الإِيـمَانُ بِالشَّفَاعَةِ الَّتِى ادَّخَرَهَا النَّبِىُّ لِأُمَّتِهِ وَمَعْنَى الشَّفَاعَةِ سُؤَالُ الْخَيْرِ مِنَ اللَّهِ تَبَارَكَ وَتَعَالَى لِلأُمَّةِ أَىْ أَنَّ الرَّسُولَ يَطْلُبُ يَوْمَ الْقِيَامَةِ مِنْ رَبِّهِ إِنْقَاذَ خَلْقٍ كَثِيرٍ مِنْ أُمَّتِهِ مِنَ النَّارِ بَعْدَ أَنْ دَخَلُوهَا لِبَعْضِهِمْ وَبِعَدَمِ دُخُولِهَا لِبَعْضٍ ءَاخَرَ. وَالَّذِى خُصَّ بِهِ نَبِيُّنَا ﷺ مِنَ الشَّفَاعَةِ هُوَ الْكَثْرَةُ الَّتِى لا تَحْصُلُ لِغَيْرِهِ مِنَ الأَنْبِيَاءِ وَلَيْسَ الْمُرَادُ أَنَّ مَنْ سِوَاهُ مِنَ الأَنْبِيَاءِ لا يَشْفَعُونَ بَلِ الشَّفَاعَةُ لَهُمْ ثَابِتَةٌ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَالْمِيثَاقُ الَّذِى أَخَذَهُ اللَّهُ تَعَالَى مِنْ ءَادَمَ وَذُرِّيَّتِهِ حَقٌّ.
+
+الشَّرْحُ الْمِيثَاقُ الَّذِى أَخَذَهُ اللَّهُ عَلَى ءَادَمَ هُوَ الْمِيثَاقُ الَّذِى شَمَلَ الأَنْبِيَاءَ قَالَ تَعَالَى ﴿وَإِذْ أَخَذْنَا مِنَ النَّبِيِّينَ مِيثَاقَهُمْ وَمِنْكَ وَمِنْ نُّوحٍ وَإِبْرَاهِيمَ وَمُوسَى وَعِيسَى ابْنِ مَرْيَمَ وَأَخَذْنَا مِنْهُمْ مِّيثَاقًا غَلِيظًا﴾ [سُورَةَ الأَحْزَاب/7].
+
+أَمَّا الْمِيثَاقُ الَّذِى أُخِذَ مِنْ ذُرِّيَّةِ ءَادَمَ فَهُوَ مَا ذَكَرَهُ اللَّهُ تَعَالَى بِقَوْلِهِ ﴿وَإِذْ أَخَذَ رَبُّكَ مِنْ بَنِى ءَادَمَ مِنْ ظُهُورِهِمْ ذُرِّيَّتَهُمْ وَأَشْهَدَهُمْ عَلَى أَنْفُسِهِمْ أَلَسْتُ بِرَبِّكُمْ قَالُوا بَلَى شَهِدْنَا أَنْ تَقُولُوا يَوْمَ الْقِيَامَةِ إِنَّا كُنَّا عَنْ هَذَا غَافِلِينَ﴾ [سُورَةَ الأَعْرَاف/172]. وَهَذَا الْمِيثَاقُ أَىِ الْعَهْدُ هُوَ اعْتِرَافُهُمْ بَعْدَ أَنِ اسْتَخْرَجَهُمْ مِنْ ظَهْرِ ءَادَمَ بَعْدَمَا نَزَلَ إِلَى الأَرْضِ فَصَوَّرَهُمْ وَخَلَقَ فِيهِمُ الْمَعْرِفَةَ وَالإِدْرَاكَ بِأَنَّهُ لا إِلَهَ لَهُمْ إِلَّا اللَّهُ فَجَمِيعُ ذُرِّيَّةِ ءَادَمَ اعْتَرَفُوا ذَلِكَ الْيَوْمَ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَقَدْ عَلِمَ اللَّهُ تَعَالَى فِيمَا لَمْ يَزَلْ عَدَدَ مَنْ يَدْخُلُ الْجَنَّةَ وَعَدَدَ مَنْ يَدْخُلُ النَّارَ جُمْلَةً وَاحِدَةً فَلا يُزَادُ فِى ذَلِكَ الْعَدَدِ وَلا يُنْقَصُ مِنْهُ وَكَذَلِكَ أَفْعَالُهُمْ فِيمَا عَلِمَ مِنْهُمْ أَنْ يَفْعَلُوهُ وَكُلٌّ مُيَسَّرٌ لِمَا خُلِقَ لَهُ.
+
+الشَّرْحُ الْجُمْلَةُ الأُولَى الَّتِى فِيهَا بَيَانُ إِحَاطَةِ عِلْمِ اللَّهِ بِمَنْ يَدْخُلُ الْجَنَّةَ تَفْصِيلًا وَبِعَدَدِ مَنْ يَدْخُلُ النَّارَ تَفْصِيلًا وَأَرَادَ الْمُؤَلِّفُ بِهَا أَنْ يُبَيِّنَ مَا قُرِّرَ مِنْ أَزَلِيَّةِ صِفَاتِ اللَّهِ الذَّاتِيَّةِ وَالْفِعْلِيَّةِ كَمَا قَالَ فِيمَا تَقَدَّمَ «مَا زَالَ بِصِفَاتِهِ قَدِيمًا قَبْلَ خَلْقِهِ» بَيَانًا لِسَعَةِ عِلْمِ اللَّهِ وَأَنَّ عِلْمَهُ لا يُقَدَّرُ بِمَعْلُومِ الْخَلائِقِ، وَحَسْمًا لِمَادَّةِ الشَّكِّ فِى الْقَضَاءِ وَالْقَدَرِ مِنَ الضَّعْفَةِ أَىْ ضَعْفَةِ الأَفْهَامِ وَدَفْعًا لِتَلْبِيسِ أَوْهَامِ الْقَدَرِيَّةِ أَىِ الْمُعْتَزِلَةِ عَلَى الْعَوَامِّ حَيْثُ زَعَمُوا «كَيْفَ يُعَذِّبُ اللَّهُ عَلَى مَا قَضَاهُ وَقَدَّرَهُ» فَبَيَّنَ الطَّحَاوِىُّ مَا يُؤَيِّدُ ذَلِكَ، وَمَعْنَى ذَلِكَ أَنَّ اللَّهَ عَلِمَ عَدَدَ مَنْ يَدْخُلُ الْجَنَّةَ أَنَّهُمْ يُؤْمِنُونَ وَيُطِيعُونَ عَنِ اخْتِيَارٍ وَإِيثَارٍ وَعَلِمَ عَدَدَ مَنْ يَدْخُلُ النَّارَ أَنَّهُمْ يَكْفُرُونَ وَيُخَالِفُونَ أَوَامِرَهُ عَنِ اخْتِيَارٍ مِنْهُمْ عِنْدَ وُجُودِهِمْ وَكَوْنِهِمْ بِصِفَةِ الْبُلُوغِ وَالْعَقْلِ لا عَنْ جَبْرٍ وَاضْطِرَارٍ يَسْتَوْجِبُونَ النَّارَ وَيَسْتَحِيلُ أَنْ لا يَعْلَمَ مَا يَكُونُ مِنْ مَخْلُوقَاتِهِ قَبْلَ وُجُودِهِمْ إِذْ ذَاكَ جَهْلٌ وَالْجَهْلُ فِى حَقِّ الْقَدِيمِ مُحَالٌ فَثَبَتَ سَبْقُ عِلْمِهِ فِى الأَزَلِ بِمَا يَكُونُ مِنْ مَخْلُوقَاتِهِ.
+
+أَمَّا قَوْلُ الْمُؤَلِّفِ «وَكُلٌّ مُيَسَّرٌ لِمَا خُلِقَ لَهُ» هَذَا لَفْظُ حَدِيثٍ مَشْهُورٍ صَحِيحِ الإِسْنَادِ رَوَاهُ أَصْحَابُ الْكُتُبِ السِّتَّةِ وَالْمَعْنَى أَنَّهُ مَنْ قُدِّرَ أَنَّهُ مِنْ أَهْلِ الْجَنَّةِ قُدِّرَ لَهُ مَا يُقَرِّبُهُ إِلَيْهَا مِنْ قَوْلٍ وَعَمَلٍ وَوُفِّقَ لِذَلِكَ وَمَنْ قُدِّرَ أَنَّهُ مِنْ أَهْلِ النَّارِ قُدِّرَ لَهُ خِلافُ ذَلِكَ فَأَتَى بِأَعْمَالِ أَهْلِ النَّارِ وَأَصَرَّ عَلَيْهَا حَتَّى طَوَى عَلَيْهِ صَحِيفَةَ عُمْرِهِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَالأَعْمَالُ بِالْخَوَاتِيمِ.
+
+الشَّرْحُ مَعْنَى «الأَعْمَالُ بِالْخَوَاتِيمِ» أَىْ أَنَّ الْجَزَاءَ يَكُونُ عَلَى مَا يُخْتَمُ بِهِ لِلْعَبْدِ مِنَ الْعَمَلِ فَمَنْ خُتِمَ لَهُ بِعَمَلِ أَهْلِ السَّعَادَةِ فَهُوَ سَعِيدٌ وَمَنْ خُتِمَ لَهُ بِعَمَلِ أَهْلِ الشَّقَاوَةِ فَهُوَ شَقِىٌّ وَلَيْسَ بِمَا يَجْرِى عَلَى الإِنْسَانِ قَبْلَ ذَلِكَ فَمَنْ عَاشَ كَافِرًا ثُمَّ أَسْلَمَ وَمَاتَ عَلَى عَمَلِ أَهْلِ الْجَنَّةِ فَهُوَ يُجَازَى بِمَا خُتِمَ لَهُ بِهِ وَمَنْ كَانَ عَلَى عَكْسِ ذَلِكَ فَيُجَازَى بِحَسَبِ مَا خُتِمَ لَهُ بِهِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَالسَّعِيدُ مَنْ سَعِدَ بِقَضَاءِ اللَّهِ تَعَالَى وَالشَّقِىُّ مَنْ شَقِىَ بِقَضَاءِ اللَّهِ تَعَالَى.
+
+الشَّرْحُ أَىْ أَنَّ السَّعِيدَ مَنْ خَلَقَ اللَّهُ تَبَارَكَ وَتَعَالَى فِيهِ الإِيـمَانَ وَالطَّاعَةَ فَجَرَى ذَلِكَ عَلَى يَدِهِ وَمَاتَ عَلَيْهِ وَالشَّقِىُّ مَنْ خَلَقَ اللَّهُ تَبَارَكَ وَتَعَالَى فِيهِ الشَّرَّ فَأَجْرَاهُ عَلَى يَدِهِ وَمَاتَ عَلَيْهِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَأَصْلُ الْقَدَرِ سِرُّ اللَّهِ تَعَالَى فِى خَلْقِهِ لَمْ يَطَّلِعْ عَلَى ذَلِكَ مَلَكٌ مُقَرَّبٌ وَلا نَبِىٌّ مُرْسَلٌ.
+
+الشَّرْحُ أَىْ أَنَّ ذَلِكَ مَسْتُورٌ عَنِ الْعِبَادِ فَلِذَلِكَ نُهِينَا عَنِ الْخَوْضِ فِيهِ وَإِنَّمَا الأَمْرُ الَّذِى يَنْبَغِى فِى أَمْرِ الْقَدَرِ مَعْرِفَةُ مَعْنَاهُ وَتَفْسِيرِهِ وَقَدْ قَالَ رَسُولُ اللَّهِ ﷺ «إِذَا ذُكِرَ الْقَدَرُ فَأَمْسِكُوا» رَوَاهُ الْبَيْهَقِىُّ، هَذَا الْقَدْرُ هُوَ الَّذِى صَحَّ أَمَّا زِيَادَةُ ذِكْرِ الصَّحَابَةِ فَلَمْ يَثْبُتْ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَالتَّعَمُّقُ وَالنَّظَرُ فِى ذَلِكَ ذَرِيعَةُ الْخِذْلانِ وَسُلَّمُ الْحِرْمَانِ وَدَرَجَةُ الطُّغْيَانِ فَالْحَذَرَ كُلَّ الْحَذَرِ مِنْ ذَلِكَ نَظَرًا وَفِكْرًا وَوَسْوَسَةً.
+
+الشَّرْحُ أَىِ احْذَرُوا مِنْ حَيْثُ التَّفْكِيرُ وَالْوَسْوَسَةُ فِى ذَلِكَ وَادْفَعُوا عَنْ أَنْفُسِكُمْ مُحَاوَلَةَ الِاطِّلاعِ عَلَى ذَلِكَ حَتَّى مِنْ طَرِيقِ الْوَسْوَسَةِ فَلْيَشْغَلِ الإِنْسَانُ قَلْبَهُ بِمَا يَحْجُزُهُ عَنْ ذَلِكَ. وَالْخِذْلانُ ضِدُّ التَّوْفِيقِ لِأَنَّ مَنْ يَتَتَبَّعُ ذَلِكَ فَهُوَ عَلامَةُ أَنَّهُ مَخْذُولٌ أَىْ مَحْرُومٌ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: فَإِنَّ اللَّهَ تَعَالَى طَوَى عِلْمَ الْقَدَرِ عَنْ أَنَامِهِ وَنَهَاهُمْ عَنْ مَرَامِهِ.
+
+الشَّرْحُ أَىْ نَهَاهُمْ عَنْ طَلَبِهِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: كَمَا قَالَ تَعَالَى فِى كِتَابِهِ ﴿لا يُسْأَلُ عَمَّا يَفْعَلُ وَهُمْ يُسْأَلُونَ﴾ [سُورَةَ الأَنْبِيَاء/23] فَمَنْ سَأَلَ لِمَ فَعَلَ فَقَدْ رَدَّ حُكْمَ الْكِتَابِ وَمَنْ رَدَّ حُكْمَ الْكِتَابِ كَانَ مِنَ الْكَافِرِينَ.
+
+الشَّرْحُ هَذَا مَعْنَى قَوْلِ بَعْضِهِمْ وَرَدُّ النُّصُوصِ كُفْرٌ فَمَنْ عَرَفَ نَصًّا مِنَ النُّصُوصِ الْقُرْءَانِيَّةِ أَوِ الْحَدِيثِيَّةِ فَرَدَّهُ فَهُوَ كَافِرٌ وَأَمَّا مَنْ لَمْ يَعْلَمْ بِالنَّصِّ فَرَدَّ مَعْنَاهُ فَفِى ذَلِكَ تَفْصِيلٌ فَإِنْ كَانَ شَيْئًا مَعْلُومًا بَيْنَ الْمُسْلِمِينَ عِلْمًا ضَرُورِيًّا فَإِنْكَارُ ذَلِكَ كُفْرٌ وَكَذَلِكَ الشَّكُّ فِيهِ أَمَّا مَا لَمْ يَكُنْ كَذَلِكَ فَإِنْكَارُهُ لَيْسَ كُفْرًا.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: فَهَذِهِ جُمْلَةُ مَا يَحْتَاجُ إِلَيْهِ مَنْ هُوَ مُنَوَّرٌ قَلْبُهُ مِنْ أَوْلِيَاءِ اللَّهِ تَعَالَى.
+
+الشَّرْحُ أَىْ أَنَّ عَقْدَ الْقَلْبِ عَلَى تَصْدِيقِ مَا جَاءَ عَنِ اللَّهِ تَعَالَى وَعَنْ رَسُولِهِ هُوَ أَصْلٌ يَتَمَسَّكُ الْمُؤْمِنُونَ بِهِ.`,
+    paragraphs: 44,
+    words: 1608
+  },
+  {
+    id: "sec-13",
+    title: `الإيمان والكفر وأهل القبلة`,
+    description: `لا نكفر أحدا من أهل القبلة بذنب ما لم يستحله والإيمان قول وتصديق`,
+    content: `قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَهِىَ دَرَجَةُ الرَّاسِخِينَ فِى الْعِلْمِ.
+
+الشَّرْحُ أَىِ الْمُتَمَكِّنِينَ فِى الْعِلْمِ وَهُمُ الَّذِينَ ثَبَتُوا فِيهِ وَتَمَكَّنُوا.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: لِأَنَّ الْعِلْمَ عِلْمَانِ عِلْمٌ فِى الْخَلْقِ مَوْجُودٌ وَعِلْمٌ فِى الْخَلْقِ مَفْقُودٌ.
+
+الشَّرْحُ الْعِلْمُ الْمَوْجُودُ فِى الْخَلْقِ هُوَ مَا جَعَلَ اللَّهُ سَبِيلًا لِلْعِبَادِ إِلَيْهِ وَأَمَّا الْعِلْمُ الْمَفْقُودُ بِالنِّسْبَةِ لَهُمْ فَهُوَ مَا اسْتَأْثَرَ اللَّهُ بِهِ وَلَمْ يَجْعَلْ لِلْخَلْقِ سَبِيلًا إِلَيْهِ. فَعِلْمُ الْعَقَائِدِ وَالأَحْكَامِ وَعِلْمُ مَا يُنْتَفَعُ بِهِ فِى الْمَعِيشَةِ هُوَ مِمَّا جَعَلَ اللَّهُ لِلْخَلْقِ سَبِيلًا إِلَيْهِ وَأَمَّا مَا اسْتَأْثَرَ اللَّهُ بِهِ كَعِلْمِ وَجْبَةِ الْقِيَامَةِ فَذَلِكَ هُوَ الْعِلْمُ الْمَفْقُودُ لِلْعِبَادِ فَاكْتِسَابُ الْعِلْمِ الأَوَّلِ مَطْلُوبٌ وَمَحْمُودٌ وَأَمَّا مُحَاوَلَةُ اكْتِسَابِ الْعِلْمِ الثَّانِى فَهُوَ ضَلالٌ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: فَإِنْكَارُ الْعِلْمِ الْمَوْجُودِ كُفْرٌ وَادِّعَاءُ الْعِلْمِ الْمَفْقُودِ كُفْرٌ وَلا يَثْبُتُ الإِيـمَانُ إِلَّا بِقَبُولِ الْعِلْمِ الْمَوْجُودِ وَتَرْكِ طَلَبِ الْعِلْمِ الْمَفْقُودِ.
+
+الشَّرْحُ مِنْ هُنَا يُعْلَمُ كُفْرُ مَنْ يُنْكِرُ الْعِلْمَ الْمَوْجُودَ كَإِنْكَارِ السُّوفِسْطَائِيَّةِ وُجُودَ الأَشْيَاءِ وَيُعْلَمُ كُفْرُ مَنْ يَدَّعِى مِنَ الْخَلْقِ الإِحَاطَةَ بِكُلِّ شَىْءٍ عِلْمًا فَمَنِ ادَّعَى ذَلِكَ لِنَفْسِهِ أَوْ لِغَيْرِهِ مِنَ الْعِبَادِ فَقَدْ كَفَرَ لِأَنَّ اللَّهَ تَعَالَى هُوَ الْمُنْفَرِدُ بِالإِحَاطَةِ بِالْغَيْبِ عِلْمًا لا أَحَدَ مِنْ خَلْقِهِ يُحِيطُ عِلْمًا بِالْغَيْبِ وَمَنِ اعْتَقَدَ أَنَّ أَحَدًا غَيْرَ اللَّهِ يُحِيطُ بِالْغَيْبِ عِلْمًا فَقَدْ كَذَّبَ الْقُرْءَانَ قَالَ تَعَالَى ﴿قُلْ لَّا يَعْلَمُ مَنْ فِى السَّمَاوَاتِ وَالأَرْضِ الْغَيْبَ إِلَّا اللَّهُ﴾ [سُورَةَ النَّمْل/65]. وَقَدْ أَلَّفَ بَعْضُ الْغُلاةِ رِسَالَةً ذَكَرَ فِيهَا أَنَّ اللَّهَ أَطْلَعَ الرَّسُولَ عَلَى كُلِّ مَا يَعْلَمُهُ بِلا اسْتِثْنَاءٍ وَهَذَا غُلُوٌّ قَبِيحٌ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَنُؤْمِنُ بِاللَّوْحِ وَالْقَلَمِ وَبِجَمِيعِ مَا فِيهِ قَدْ رُقِمَ.
+
+الشَّرْحُ يَجِبُ عَلَى كُلِّ الْمُكَلَّفِينَ الإِيـمَانُ بِاللَّوْحِ وَالْقَلَمِ وَاللَّوْحُ هُوَ عِبَارَةٌ عَنْ جِرْمٍ عُلْوِىٍّ قِيلَ هُوَ تَحْتَ الْعَرْشِ وَقِيلَ فَوْقَهُ وَأَمَّا الْقَلَمُ فَهُوَ جِرْمٌ عُلْوِىٌّ خُلِقَ قَبْلَ اللَّوْحِ ثُمَّ خُلِقَ اللَّوْحُ فَأُمِرَ بِأَنْ يَجْرِىَ عَلَى اللَّوْحِ فَجَرَى بِأَمْرِ اللَّهِ تَعَالَى فَكَتَبَ مَا كَانَ وَمَا يَكُونُ إِلَى يَوْمِ الْقِيَامَةِ قَالَ اللَّهُ تَعَالَى ﴿وَكُلَّ شَىْءٍ أَحْصَيْنَاهُ فِى إِمَامٍ مُّبِينٍ﴾ [سُورَةَ يَس/12] فَعِلْمُ اللَّهِ غَيْرُ مُتَنَاهٍ أَمَّا الْمَكْتُوبُ فِى اللَّوْحِ الْمَحْفُوظِ شَىْءٌ مُتَنَاهٍ، وَاللَّوْحُ لَيْسَ فِيهِ تَفَاصِيلُ مَا يَقَعُ فِى الآخِرَةِ لِأَنَّ هَذَا الشَّىْءَ لا نِهَايَةَ لَهُ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: فَلَوِ اجْتَمَعَ الْخَلْقُ كُلُّهُمْ عَلَى شَىْءٍ كَتَبَهُ اللَّهُ فِيهِ أَنَّهُ كَائِنٌ لِيَجْعَلُوهُ غَيْرَ كَائِنٍ لَمْ يَقْدِرُوا عَلَيْهِ وَلَوِ اجْتَمَعُوا كُلُّهُمْ عَلَى شَىْءٍ لَمْ يَكْتُبْهُ اللَّهُ تَعَالَى فِيهِ لِيَجْعَلُوهُ كَائِنًا لَمْ يَقْدِرُوا عَلَيْهِ.
+
+الشَّرْحُ الأَلْفَاظُ الَّتِى ذَكَرَهَا الْمُؤَلِّفُ هُنَا وَرَدَتْ فِيمَا صَحَّ عَنْ رَسُولِ اللَّهِ ﷺ فِى بَعْضِ أَحَادِيثِهِ بَعْضُهَا بِعَيْنِ اللَّفْظِ الْمَرْوِىِّ وَبَعْضُهَا بِمَا هُوَ مَعْنَى اللَّفْظِ الْمَرْوِىِّ وَذَلِكَ مِمَّا يَشْهَدُ الْعَقْلُ بِصِحَّتِهِ لِأَنَّهُ قَامَتِ الْبَرَاهِينُ الْعَقْلِيَّةُ عَلَى أَزَلِيَّةِ عِلْمِ اللَّهِ بِمَا يَكُونُ أَبَدًا فَوَجَبَ الِاعْتِقَادُ بِمَضْمُونِ مَا ذُكِرَ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: جَفَّ الْقَلَمُ بِمَا هُوَ كَائِنٌ إِلَى يَوْمِ الْقِيَامَةِ.
+
+الشَّرْحُ أَىْ أَنَّ الْقَلَمَ قَدْ فَرَغَ مِنْ كِتَابَةِ ذَلِكَ. وَهُنَاكَ أَقْلامٌ أُخْرَى غَيْرُ ذَلِكَ الْقَلَمِ تَسْتَنْسِخُ بِهَا الْمَلائِكَةُ مِنَ اللَّوْحِ الْمَحْفُوظِ مَا أُمِرُوا بِهِ بِدَلِيلِ الْحَدِيثِ أَنَّهُ ﷺ قَالَ «حَتَّى ظَهَرْتُ لِمُسْتَوًى أَسْمَعُ فِيهِ صَرِيفَ الأَقْلامِ» رَوَاهُ الْبُخَارِىُّ وَمُسْلِمٌ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَمَا أَخْطَأَ الْعَبْدَ لَمْ يَكُنْ لِيُصِيبَهُ وَمَا أَصَابَهُ لَمْ يَكُنْ لِيُخْطِئَهُ.
+
+الشَّرْحُ أَىْ مَا أَصَابَ الْعَبْدَ لَمْ يَكُنْ لِيُخْطِئَهُ لِأَنَّ عِلْمَ اللَّهِ سَبَقَ بِذَلِكَ وَلا يَتَغَيَّرُ عِلْمُ اللَّهِ لِأَنَّ تَغَيُّرَ الْعِلْمِ جَهْلٌ وَالْجَهْلُ مُسْتَحِيلٌ عَلَى اللَّهِ وَكَذَلِكَ مَا سَبَقَ فِى عِلْمِ اللَّهِ أَنَّهُ لا يُصِيبُ الْعَبْدَ فَمُحَالٌ أَنْ يُصِيبَهُ ذَلِكَ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَعَلَى الْعَبْدِ أَنْ يَعْلَمَ أَنَّ اللَّهَ قَدْ سَبَقَ عِلْمُهُ فِى كُلِّ كَائِنٍ مِنْ خَلْقِهِ فَقَدَّرَ ذَلِكَ تَقْدِيرًا مُحْكَمًا مُبْرَمًا لَيْسَ فِيهِ نَاقِضٌ وَلا مُعَقِّبٌ وَلا مُزِيلٌ وَلا مُغَيِّرٌ وَلا مُحَوِّلٌ وَلا نَاقِصٌ وَلا زَائِدٌ مِنْ خَلْقِهِ فِى سَمَاوَاتِهِ وَأَرْضِهِ.
+
+الشَّرْحُ يَجِبُ عَلَى الْعَبْدِ أَنْ يَعْلَمَ أَنَّ مَا سَبَقَ فِى عِلْمِ اللَّهِ أَنَّهُ يَكُونُ فَقَدْ شَاءَ أَنْ يَكُونَ وَالْمُرَادُ بِهَذَا أَنَّهُ لا يَحْصُلُ شَىْءٌ إِلَّا بِعِلْمِ اللَّهِ الأَزَلِىِّ وَكُلُّ مَا جَرَى وَيَجْرِى لِلْعَالَمِ السُّفْلِىِّ وَالْعُلْوِىِّ فَهُوَ مِمَّا سَبَقَ فِى عِلْمِ اللَّهِ الأَزَلِىِّ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَذَلِكَ مِنْ عَقْدِ الإِيـمَانِ وَأُصُولِ الْمَعْرِفَةِ وَالِاعْتِرَافِ بِتَوْحِيدِ اللَّهِ تَعَالَى وَرُبُوبِيَّتِهِ كَمَا قَالَ تَعَالَى فِى كِتَابِهِ ﴿وَخَلَقَ كُلَّ شَىْءٍ فَقَدَّرَهُ تَقْدِيرًا﴾ [سُورَةَ الْفُرْقَان/2] وَقَالَ تَعَالَى ﴿وَكَانَ أَمْرُ اللَّهِ قَدَرًا مَّقْدُورًا﴾ [سُورَةَ الأَحْزَاب/38].
+
+الشَّرْحُ هَذَا زِيَادَةُ بَيَانِ لِمَا قَبْلُ وَالْمُرَادُ بِالْعَقْدِ الِاعْتِقَادُ وَالْمُرَادُ بِالأَمْرِ هُنَا لَيْسَ الأَمْرَ التَّكْلِيفِىَّ إِنَّمَا مَا شَاءَ اللَّهُ تَعَالَى حُصُولَهُ وَوُقُوعَهُ فِى الْوُجُودِ مِنْ أَعْيَانِ الْمَخْلُوقَاتِ أَوْ مِنْ صِفَاتِهِمْ وَحَرَكَاتِهِمْ وَسَكَنَاتِهِمْ وَلَيْسَ الْمُرَادُ الأَمْرَ التَّكْلِيفِىَّ كَالصَّلاةِ وَالصِّيَامِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: فَوَيْلٌ لِمَنْ صَارَ لِلَّهِ تَعَالَى فِى الْقَدَرِ خَصِيمًا وَأَحْضَرَ لِلنَّظَرِ فِيهِ قَلْبًا سَقِيمًا لَقَدِ الْتَمَسَ بِوَهْمِهِ فِى فَحْصِ الْغَيْبِ سِرًّا كَتِيمًا وَعَادَ بِمَا قَالَ فِيهِ أَفَّاكًا أَثِيمًا.
+
+الشَّرْحُ هَذَا تَصْرِيحٌ بِذَمِّ مَنْ أَنْكَرَ الْقَدَرَ، هَؤُلاءِ الْمُعْتَزِلَةُ يَقُولُونَ مَا شِئْتَ لَمْ يَكُنْ وَكَانَ مَا لَمْ تَشَأْ فَيَزْعُمُونَ أَنَّ اللَّهَ تَعَالَى شَاءَ مِنَ الْكُفَّارِ أَنْ يُؤْمِنُوا لَكِنْ مَا كَانَ وَمَا وُجِدَ وَأَمَّا قَوْلُهُمْ «فَكَانَ مَا لَمْ تَشَأْ» فَهُوَ الشَّرُّ مِنَ الْعِبَادِ هَذَا عِنْدَهُمْ لَمْ يَشَأْهُ اللَّهُ تَعَالَى فَيَقُولُونَ وَمَعَ ذَلِكَ وُجِدَ بِخَلْقِ الْعِبَادِ وَاللَّهُ مَا شَاءَهُ وَمَا خَلَقَهُ فَهَؤُلاءِ خُصَمَاءُ اللَّهِ.
+
+وَالأَفَّاكُ هُوَ الْكَذَّابُ، وَالأَثِيمُ هُوَ الْفَاجِرُ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَالْعَرْشُ وَالْكُرْسِىُّ حَقٌّ.
+
+الشَّرْحُ يَجِبُ الإِيـمَانُ بِوُجُودِ الْعَرْشِ وَالْكُرْسِىِّ لِأَنَّ اللَّهَ نَصَّ عَلَيْهِمَا فِى الْقُرْءَانِ وَالْعَرْشُ هُوَ أَعْظَمُ الأَجْسَامِ مِنْ حَيْثُ الْمِسَاحَةُ وَأَمَّا الْكُرْسِىُّ فَهُوَ تَحْتَهُ وَهُوَ بِمَثَابَةِ مَا يَضَعُ رَاكِبُ السَّرِيرِ قَدَمَهُ وَهُوَ صَغِيرٌ جِدًّا بِالنِّسْبَةِ لِلسَّرِيرِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَهُوَ مُسْتَغْنٍ عَنِ الْعَرْشِ وَمَا دُونَهُ.
+
+الشَّرْحُ أَىْ أَنَّ اللَّهَ تَعَالَى مُسْتَغْنٍ عَنِ الْعَرْشِ وَمَا سِوَاهُ فَاللَّهُ تَعَالَى لَيْسَ مَحْمُولًا بِالْعَرْشِ لِأَنَّ اللَّهَ لا يَمَسُّ وَلا يُمَسُّ يَسْتَحِيلُ عَلَيْهِ ذَلِكَ لِمَا سَبَقَ ذِكْرُهُ مِنَ الْبَرَاهِينِ الْقَطْعِيَّةِ الْمُحْكَمَةِ الْمُوجِبَةِ لِلْعِلْمِ الْقَطْعِىِّ فِى إِثْبَاتِ تَعَالِيهِ عَنِ الْحَاجَاتِ وَعَنْ مُشَابَهَةِ الْخَلْقِ كَقَوْلِهِ ﴿يَا أَيُّهَا النَّاسُ أَنْتُمُ الْفُقَرَاءُ إِلَى اللَّهِ وَاللَّهُ هُوَ الْغَنِىُّ الْحَمِيدُ﴾ [سُورَةَ فَاطِر/15] فَقَدْ أَثْبَتَ الْفَقْرَ وَالْحَاجَةَ لِعِبَادِهِ وَنَفَى ذَلِكَ عَنْ نَفْسِهِ بِقَوْلِهِ ﴿وَاللَّهُ هُوَ الْغَنِىُّ﴾.
+
+وَقَوْلُ الْمُؤَلِّفِ «وَهُوَ مُسْتَغْنٍ عَنِ الْعَرْشِ» رَدٌّ عَلَى الْيَهُودِ وَمُجَسِّمَةِ هَذِهِ الأُمَّةِ حَيْثُ وَصَفُوهُ بِالْجِسْمِ وَالِاسْتِقْرَارِ عَلَى الْعَرْشِ.
+
+وَقَوْلُهُ تَعَالَى ﴿الرَّحْمٰنُ عَلَى الْعَرْشِ اسْتَوَى﴾ [سُورَةَ طَه/5] الْعَرْشُ يُذْكَرُ وَيُرَادُ بِهِ السَّرِيرُ الْمَحْفُوفُ بِالْمَلائِكَةِ وَهُوَ ظَاهِرٌ فِى الشَّرِيعَةِ وَيُذْكَرُ وَيُرَادُ بِهِ الْمُلْكُ كَقَوْلِ الشَّاعِرِ
+
+إِذَا مَا بَنُو مَرْوَانَ ثُلَّتْ عُرُوشُهُمْ
+
+أَىْ ذَهَبَ مُلْكُهُمْ وَزَالَ.
+
+وَقَوْلُهُ تَعَالَى ﴿الرَّحْمٰنُ عَلَى الْعَرْشِ اسْتَوَى﴾ لَيْسَ حُجَّةً لإِثْبَاتِ الِاسْتِقْرَارِ لِلَّهِ عَلَى الْعَرْشِ كَمَا تَقُولُ الْمُشَبِّهَةُ الْمُجَسِّمَةُ بَلِ التَّرْجِيحُ لِمَعْنَى الِاسْتِيلاءِ لِأَنَّ اللَّهَ تَبَارَكَ وَتَعَالَى تَمَدَّحَ بِقَوْلِهِ ﴿الرَّحْمٰنُ عَلَى الْعَرْشِ اسْتَوَى﴾، وَلَوِ اسْتُعْمِلَ هَذَا اللَّفْظُ عَلَى سَبِيلِ الْمَدْحِ فِى حَقِّ مَنْ جَازَ عَلَيْهِ الِاسْتِقْرَارُ فَلا يُحْمَلُ عَلَى الِاسْتِقْرَارِ وَلا يُفْهَمُ مِنْهُ كَقَوْلِ الشَّاعِرِ فِى بِشْرِ بنِ مَرْوَانَ
+
+قَدِ اسْتَوَى بِشْرٌ عَلَى الْعِرَاقِ           مِنْ غَيْرِ سَيْفٍ وَدَمٍ مُهْرَاقِ
+
+فَلَيْسَ مَدْحُ بِشْرِ بنِ مَرْوَانَ فِى هَذَا الْبَيْتِ مِنْ حَيْثُ إِنَّهُ جَالِسٌ فِى هَذَا الْبَلَدِ إِنَّمَا الْمَدْحُ لَهُ لِأَنَّهُ اسْتَوَى أَىْ قَهَرَ وَهَيْمَنَ وَسَيْطَرَ عَلَى الْعِرَاقِ لِأَنَّ الْجُلُوسَ فِى الْعِرَاقِ يَشْتَرِكُ فِيهِ الإِنْسَانُ الشَّرِيفُ وَالْقَوِىُّ وَالإِنْسَانُ الدَّنِىءُ وَالضَّعِيفُ. فَالْمَدْحُ إِنَّمَا يَكُونُ بِصِفَةٍ يَمْتَازُ بِهَا الْمَمْدُوحُ عَمَّا لا يَكَادُ يُدَانِيهِ وَلا يُسَاوِيهِ وَلا يُكَافِئُهُ غَيْرُهُ فَلا بُدَّ أَنْ يُفْهَمَ مِنَ الِاسْتِوَاءِ الْقَهْرُ وَالِاسْتِيلاءُ إِذْ هُوَ أَشْرَفُ مَعَانِى الِاسْتِوَاءِ وَهُوَ مِمَّا يَلِيقُ بِاللَّهِ تَعَالَى لِأَنَّهُ وَصَفَ نَفْسَهُ بِأَنَّهُ قَهَّارٌ فَلا يَجُوزُ أَنْ يُتْرَكَ مَا هُوَ لائِقٌ بِاللَّهِ تَعَالَى إِلَى مَا هُوَ غَيْرُ لائِقٍ بِاللَّهِ تَعَالَى وَهُوَ الْجُلُوسُ وَالِاتِّصَالُ وَالِاسْتِقْرَارُ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: مُحِيطٌ بِكُلِّ شَىْءٍ.
+
+الشَّرْحُ مَعْنَاهُ أَنَّ اللَّهَ مُحِيطٌ بِكُلِّ شَىْءٍ بِالْعِلْمِ وَالْغَلَبَةِ وَالسُّلْطَانِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَفَوْقَهُ.
+
+الشَّرْحُ الْمَعْنَى أَنَّ كُلَّ شَىْءٍ تَحْتَ عِلْمِهِ وَقُدْرَتِهِ لِقَوْلِهِ تَعَالَى ﴿وَهُوَ الْقَاهِرُ فَوْقَ عِبَادِهِ﴾ [سُورَةَ الأَنْعَام/18] وَهَذَا مَعْنَى الْعُلُوِّ الَّذِى وَصَفَ اللَّهُ نَفْسَهُ بِهِ بِقَوْلِهِ ﴿سَبِّحِ اسْمَ رَبِّكَ الأَعْلَى﴾ [سُورَةَ الأَعْلَى/1] وَبِقَوْلِهِ ﴿وَهُوَ الْعَلِىُّ الْعَظِيمُ﴾ [سُورَةَ الْبَقَرَة/255] لِأَنَّ عُلُوَّ الْجِهَةِ مُسْتَحِيلٌ عَلَيْهِ لِأَنَّهُ مِنْ صِفَاتِ الْخَلْقِ وَكَيْفَ يَصِحُّ ذَلِكَ فِى حَقِّهِ وَهُوَ الْقَدِيمُ الْمُتَعَالِى عَنِ التَّنَاهِى وَالْحُدُوثِ فَالْعَالَمُ لا بُدَّ لَهُ مِنْ مَكَانٍ.
+
+وَأَمَّا دَعْوَى بَعْضِ الْجُهَّالِ أَنَّ اللَّهَ فَوْقَ الْعَرْشِ حَيْثُ لا مَكَانَ فَهَذِهِ دَعْوَى بِلا دَلِيلٍ لِأَنَّ فَوْقَ الْعَرْشِ مَكَانٌ بِدَلِيلِ قَوْلِهِ ﷺ فِيمَا رَوَاهُ الْبُخَارِىُّ «لَمَّا قَضَى اللَّهُ الْخَلْقَ كَتَبَ فِى كِتَابٍ فَهُوَ عِنْدَهُ فَوْقَ الْعَرْشِ إِنَّ رَحْمَتِى سَبَقَتْ غَضَبِى» فَلا يَمْتَنِعُ شَرْعًا وَلا عَقْلًا أَنْ يَكُونَ فَوْقَ الْعَرْشِ مَكَانٌ فَلَوْلا أَنَّ فَوْقَ الْعَرْشِ مَكَانًا لَمْ يَقُلِ النَّبِىُّ ﷺ عَنْ ذَلِكَ الْكِتَابِ «فَهُوَ مَوْضُوعٌ عِنْدَهُ فَوْقَ الْعَرْشِ» وَالْمَقْصُودُ بِعِنْدَ هُنَا عِنْدِيَّةُ التَّشْرِيفِ كَمَا فِى قَوْلِهِ تَعَالَى حِكَايَةً عَنْ قَوْلِ ءَاسْيَةَ ﴿رَبِّ ابْنِ لِى عِنْدَكَ بَيْتًا فِى الْجَنَّةِ﴾ [سُورَةَ التَّحْرِيم/11].
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَقَدْ أَعْجَزَ عَنِ الإِحَاطَةِ خَلْقَهُ.
+
+الشَّرْحُ الْخَلْقُ لا يُحِيطُ أَحَدٌ مِنْهُمْ بِكُلِّ شَىْءٍ مِنَ الْمَخْلُوقَاتِ قَالَ تَعَالَى ﴿وَمَا يَعْلَمُ جُنُودَ رَبِّكَ إِلَّا هُوَ﴾ [سُورَةَ الْمُدَّثِّر/31] فَالْمَلائِكَةُ لا يَعْلَمُ عَدَدَهُمْ إِلَّا اللَّهُ حَتَّى رُؤَسَاءُ الْمَلائِكَةِ لا يُحِيطُونَ بِعَدَدِ الْمَلائِكَةِ فَإِذَا كَانَ الْمَلائِكَةُ لا يُحْصِيهِمْ عَدَدًا إِلَّا اللَّهُ فَكَيْفَ بِجَمِيعِ الْخَلائِقِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَنَقُولُ إِنَّ اللَّهَ اتَّخَذَ إِبْرَاهِيمَ خَلِيلًا وَكَلَّمَ اللَّهُ مُوسَى تَكْلِيمًا إِيـمَانًا وَتَصْدِيقًا وَتَسْلِيمًا.
+
+الشَّرْحُ مَعْنَاهُ نُؤْمِنُ بِذَلِكَ وَنُصَدِّقُ وَنُسَلِّمُ وَلَيْسَتِ الْخِلَّةُ كَالْوِلادَةِ لِأَنَّ الْوِلادَةَ تُوجِبُ الْبَعْضِيَّةَ وَالْجُزْئِيَّةَ وَهَذَا مُحَالٌ فِى حَقِّ الْقَدِيمِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَنُؤْمِنُ بِالْمَلائِكَةِ وَالنَّبِيِّينَ وَالْكُتُبِ الْمُنَزَّلَةِ عَلَى الْمُرْسَلِينَ وَنَشْهَدُ أَنَّهُمْ كَانُوا عَلَى الْحَقِّ الْمُبِينِ.
+
+الشَّرْحُ يَجِبُ الإِيـمَانُ بِوُجُودِ الْمَلائِكَةِ وَهُمْ عِبَادٌ لِلَّهِ تَعَالَى لا يَعْصُونَ اللَّهَ مَا أَمَرَهُمْ كَمَا أَخْبَرَ سُبْحَانَهُ.
+
+وَأَمَّا الإِيـمَانُ بِالنَّبِيِّينَ فَهُوَ أَنْ يُؤْمِنَ بِأَنَّ اللَّهَ ارْتَضَاهُمْ لِلنُّبُوَّةِ وَاصْطَفَاهُمْ وَأَكْرَمَهُمْ بِالسِّفَارَةِ بَيْنَهُ وَبَيْنَ عِبَادِهِ بِمَا يُوحَى إِلَيْهِمْ.
+
+وَأَمَّا الإِيـمَانُ بِالْكُتُبِ السَّمَاوِيَّةِ فَهُوَ أَنْ يُؤْمِنَ بِأَنَّهَا مِنْ عِنْدِ اللَّهِ تَعَالَى وَيَدُلُّ كَلامُ الْمُؤَلِّفِ عَلَى أَنَّ الْكُتُبَ لا تُنْزَلُ إِلَّا عَلَى الرَّسُولِ وَمَنْ كَانَ مِنَ الأَنْبِيَاءِ غَيْرِ الْمُرْسَلِينَ يَتْبَعُ كِتَابًا أُنْزِلَ عَلَى الرَّسُولِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَنُسَمِّى أَهْلَ قِبْلَتِنَا مُسْلِمِينَ مُؤْمِنِينَ مَا دَامُوا بِمَا جَاءَ بِهِ النَّبِىُّ ﷺ مُعْتَرِفِينَ وَلَهُ بِكُلِّ مَا قَالَهُ وَأَخْبَرَ مُصَدِّقِينَ غَيْرَ مُنْكِرِينَ.
+
+الشَّرْحُ أَىْ نُطْلِقُ عَلَيْهِمُ اسْمَ الْمُسْلِمِينَ وَالْمُؤْمِنِينَ وَلا نَقُولُ كَمَا تَقُولُ الْخَوَارِجُ مَنِ ارْتَكَبَ مَعْصِيَةً فَهُوَ كَافِرٌ حَتَّى الصَّغَائِرَ عِنْدَهُمْ وَلا نَقُولُ كَمَا تَقُولُ الْمُعْتَزِلَةُ مَنِ ارْتَكَبَ كَبِيرَةً لا يُسَمَّى مُسْلِمًا وَلا كَافِرًا.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَلا نَخُوضُ فِى اللَّهِ.
+
+الشَّرْحُ أَىْ لا نُفَكِّرُ فِى ذَاتِ اللَّهِ لِأَنَّ التَّفَكُّرَ فِى ذَاتِ اللَّهِ يُؤَدِّى إِلَى الْحَيْرَةِ وَالضَّلالِ وَيُؤَدِّى إِلَى تَشْبِيهِ اللَّهِ بِخَلْقِهِ وَلِذَلِكَ مُنِعْنَا مِنَ التَّفَكُّرِ فِى ذَاتِ اللَّهِ، وَلَيْسَ مِنَ التَّفَكُّرِ فِى ذَاتِ اللّهِ وَالْخَوْضِ فِيهِ تَنْزِيهُهُ عَنْ مُشَابَهَةِ الْخَلْقِ بِقَوْلِ إِنَّ اللَّهَ مَوْجُودٌ أَزَلِىٌّ أَبَدِىٌّ كَانَ قَبْلَ الزَّمَانِ وَالْمَكَانِ لا يَتَّصِفُ بِشَىْءٍ مِنْ صِفَاتِ الْبَشَرِ وَإِنَّهُ يَرَى بِلا حَدَقَةٍ وَيَسْمَعُ بِلا صِمَاخٍ وَأُذُنٍ وَيَتَكَلَّمُ كَلامًا ذَاتِيًّا لَيْسَ حَرْفًا وَلا صَوْتًا وَنَحْوِ ذَلِكَ مِنْ مَقَالاتِ عُلَمَاءِ أَهْلِ السُّنَّةِ مِنَ السَّلَفِ وَالْخَلَفِ، إِنَّمَا هَذَا تَنْزِيهٌ لِلَّهِ عَمَلًا بِقَوْلِهِ تَعَالَى ﴿لَيْسَ كَمِثْلِهِ شَىْءٌ﴾ [سُورَةَ الشُّورَى/11] إِنَّمَا هَلَكَ مَنْ هَلَكَ فِى تَشْبِيهِ اللَّهِ تَعَالَى بِخَلْقِهِ كَقَوْلِهِمْ بِأَنَّهُ مُسْتَقِّرٌ عَلَى الْعَرْشِ وَأَنَّهُ يَنْزِلُ بِذَاتِهِ مِنْ فَوْقٍ إِلَى أَسْفَلَ وَيَصْعَدُ بِذَاتِهِ مِنْ أَسْفَلَ إِلَى أَعْلَى لِأَنَّهُمْ قَاسُوا الْخَالِقَ عَلَى الْمَخْلُوقِ فَكَذَّبُوا بِذَلِكَ قَوْلَهُ تَعَالَى ﴿لَيْسَ كَمِثْلِهِ شَىْءٌ﴾ [سُورَةَ الشُّورَى/11].
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَلا نُمَارِى فِى دِينِ اللَّهِ.
+
+الشَّرْحُ أَىْ لا نُجَادِلُ فِى دِينِ اللَّهِ جِدَالًا نَهَى اللَّهُ تَبَارَكَ وَتَعَالَى عَنْهُ وَهُوَ الْجِدَالُ فِيمَا لا يُعْلَمُ فَمَنْ عَرَفَ الْحَقَّ يُجِادِلُ لإِحْقَاقِ الْحَقِّ أَمَّا مَنْ لَمْ يَعْرِفْهُ فَلا يُمَارِى.`,
+    paragraphs: 51,
+    words: 1688
+  },
+  {
+    id: "sec-14",
+    title: `الصحابة والخلافة`,
+    description: `حب الصحابة والخلافة الراشدة والعشرة المبشرين بالجنة`,
+    content: `قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَلا نُجَادِلُ فِى الْقُرْءَانِ.
+
+الشَّرْحُ الْمَعْنَى أَنَّهُ لا نَحْكُمُ فِى الْقُرْءَانِ بِنَفْىِ شَىْءٍ يَحْتَمِلُ أَنْ يَكُونَ مِنْهُ وَلا بِإِثْبَاتِ شَىْءٍ مِنْ غَيْرِ عِلْمٍ أَنَّهُ مِنْهُ فَنَقْرَأُ مَا عَلِمْنَا أَنَّهُ مِنْهُ وَلا نَنْفِى شَيْئًا وَلا نُثْبِتُ شَيْئًا أَنَّهُ مِنْهُ بِدُونِ عِلْمٍ لِأَنَّ الْقُرْءَانَ نَزَلَ عَلَى عِدَّةِ وُجُوهٍ فَقَدْ يُنْكِرُ الشَّخْصُ قِرَاءَةً هِىَ ثَابِتَةً عَنْ رَسُولِ اللَّهِ وَهُوَ لَمْ يَعْرِفْهَا.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَنَشْهَدُ أَنَّهُ كَلامُ رَبِّ الْعَالَمِينَ نَزَلَ بِهِ الرُّوحُ الأَمِينُ فَعَلَّمَهُ سَيِّدَ الْمُرْسَلِينَ مُحَمَّدًا ﷺ وَهُوَ كَلامُ اللَّهِ تَعَالَى لا يُسَاوِيهِ شَىْءٌ مِنْ كَلامِ الْمَخْلُوقِينَ وَلا نَقُولُ بِخَلْقِهِ.
+
+الشَّرْحُ أَىْ لا نَقُولُ الْقُرْءَانُ مَخْلُوقٌ فَإِنَّ الْقُرْءَانَ إِذَا أُرِيدَ بِهِ الصِّفَةُ الذَّاتِيَّةُ الَّتِى لَيْسَتْ حَرْفًا وَلا صَوْتًا فَظَاهِرٌ أَنَّهُ غَيْرُ مَخْلُوقٍ أَمَّا إِنْ أُرِيدَ بِهِ اللَّفْظُ الْمُنَزَّلُ فَيَجِبُ اعْتِقَادُ أَنَّهُ مَخْلُوقٌ لِلَّهِ تَعَالَى لَكِنْ لَفْظًا لا يُقَالُ إِلَّا لِحَاجَةِ التَّعْلِيمِ.
+
+وَالرُّوحُ الأَمِينُ هُوَ جِبْرِيلُ قَالَ تَعَالَى ﴿نَزَلَ بِهِ الرُّوحُ الأَمِينُ عَلَى قَلْبِكَ﴾ [سُورَةَ الشُّعَرَاء].
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَلا نُخَالِفُ جَمَاعَةَ الْمُسْلِمِينَ.
+
+الشَّرْحُ الْمُرَادُ بِالْجَمَاعَةِ أَهْلُ السُّنَّةِ وَالْجَمَاعَةِ وَهُمْ مَنْ كَانَ عَلَى مَا كَانَ عَلَيْهِ الرَّسُولُ ﷺ وَالصَّحَابَةُ مِنَ الْعَقَائِدِ. وَمَعْنَى كَلامِهِ لا نُخَالِفُ إِجْمَاعَ الْمُجْتَهِدِينَ فَقَدْ ثَبَتَ عَنْ أَبِى مَسْعُودٍ الْبَدْرِىِّ رَضِىَ اللَّهُ عَنْهُ «لا يَجْمَعُ اللَّهُ أُمَّةَ مُحَمَّدٍ عَلَى ضَلالَةٍ» رَوَاهُ الْحَافِظُ ابْنُ حَجَرٍ فِى أَمَالِيِّهِ وَصَحَّحَهُ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَلا نُكَفِّرُ أَحَدًا مِنْ أَهْلِ الْقِبْلَةِ بِذَنْبٍ مَا لَمْ يَسْتَحِلَّهُ.
+
+الشَّرْحُ الْمُرَادُ بِأَهْلِ الْقِبْلَةِ الْمُؤْمِنُونَ فَمَنْ كَانَ عَلَى الإِيـمَانِ لا يَجُوزُ تَكْفِيرُهُ مِنْ أَجْلِ الذَّنْبِ إِلَّا إِذَا اسْتَحَلَّ الذَّنْبَ وَكَانَ ذَلِكَ الذَّنْبُ مَعْلُومًا مِنَ الدِّينِ بِالضَّرُورَةِ أَنَّهُ ذَنْبٌ فَهَذَا الَّذِى يُكَفَّرُ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَلا نَقُولُ لا يَضُرُّ مَعَ الإِيـمَانِ ذَنْبٌ لِمَنْ عَمِلَهُ.
+
+الشَّرْحُ هَذَا فِيهِ رَدٌّ عَلَى الْمُرْجِئَةِ فِى قَوْلِهِمْ لا يَضُرُّ مَعَ الإِيـمَانِ ذَنْبٌ كَمَا لا تَنْفَعُ الطَّاعَةُ مَعَ الْكُفْرِ، عِنْدَهُمْ مَهْمَا عَمِلَ الْمُؤْمِنُ مِنَ الْمَعَاصِى لا يُعَاقَبُ وَهَذَا خِلافُ مَذْهَبِ أَهْلِ السُّنَّةِ وَفِيهِ رَدٌّ لِلنُّصُوصِ وَهُوَ كُفْرٌ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: نَرْجُو لِلْمُحْسِنِينَ مِنَ الْمُؤْمِنِينَ أَنْ يَعْفُوَ عَنْهُمْ وَيُدْخِلَهُمُ الْجَنَّةَ بِرَحْمَتِهِ وَلا نَأْمَنُ عَلَيْهِمْ.
+
+الشَّرْحُ أَىْ أَنَّ مَنْ رَأَيْنَاهُ ظَاهِرًا مُحْسِنًا أَىْ طَائِعًا نَقُولُ نَرْجُو اللَّهَ أَنْ يَعْفُوَ عَنْهُ وَيُدْخِلَهُ الْجَنَّةَ بِلا عَذَابٍ وَلا نَقْطَعُ بِالْحُكْمِ عَلَى الْوَاحِدِ مِنْهُمْ بِأَنَّهُ لا يُصِيبُهُ الْعَذَابُ فِى الآخِرَةِ الْبَتَّةَ لَكِنْ نَقُولُ إِنْ كَانَ هَذَا الإِنْسَانُ تَقِيًّا فَإِنَّهُ يَدْخُلُ الْجَنَّةَ مِنْ غَيْرِ عَذَابٍ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَلا نَشْهَدُ لَهُمْ بِالْجَنَّةِ.
+
+الشَّرْحُ مَعْنَاهُ لا نَشْهَدُ مِنْ تِلْقَاءِ أَنْفُسِنَا أَنَّ فُلانًا مِنْ أَهْلِ الْجَنَّةِ أَمَّا مَنْ وَرَدَ فِيهِ النَّصُّ أَنَّهُ مِنْ أَهْلِ الْجَنَّةِ فَنَشْهَدُ لَهُ كَأَهْلِ بَدْرٍ وَأَهْلِ أُحُدٍ وَأُنَاسٍ ءَاخَرِينَ بَشَّرَهُمُ الرَّسُولُ ﷺ بِالْجَنَّةِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَنَسْتَغْفِرُ لِمُسِيئِهِمْ وَنَخَافُ عَلَيْهِمْ وَلا نُقَنِّطُهُمْ.
+
+الشَّرْحُ نَسْتَغْفِرُ لِلْمُسِىءِ مِنَ الْمُسْلِمِينَ وَنَخَافُ عَلَيْهِ أَنْ يُعَذَّبَ بِذُنُوبِهِ إِذَا لَمْ يَتُبْ مِنْهَا أَمَّا مَنْ تَابَ مِنْهَا عَلَى تَقْدِيرِ أَنَّ تَوْبَتَهُ عِنْدَ اللَّهِ ثَابِتَةٌ كَمَا هِىَ فِى ظَاهِرِ الأَمْرِ عِنْدَنَا نَقُولُ إِنَّهُ ءَامِنٌ مِنْ عَذَابِ اللَّهِ قَالَ اللَّهُ تَعَالَى ﴿قُلْ يَا عِبَادِىَ الَّذِينَ أَسْرَفُوا عَلَى أَنْفُسِهِمْ لا تَقْنَطُوا مِنْ رَّحْمَةِ اللَّهِ إِنَّ اللَّهَ يَغْفِرُ الذُّنُوبَ جَمِيعًا﴾ [سُورَةَ الزُّمَر/53].
+
+وَمَعْنَى «وَلا نُقَنِّطُهُمْ» أَىِ الْمُذْنِبِينَ الْعُصَاةَ لا نَجْعَلُهُمْ ءَايِسِينَ مِنْ رَحْمَةِ اللَّهِ فَنَقُولُ يَجُوزُ أَنْ يُسَامِحَهُمُ اللَّهُ وَيَجُوزُ أَنْ يُعَذِّبَهُمْ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَالأَمْنُ وَالإِيَاسُ يَنْقُلانِ عَنْ مِلَّةِ الإِسْلامِ وَسَبِيلُ الْحَقِّ بَيْنَهُمَا لِأَهْلِ الْقِبْلَةِ.
+
+الشَّرْحُ الأَمْنُ مِنْ مَكْرِ اللَّهِ وَالإِيَاسُ مِنْ رَحْمَةِ اللَّهِ كُلٌّ مِنْهُمَا يُخْرِجُ الإِنْسَانَ مِنْ دِينِ اللَّهِ هَذَا عَلَى تَفْسِيرِ الْحَنَفِيَّةِ فَعِنْدَهُمْ يَعْتَبِرُونَهُمَا كُفْرًا أَمَّا عِنْدَ الشَّافِعِيَّةِ فَإِنَّهُمْ يَعْتَبِرُونَ هَذَيْنِ مِنَ الْكَبَائِرِ وَلا يَعْتَبِرُونَهُمَا مِنَ الْكُفْرِيَّاتِ وَسَبِيلُ الْحَقِّ بَيْنَ الأَمْنِ وَالإِيَاسِ نَقُولُ إِنْ مِتْنَا وَنَحْنُ بِحَالَةِ التَّوْبَةِ نَجَوْنَا مِنْ عَذَابِ اللَّهِ فِى الْقَبْرِ وَفِى الآخِرَةِ وَإِلَّا فَيَجُوزُ أَنْ يُسَامِحَنَا اللَّهُ وَلا يُعَذِّبَنَا بِذُنُوبِنَا وَيَجُوزُ أَنْ يُعَذِّبَنَا بِهَا. وَتَفْسِيرُ الأَمْنِ مِنْ مَكْرِ اللَّهِ أَنَّ الَّذِى نَفَى عَذَابَ اللَّهِ لِلْعُصَاةِ فَهَذَا أَمِنَ مِنْ مَكْرِ اللَّهِ وَكَانَ مِنَ الْكَافِرِينَ وَكَذَلِكَ الآيِسُ مِنْ رَحْمَةِ اللَّهِ أَىِ الَّذِى يَعْتَقِدُ أَنَّ اللَّهَ لا يَغْفِرُ الذَّنْبَ لِلْمُسْلِمِ التَّائِبِ فَهُوَ كَافِرٌ هَذَا تَفْسِيرُهُمَا عِنْدَ الْحَنَفِيَّةِ وَأَمَّا الأَمْنُ مِنْ مَكْرِ اللَّهِ عِنْدَ الشَّافِعِيَّةِ الْمَعْدُودُ مِنَ الْكَبَائِرِ فَهُوَ أَنْ يَسْتَرْسِلَ فِى الْمَعَاصِى اتِّكَالًا عَلَى رَحْمَةِ اللَّهِ وَأَمَّا الْيَأْسُ مِنْ رَحْمَةِ اللَّهِ عِنْدَهُمْ فَهُوَ أَنْ يَجْزِمَ الشَّخْصُ أَنَّ اللَّهَ لا يَرْحَمُهُ لِذُنُوبِهِ بَلْ يُعَذِّبُهُ فَهُوَ أَيْضًا عِنْدَهُمْ كَبِيرَةٌ وَلَيْسَا عِنْدَهُمْ مِنْ نَوْعِ الرِّدَّةِ وَعَلَى هَذَا الْمَعْنَى عَدَّهُمَا كَثِيرٌ مِنَ الشَّافِعِيَّةِ فِى كِتَابِ الشَّهَادَةِ مِنَ الْكَبَائِرِ الَّتِى تَمْنَعُ قَبُولَ الشَّهَادَةِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَلا يَخْرُجُ الْعَبْدُ مِنَ الإِيـمَانِ إِلَّا بِجُحُودِ مَا أَدْخَلَهُ فِيهِ.
+
+الشَّرْحُ الْعَبْدُ لا يَخْرُجُ مِنَ الإِيـمَانِ بِالذَّنْبِ إِلَّا أَنْ يُنْكِرَ مَا أَدْخَلَهُ فِى الإِيـمَانِ وَهُوَ التَّكْذِيبُ بِدِينِ اللَّهِ صَرِيحًا أَوْ ضِمْنًا فَإِذَا قَالَ قَوْلًا يَكُونُ تَكْذِيبًا لِشَرْعِ اللَّهِ بِعِبَارَةٍ صَرِيحَةٍ هَذَا نَعْتَبِرُهُ خَارِجًا مِنْ دِينِ اللَّهِ أَوْ فَعَلَ فِعْلًا هُوَ فِى مَعْنَى التَّكْذِيبِ هَذَا أَيْضًا نَعْتَبِرُهُ خَارِجًا مِنَ الإِيـمَانِ وَكَذَا إِنِ اعْتَقَدَ اعْتِقَادًا يُخَالِفُ عَقِيدَةَ الإِسْلامِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَالإِيـمَانُ هُوَ الإِقْرَارُ بِاللِّسَانِ وَالتَّصْدِيقُ بِالْجَنَانِ.
+
+الشَّرْحُ الإِيـمَانُ هُوَ الإِقْرَارُ بِالشَّهَادَتَيْنِ مَعَ التَّصْدِيقِ الْقَلْبِىِّ قَالَ النَّوَوِىُّ «مَنْ صَدَّقَ بِقَلْبِهِ وَلَمْ يَنْطِقْ بِلِسَانِهِ فَهُوَ كَافِرٌ مُخَلَّدٌ فِى النَّارِ بِالإِجْمَاعِ».
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَجَمِيعُ مَا صَحَّ عَنْ رَسُولِ اللَّهِ ﷺ مِنَ الشَّرْعِ وَالْبَيَانِ كُلُّهُ حَقٌّ.
+
+الشَّرْحُ قَالَ الشَّيْخُ أَحْمَدُ الْمَرْزُوقِىُّ
+
+وَكُلُّ مَا أَتَى بِهِ الرَّسُولُ	فَحَقُّهُ التَّسْلِيمُ وَالْقَبُولُ
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَالإِيـمَانُ وَاحِدٌ وَأَهْلُهُ فِى أَصْلِهِ سَوَاءٌ وَالتَّفَاضُلُ بَيْنَهُمْ بِالْخَشْيَةِ وَالتُّقَى وَمُخَالَفَةِ الْهَوَى وَمُلازَمَةِ الأَوْلَى.
+
+الشَّرْحُ أَىْ أَنَّ الإِيـمَانَ بِاعْتِبَارِ أَصْلِهِ شَىْءٌ وَاحِدٌ بَيْنَ الْمُؤْمِنِينَ كُلِّهِمْ لا يَفْضُلُ هَذَا عَلَى هَذَا لَكِنْ بِاعْتِبَارِ صِفَتِهِ يَكُونُ التَّفَاضُلُ فَمَنْ كَانَ خَاشِيًا لِلَّهِ تَعَالَى تَقِيًّا مُخَالِفًا لِهَوَاهُ مُلازِمًا لِلأَوْلَى أَىْ سَالِكًا مَسْلَكَ الْوَرَعِ هَذَا يَزِيدُ عَلَى غَيْرِهِ أَىْ يَزِيدُ إِيـمَانُهُ عَلَى إِيـمَانِ غَيْرِهِ مِنْ حَيْثُ الْوَصْفُ أَمَّا مِنْ حَيْثُ الأَصْلُ فَلا يَزِيدُ إِيـمَانٌ عَلَى إِيـمَانٍ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَالْمُؤْمِنُونَ كُلُّهُمْ أَوْلِيَاءُ الرَّحْمٰنِ.
+
+الشَّرْحُ الْمُؤْمِنُونَ كُلُّهُمْ يَدْخُلُونَ فِى الْوِلايَةِ الْعَامَّةِ أَمَّا الْوِلايَةُ الْخَاصَّةُ فَهِىَ لِأَهْلِ الِاسْتِقَامَةِ فَقَطْ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَأَكْرَمُهُمْ عِنْدَ اللَّهِ أَطْوَعُهُمْ وَأَتْبَعُهُمْ لِلْقُرْءَانِ.
+
+الشَّرْحُ أَىْ أَشَدُّهُمْ طَاعَةً هُوَ أَكْرَمُهُمْ عِنْدَ اللَّهِ الَّذِى هُوَ أَتْبَعُهُمْ لِلْقُرْءَانِ أَىْ أَشَدُّهُمْ عَمَلًا بِالْقُرْءَانِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَالإِيـمَانُ هُوَ الإِيـمَانُ بِاللَّهِ وَمَلائِكَتِهِ وَكُتُبِهِ وَرُسُلِهِ وَالْيَوْمِ الآخِرِ وَالْقَدَرِ خَيْرِهِ وَشَرِّهِ وَحُلْوِهِ وَمُرِّهِ مِنَ اللَّهِ تَعَالَى.
+
+الشَّرْحُ أَىْ هَذِهِ الْمَذْكُورَاتُ أَهَمُّ الأُمُورِ وَأَعْظَمُهَا فَيَجِبُ الإِيـمَانُ بِهَا، وَالْقَدَرُ هُنَا مَعْنَاهُ الْمَقْدُورُ أَىْ أَنْ تُؤْمِنَ بِالْمَقْدُورِ خَيْرِهِ وَشَرِّهِ وَحُلْوِهِ وَمُرِّهِ أَنَّهُ مِنَ اللَّهِ أَىْ أَنَّهُ حَصَلَ مِنَ اللَّهِ بِمَشِيئَتِهِ وَعِلْمِهِ أَمَّا صِفَةُ اللَّهِ التَّقْدِيرُ فَلا تُوصَفُ بِذَلِكَ فَلا يُقَالُ هَذَا مِنْهُ خَيْرٌ أَوْ مِنْهُ شَرٌّ لِأَنَّ صِفَاتِ اللَّهِ كُلَّهَا كَمَالٌ لَيْسَ فِيهَا نَقْصٌ وَالْقَدَرُ إِذَا أُرِيدَ بِهِ تَقْدِيرُ اللَّهِ الَّذِى هُوَ صِفَتُهُ لا يُقَالُ شَرُّ الْقَدَرِ، وَالْحُلْوُ مَا يُلائِمُ الطَّبْعَ وَالْمُرُّ مَا لا يُلائِمُ الطَّبْعَ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَنَحْنُ مُؤْمِنُونَ بِذَلِكَ كُلِّهِ لا نُفَرِّقُ بَيْنَ أَحَدٍ مِنْ رُسُلِهِ وَنُصَدِّقُهُمْ كُلَّهُمْ عَلَى مَا جَاءُوا بِهِ.
+
+الشَّرْحُ مَعْنَاهُ نُؤْمِنُ بِجَمِيعِ رُسُلِهِ وَأَنْبِيَائِهِ وَنُصَدِّقُهُمْ جَمِيعَهُمْ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَأَهْلُ الْكَبَائِرِ مِنْ أُمَّةِ مُحَمَّدٍ ﷺ فِى النَّارِ لا يَخْلُدُونَ إِذَا مَاتُوا وَهُمْ مُوَحِّدُونَ وَإِنْ لَمْ يَكُونُوا تَائِبِينَ.
+
+الشَّرْحُ أَهْلُ الْكَبَائِرِ إِنْ مَاتُوا مُؤْمِنِينَ لَكِنَّهُمْ لَمْ يَتُوبُوا لا يَخْلُدُونَ فِى النَّارِ لِذَلِكَ قَالَ وَإِنْ لَمْ يَكُونُوا تَائِبِينَ أَىْ لَوْ لَمْ يَتُوبُوا لا يَخْلُدُونَ خِلافَ مَا تَقُولُهُ الْمُعْتَزِلَةُ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: بَعْدَ أَنْ لَقُوا اللَّهَ عَارِفِينَ مُؤْمِنِينَ.
+
+الشَّرْحُ مَعْنَى قَوْلِهِ لَقُوا اللَّهَ عَارِفِينَ أَيْ مَاتُوا عَارِفِينَ بِاللَّهِ وَرَسُولِهِ وَقَوْلِهِ مُؤْمِنِينَ أَىْ مُذْعِنِينَ فِى قُلُوبِهِمْ بِذَلِكَ، هَؤُلاءِ لَوْ مَاتُوا بِلا تَوْبَةٍ لا يَخْلُدُونَ فِى النَّارِ وَمَنْ عُذِّبَ مِنْهُمْ لا بُدَّ أَنْ يَخْرُجَ مِنَ النَّارِ وَيَدْخُلَ الْجَنَّةَ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَهُمْ فِى مَشِيئَتِهِ وَحُكْمِهِ إِنْ شَاءَ غَفَرَ لَهُمْ وَعَفَا عَنْهُمْ بِفَضْلِهِ كَمَا ذَكَرَ عَزَّ وَجَلَّ فِى كِتَابِهِ ﴿وَيَغْفِرُ مَا دُونَ ذَلِكَ لِمَنْ يَشَاءُ﴾ [سُورَةَ النِّسَاء/48] وَإِنْ شَاءَ عَذَّبَهُمْ فِى النَّارِ بِعَدْلِهِ ثُمَّ يُخْرِجُهُمْ مِنْهَا بِرَحْمَتِهِ وَشَفَاعَةِ الشَّافِعِينَ مِنْ أَهْلِ طَاعَتِهِ ثُمَّ يَبْعَثُهُمْ إِلَى جَنَّتِهِ وَذَلِكَ بِأَنَّ اللَّهَ تَعَالَى تَوَلَّى أَهْلَ مَعْرِفَتِهِ وَلَمْ يَجْعَلْهُمْ فِى الدَّارَيْنِ كَأَهْلِ نُكْرَتِهِ الَّذِينَ خَابُوا مِنْ هِدَايَتِهِ وَلَمْ يَنَالُوا مِنْ وِلايَتِهِ اللَّهُمَّ يَا وَلِىَّ الإِسْلامِ وَأَهْلِهِ ثَبِّتْنَا عَلَى الإِسْلامِ حَتَّى نَلْقَاكَ بِهِ.
+
+الشَّرْحُ مَعْنَى ثُمَّ يُخْرِجُهُمْ مِنْهَا بِرَحْمَتِهِ وَشَفَاعَةِ الشَّافِعِينَ أَىْ أَنَّهُ مِنْ عَقَائِدِ أَهْلِ السُّنَّةِ أَنَّ عُصَاةَ الْمُؤْمِنِينَ الَّذِينَ مَاتُوا بِلا تَوْبَةٍ وَكَانُوا مِنْ أَهْلِ الْكَبَائِرِ إِذَا عَذَّبَهُمُ اللَّهُ أَىْ عَذَّبَ مَنْ شَاءَ مِنْهُمْ لا بُدَّ أَنْ يُخْرِجَهُمْ مِنَ النَّارِ بِرَحْمَتِهِ وَشَفَاعَةِ الشَّافِعِينَ مِنْ أَهْلِ طَاعَتِهِ وَهَؤُلاءِ الشَّافِعُونَ إِمَّا أَنْ يَكُونُوا أَنْبِيَاءَ وَإِمَّا أَنْ يَكُونُوا عُلَمَاءَ أَتْقِيَاءَ أَوْ يَكُونُونَ بِصِفَةٍ أُخْرَى كَالشُّهَدَاءِ.
+
+وَقَوْلُهُ وَذَلِكَ بِأَنَّ اللَّهَ تَوَلَّى أَهْلَ مَعْرِفَتِهِ مَعْنَاهُ أَنَّ اللَّهَ حَافِظُ أَهْلِ مَعْرِفَتِهِ الْمُؤْمِنِينَ بِهِ، وَمَعْنَى نُكْرَتِهِ أَىْ كَذَّبُوا بِهِ إِمَّا بِنَفْىِ وُجُودِ اللَّهِ كَالدَّهْرِيَّةِ وَإِمَّا بِعِبَادِةِ غَيْرِهِ وَإِمَّا بِتَكْذِيبِ رَسُولِهِ أَوْ نَحْوِ ذَلِكَ، وَمَعْنَى وَلَمْ يَنَالُوا مِنْ وِلايَتِهِ أَىْ مَا صَارَ لَهُمْ حَظٌّ مِنْ وِلايَةِ اللَّهِ تَعَالَى يَعْنِى الْوِلايَةَ الْعَامَّةَ وَهُوَ الإِسْلامُ.
+
+وَقَوْلُهُ ثَبِّتْنَا عَلَى الإِسْلامِ حَتَّى نَلْقَاكَ بِهِ أَىْ ثَبِّتْنَا عَلَى الإِيـمَانِ حَتَّى نَمُوتَ وَهَذَا هُوَ الْمُرَادُ بِلِقَاءِ اللَّهِ.`,
+    paragraphs: 45,
+    words: 1363
+  },
+  {
+    id: "sec-15",
+    title: `الأولياء وأشراط الساعة`,
+    description: `كرامات الأولياء وأشراط الساعة والدجال ونزول عيسى`,
+    content: `قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَنَرَى الصَّلاةَ خَلْفَ كُلِّ بَرٍّ وَفَاجِرٍ مِنْ أَهْلِ الْقِبْلَةِ.
+
+الشَّرْحُ الْمَعْنَى أَنَّهُ يَجُوزُ الصَّلاةُ خَلْفَ كُلِّ بَرٍّ وَفَاجِرٍ مِنْ أَهْلِ الْقِبْلَةِ مَعَ الْكَرَاهَةِ خَلْفَ الْفَاجِرِ وَالْمَعْرُوفُ فِى مَذْهَبِ الإِمَامِ أَحْمَدَ بنِ حَنْبَلٍ أَنَّهُ لا تَصِحُّ الْجَمَاعَةُ خَلْفَ الْفَاجِرِ إِلَّا فِى الْجُمُعَةِ وَالْعِيدِ.
+
+وَقَوْلُهُ نَرَى أَىْ نَعْتَقِدُ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَعَلَى مَنْ مَاتَ مِنْهُمْ.
+
+الشَّرْحُ أَىْ نَعْتَقِدُ وُجُوبَ الصَّلاةِ عَلَى مَنْ مَاتَ مِنَ الْمُسْلِمِينَ بَرِّهِمْ وَفَاجِرِهِمْ وَالْبَرُّ هُوَ التَّقِىُّ وَالْفَاجِرُ هُوَ مَنْ كَانَ مِنْ أَهْلِ الْكَبَائِرِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَلا نُنَزِّلُ أَحَدًا مِنْهُمْ جَنَّةً وَلا نَارًا.
+
+الشَّرْحُ أَىْ لا نَحْكُمُ مِنْ تِلْقَاءِ أَنْفُسِنَا بِأَنَّ فُلانًا مِنْ أَهْلِ الْجَنَّةِ وَأَنَّ فُلانًا مِنْ أَهْلِ النَّارِ وَلَوْ كَانَ مُنْغَمِسًا فِى الذُّنُوبِ فَمَا يُدْرِينَا إِنْ كَانَ اللَّهُ كَتَبَ لَهُ الْمَوْتَ عَلَى التَّوْبَةِ وَكَذَلِكَ لا نَدْرِى إِنْ كَانَ هَذَا الإِنْسَانُ الَّذِى ظَاهِرُهُ الآنَ الْخَيْرُ مِمَّنْ كُتِبَ عَلَيْهِمُ الشَّقَاوَةُ فَإِنَّهُ لا بُدَّ أَنْ يُخْتَمَ لَهُ بِعَمَلِ أَهْلِ النَّارِ لِذَلِكَ لا نَقُولُ فُلانٌ مِنْ أَهْلِ الْجَنَّةِ أَوْ فُلانٌ مِنْ أَهْلِ النَّارِ مِنْ تِلْقَاءِ أَنْفُسِنَا إِلَّا مَنْ شَهِدَ لَهُ الشَّرْعُ. أَبُو لَهَبٍ نَقُولُ عَنْهُ مِنْ أَهْلِ النَّارِ لِأَنَّ الْقُرْءَانَ شَهِدَ عَلَيْهِ أَمَّا أَهْلُ الرِّضْوَانِ وَأَشْبَاهُهُمْ نَشْهَدُ لَهُمْ بِالْجَنَّةِ لِأَنَّ الشَّرْعَ شَهِدَ لَهُمْ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَلا نَشْهَدُ عَلَيْهِمْ بِكُفْرٍ وَلا بِشِرْكٍ وَلا بِنِفَاقٍ مَا لَمْ يَظْهَرْ مِنْهُمْ شَىْءٌ مِنْ ذَلِكَ.
+
+الشَّرْحُ أَىْ لا نُكَفِّرُ أَحَدًا بِدُونِ دَلِيلٍ وَلا نَحْكُمُ عَلَى أَحَدٍ بِالشِّرْكِ بِدُونِ دَلِيلٍ وَلا بِالنِّفَاقِ بِدُونِ دَلِيلٍ شَرْعِىٍّ أَمَّا النِّفَاقُ فَهُوَ اعْتِقَادُ خِلافِ مَا يُظْهِرُهُ الشَّخْصُ مِنْ نَفْسِهِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَنَذَرُ سَرَائِرَهُمْ إِلَى اللَّهِ تَعَالَى.
+
+الشَّرْحُ أَىْ أَنْ نَقُولَ اللَّهُ أَعْلَمُ بِمَا فِى قُلُوبِهِمْ لِأَنَّ اللَّهَ هُوَ الْمُطَّلِعُ عَلَيْهَا دُونَ الْعِبَادِ فَوَجَبَ تَفْوِيضُ ذَلِكَ إِلَيْهِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَلا نَرَى السَّيْفَ عَلَى أَحَدٍ مِنْ أُمَّةِ مُحَمَّدٍ ﷺ إِلَّا مَنْ وَجَبَ عَلَيْهِ السَّيْفُ.
+
+الشَّرْحُ أَىْ لا يَجُوزُ قَتْلُ الْمُسْلِمِ الْبَرِّ وَالْفَاجِرِ إِلَّا مَنْ ثَبَتَ عَلَيْهِ الْقَتْلُ، النَّفْسُ بِالنَّفْسِ وَالثَّيِّبُ الزَّانِى كَذَلِكَ يَجُوزُ قِتَالُ الْبُغَاةِ حَتَّى يَرْجِعُوا إِلَى طَاعَةِ الْخَلِيفَةِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَلا نَرَى الْخُرُوجَ عَلَى أَئِمَّتِنَا وَوُلاةِ أُمُورِنَا وَإِنْ جَارُوا.
+
+الشَّرْحُ أَىْ يَحْرُمُ الْخُرُوجُ عَلَى السُّلْطَانِ الَّذِى انْعَقَدَتْ بَيْعَتُهُ الشَّرْعِيَّةُ وَلا نُحَارِبُهُمْ وَلا نَخْلَعُهُمْ مِنَ الْخِلافَةِ وَإِنْ ظَلَمُوا وَإِنَّمَا يُخْرَجُ عَلَيْهِمْ إِنْ كَفَرُوا.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَلا نَدْعُو عَلَيْهِمْ وَلا نَنْزَعُ يَدًا مِنْ طَاعَتِهِمْ.
+
+الشَّرْحُ يَعْنِى أَنَّهُ لا نَدْعُو عَلَيْهِمْ دُعَاءً يُؤَدِّى إِلَى تَحْرِيكِ فِتْنَةٍ أَمَّا قَوْلُهُ وَلا نَنْزَعُ يَدًا مِنْ طَاعَتِهِمْ فَمَعْنَاهُ نُطِيعُهُمْ وَإِنْ كَانُوا جَائِرِينَ فِيمَا لا مَعْصِيَةَ فِيهِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَنَرَى طَاعَتَهُمْ مِنْ طَاعَةِ اللَّهِ عَزَّ وَجَلَّ فَرِيضَةً مَا لَمْ يَأْمُرُوا بِمَعْصِيَةٍ.
+
+الشَّرْحُ أَىِ الطَّاعَةَ الَّتِى أَمَرَ اللَّهُ بِهَا الْمُؤْمِنِينَ لِأُولِى الأَمْرِ هِىَ الطَّاعَةُ فِى طَاعَةِ اللَّهِ، نَعْتَبِرُ فَرْضًا مِنَ اللَّهِ تَعَالَى طَاعَةَ أُولِى الأَمْرِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَنَدْعُو لَهُمْ بِالصَّلاحِ وَالْمُعَافَاةِ.
+
+الشَّرْحُ أَىْ نَدْعُو لَهُمْ أَنْ يُصْلِحَهُمُ اللَّهُ، وَقَوْلُهُ الْمُعَافَاةِ أَىْ أَنْ يُزِيلَ عَنْهُمْ مَا بِهِمْ مِنَ الْجَوْرِ وَالظُّلْمِ بِأَنْ يَتُوبَ عَلَيْهِمْ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَنَتْبَعُ السُّنَّةَ وَالْجَمَاعَةَ وَنَجْتَنِبُ الشُّذُوذَ وَالْخِلافَ وَالْفُرْقَةَ.
+
+الشَّرْحُ قَوْلُهُ «السُّنَّةَ وَالْجَمَاعَةَ» هُمُ الَّذِينَ يَعْتَقِدُونَ عَقِيدَةَ الصَّحَابَةِ وَالتَّابِعِينَ وَمَنْ تَبِعَهُمْ بِإِحْسَانٍ وَإِنَّمَا سُمُّوا أَهْلَ السُّنَّةِ لِأَنَّهُمْ عَلَى سُنَّةِ رَسُولِ اللَّهِ لِأَنَّ الرَّسُولَ أَمَرَ بِاتِّبَاعِ مَا كَانَ عَلَيْهِ أَصْحَابُهُ وَأَمَّا تَسْمِيَتُهُمْ بِالْجَمَاعَةِ فَلِأَنَّهُمْ لَمْ يَخْرُجُوا عَنْ جُمْهُورِ الأُمَّةِ فِى الِاعْتِقَادِ الْحَقِّ أَمَّا الشَّرَاذِمُ الْمُفْتَرِقَةُ عَنْهُمْ إِلَى اثْنَتَيْنِ وَسَبْعِينَ فِرْقَةً هَذِهِ خَالَفَتِ اعْتِقَادَ الصَّحَابَةِ. وَيَعْنِى بِالشُّذُوذِ الْخُرُوجَ عَنِ الإِجْمَاعِ فِى الْمَسَائِلِ الِاجْتِهَادِيَّةِ الَّتِى اجْتَهَدَ فِيهَا أَهْلُ الِاجْتِهَادِ وَبِالْخِلافِ مُخَالَفَةَ مَنْ خَالَفَ ذَلِكَ بِفِرَاقِهِمْ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَنُحِبُّ أَهْلَ الْعَدْلِ وَالأَمَانَةِ وَنُبْغِضُ أَهْلَ الْجَوْرِ وَالْخِيَانَةِ.
+
+الشَّرْحُ هَذَا يُؤَكِّدُ تَضَمُّنَ حُرْمَةِ الْخُرُوجِ عَنِ الإِجْمَاعِ وَأَرَادَ الْمُؤَلِّفُ بِأَهْلِ الْعَدْلِ وَالأَمَانَةِ أَهْلَ السُّنَّةِ الْمُتَمِّسِكِينَ بِالْعَدْلِ مِنْ وُلاةِ الأُمُورِ وَأَرَادَ بِأَهْلِ الْجَوْرِ وَالْخِيَانَةِ أَهْلَ الْخِلافِ وَالْعِصْيَانِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَنَقُولُ اللَّهُ أَعْلَمُ فِيمَا اشْتَبَهَ عَلَيْنَا عِلْمُهُ.
+
+الشَّرْحُ أَىِ الشَّىْءُ الَّذِى لا نَعْلَمُهُ نَقُولُ نُفَوِّضُ فِيهِ الْعِلْمَ إِلَى اللَّهِ وَالْمَعْنَى أَنَّ الإِنْسَانَ قَدْ يَتَشَكَّكُ عِنْدَمَا يَشْتَبِهُ عَلَيْهِ الأَمْرُ فَعِنْدَئِذٍ يَلْجَأُ إِلَى التَّفْوِيضِ إِلَى اللَّهِ وَيَعْتَقِدُ الْحَقِّيَّةَ فِى كُلِّ مَا ثَبَتَ عَنِ اللَّهِ وَعَنْ رَسُولِهِ وَيَعْرِفُ يَقِينًا أَنَّ عُقُولَ الْخَلْقِ قَاصِرَةٌ عن الحِكَمِ الْبَشَرِيَّةِ فَكَيْفُ تُدْرِكُ جَمِيعَ الْحِكَمِ الرُّبُوبِيَّةِ، كَانَ أَمِيرُ الْمُؤْمِنِينَ عَلِىُّ بنُ أَبِى طَالِبٍ رَضِىَ اللَّهُ عَنْهُ يَقُولُ «يَا أَيُّهَا النَّاسُ اتَّهِمُوا ءَارَاءَكُمْ وَأَحْسِنُوا الظَّنَّ بِرَسُولِ اللَّهِ فِيمَا يُرْوَى لَكُمْ عَنْهُ».
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَنَرَى الْمَسْحَ عَلَى الْخُفَّيْنِ فِى السَّفَرِ وَالْحَضَرِ كَمَا جَاءَ فِى الأَثَرِ.
+
+الشَّرْحُ لا مُخَالِفَ فِى هَذِهِ الْمَسْئَلَةِ بَيْنَ الصَّحَابَةِ وَلا مَنْ بَعْدَهُمْ مِنْ أَهْلِ الْحَقِّ فَحَدِيثُ الْمَسْحِ عَلَى الْخُفَّيْنِ مُتَوَاتِرٌ رَوَاهُ عَدَدٌ لا يُحْصَى مِنَ الْمُحَدِّثِينَ فِى مُؤَلَّفَاتِهِمْ عَنْ سَبْعِينَ مِنْ أَصْحَابِ رَسُولِ اللَّهِ ﷺ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَالْحَجُّ وَالْجِهَادُ مَاضِيَانِ مَعَ أُولِى الأَمْرِ مِنَ الْمُسْلِمِينَ بَرِّهِمْ وَفَاجِرِهِمْ إِلَى قِيَامِ السَّاعَةِ لا يُبْطِلُهُمَا شَىْءٌ وَلا يَنْقُضُهُمَا.
+
+الشَّرْحُ يَعْنِى أَنَّهُ يَجِبُ الْجِهَادُ مَعَ الإِمَامِ الْبَرِّ وَالْفَاجِرِ فَإِذَا اسْتَنْفَرَ الإِمَامُ الْمُسْلِمِينَ لِلْجِهَادِ وَجَبَ عَلَيْهِمْ طَاعَتُهُ إِنْ كَانَ بَرًّا وَإِنْ كَانَ فَاجِرًا وَالْمُرَادُ جِهَادُ الْكُفَّارِ وَكَذَلِكَ يُطَاعُ لِلْحَجِّ أَنْ يُقْتَدَى بِهِ وَلا يُتَمَرَّدَ عَلَيْهِ لِأَنَّهُ أَدْرَى بِمَصْلَحَةِ الْعِبَادَاتِ كَمَا هُوَ أَدْرَى بِمَصْلَحَةِ الْجِهَادِ أَىْ قِتَالِ الْكُفَّارِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَنُؤْمِنُ بِالْكِرَامِ الْكَاتِبِينَ فَإِنَّ اللَّهَ قَدْ جَعَلَهُمْ عَلَيْنَا حَافِظِينَ.
+
+الشَّرْحُ الْكِرَامُ الْكَاتِبُونَ هُمُ الْمَلائِكَةُ الَّذِينَ أَمَرَهُمُ اللَّهُ تَعَالَى بِكِتَابَةِ أَعْمَالِ الْعِبَادِ فَإِنَّ اللَّهَ جَعَلَهُمْ عَلَيْنَا حَافِظِينَ قَالَ تَعَالَى ﴿وَإِنَّ عَلَيْكُمْ لَحَافِظِينَ كِرَامًا كَاتِبِينَ يَعْلَمُونَ مَا تَفْعَلُونَ﴾ [سُورَةَ الِانْفِطَار].
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَنُؤْمِنُ بِمَلَكِ الْمَوْتِ الْمُوَكَّلِ بِقَبْضِ أَرْوَاحِ الْعَالَمِينَ.
+
+الشَّرْحُ الْعَالَمُونَ هُمُ الإِنْسُ وَالْجِنُّ، وَمَلَكُ الْمَوْتِ الْمُرَادُ بِهِ عَزْرَائِيلُ وَعِنْدَ بَعْضِهِمْ عَزْرَائِيلُ وَأَعْوَانُهُ وَقَدْ جَاءَ الإِسْنَادُ إِسْنَادُ التَّوَفِّى إِلَى الْمَلائِكَةِ بِلَفْظِ الْجَمْعِ وَجَاءَ بِلَفْظِ الإِفْرَادِ فَفِى الْمَوْضِعِ الَّذِى جَاءَ اللَّفْظُ بِالإِفْرَادِ يَكُونُ الْمَعْنَى أَنَّ الَّذِى يَقْبِضُ الأَرْوَاحَ مُبَاشَرَةً هُوَ عَزْرَائِيلُ ثُمَّ يَسْتَلِمُ مِنْهُ الأَرْوَاحَ غَيْرُهُ مِنَ الْمَلائِكَةِ الَّذِينَ يَكُونُونَ مَعَهُ وَهُمْ قِسْمَانِ مَلائِكَةُ رَحْمَةٍ وَمَلائِكَةُ عَذَابٍ، وَحَيْثُ جَاءَ بِصِيغَةِ الْجَمْعِ فَالْمُرَادُ عَزْرَائِيلُ وَأَعْوَانُهُ لِأَنَّ كُلًّا مِنْهُمْ لَهُ دَخَلٌ فِى قَبْضِ الرُّوحِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَبِعَذَابِ الْقَبْرِ لِمَنْ كَانَ لَهُ أَهْلًا.
+
+الشَّرْحُ يَجِبُ الإِيـمَانُ بِعَذَابِ الْقَبْرِ لِلْكُفَّارِ وَأَهْلِ الْكَبَائِرِ إِلَّا مَنْ رَحِمَهُ اللَّهُ تَعَالَى مِنْهُمْ أَىْ مِنْ أَهْلِ الْكَبَائِرِ وَمِنْ أَكْبَرِ أَسْبَابِهِ تَرْكُ الِاسْتِنْزَاهِ مِنَ الْبَوْلِ وَالْغِيبَةُ وَالنَّمِيمَةُ.
+
+وَالدَّلِيلُ عَلَى وُجُودِ عَذَابِ الْقَبْرِ قَوْلُهُ تَعَالَى ﴿النَّارُ يُعْرَضُونَ عَلَيْهَا غُدُوًّا وَعَشِيًّا وَيَوْمَ تَقُومُ السَّاعَةُ أَدْخِلُوا ءَالَ فِرْعَوْنَ أَشَدَّ الْعَذَابِ﴾ [سُورَةَ غَافِر/46] وَأَحَادِيثُ مِنْهَا قَوْلُهُ عَلَيْهِ السَّلامُ «اسْتَنْزِهُوا مِنَ الْبَوْلِ فَإِنَّ عَامَّةَ عَذَابِ الْقَبْرِ مِنْهُ» رَوَاهُ الدَّارَقُطْنِىُّ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَسُؤَالِ مُنْكَرٍ وَنَكِيرٍ فِى قَبْرِهِ عَنْ رَبِّهِ وَدِينِهِ وَنَبِيِّهِ عَلَى مَا جَاءَتْ بِهِ الأَخْبَارُ عَنْ رَسُولِ اللَّهِ ﷺ وَعَنِ الصَّحَابَةِ رِضْوَانُ اللَّهِ عَلَيْهِمْ.
+
+الشَّرْحُ أَىْ وَنُؤْمِنُ بِذَلِكَ أَيْضًا وَالسُّؤَالُ لِلْبَالِغِينَ الْمُكَلَّفِينَ مِنْ هَذِهِ الأُمَّةِ فَقَطْ وَيُسْتَثْنَى الأَنْبِيَاءُ وَشُهَدَاءُ الْمَعْرَكَةِ وَالأَطْفَالُ فَإِنَّهُمْ لا يُسْأَلُونَ وَلا يَجِبُ مَعْرِفَةُ كَيْفِيَّةِ السُّؤَالِ وَلَكِنْ يَجِبُ اعْتِقَادُ أَنَّ الْمَيِّتَ يَعُودُ إِلَيْهِ عَقْلُهُ وَإِحْسَاسُهُ بِعَوْدِ الرُّوحِ إِلَى الْجِسْمِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَالْقَبْرُ رَوْضَةٌ مِنْ رِيَاضِ الْجَنَّةِ أَوْ حُفْرَةٌ مِنْ حُفَرِ النِّيرَانِ.
+
+الشَّرْحُ قَوْلُهُ رَوْضَةٌ مِنْ رِيَاضِ الْجَنَّةِ لَيْسَ الْمُرَادُ بِهِ أَنَّ الْقَبْرَ يَصِيرُ مِثْلَ الْجَنَّةِ سَوَاءً وَكَذَلِكَ قَوْلُهُ أَوْ حُفْرَةٌ مِنْ حُفَرِ النِّيرَانِ مَعْنَاهُ أَنَّ فِيهِ نَكَدًا وَالنَّكَدُ أَنْوَاعٌ كَثِيرَةٌ وَهَذَا تَشْبِيهٌ مَجَازِىٌّ وَالتَّقْدِيرُ الْقَبْرُ كَرَوْضَةٍ مِنْ رِيَاضٍ الْجَنَّةِ أَوْ كَحُفْرَةٍ مِنْ حُفَرِ النِّيرَانِ.`,
+    paragraphs: 42,
+    words: 1101
+  },
+  {
+    id: "sec-16",
+    title: `الجماعة والدين والبراء`,
+    description: `دين الله الإسلام بين الغلو والتقصير والتشبيه والتعطيل`,
+    content: `قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَنُؤْمِنُ بِالْبَعْثِ وَجَزَاءِ الأَعْمَالِ يَوْمَ الْقِيَامَةِ وَالْعَرْضِ وَالْحِسَابِ وَقِرَاءَةِ الْكِتَابِ وَالثَّوَابِ وَالْعِقَابِ وَالصِّرَاطِ وَالْمِيزَانِ.
+
+الشَّرْحُ أَىْ يَجِبُ الإِيـمَانُ بِمَا ذُكِرَ لِأَنَّ كُلًّا وَرَدَ بِهِ النَّصُّ الشَّرْعِىُّ، وَالْبَعْثُ هُوَ بَعْثُ اللَّهِ تَعَالَى الْمَوْتَى مِنَ الْقُبُورِ وَقَوْلُهُ «وَجَزَاءِ الأَعْمَالِ» دَلَّتِ الدَّلائِلُ أَنْ يَكُونَ الإِيـمَانُ وَاجِبًا عَلَى التَّأْبِيدِ وَالْكُفْرُ حَرَامًا عَلَى التَّأْبِيدِ وَدَلَّتِ الدَّلائِلُ عَلَى أَنْ يَكُونَ جَزَاؤُهُمَا عَلَى التَّأْبِيدِ، وَجُعِلَتِ الْحَيَاةُ الدُّنْيَا لِلْعَمَلِ إِلَى الْمَوْتِ وَجُعِلَ الْمَوْتُ لِلنَّقْلِ إِلَى الآخِرَةِ الَّتِى فِيهَا يُبْعَثُونَ جَمِيعًا لِلْجَزَاءِ الْوِفَاقِ، وَلَوْ كَانَ وُقُوعُ ابْتِدَاءِ الْجَزَاءِ الْمُؤَبَّدِ فِى الدُّنْيَا لَبَطَلَتِ الْمِحْنَةُ عَنِ اخْتِيَارٍ وَكَانَ الإِيـمَانُ اضْطِرَارِيًّا بِالْمُعَايَنَةِ لِلْعَذَابِ وَقَدْ قَامَ الدَّلِيلُ الْقَطْعِىُّ عَلَى أَنَّ الإِيـمَانَ لا يَنْفَعُ عِنْدَ مُعَايَنَةِ الْبَأْسِ، وَجُعِلَ الْجَزَاءُ فِى دَارِ الْبَقَاءِ قَالَ تَعَالَى ﴿مَالِكِ يَوْمِ الدِّينِ﴾ [سُورَةَ الْفَاتِحَة/4] أَىْ يَوْمِ الْجَزَاءِ.
+
+وَقَوْلُهُ «يَوْمَ الْقِيَامَةِ» لِأَنَّ الدُّنْيَا لا تَصْلُحُ أَنْ تَكُونَ دَارَ الْجَزَاءِ الْعَامِّ لِأَنَّهَا جُعِلَتْ دَارَ الْعَمَلِ وَالآخِرَةَ جُعِلَتْ دَارَ الْجَزَاءِ، وَقَوْلُهُ «وَالْعَرْضِ» أَىِ الْعَرْضِ عَلَى أَسْرَعِ الْحَاسِبِينَ.
+
+وَقَوْلُهُ «وَقِرَاءَةِ الْكِتَابِ» أَىْ يُعْرَضُ كِتَابُ الْمَرْءِ يَوْمَ الْقِيَامَةِ الَّذِى كَتَبَتْهُ الْمَلائِكَةُ فَيُقَالُ لَهُ اقْرَأْ كِتَابَكَ فَيَرَى فِيهِ أَعْمَالَهُ، وَقَوْلُهُ «وَالثَّوَابِ وَالْعِقَابِ» فَقَدْ تَضَمَّنَ ذَلِكَ قَوْلَهُ «وَجَزَاءِ الأَعْمَالِ» وَأُعِيدَ تَأْكِيدًا وَمُبَالَغَةً.
+
+وَأَمَّا قَوْلُهُ «وَالصِّرَاطِ» فَلِقَوْلِهِ تَعَالَى ﴿وَإِنْ مِّنْكُمْ إِلَّا وَارِدُهَا﴾ [سُورَةَ مَرْيَم/71]، وَلَمَّا ثَبَتَ عَنْ رَسُولِ اللَّهِ أَنَّهُ يُضْرَبُ الصِّرَاطُ عَلَى مَتْنِ جَهَنَّمَ، وَقَدِ اخْتُلِفَ فِى تَفْسِيرِ الْوُرُودِ وَالصَّوَابُ أَنَّ الْوُرُودَ عَلَى وَجْهَيْنِ وُرُودُ دُخُولٍ وَوُرُودُ عُبُورٍ فَوُرُودُ الدُّخُولِ لِلْكُفَّارِ وَلِبَعْضِ عُصَاةِ الْمُسْلِمِينَ وَوُرُودُ الْعُبُورِ لِلأَتْقِيَاءِ.
+
+وَأَمَّا الإِيـمَانُ بِالْمِيزَانِ وَالْوَزْنِ فَلِقَوْلِهِ تَعَالَى ﴿وَنَضَعُ الْمَوَازِينَ الْقِسْطَ لِيَوْمِ الْقِيَامَةِ﴾ [سُورَةَ الأَنْبِيَاء/47] وَلِلأَخْبَارِ الْوَارِدَةِ فِي ذَلِكَ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَالْجَنَّةُ وَالنَّارُ مَخْلُوقَتَانِ لا تَفْنَيَانِ أَبَدًا وَلا تَبِيدَانِ.
+
+الشَّرْحُ يُفْهَمُ مِنْ كَلامِهِ هَذَا ضَلالُ مَنْ قَالَ بِفَنَاءِ الْجَنَّةِ وَالنَّارِ وَهُمُ الْجَهْمِيَّةُ وَكَذَلِكَ مَنْ قَالَ بِفَنَاءِ جَهَنَّمَ وَهُوَ ابْنُ تَيْمِيَةَ وَكِلا الْفَرِيقَيْنِ كَافِرٌ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَإِنَّ اللَّهَ تَعَالَى خَلَقَ الْجَنَّةَ وَالنَّارَ قَبْلَ الْخَلْقِ.
+
+الشَّرْحُ أَىْ يَجِبُ أَنْ نُؤْمِنَ بِأَنَّ الْجَنَّةَ وَالنَّارَ خُلِقَتَا قَبْلَ الْبَشَرِ وَهُمُ الْمُرَادُونَ بِقَوْلِهِ قَبْلَ الْخَلْقِ أَىْ قَبْلَ الْبَشَرِ وَلَيْسَ مَعْنَاهُ قَبْلَ كُلِّ شَىْءٍ خَلَقَ اللَّهُ الْجَنَّةَ وَالنَّارَ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَخَلَقَ لَهُمَا أَهْلًا فَمَنْ شَاءَ مِنْهُمْ إِلَى الْجَنَّةِ فَضْلًا مِنْهُ وَمَنْ شَاءَ مِنْهُمْ إِلَى النَّارِ عَدْلًا مِنْهُ وَكُلٌّ يَعْمَلُ لِمَا قَدْ فُرِغَ لَهُ وَصَائِرٌ إِلَى مَا خُلِقَ لَهُ.
+
+الشَّرْحُ يَجِبُ الإِيـمَانُ بِأَنَّ اللَّهَ خَلَقَ لِلْجَنَّةِ وَالنَّارِ أَهْلًا فَمَنْ أَدْخَلَهُ الْجَنَّةَ فَبِفَضْلِهِ وَمَنْ أَدْخَلَهُ النَّارَ فَبِعَدْلِهِ.
+
+وَقَوْلُهُ «وَكُلٌّ يَعْمَلُ لِمَا قَدْ فُرِغَ لَهُ وَصَائِرٌ إِلَى مَا خُلِقَ لَهُ» أَىْ أَنَّ كُلًّا مِنَ الْعِبَادِ يَعْمَلُ لِمَا قَدْ كَتَبَهُ اللَّهُ تَبَارَكَ وَتَعَالَى لَهُ فِى اللَّوْحِ، وَمِمَّا يَدُلُّ عَلَى أَنَّ الثَّوَابَ فِى الْجَنَّةِ مِنَ اللَّهِ تَعَالَى قَوْلُهُ ﷺ «لا يُنْجِى أَحَدَكُمْ عَمَلُهُ» قَالُوا وَلا أَنْتَ يَا رَسُولَ اللَّهِ قَالَ «وَلا أَنَا إِلَّا أَنْ يَتَغَمَّدَنِىَ اللَّهُ مِنْهُ بِرَحْمَةٍ» رَوَاهُ الإِمَامُ أَحْمَدُ.
+
+وَقَوْلُهُ «عَدْلًا» ذَلِكَ لِأَنَّ الظُّلْمَ وَضْعُ الشَّىْءِ فِى غَيْرِ مَوْضِعِهِ وَهُوَ تَعَالَى يَتَصَرَّفُ فِى مِلْكِهِ وَلَمْ يَتَصَرَّفْ فِى مِلْكِ غَيْرِهِ فَيُعَذِّبُ عَلَى تَرْكِ الأَوَامِرِ وَارْتِكَابِ النَّوَاهِى فَكَانَ تَعْذِيبُهُ لَهُمْ عَدْلًا وَحِكْمَةً وَهَذَا مَفْهُومٌ مِنْ قَوْلِهِ ﷺ «لَوْ أَنَّ اللَّهَ عَذَّبَ أَهْلَ سَمَوَاتِهِ وَأَهْلَ أَرْضِهِ لَعَذَّبَهُمْ وَهُوَ غَيْرُ ظَالِمٍ لَهُمْ وَلَوْ رَحِمَهُمْ كَانَتْ رَحْمَتُهُ خَيْرًا لَهُمْ مِنْ أَعْمَالِهِمْ» رَوَاهُ أَبُو دَاوُدَ، فَطَاعَةُ الطَّائِعِ فَضْلٌ مِنَ اللَّهِ فَالْعَبْدُ وَعَمَلُهُ مِلْكٌ لِلَّهِ قَالَ تَعَالَى ﴿وَلَوْلا فَضْلُ اللَّهِ عَلَيْكُمْ وَرَحْمَتُهُ مَا زَكَى مِنْكُمْ مِّنْ أَحَدٍ أَبَدًا﴾ [سُورَةَ النُّور/21].
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَالْخَيْرُ وَالشَّرُّ مُقَدَّرَانِ عَلَى الْعِبَادِ.
+
+الشَّرْحُ أَىْ أَنَّ اللَّهَ قَدَّرَ الْخَيْرَ وَالشَّرَّ عَلَى الْعِبَادِ أَىْ قَدَّرَ بِعِلْمِهِ وَمَشِيئَتِهِ مَعَ مَا جَعَلَهُ اللَّهُ فِى الْعَبْدِ مِنَ الِاخْتِيَارِ هَذَا مَعْنَاهُ قَالَ تَعَالَى ﴿وَخَلَقَ كُلَّ شَىْءٍ فَقَدَّرَهُ تَقْدِيرًا﴾ [سُورَةَ الْفُرْقَان/2].
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَالِاسْتِطَاعَةُ الَّتِى يَجِبُ بِهَا الْفِعْلُ مِنْ نَحْوِ التَّوْفِيقِ الَّذِى لا يَجُوزُ أَنْ يُوصَفَ الْمَخْلُوقُ بِهِ فَهِىَ مَعَ الْفِعْلِ وَأَمَّا الِاسْتِطَاعَةُ مِنْ جِهَةِ الصِّحَّةِ وَالْوُسْعِ وَالتَّمَكُّنِ وَسَلامَةِ الآلاتِ فَهِىَ قَبْلَ الْفِعْلِ وَبِهَا يَتَعَلَّقُ الْخِطَابُ وَهِىَ كَمَا قَالَ تَعَالَى ﴿لا يُكَلِّفُ اللَّهُ نَفْسًا إِلَّا وُسْعَهَا﴾ [سُورَةَ الْبَقَرَة/286].
+
+الشَّرْحُ الِاسْتِطَاعَةُ عِنْدَ أَهْلِ الْحَقِّ نَوْعَانِ اسْتِطَاعَةٌ تَكُونُ مَعَ الْفِعْلِ تُقَارِنُهُ وَاسْتِطَاعَةٌ تَكُونُ مِنْ شَأْنِهَا سَابِقَةٌ لِلْفِعْلِ حَتَّى يَحْصُلَ الْفِعْلُ بِهَا فَالِاسْتِطَاعَةُ الَّتِى تَكُونُ مَعَ الْفِعْلِ هِىَ الَّتِى يَتَحَقَّقُ بِهَا مِنَ الْعَبْدِ الْفِعْلُ يُحْدِثُهَا اللَّهُ مَقْرُونَةً بِالْفِعْلِ فَفِى الطَّاعَاتِ تُسَمَّى تَوْفِيقًا وَفِى الْمَعَاصِى تُسَمَّى خِذْلانًا هَذَا عِنْدَ أَهْلِ الْحَقِّ وَأَمَّا الْبِدْعِيُّونَ فَيَقُولُونَ تِلْكَ الِاسْتِطَاعَةُ الَّتِى هِىَ عِنْدَ أَهْلِ الْحَقِّ مُقَارِنَةٌ لِلْفِعْلِ مُتَقَدِّمَةٌ لِلْفِعْلِ عِنْدَهُمْ وَهَذَا خِلافُ الصَّحِيحِ وَأَمَّا الِاسْتِطَاعَةُ الثَّانِيَةُ هِىَ سَلامَةُ الأَسْبَابِ وَالآلاتِ أَىْ كَوْنُ الْحَوَاسِّ الَّتِى يَتَأَدَّى بِهَا الْفِعْلُ سَالِمَةً هَذِهِ قَبْلَ الْفِعْلِ لَيْسَ فِيهَا خِلافٌ وَهَذِهِ الِاسْتِطَاعَةُ الثَّانِيَةُ هِىَ الَّتِى يَتَعَلَّقُ بِهَا الْخِطَابُ يَعْنِى الْخِطَابَ التَّكْلِيفِىَّ أَىْ أَنَّ اللَّهَ تَعَالَى خَاطَبَ عِبَادَهُ بِأَدَاءِ أَوَامِرِهِ وَاجْتِنَابِ نَوَاهِيهِ هَذَا هُوَ الْخِطَابُ الَّذِى يَعْنِيهِ الْمُؤَلِّفُ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَأَفْعَالُ الْعِبَادِ خَلْقُ اللَّهِ وَكَسْبٌ مِنَ الْعِبَادِ.
+
+الشَّرْحُ يَعْنِى أَنَّ أَفْعَالَ الْعِبَادِ كُلَّهَا مَخْلُوقَةٌ لِلَّهِ وَهِىَ بِالنِّسْبَةِ لِلْعِبَادِ كَسْبٌ فَالأَفْعَالُ الِاخْتِيَارِيَّةُ تَقَعُ كَسْبًا لِلْعَبْدِ وَخَلْقًا مِنَ اللَّهِ تَعَالَى فَهُوَ سُبْحَانَهُ يَخْلُقُهَا وَالْعَبْدُ لا يَخْلُقُهَا وَإِنَّمَا يَكْتَسِبُهَا وَيُقَالُ يَعْمَلُهَا كُلُّ هَذَا عِبَارَةٌ عَنْ أَمْرٍ وَاحِدٍ وَهَذَا الْمَذْهَبُ الْحَقُّ وَهُوَ خَارِجٌ عَنِ الْجَبْرِ وَعَنْ مَذْهَبِ الْمُعْتَزِلَةِ الْفَاسِدِينَ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَلَمْ يُكَلِّفْهُمُ اللَّهُ تَعَالَى إِلَّا مَا يُطِيقُونَ وَلا يُطَيَّقُونَ إِلَّا مَا كَلَّفَهُمْ.
+
+الشَّرْحُ الْجُمْلَةُ الأُولَى مَعْنَاهَا ظَاهِرٌ وَأَمَّا الْجُمْلَةُ الثَّانِيَةُ فَمَعْنَاهَا لا يُلْزَمُونَ أَىْ لَيْسَ لِلْعِبَادِ أَنْ يُلْزِمُوهُمْ إِلَّا مَا كَلَّفَهُمُ اللَّهُ بِهِ، فَيُطِيقُونَ فِى الْجُمْلَةِ الأُولَى بِضَمِّ الْيَاءِ وَكَسْرِ الطَّاءِ وَأَمَّا فِى الثَّانِيَةِ فَيَتَعَيَّنُ قِرَاءَتُهَا بِضَمِّ الْيَاءِ وَفَتْحِ الطَّاءِ وَتَشْدِيدِ الْيَاءِ الَّتِى بَعْدَهَا وَلا يَصِحُّ مَعْنَى هَذِهِ الْجُمْلَةِ الثَّانِيَةِ إِلَّا عَلَى هَذَا الْوَجْهِ لِظُهُورِ فَسَادِهِ لِأَنَّ الْمَعْنَى عَلَى ذَلِكَ يَنْحَلُّ إِلَى أَنَّ الْعِبَادَ لا يَسْتَطِيعُونَ أَنْ يَفْعَلُوا سِوَى مَا كَلَّفَهُمُ اللَّهُ بِهِ وَالْوَاقِعُ أَنَّ الْعِبَادَ قَادِرُونَ عَلَى أَنْ يُخَالِفُوا مَا كَلَّفَهُمُ اللَّهُ بِهِ وَذَلِكَ حَالُ أَكْثَرِ الْبَشَرِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَهُوَ تَفْسِيرُ لا حَوْلَ وَلا قُوَّةَ إِلَّا بِاللَّهِ نَقُولُ لا حِيلَةَ لِأَحَدٍ وَلا حَرَكَةَ لِأَحَدٍ وَلا تَحَوُّلَ لِأَحَدٍ عَنْ مَعْصِيَةِ اللَّهِ إِلَّا بِمَعُونَةِ اللَّهِ.
+
+الشَّرْحُ قَوْلُهُ إِلَّا بِمَعُونَةِ اللَّهِ أَىْ إِلَّا بِعِصْمَتِهِ هُنَا عَبَّرَ الْمُؤَلِّفُ بِالْمَعُونَةِ أَمَّا فِى التَّفْسِيرِ الَّذِى رَوَاهُ عَبْدُ اللَّهِ بنُ مَسْعُودٍ عَنِ النَّبِىِّ ﷺ فَلَفْظُهُ «إِلَّا بِعِصْمَةِ اللَّهِ» وَلَوْ عَبَّرَ بِذَلِكَ كَانَ أَحْسَنَ وَهَذَا هُوَ حَقِيقَةُ الْعُبُودِيَّةِ أَنْ يَكُونَ الْعَبْدُ مُفْتَقِرًا إِلَى اللَّهِ فِى الْعِصْمَةِ عَنِ الْمَعَاصِى وَالتَّوْفِيقِ لِلطَّاعَاتِ فَالْعَبْدُ مُحْتَاجٌ إِلَى اللَّهِ فِى الأَمْرَيْنِ فِى التَّحَفُّظِ عَنِ الْمَعَاصِى وَالْقُدْرَةِ وَالتَّمَكُّنِ عَلَى الطَّاعَاتِ فَلِذَلِكَ سَمَّى رَسُولُ اللَّهِ فِى الْخَبَرِ الصَّحِيحِ هَذِهِ الْكَلِمَةَ كَنْزًا مِنْ كُنُوزِ الْجَنَّةِ فَإِنَّهُ قَالَ لِأَبِى مُوسَى الأَشْعَرِىِّ «أَلا أَدُلُّكَ عَلَى كَنْزٍ مِنْ كُنُوزِ الْجَنَّةِ» قَالَ وَمَا هُوَ قَالَ «لا حَوْلَ وَلا قُوَّةَ إِلَّا بِاللَّهِ» رَوَاهُ الإِمَامُ أَحْمَدُ، وَاجْتَمَعَتِ الأُمَّةُ عَلَى كَوْنِهَا مِنْ أُصُولِ الْعَقَائِدِ وَهِىَ كَقَوْلِهِ تَعَالَى ﴿وَمَا تَشَاءُونَ إِلَّا أَنْ يَشَاءَ اللَّهُ رَبُّ الْعَالَمِينَ﴾ [سُورَةَ التَّكْوِير/29] وَالْمَعْنَى أَنَّ الْعِبَادَ لا تَكُونُ لَهُمْ مَشِيئَةٌ إِلَّا أَنْ يَشَاءَ اللَّهُ أَنْ يَشَاءُوا فَمَا شَاءَ اللَّهُ فِى الأَزَلِ أَنْ يَشَاءَ الْعِبَادُ تَحْصُلُ مَشِيئَتُهُمْ وَإِلَّا فَلا تَحْصُلُ مَشِيئَتُهُمْ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَلا قُوَّةَ لِأَحَدٍ عَلَى إِقَامَةِ طَاعَةِ اللَّهِ وَالثَّبَاتِ عَلَيْهَا إِلَّا بِتَوْفِيقِ اللَّهِ.
+
+الشَّرْحُ أَىْ لا يَقْوَى أَحَدٌ عَلَى عَمَلِ الْخَيْرَاتِ إِلَّا بِتَوْفِيقِ اللَّهِ كَمَا أَنَّهُ لا يَعْتَصِمُ عَنِ السُّوءِ مِنَ الْمَعَاصِى إِلَّا بِعِصْمَةِ اللَّهِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَكُلُّ شَىْءٍ يَجْرِى بِمَشِيئَةِ اللَّهِ تَعَالَى وَعِلْمِهِ وَقَضَائِهِ وَقَدَرِهِ.
+
+الشَّرْحُ أَىْ أَنَّ كُلَّ عَمَلٍ يَعْمَلُهُ ابْنُ ءَادَمَ وَغَيْرُ ذَلِكَ مِمَّا يَدْخُلُ فِى الْوُجُودِ مِنْ أَعْيَانٍ وَأَعْرَاضٍ لا يَدْخُلُ فِى الْوُجُودِ إِلَّا بِمَشِيئَةِ اللَّهِ وَعِلْمِهِ وَقَضَائِهِ وَقَدَرِهِ فَلا يَحْصُلُ شَىْءٌ مِنَ الْعَالَمِ إِلَّا بِهَذِهِ الصِّفَاتِ الأَرْبَعِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: غَلَبَتْ مَشِيئَتُهُ الْمَشِيئَاتِ كُلَّهَا وَغَلَبَ قَضَاؤُهُ الْحِيَلَ كُلَّهَا.
+
+الشَّرْحُ أَىْ لا يَتَنَفَّذُ شَىْءٌ مِنْ مَشِيئَاتِ الْعِبَادِ إِلَّا أَنْ يَشَاءَ اللَّهُ نُفُوذَهَا فَهُمْ يَشَاءُونَ لَكِنْ لا تَتَنَفَّذُ مَشِيئَاتُهُمْ إِلَّا بِمَشِيئَةِ اللَّهِ فَمَا شَاءَ اللَّهُ نُفُوذَهَا مِنْهَا نَفَذَ وَمَا لَمْ يَشَأْ نُفُوذَهُ لَمْ يَنْفُذْ وَذَكَرَ الْمُؤَلِّفُ أَنَّ حِيَلَ الْعِبَادِ لا تُوصِلُ إِلَّا إِلَى مَا قَضَى اللَّهُ تَبَارَكَ وَتَعَالَى فَمَا لَمْ يَقْضِ اللَّهُ تَبَارَكَ وَتَعَالَى أَىْ مَا لَمْ يَخْلُقْهُ لا تَنْفُذُ الْحِيَلُ فِيهِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: يَفْعَلُ مَا يَشَاءُ وَهُوَ غَيْرُ ظَالِمٍ أَبَدًا تَقَدَّسَ عَنْ كُلِّ سُوءٍ وَحَيْنٍ.
+
+الشَّرْحُ وَيَدُلُّ عَلَى ذَلِكَ قَوْلُهُ تَعَالَى ﴿فَعَّالٌ لِمَا يُرِيدُ﴾ [سُورَةَ هُود/107]، وَقَوْلُهُ تَقَدَّسَ أَىِ اللَّهُ عَنْ كُلِّ سُوءٍ وَحَيْنٍ أَىْ ظُلْمٍ فَاللَّهُ تَبَارَكَ وَتَعَالَى مُنَزَّهٌ عَنِ السُّوءِ وَالظُّلْمِ لِأَنَّ الْخَالِقَ لا يُتَصَوَّرُ مِنْهُ الِاتِّصَافُ بِالظُّلْمِ وَالْجَوْرِ فَالظُّلْمُ يُتَصَوَّرُ مِنَ الْكَاسِبِ وَهُوَ الْعَبْدُ أَمَّا الْخَالِقُ فَلا يَتَّصِفُ بِالظُّلْمِ لِأَنَّ الْخَالِقَ يَتَصَرَّفُ فِى مِلْكِهِ الَّذِى هُوَ مَالِكُهُ الْحَقِيقِىُّ أَمَّا الْعَبْدُ فَيَتَصَرَّفُ فِى مِلْكِ غَيْرِهِ فَمَا تَصَرَّفَهُ بِإِذْنِ خَالِقِهِ لا يَكُونُ ذَلِكَ ظُلْمًا وَمَا تَصَرَّفَهُ بِخِلافِ إِذْنِ خَالِقِهِ أَىِ الإِذْنِ الشَّرْعِىِّ كَانَ ذَلِكَ ظُلْمًا مِنْهُ أَىْ مِنَ الْعَبْدِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَتَنَزَّهَ عَنْ كُلِّ عَيْبٍ وَشَيْنٍ.
+
+الشَّرْحُ أَىْ تَنَزَّهَ عَنْ كُلِّ نَقْصٍ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: ﴿لا يُسْئَلُ عَمَّا يَفْعَلُ وَهُمْ يُسْئَلُونَ﴾ [سُورَةَ الأَنْبِيَاء/23].
+
+الشَّرْحُ أَىْ أَنَّ الْعِبَادَ هُمْ يُسْأَلُونَ عَمَّا يَفْعَلُونَ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَفِى دُعَاءِ الأَحْيَاءِ وَصَدَقَاتِهِمْ مَنْفَعَةٌ لِلأَمْوَاتِ.
+
+الشَّرْحُ الدُّعَاءُ يَنْفَعُ أَمْوَاتَ الْمُسْلِمِينَ بِالإِجْمَاعِ وَالصَّدَقَةُ كَذَلِكَ تَنْفَعُ بِالإِجْمَاعِ وَكَذَلِكَ قِرَاءَةُ الْقُرْءَانِ عَلَى الْقَبْرِ تَنْفَعُ الْمَيِّتَ وَقَدِ اسْتُدِلَّ عَلَى قِرَاءَةِ الْقُرْءَانِ عَلَى الْقَبْرِ بِحَدِيثِ الْعَسِيبِ الرَّطْبِ الَّذِى شَقَّهُ النَّبِىُّ ﷺ اثْنَيْنِ ثُمَّ غَرَسَ عَلَى قَبْرٍ نِصْفًا وَعَلَى قَبْرٍ نِصْفًا وَقَالَ «لَعَلَّهُ يُخَفَّفُ عَنْهُمَا مَا لَمْ يَيْبَسَا» رَوَاهُ الشَّيْخَانِ. وَيُسْتَفَادُ مِنْ هَذَا غَرْسُ الأَشْجَارِ وَقِرَاءَةُ الْقُرْءَانِ عَلَى الْقُبُورِ وَإِذَا خُفِّفَ عَنْهُمْ بِالأَشْجَارِ فَكَيْفَ بِقِرَاءَةِ الرَّجُلِ الْمُؤْمِنِ الْقُرْءَانَ وَقَالَ النَّوَوِىُّ «اسْتَحَبَّ الْعُلَمَاءُ قِرَاءَةَ الْقُرْءَانِ عِنْدَ الْقَبْرِ وَاسْتَأْنَسُوا لِذَلِكَ بِحَدِيثِ الْجَرِيدَتَيْنِ وَقَالُوا إِذَا وَصَلَ النَّفْعُ إِلَى الْمَيِّتِ بِتَسْبِيحِهِمَا حَالَ رُطُوبَتِهِمَا فَانْتِفَاعُ الْمَيِّتِ بِقِرَاءَةِ الْقُرْءَانِ عِنْدَ قَبْرِهِ أَوْلَى» فَإِنَّ قِرَاءَةَ الْقُرْءَانِ مِنْ إِنْسَانٍ أَعْظَمُ وَأَنْفَعُ مِنَ التَّسْبِيحِ مِنْ عُودٍ وَقَدْ نَفَعَ الْقُرْءَانُ بَعْضَ مَنْ حَصَلَ لَهُ ضَرَرٌ فِى حَالِ الْحَيَاةِ فَالْمَيِّتُ كَذَلِكَ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَاللَّهُ تَعَالَى يَسْتَجِيبُ الدَّعَوَاتِ وَيَقْضِى الْحَاجَاتِ.
+
+الشَّرْحُ اللَّهُ تَعَالَى يَسْتَجِيبُ الدَّعَوَاتِ وَيَقْضِى الْحَاجَاتِ فَضْلًا مِنْهُ وَكَرَمًا لا وُجُوبًا فَلَوْ لَمْ يَسْتَجِبْ لَمْ يَكُنْ ذَلِكَ ظُلْمًا لَكِنَّهُ أَخْبَرَ بِأَنَّهُ يَسْتَجِيبُ فَلا يَتَخَلَّفُ كَلامُهُ لَكِنَّهُ يَسْتَجِيبُ مَا شَاءَ أَنْ يُعْطِيَهُ لِلْعِبَادِ وَلَيْسَ كُلَّ مَا يَطْلُبُونَ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَيَمْلِكُ كُلَّ شَىْءٍ وَلا يَمْلِكُهُ شَىْءٌ وَلا غِنَى عَنِ اللَّهِ طَرْفَةَ عَيْنٍ وَمَنْ [زَعَمَ أَنَّهُ] اسْتَغْنَى عَنِ اللَّهِ طَرْفَةَ عَيْنٍ فَقَدْ كَفَرَ وَصَارَ مِنْ أَهْلِ الْحَيْنِ.
+
+الشَّرْحُ يَعْنِى أَنَّ اللَّهَ مَالِكُ كُلِّ شَىْءٍ وَأَنَّ كُلَّ شَىْءٍ يَحْتَاجُ إِلَى اللَّهِ تَعَالَى لِأَنَّهُ هُوَ الَّذِى أَوْجَدَهُ وَمَنِ اعْتَقَدَ أَنَّهُ يَسْتَغْنِى عَنِ اللَّهِ طَرْفَةَ عَيْنٍ فَهُوَ كَافِرٌ وَصَارَ مِنْ أَهْلِ الْحَيْنِ وَهُوَ الْهَلاكُ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَاللَّهُ يَغْضَبُ وَيَرْضَى لا كَأَحَدٍ مِنَ الْوَرَى.
+
+الشَّرْحُ يَعْنِى أَنَّهُ يَجِبُ إِثْبَاتُ صِفَةِ الْغَضَبِ وَصِفَةِ الرِّضَى لِلَّهِ مَعَ تَنْزِيهِهِ تَعَالَى مِنْ أَنْ يَكُونَ غَضَبُهُ وَرِضَاهُ تَأَثُّرًا بَلْ هُمَا صِفَتَانِ أَزَلِيَّتَانِ قَدِيمَتَانِ أَبَدِيَتَانِ أَمَّا مَا وَرَدَ فِى الْحَدِيثِ الَّذِى رَوَاهُ الْبُخَارِىُّ مِنْ أَنَّ ءَادَمَ وَغَيْرَهُ يَقُولُونَ «إِنَّ اللَّهَ غَضِبَ الْيَوْمَ غَضَبًا لَمْ يَغْضَبْ قَبْلَهُ مِثْلَهُ وَلا يَغْضَبْ بَعْدَهُ مِثْلَهُ» فَالْمُرَادُ بِذَلِكَ ءَاثَارُ الْغَضَبِ وَلَيْسَ الْمُرَادُ الصِّفَةَ لِأَنَّ الصِّفَةَ أَزَلِيَّةٌ أَبَدِيَّةٌ لَيْسَتْ طَارِئَةً فِى ذَاتِ اللَّهِ مَعْنَاهُ أَنَّ اللَّهَ تَعَالَى أَعَدَّ فِى ذَلِكَ الْيَوْمِ مِنْ ءَاثَارِ الْغَضَبِ مَا لَمْ يَسْبِقْ قَبْلَ ذَلِكَ وَلا يَفْعَلْ بَعْدَ ذَلِكَ مَا هُوَ أَشَدُّ مِنْهُ لِأَنَّ اللَّهَ تَعَالَى شَاءَ أَنْ يَكُونَ أَنْ يَحْصُلَ ذَلِكَ الْيَوْمَ مِنْ ءَاثَارِ الْغَضَبِ مُنْتَهَى الآثَارِ لَكِنَّ اللَّهَ تَعَالَى قَادِرٌ عَلَى أَنْ يَخْلُقَ مَا هُوَ أَشَدُّ مِنْ ذَلِكَ لَكِنَّهُ لا يَفْعَلُ فَالْعَذَابُ الَّذِى أَعَدَّهُ لِأَعْدَائِهِ شَاءَ فِى الأَزَلِ أَنْ يُصِيبَهُمْ فِى الآخِرَةِ لا يَتَجَاوَزُ ذَلِكَ الْحَدَّ الَّذِى شَاءَ هَذَا مَعْنَى مَا وَرَدَ فِى حَدِيثِ الشَّفَاعَةِ، لَيْسَ مَعْنَاهُ أَنَّهُ تَأَثَّرَ ذَلِكَ الْوَقْتَ لِأَنَّ التَّأَثُّرَ مُسْتَحِيلٌ عَلَى اللَّهِ لِأَنَّ الَّذِى يَتَأَثَّرُ لا بُدَّ أَنْ يَكُونَ حَادِثًا.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَنُحِبُّ أَصْحَابَ رَسُولِ اللَّهِ ﷺ وَلا نُفْرِطُ فِى حُبِّ أَحَدٍ مِنْهُمْ وَلا نَتَبَرَّأُ مِنْ أَحَدٍ مِنْهُمْ وَنُبْغِضُ مَنْ يُبْغِضُهُمْ وَبِغَيْرِ الْخَيْرِ يَذْكُرُهُمْ وَلا نَذْكُرُهُمْ إِلَّا بِخَيْرٍ وَحُبُّهُمْ دِينٌ وَإِيـمَانٌ وَإِحْسَانٌ.
+
+الشَّرْحُ أَصْحَابُ رَسُولِ اللَّهِ ﷺ هُمْ مَنْ لَقُوهُ مُؤْمِنِينَ بِهِ فِى حَيَاتِهِ عَلَى الْوَجْهِ الْمُتَعَارَفِ لَيْسَ مَا يَكُونُ بِطَرِيقِ خَرْقِ الْعَادَةِ فَالأَنْبِيَاءُ الَّذِينَ اجْتَمَعُوا بِهِ لَيْلَةَ الْمِعْرَاجِ فِى الْمَسْجِدِ الأَقْصَى لا يُعَدُّونَ صَحَابَةً لِأَنَّ ذَلِكَ الِاجْتِمَاعَ لَيْسَ عَلَى الْوَجْهِ الْمُتَعَارَفِ أَمَّا قَوْلُهُ «وَلا نُفْرِطُ فِى حُبِّ أَحَدٍ مِنْهُمْ» أَىْ لا نَتَجَاوَزُ الْحَدَّ فِى مَحَبَّةِ أَحَدٍ كَمَا تَجَاوَزَ بَعْضُ الْمُبْتَدِعَةِ، وَمَعْنَى قَوْلِهِ «وَلا نَتَبَرَّأُ مِنْ أَحَدٍ مِنْهُمْ» أَىْ لا نُكَفِّرُ مِنْهُمْ أَحَدًا، وَمَعْنَى «وَلا نَذْكُرُهُمْ إِلَّا بِخَيْرٍ» هَذَا مِنْ حَيْثُ الإِجْمَالُ أَمَّا مِنْ حَيْثُ التَّفْصِيلُ فَنَمْدَحُ وَنَذُمُّ عَلَى حَسَبِ مَا يَقْتَضِيهِ الشَّرْعُ. أَمَّا قَوْلُهُ «وَلا نَتَبَرَّأُ مِنْ أَحَدٍ مِنْهُمْ» إِلَى قَوْلِهِ «وَإِحْسَانٌ» لَيْسَ مَعْنَاهُ أَنَّهُ يُسَاوَى بَيْنَ كُلِّ مَنْ ثَبَتَتْ لَهُ الصُّحْبَةُ فِى الْمَحَبَّةِ وَالتَّعْظِيمِ وَالإِجْلالِ فَذَلِكَ غَيْرُ الْمُرَادِ إِنَّمَا الْمُرَادُ أَنَّنَا لا نَنْبِذُ أَحَدًا مِمَّنْ ثَبَتَتْ لَهُ الصُّحْبَةُ وَثَبَتَ عَلَى مُقْتَضَاهَا إِلَى ءَاخِرِ حَيَاتِهِ أَىْ لا نُخْرِجُ أَحَدًا مِنْهُمْ مِنْ حُكْمِ الصُّحْبَةِ، هَذَا الْمَقْصُودُ لِأَنَّ الصُّحْبَةَ إِذَا أُخِذَتْ عَلَى مَعْنَى مُطْلَقِ الِاجْتِمَاعِ مَعَ الإِيـمَانِ بِهِ تَشْمَلُ مَنْ قَالَ عَنْهُ الرَّسُولُ فُلانٌ فِى النَّارِ قَالَ عَنْ شَخْصٍ مِنْ أَهْلِ الصُّفَّةِ وُجِدَ مَعَهُ دِينَارٌ أَوْ دِينَارَانِ «كَيَّةٌ أَوْ كَيَّتَانِ بِالنَّارِ» فَقَدْ كَانَ يَتَظَاهَرُ بِالْفَقْرِ وَيُخْفِى مَالًا، وَقَالَ عَنْ ءَاخَرَ كَانَ مَعَ الرَّسُولِ فِى الْغَزْوِ فَغَلَّ شَمْلَةً أَىْ أَخَذَهَا سَرِقَةً قَبْلَ أَنْ تُقَسَّمَ الْمَغَانِمُ «رَأَيْتُ شَمْلَتَهُ تَشْتَعِلُ عَلَيْهِ نَارًا» وَقَالَ عَنْ شَخْصٍ ءَاخَرَ كَانَ يُقَاتِلُ فِى بَعْضِ الْغَزَوَاتِ الْكُفَّارَ قِتَالًا شَدِيدًا فَأَعْجَبَ بَعْضَ الصَّحَابَةِ لِمَا رَأَوْا مِنْ نَشَاطِهِ ثُمَّ قَالَ الرَّسُولُ عَنْهُ «إِنَّهُ فِى النَّارِ» رَوَاهُ الْبُخَارِىُّ. وَلَعَلَّ سَبَبَ تِلْكَ الْمَقَالَةِ أَنَّهُ كَانَ يُرَائِى وَالْحَاصِلُ أَنَّهُ لَيْسَ كُلُّ فَرْدٍ مِنْهُمْ كَانَ تَقِيًّا صَالِحًا، ثُمَّ قَوْلُهُ ﷺ فِى أَهْلِ صِفِّينَ الَّذِينَ قَاتَلُوا عَلِيًّا «إِنَّهُمْ دُعَاةٌ إِلَى النَّارِ» فَهَؤُلاءِ الَّذِينَ قَاتَلُوا فِى صِفِّينَ قِسْمٌ قَلِيلٌ مِنْهُمْ مِنَ الصَّحَابَةِ وَالْقِسْمُ الأَكْبَرُ لَمْ يَكُونُوا مِنَ الصَّحَابَةِ إِنَّمَا مِنَ الَّذِينَ أَسْلَمُوا مِنْ أَهْلِ الشَّامِ مِنَ الَّذِينَ مَوَّهَ عَلَيْهِمْ مُعَاوِيَةُ وَأَوْهَمَهُمْ أَنَّ عَلِيًّا كَانَ لَهُ يَدٌ فِى قَتْلِ عُثْمَانَ وَعَلِىٌّ بَرِىءٌ مِنْ ذَلِكَ، ثُمَّ هُوَ أَىْ مُعَاوِيَةُ بَعْدَ أَنْ حَصَلَ عَلَى مَطْلُوبِهِ كَفَّ يَدَهُ عَنْ أُولَئِكَ الَّذِينَ قَتَلُوا عُثْمَانَ فَعُلِمَ بِذَلِكَ أَنَّهُ كَانَ يَطْلُبُ الدُّنْيَا كَمَا قَالَ عَلِىٌّ رَضِىَ اللَّهُ عَنْهُ فِيمَا رَوَاهُ عَنْهُ مُسَدَّدُ فِى مُسْنَدِهِ، فَهَؤُلاءِ الَّذِينَ نَزَلَتْ مَرْتَبَتُهُمْ عَنْ أَكَابِرِ الصَّحَابَةِ نُحِبُّهُمْ مِنْ جِهَةٍ وَاحِدَةٍ لِاسْمِ الصُّحْبَةِ نُحِبُّهُمْ بِاعْتِبَارِ هَذِهِ النَّاحِيَةِ وَنُحِبُّهُمْ لِأَنَّهُمْ خَدَمُوا الدِّينَ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وبُغْضُهُمْ كُفْرٌ وَنِفَاقٌ وَطُغْيَانٌ.
+
+الشَّرْحُ الْمُرَادُ بِهَذَا بُغْضُ جَمِيعِهِمْ فَمَنْ أَبْغَضَ جَمِيعَ الصَّحَابَةِ فَهُوَ كَافِرٌ وَلا يَعْنِى مِنْ ذَلِكَ أَنَّ مَنْ أَبْغَضَ وَاحِدًا يَكُونُ كَافِرًا وَلا سِيَّمَا إِنْ كَانَ بُغْضُهُ لِبَعْضٍ لِسَبَبٍ شَرْعِىٍّ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَنُثْبِتُ الْخِلافَةَ بَعْدَ رَسُولِ اللَّهِ ﷺ أَوَّلًا لِأَبِى بَكْرٍ الصِّدِّيقِ رَضِىَ اللَّهُ عَنْهُ تَفْضِيلًا لَهُ وَتَقْدِيمًا عَلَى جَمِيعِ الأُمَّةِ ثُمَّ لِعُمَرَ بنِ الْخَطَّابِ رَضِىَ اللَّهُ عَنْهُ ثُمَّ لِعُثْمَانَ رَضِىَ اللَّهُ عَنْهُ ثُمَّ لِعَلِىِّ بنِ أَبِى طَالِبٍ رَضِىَ اللَّهُ عَنْهُ وَهُمُ الْخُلَفَاءُ الرَّاشِدُونَ وَالأَئِمَّةُ الْمُهْتَدُونَ.
+
+الشَّرْحُ يُعْلَمُ مِنْ هَذِهِ الْعِبَارَةِ أَنَّ أَفْضَلَ أُمَّةِ مُحَمَّدٍ عِنْدَ اللَّهِ أَبُو بَكْرٍ ثُمَّ عُمَرُ ثُمَّ عُثْمَانُ ثُمَّ عَلِىٌّ أَمَّا تَفْضِيلُ أَبِى بَكْرٍ وَعُمَرَ عَلَى مَنْ بَعْدَهُمَا فَبِإِجْمَاعِ أَهْلِ الْحَقِّ وَأَمَّا تَفْضِيلُ عُثْمَانَ عَلَى عَلِىٍّ فَهُوَ عَلَى مَا عَلَيْهِ أَكْثَرُ أَهْلِ السُّنَّةِ وَقَدْ خَالَفَ بَعْضُ أَهْلِ السُّنَّةِ فِى ذَلِكَ فَقَالَ لا نُفَضِّلُ هَذَا عَلَى هَذَا وَلا هَذَا عَلَى هَذَا. وَالْخُلَفَاءُ الرَّاشِدُونَ لَيْسَ مَعْنَاهُ حَصْرُ الْخِلافَةِ الرَّاشِدَةِ فِى الأَرْبَعَةِ بَلِ الْحَسَنُ بنُ عَلِىٍّ دَاخِلٌ فِى الْخِلافَةِ الرَّاشِدَةِ وَكَذَلِكَ عُمَرُ بنُ عَبْدِ الْعَزِيزِ يُسَمَّى خَلِيفَةً رَاشِدًا.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَإِنَّ الْعَشَرَةَ الَّذِينَ سَمَّاهُمْ رَسُولُ اللَّهِ ﷺ وَبَشَّرَهُمْ بِالْجَنَّةِ نَشْهَدُ لَهُمْ بِالْجَنَّةِ عَلَى مَا شَهِدَ لَهُمْ رَسُولُ اللَّهِ ﷺ وَقَوْلُهُ الْحَقُّ وَهُمْ أَبُو بَكْرٍ وَعُمَرُ وَعُثْمَانُ وَعَلِىٌّ وَطَلْحَةُ وَالزُّبَيْرُ وَسَعْدٌ وَسَعِيدٌ وَعَبْدُ الرَّحْمٰنِ بنُ عَوْفٍ وَأَبُو عُبَيْدَةَ بنُ الْجَرَّاحِ وَهُوَ أَمِينُ هَذِهِ الأُمَّةِ رَضِىَ اللَّهُ عَنْهُمْ أَجْمَعِينَ.
+
+الشَّرْحُ أَىْ أَنَّهُ نَشْهَدُ بِالْجَنَّةِ لِلْعَشَرَةِ الَّذِينَ بَشَّرَهُمُ النَّبِىُّ ﷺ بِالْجَنَّةِ كَمَا جَاءَ ذَلِكَ فِى الْحَدِيثِ الَّذِى رَوَاهُ أَبُو دَاوُدَ وَغَيْرُهُ. وَسَعْدُ بنُ أَبِى وَقَّاصٍ اسْمُهُ مَالِكٌ وَأَمَّا سَعِيدٌ فَهُوَ سَعِيدُ بنُ زَيْدٍ وَأَمَّا أَبُو عُبَيْدَةَ فَاسْمُهُ عَامِرٌ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَمَنْ أَحْسَنَ الْقَوْلَ فِى أَصْحَابِ رَسُولِ اللَّهِ ﷺ وَأَزْوَاجِهِ الطَّاهِرَاتِ مِنْ كُلِّ دَنَسٍ وَذُرِّيَّاتِهِ الْمُقَدَّسِينَ مِنْ كُلِّ رِجْسٍ فَقَدْ بَرِئَ مِنَ النِّفَاقِ.
+
+الشَّرْحُ يَعْنِى أَنَّ أَزْوَاجَ النَّبِىِّ ﷺ اللَّاتِى فُزْنَ بِعِشْرَتِهِ يَجِبُ تَعْظِيمُهُنَّ وَمَحَبَّتَهُنَّ كَمَا يَجِبُ مَحَبَّةُ الصَّحَابَةِ، وَالرِّجْسُ الْمَذْكُورُ فِى قَوْلِهِ تَعَالَى ﴿لِيُذْهِبَ عَنْكُمُ الرِّجْسَ أَهْلَ الْبَيْتِ﴾ [سُورَةَ الأَحْزَاب/33] هُوَ الشِّرْكُ، وَالتَّقْدِيسُ التَّطْهِيرُ وَهَذَا الْفَضْلُ شَامِلٌ لِأَهْلِ بَيْتِهِ عَلِىٍّ وَفَاطِمَةَ وَالْحَسَنِ وَالْحُسَيْنِ وَالْعَبَّاسِ وَنَحْوِهِمْ وَلا يُتَوَهَّمُ أَنَّ أَهْلَ الْبَيْتِ خَاصٌّ بِالذُّكُورِ بِدَلِيلِ قَوْلِهِ تَعَالَى ﴿قَالُوا أَتَعْجَبِينَ مِنْ أَمْرِ اللَّهِ رَحْمَتُ اللَّهِ وَبَرَكَاتُهُ عَلَيْكُمْ أَهْلَ الْبَيْتِ﴾ [سُورَةَ هُود/73] وَالْخِطَابُ فِى هَذِهِ الآيَةِ إِلَى زَوْجَةِ إِبْرَاهِيمَ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَعُلَمَاءُ السَّلَفِ مِنَ السَّابِقِينَ وَمَنْ بَعْدَهُمْ مِنَ التَّابِعِينَ أَهْلُ الْخَيْرِ وَالأَثَرِ وَأَهْلُ الْفِقْهِ وَالنَّظَرِ لا يُذْكَرُونَ إِلَّا بِالْجَمِيلِ وَمَنْ ذَكَرَهُمْ بِسُوءٍ فَهُوَ عَلَى غَيْرِ السَّبِيلِ.
+
+الشَّرْحُ ذَلِكَ لِأَنَّ تَعْظِيمَ هَؤُلاءِ وَتَوْقِيرَهُمْ مِنْ تَعْظِيمِ دِينِ اللَّهِ وَهُمْ خُلَفَاءُ الرَّسُولِ فِى تَبْلِيغِ الشَّرِيعَةِ إِلَى النَّاسِ فَوَجَبَ تَوْقِيرُهُمْ وَتَعْظِيمُهُمْ وَاتِّبَاعُهُمْ وَلِأَنَّ اللَّهَ نَدَبَنَا إِلَى الدُّعَاءِ وَالِاسْتِغْفَارِ لَهُمْ بِقَوْلِهِ ﴿وَالَّذِينَ جَاءُوا مِنْ بَعْدِهِمْ يَقُولُونَ رَبَّنَا اغْفِرْ لَنَا وَلإِخْوَانِنَا الَّذِينَ سَبَقُونَا بِالإِيـمَانِ وَلا تَجْعَلْ فِى قُلُوبِنَا غِلًّا لِّلَّذِينَ ءَامَنُوا﴾ [سُورَةَ الْحَشْر/10] الآيَةَ، فَهَذَا هُوَ سَبِيلُ الْمُؤْمِنِينَ أَنْ يُوَالِىَ بَعْضُهُمْ بَعْضًا لِحَقِّ الإِيـمَانِ الَّذِى جَمَعَهُمْ وَقَدْ قَالَ اللَّهُ تَعَالَى ﴿وَالْمُؤْمِنُونَ وَالْمُؤْمِنَاتُ بَعْضُهُمْ أَوْلِيَاءُ بَعْضٍ﴾ [سُورَةَ التَّوْبَة/71] فَمَنْ ذَكَرَهُمْ بِسُوءٍ فَقَدْ عَدَلَ عَنْ سَبِيلِ الْمُوَالاةِ الدِّينِيَّةِ وَذَلِكَ مِنْ عَلامَاتِ النِّفَاقِ وَالْخِذْلانِ وَذَلِكَ لِأَنَّهُمْ بِصَلاحِهِمْ صَارُوا أَحْبَابَ اللَّهِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَلا نُفَضِّلُ أَحَدًا مِنَ الأَوْلِيَاءِ عَلَى أَحَدٍ مِنَ الأَنْبِيَاءِ عَلَيْهِمُ السَّلامُ وَنَقُولُ نَبِىٌّ وَاحِدٌ أَفْضَلُ مِنْ جَمِيعِ الأَوْلِيَاءِ.
+
+الشَّرْحُ وَذَلِكَ لِقَوْلِهِ تَعَالَى ﴿وَكُلًّا فَضَّلْنَا عَلَى الْعَالَمِينَ﴾ [سُورَةَ الأَنْعَام/86] أَىْ كُلًّا مِنَ الأَنْبِيَاءِ الَّذِينَ ذُكِرُوا فَضَّلْنَاهُ عَلَى الْعَالَمِينَ وَذَلِكَ مِنْ مَرْتَبَةِ النُّبُوَّةِ وَيُشَارِكُهُمْ فِى ذَلِكَ غَيْرُ الْمَذْكُورِينَ لِأَنَّ الصِّفَةَ الَّتِى فُضِّلُوا مِنْ أَجْلِهَا مَوْجُودَةٌ فِى الْجَمِيعِ وَهِىَ النُّبُوَّةُ. وَلا يَجُوزُ تَأْوِيلُ الآيَةِ بِأَنَّ الْمُرَادَ عَالِمُو زَمَانِ أُولَئِكَ الْمَذْكُورِينَ لِأَنَّ هَذَا تَأْوِيلٌ بِلا دَلِيلٍ وَهُوَ مَمْنُوعٌ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَنُؤْمِنُ بِمَا جَاءَ مِنْ كَرَامَاتِهِمْ وَصَحَّ عَنِ الثِّقَاتِ مِنْ رِوَايَاتِهِمْ.
+
+الشَّرْحُ يَجِبُ الإِيـمَانُ بِكَرَامَاتِ الأَوْلِيَاءِ وَهُمُ الْمُؤْمِنُونَ الْمُسْتَقِيمُونَ بِطَاعَةِ اللَّهِ ثُمَّ الْكَرَامَةُ هِىَ أَمْرٌ خَارِقٌ لِلْعَادَةِ تَظْهَرُ عَلَى يَدِ الْمُؤْمِنِ الْمُسْتَقِيمِ بِطَاعَةِ اللَّهِ. وَيَحْتَمِلُ أَنْ يَكُونَ مُرَادُ الْمُؤَلِّفِ بِقَوْلِهِ كَرَامَاتِهِمْ مَا يَشْمَلُ مُعْجِزَاتِ الأَنْبِيَاءِ لِأَنَّهُ مِنْ حَيْثُ الْمَعْنَى اللُّغَوِىُّ كَرَامَةٌ وَإِنْ كَانَ يُخَصُّ بِاسْمِ الْمُعْجِزَةِ مَا يَحْصُلُ لِلأَنْبِيَاءِ مِمَّا يَتَحَدَّوْنَ بِهِ أُمَمَهُمْ الْكَافِرِينَ فَلا يَمْنَعُ ذَلِكَ مِنْ إِطْلاقِ مِثْلِ هَذِهِ الْعِبَارَةِ فِى هَذَا الْمَوْضِعِ بِالْمَعْنَى الشَّامِلِ لِلأَمْرَيْنِ وَيَحْتَمِلُ أَنْ يَكُونَ أَرَادَ بِقَوْلِهِ كَرَامَاتِهِمْ الأَوْلِيَاءَ دُونَ الأَنْبِيَاءِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَنُؤْمِنُ بِأَشْرَاطِ السَّاعَةِ مِنْ خُرُوجِ الدَّجَّالِ وَنُزُولِ عِيسَى ابْنِ مَرْيَمَ عَلَيْهِ السَّلامُ مِنَ السَّمَاءِ.
+
+الشَّرْحُ الأَشْرَاطُ جَمْعُ شَرْطٍ بِمَعْنَى الْعَلامَةِ وَأَوَّلُ هَذِهِ الأَشْرَاطِ عَلَى ظَاهِرِ مَا وَرَدَ فِى مُسْلِمٍ خُرُوجُ الدَّجَّالِ ثُمَّ الأَشْرَاطُ قِسْمَانِ كُبْرَى وَهِىَ عَشَرَةٌ وَمَا سِوَى ذَلِكَ يُقَالُ لَهَا الأَشْرَاطُ الصُّغْرَى، وَنُزُولُ عِيسَى مِنَ السَّمَاءِ مِنَ الأَشْرَاطِ الْكُبْرَى أَمَّا مَا ذَكَرَ بَعْضُ كُتَّابِ الْقَادِيَانِيَّةِ فِى مَنْشُورٍ لَهُ أَنَّ مَا جَاءَ فِى الْحَدِيثِ مِنْ نُزُولِ عِيسَى لَمْ يَرِدْ أَنَّ نُزُولَهُ مِنَ السَّمَاءِ فَهَذَا جَهْلٌ مِنْهُ بِالْحَدِيثِ فَقَدْ وَرَدَتْ رِوَايَةٌ فِى الْبَيْهَقِيِّ وَغَيْرِهِ «مِنَ السَّمَاءِ»، هَذَا غَرَّهُ أَنَّهُ لَمْ يُذْكَرْ فِى أَكْثَرِ الرِّوَايَاتِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَنُؤْمِنُ بِطُلُوعِ الشَّمْسِ مِنْ مَغْرِبِهَا وَخُرُوجِ دَابَّةِ الأَرْضِ مِنْ مَوْضِعِهَا.
+
+الشَّرْحُ أَىْ يَجِبُ الإِيـمَانُ بِذَلِكَ أَمَّا طُلُوعُ الشَّمْسِ مِنْ مَغْرِبِهَا فَقَدْ جَاءَ ذِكْرُهُ فِى الْبُخَارِىِّ وَمُسْلِمٍ وَأَمَّا مَوْضِعُ خُرُوجِ الدَّابَّةِ عَلَى مَا جَاءَ فِى الأَثَرِ الصَّفَا وَلَمْ يَثْبُتْ ذَلِكَ بِطَرِيقٍ صَحِيحٍ فَلَيْسَ فَرْضًا عَلَيْنَا أَنْ نُؤْمِنَ بِأَنَّ خُرُوجَهَا مِنْ هُنَاكَ وَإِنَّمَا الْوَاجِبُ أَنْ نُؤْمِنَ أَنَّهَا سَتَخْرُجُ مِنْ حَيْثُ شَاءَ اللَّهُ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَلا نُصَدِّقُ كَاهِنًا وَلا عَرَّافًا وَلا مَنْ يَدَّعِى شَيْئًا يُخَالِفُ الْكِتَابَ وَالسُّنَّةَ وَإِجْمَاعَ الأُمَّةِ.
+
+الشَّرْحُ الْكَاهِنُ هُوَ الَّذِى يَتَعَاطَى الإِخْبَارَ عَمَّا يَحْدُثُ فِى الْمُسْتَقْبَلِ اعْتِمَادًا عَلَى صَاحِبٍ لَهُ مِنَ الْجِنِّ أَوِ اعْتِمَادًا عَلَى النَّجْمِ أَوْ عَلَى مُقَدِّمَاتٍ وَأَسْبَابٍ اصْطَلَحُوا عَلَيْهَا أَمَّا الْعَرَّافُ فَهُوَ الَّذِى يَتَحَدَّثُ عَنِ الأُمُورِ الْخَفِيَّةِ مِمَّا حَصَلَ كَالسَّرِقَةِ وَالضَّائِعَاتِ فَلا يَجُوزُ تَصْدِيقُ هَذَا وَلا هَذَا. وَمَعْنَى قَوْلِهِ «وَإِجْمَاعَ الأُمَّةِ» هُوَ اتِّفَاقُ الْمُجْتَهِدِينَ فَمَنْ خَالَفَ مَا اتَّفَقَ عَلَيْهِ الْمُجْتَهِدُونَ فَقَوْلُهُ مَرْدُودٌ أَمَّا اتِّفَاقُ مَشَايِخِ أَهْلِ بَلَدٍ أَوْ بَلَدَيْنِ أَوْ ثَلاثَةٍ عَلَى أَمْرٍ شَرْعِىٍّ فَلا يُسَمَّى إِجْمَاعًا.
+
+وَالدَّلِيلُ عَلَى تَحْرِيمِ إِتْيَانِ الْعَرَّافِ وَالْكَاهِنِ أَحَادِيثُ مِنْهَا حَدِيثُ مُسْلِمٍ «مَنْ أَتَى عَرَّافًا فَسَأَلَهُ عَنْ شَىْءٍ لَمْ تُقْبَلْ لَهُ صَلاةُ أَرْبَعِينَ لَيْلَةً» وَحَدِيثُ الْحَاكِمِ فِى الْمُسْتَدْرَكِ «مَنْ أَتَى عَرَّافًا أَوْ كَاهِنًا فَصَدَّقَهُ بِمَا يَقُولُ فَقَدْ كَفَرَ بِمَا أُنْزِلَ عَلَى مُحَمَّدٍ» أَىْ إِنِ اعْتَقَدَ أَنَّهُ يَطَّلِعُ عَلَى الْغَيْبِ وَلَيْسَ الْمُرَادُ مَنْ يَظُنُّ أَنَّهُ قَدْ يُوَافِقُ الْوَاقِعَ وَقَدْ لا يُوَافِقُ الْوَاقِعَ فَإِنَّهُ لا يَكْفُرُ بَلْ يَكُونُ عَاصِيًا لِسُؤَالِهِ إِيَّاهُمْ وَمِمَّنْ يَدْخُلُ فِى ذَلِكَ مَنْ يَعْتَمِدُ فِى إِخْبَارِهِ عَلَى الضَّرْبِ بِالْمِنْدَلِ وَالنَّظَرِ فِي فِنْجَانِ قَهْوَةِ الْبُنِّ وَالَّذِى يَعْتَمِدُ عَلَى كِتَابِ قُرْعَةِ الأَنْبِيَاءِ وَكِتَابِ قُرْعَةِ الطُّيُورِ وَكِتَابِ أَبِى مَعْشَرٍ الْفَلَكِىِّ الَّذِى يَدَّعِى أَنَّ الْبَشَرَ كُلَّهُمْ أَحْوَالُهُمْ مُرْتَبِطَةٌ بِالْبُرُوجِ الاِثْنَىْ عَشَرَ وَأَنَّ كُلَّ مَوْلُودٍ يَرْجِعُ أَمْرُهُ إِلَى أَحَدِ هَذِهِ الأَبْرَاجِ وَكَذَلِكَ الَّذِينَ يَعْتَمِدُونَ عَلَى الرَّمْلِ الْمَعْرُوفِ عِنْدَ بَعْضِهِمْ وَالضَّرْبِ بِالْحَصَى أَوِ الْحُبُوبِ لِذَلِكَ، وَمِنَ الْكُهَّانِ مَنْ يُسَمِّيهِمْ بَعْضُ النَّاسِ الرُّوحَانِيِّينَ يَقُولُونَ فُلانٌ رُوحَانِىٌّ يَعْتَمِدُونَ عَلَى كَلامِهِ ظَنًّا مِنْهُ أَنَّ لَهُ اتِّصَالًا بِالْمَلائِكَةِ وَإِنَّمَا هُوَ مُعْتَمِدٌ عَلَى فُسَّاقِ الْجِنِّ مِنْ كُفَّارِهِمْ وَغَيْرِهِمْ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَنَرَى الْجَمَاعَةَ حَقًّا وَصَوَابًا وَالْفُرْقَةَ زَيْغًا وَعَذَابًا.
+
+الشَّرْحُ مُرَادُهُ بِالْجَمَاعَةِ إِجْمَاعُ أَهْلِ الْحَقِّ فِى مَسْئَلَةٍ دِينِيَّةٍ فِى الِاعْتِقَادِ أَوِ الْفُرُوعِ وَيَحْتَمِلُ أَنْ يَكُونَ مُرَادُهُ بِالْجَمَاعَةِ طَاعَةَ الإِمَامِ الَّذِى بَايَعَهُ الْمُسْلِمُونَ لِأَنَّ الْخُرُوجَ عَلَى الإِمَامِ الَّذِى صَحَّتْ بَيْعَتُهُ مِنَ الْكَبَائِرِ لِقَوْلِهِ ﷺ «مَنْ خَلَعَ يَدًا مِنْ طَاعَةٍ لَقِىَ اللَّهَ لا حُجَّةَ لَهُ يَوْمَ الْقِيَامَةِ وَمَنْ مَاتَ وَلَيْسَ فِى عُنُقِهِ بَيْعَةٌ مَاتَ مِيتَةً جَاهِلِيَّةِ» رَوَاهُ مُسْلِمٌ وَغَيْرُهُ وَيَنْطَبِقُ ذَلِكَ عَلَى الَّذِينَ خَرَجُوا عَلَى أَمِيرِ الْمُؤْمِنِينَ عَلِىٍّ رَضِىَ اللَّهُ عَنْهُ وَقَاتَلُوهُ وَلا يَصِحُّ أَنْ يُقَالَ إِنَّهُمُ اجْتَهَدُوا فَإِنَّ هَذَا لَيْسَ مَبْنِيًّا عَلَى اجْتِهَادٍ شَرْعِىٍّ بِدَلِيلِ قَوْلِ عَلِىٍّ رَضِىَ اللَّهُ عَنْهُ «إِنَّ بَنِى أُمَيَّةَ يُقَاتِلُونَنِى يَزْعُمُونَ أَنَّنِى قَتَلْتُ عُثْمَانَ وَكَذَبُوا إِنَّمَا يُرِيدُونَ الْمُلْكَ» رَوَاهُ الْحَافِظُ مُسَدَّدُ بنُ مُسَرْهَدٍ فِى مُسْنَدِهِ وَكَذَلِكَ قَالَ عَمَّارُ بنُ يَاسِرٍ رَضِىَ اللَّهُ عَنْهُمَا فِيمَا رَوَاهُ الْبَيْهَقِىُّ وَابْنُ أَبِى شَيْبَةَ وَهَذَانِ أَدْرَى بِحَالِ مُعَاوِيَةَ مِمَّنْ قَالَ إِنَّهُ اجْتَهَدَ فَأَخْطَأَ فَلَهُ أَجْرٌ وَاحِدٌ وَقَدْ نَقَلَ الْفَقِيهُ الْمُتَكَلِّمُ ابْنُ فُورَك فِى كِتَابِ مَقَالاتِ الأَشْعَرِىِّ كَلامَ الإِمَامِ أَبِى الْحَسَنِ الأَشْعَرِىِّ فِى أَمْرِ الْمُخَالِفِينَ لِعَلِىِّ بنِ أَبِى طَالِبٍ رَضِىَ اللَّهُ عَنْهُ فَقَالَ مَا نَصُّهُ «وَكَانَ أَىِ الأَشْعَرِىُّ يَقُولُ فِى أَمْرِ الْخَارِجِينَ عَلَيْهِ وَالْمُنْكِرِينَ لإِمَامَتِهِ إِنَّهُمْ كُلَّهُمْ كَانُوا عَلَى الْخَطَإِ فِيمَا فَعَلُوا وَلَمْ يَكُنْ لَهُمْ أَنْ يَفْعَلُوا مَا فَعَلُوا مِنْ إِنْكَارِ إِمَامَتِهِ وَالْخُرُوجِ عَلَيْهِ، وَكَانَ يَقُولُ فِى أَمْرِ عَائِشَةَ إِنَّهَا إِنَّمَا قَصَدَتِ الْخُرُوجَ طَلَبًا لِلإِصْلاحِ بَيْنَ الطَّائِفَتَيْنِ بِهَا لِلتَّوَسُّطِ فِى أَمْرِهِمَا، فَأَمَّا طَلْحَةُ وَالزُّبَيْرُ فَإِنَّهُمَا خَرَجَا عَلَيْهِ وَكَانَا فِى ذَلِكَ مُتَأَوِّلَيْنِ مُجْتَهِدَيْنِ يَرَيَانِ ذَلِكَ صَوَابًا بِنَوْعٍ مِنَ الِاجْتِهَادِ وَإِنَّ ذَلِكَ كَانَ مِنْهُمَا خَطَأً وَأَنَّهُمَا رَجِعَا عَنْ ذَلِكَ وَنَدِمَا وَأَظْهَرَا التَّوْبَةَ وَمَاتَا تَائِبَيْنِ مِمَّا عَمِلا، وَكَذَلِكَ كَانَ يَقُولُ فِى حَرْبِ مُعَاوِيَةَ إِنَّهُ كَانَ بِاجْتِهَادٍ مِنْهُ وَإِنَّ ذَلِكَ كَانَ خَطَأً وَبَاطِلًا وَمُنْكَرًا وَبَغْيًا عَلَى مَعْنَى أَنَّهُ خُرُوجٌ عَنْ إِمَامٍ عَادِلٍ، فَأَمَّا خَطَأُ طَلْحَةَ وَالزُّبَيْرِ فَكَانَ يَقُولُ إِنَّهُ وُقِعَ مَغْفُورًا لِلْخَبَرِ الثَّابِتِ عَنِ النَّبِىِّ أَنَّهُ حَكَمَ لَهُمَا بِالْجَنَّةِ فِيمَا رُوِىَ فِى خَبَرِ بِشَارَةِ عَشَرَةٍ مِنْ أَصْحَابِهِ بِالْجَنَّةِ فَذَكَرَ فِيهِمْ طَلْحَةَ وَالزُّبَيْرَ، وَأَمَّا خَطَأُ مَنْ لَمْ يُبَشِّرْهُ رَسُولُ اللَّهِ ﷺ بِالْجَنَّةِ فِى أَمْرِهِ فَإِنَّهُ مُجَوَّزٌ غُفْرَانُهُ وَالْعَفْوُ عَنْهُ» اهـ.
+
+فَهَذَا نَصٌّ صَرِيحٌ مِنْ إِمَامِ أَهْلِ السُّنَّةِ أَبِى الْحَسَنِ الأَشْعَرِىِّ بِأَنَّ كُلَّ مُقَاتِلِيهِ عَصَوْا وَأَنَّ طَلْحَةَ وَالزُّبَيْرَ تَابَا مِنْ ذَلِكَ جَزْمًا وَأَنَّ الآخِرِينَ تَحْتَ الْمَشِيئَةِ يَجُوزُ أَنْ يَغْفِرَ اللَّهُ لِمَنْ شَاءَ مِنْهُمْ. فَبَعْدَ هَذَا لا يَسُوغُ لِأَشْعَرِىٍّ أَنْ يُخَالِفَ كَلامَ الإِمَامِ فَيَقُولَ إِنَّ مُعَاوِيَةَ وَجَيْشَهُ غَيْرُ ءَاثِمِينَ مَعَ الِاعْتِرَافِ بِأَنَّهُمْ بُغَاةٌ وَأَمَّا مَنْ يَقُولُ إِنَّهُمْ مَأْجُورُونَ فَأَبْعَدُ مِنَ الْحَقِّ.
+
+وَعَنَى الْمُؤَلِّفُ بِالْفُرْقَةِ مُخَالَفَةَ الإِجْمَاعِ، وَالزَّيْغُ هُوَ الْمَيْلُ وَقَوْلُهُ «وَعَذَابًا» أَىْ أَنَّ الْخُرُوجَ مِنَ الْجَمَاعَةِ سَبَبُ الْعَذَابِ أَىْ فِى الدُّنْيَا وَالآخِرَةِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَدِينُ اللَّهِ فِى الأَرْضِ وَالسَّمَاءِ وَاحِدٌ وَهُوَ دِينُ الإِسْلامِ قَالَ اللَّهُ تَعَالَى ﴿إِنَّ الدِّينَ عِنْدَ اللَّهِ الإِسْلامُ﴾ [سُورَةَ ءَالِ عِمْرَان/19] وَقَالَ تَعَالَى ﴿وَرَضِيتُ لَكُمُ الإِسْلامَ دِينًا﴾ [سُورَةَ الْمَائِدَة/3] وَهُوَ بَيْنَ الْغُلُوِّ وَالتَّقْصِيرِ وَبَيْنَ التَّشْبِيهِ وَالتَّعْطِيلِ.
+
+الشَّرْحُ أَىْ أَنَّ الْمَلائِكَةَ يَدِينُونَ بِالإِسْلامِ وَأَنَّ الْمُؤْمِنِينَ مِنْ أَهْلِ الأَرْضِ مِنْ إِنْسٍ وَجِنٍّ يَدِينُونَ بِالإِسْلامِ وَمَعْنَى قَوْلِهِ تَعَالَى ﴿إِنَّ الدِّينَ عِنْدَ اللَّهِ الإِسْلامُ﴾ [سُورَةَ ءَالِ عِمْرَان/19] أَىْ أَنَّ الدِّينَ الصَّحِيحَ الْمَقْبُولَ عِنْدَ اللَّهِ هُوَ الإِسْلامُ وَمَا سِوَاهُ مِنَ الأَدْيَانِ بَاطِلٌ وَفِى هَذَا دَلِيلٌ عَلَى أَنَّ أَوَّلَ الْبَشَرِ كَانَ عَلَى الإِسْلامِ لَمْ يَكُنْ لَهُمْ دِينٌ غَيْرُهُ قَالَ اللَّهُ تَعَالَى ﴿كَانَ النَّاسُ أُمَّةً وَاحِدَةً﴾ [سُورَةَ الْبَقَرَة/213] قَالَ ابْنُ عَبَّاسٍ «كُلُّهُمْ عَلَى الإِسْلامِ» رَوَاهُ أَبُو يَعْلَى فِى مُسْنَدِهِ وَغَيْرُهُ.
+
+أَمَّا الْغُلُوُّ فَهُوَ مُجَاوَزَةُ الْحَدِّ الْمَجْعُولِ لِلْعِبَادِ فِى الدِّينِ أَمَّا التَّقْصِيرُ فَهُوَ تَرْكُ الْوُصُولِ إِلَى حَدِّ الْمَأْمُورِ وَأَمَّا التَّشْبِيهُ فَهُوَ تَشْبِيهُ اللَّهِ بِخَلْقِهِ وَأَمَّا التَّعْطِيلُ فَهُوَ نَفْىُ وُجُودِ اللَّهِ أَوْ صِفَاتِهِ وَكُلُّ وَاحِدٍ مِنَ الْمَذْكُورَاتِ مَذْمُومٌ وَبَاطِلٌ لِخُرُوجِهِ عَنِ الْعَدْلِ وَالْحَقِّ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَبَيْنَ الْجَبْرِ وَالْقَدَرِ.
+
+الشَّرْحُ يَعْنِى أَنَّ دِينَ اللَّهِ بَيْنَ الْجَبْرِ وَالْقَدَرِ وَالْجَبْرُ هُوَ اعْتِقَادُ أَنَّ الإِنْسَانَ لا فِعْلَ لَهُ وَأَمَّا الْقَدَرُ فَهُوَ اعْتِقَادُ أَنَّ الإِنْسَانَ يَخْلُقُ أَفْعَالَهُ الِاخْتِيَارِيَّةَ بِقُدْرَةٍ خَلَقَهَا اللَّهُ فِيهِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَبَيْنَ الأَمْنِ وَالإِيَاسِ.
+
+الشَّرْحُ أَفَادَ الْمُؤَلِّفُ بِهَذَا أَنَّ الْمُشَبِّهَةَ كُفَّارٌ لَيْسُوا مُسْلِمِينَ وَأَنَّ الْمُعَطِّلَةَ كُفَّارٌ وَأَنَّ الْجَبْرِيَّةَ كُفَّارٌ وَأَنَّ الْقَدَرِيَّةَ كُفَّارٌ وَهُمُ الْمُعْتَزِلَةُ وَإِنَّمَا أَعَادَهُ لِيُبَيِّنَ أَنَّ الْمُعْتَزِلَةَ كَفَرُوا بِسَبَبِ الأَمْرَيْنِ أَمْرِ التَّعْطِيلِ أَىْ تَعْطِيلِ اللَّهِ عَنِ الصِّفَاتِ وَبِسَبَبِ الْقَوْلِ بِأَنَّهُمْ يَخْلُقُونَ أَفْعَالَهُمْ .
+
+وَمَعْنَى قَوْلِ الْمُؤَلِّفِ وَبَيْنَ الأَمْنِ وَالإِيَاسِ أَنَّ الإِسْلامَ الَّذِى هُوَ دِينُ اللَّهِ هُوَ أَنْ يَكُونَ الْعَبْدُ بَيْنَ الْخَوْفِ وَالرَّجَاءِ فَهُوَ حَقِيقَةُ الْعُبُودِيَّةِ إِذْ فِى الأَمْنِ عَمَّا أَوْعَدَ ظَنُّ الْعَجْزِ عَنِ الْعِقَابِ وَفِى الإِيَاسِ مِنْ رَحْمَتِهِ ظَنُّ الْعَجْزِ عَنِ الْعَفْوِ وَهُمَا يَنْقُلانِ عَنِ الْمِلَّةِ أَىْ أَنَّ ذَلِكَ كُفْرٌ، هَذَا ظَاهِرٌ عَلَى تَفْسِيرِ الْمَاتُرِيدِيَّةِ لِلأَمْنِ وَالْيَأْسِ وَقَدِ اشْتُهِرَ عَنِ الشَّافِعِيَّةِ عَدُّهُمَا مِنْ كَبَائِرِ الذُّنُوبِ غَيْرِ الْمُثْبِتَةِ لِلرِّدَّةِ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: فَهَذَا دِينُنَا وَاعْتِقَادُنَا ظَاهِرًا وَبَاطِنًا وَنَحْنُ بُرَءَاءُ إِلَى اللَّهِ مِنْ كُلِّ مَنْ خَالَفَ الَّذِى ذَكَرْنَاهُ وَبَيَّنَّاهُ.
+
+الشَّرْحُ أَىْ أَنَّنَا بُرَءَاءُ مِنْ هَؤُلاءِ كُلِّهِمْ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَنَسْأَلُ اللَّهَ تَعَالَى أَنْ يُثَبِّتَنَا عَلَى الإِيـمَانِ وَيَخْتِمَ لَنَا بِهِ وَيعْصِمَنَا مِنَ الأَهْوَاءِ الْمُخْتَلِفَةِ وَالآرَاءِ الْمُتَفَرِّقَةِ وَالْمَذَاهِبِ الرَّدِيَّةِ مِثْلِ الْمُشَبِّهَةِ وَالْمُعْتَزِلَةِ وَالْجَهْمِيَّةِ وَالْجَبْرِيَّةِ وَالْقَدَرِيَّةِ وَغَيْرِهِمْ مِنَ الَّذِينَ خَالَفُوا السُّنَّةَ وَالْجَمَاعَةَ وَحَالَفُوا الضَّلالَةَ.
+
+الشَّرْحُ إِنَّمَا سَأَلَ الْمُؤَلِّفُ الثَّبَاتَ عَلَى الدِّينِ لِأَنَّ ذَلِكَ مِنْ أَهَمِّ أُمُورِ الدِّينِ قَالَ تَعَالَى خَبَرًا عَنْ يُوسُفَ ﴿رَبِّ قَدْ ءَاتَيْتَنِى مِنَ الْمُلْكِ وَعَلَّمْتَنِى مِنْ تَأْوِيلِ الأَحَادِيثِ فَاطِرَ السَّمَوَاتِ وَالأَرْضِ أَنْتَ وَلِيِّى فِى الدُّنْيَا وَالآخِرَةِ تَوَفَّنِي مُسْلِمًا وَأَلْحِقْنِى بِالصَّالِحِينَ﴾ [سُورَةَ يُوسُف/101]. وَالأَهْوَاءُ جَمْعُ هَوًى وَهُوَ الأَمْرُ الْبَاطِلُ الَّذِى تَمِيلُ إِلَيْهِ النُّفُوسُ وَقَدْ يُطْلَقُ الْهَوَى بِمَعْنَى الْحُبِّ لَكِنَّهُ لَيْسَ الْمَعْنَى الْمَقْصُودَ هُنَا.
+
+وَقَدْ ذَكَرَ الْمُؤَلِّفُ الْمُشَبِّهَةَ وَالْجَهْمِيَّةَ وَالْقَدَرِيَّةَ تَأْكِيدًا لِمَا ذَكَرَهُ قَبْلَ هَذَا لِأَنَّ التَّحْذِيرَ مِنْ هَذِهِ الْمَذَاهِبِ مِمَّا افْتَرَضَ اللَّهُ. ثُمَّ الْمُشَبِّهَةُ قَدْ مَرَّ تَفْسِيرُهَا أَمَّا الْجَهْمِيَّةُ فَهِىَ طَائِفَةٌ مَنْسُوبَةٌ إِلَى جَهْمِ بنِ صَفْوَانَ كَانَ يَقُولُ إِنَّ اللَّهَ هُوَ هَذَا الْهَوَاءُ مَعَ كُلِّ شَىْءٍ وَعَلَى كُلِّ شَىْءٍ وَهُوَ يَقُولُ بِفَنَاءِ الْجَنَّةِ وَالنَّارِ وَتَبِعَهُ ابْنُ تَيْمِيَةَ الْحَرَّانِىُّ فِى الْقَوْلِ بِفَنَاءِ النَّارِ، وَمَعْنَى قَوْلِ الْمُؤَلِّفِ وَحَالَفُوا الضَّلالَةَ أَىْ لَزِمُوا.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَنَحْنُ مِنْهُمْ بَرَاءٌ.
+
+الشَّرْحُ هَذَا زِيَادَةُ تَأْكِيدٍ لِمَا تَقَدَّمَ.
+
+قَالَ الْمُؤَلِّفُ رَحِمَهُ اللَّهُ: وَهُمْ عِنْدَنَا ضُلَّالٌ وَأَرْدِيَاءٌ وَبِاللَّهِ الْعِصْمَةُ وَالتَّوْفِيقُ.
+
+الشَّرْحُ وَهَذَا أَيْضًا فِيهِ زِيَادَةُ تَأْكِيدٍ لِمَزِيدِ التَّنْفِيرِ مِنْ  هَؤُلاءِ كُلِّهِمْ.
+
+تَمَّ هَذَا الشَّرْحُ بِفَضْلِ اللَّهِ تَعَالَى وَكَرَمِهِ وَالْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ وَصَلَّى اللَّهُ عَلَى سَيِّدِنَا مُحَمَّدٍ خَاتَمِ الأَنْبِيَاءِ وَالْمُرْسَلِينَ وَعَلَى صَحَابَتِهِ وَأَهْلِ بَيْتِهِ الطَّاهِرِينَ الطَّيِّبِينَ.`,
+    paragraphs: 89,
+    words: 4178
+  },
+  {
+    id: "sec-17",
+    title: `متن العقيدة الطحاوية`,
+    description: `النص الكامل لمتـن العقيدة الطحاوية للإمام أبي جعفر الطحاوي رحمه الله`,
+    content: `مَتْنُ الْعَقِيدَةِ الطَّحَاوِيَّةِ
+
+بِسْمِ اللَّهِ الرَّحْمٰنِ الرَّحِيمِ
+
+قَالَ الْعَلَّامَةُ حُجَّةُ الإِسْلامِ أَبُو جَعْفَرٍ الْوَرَّاقُ الطَّحَاوِىُّ بِمِصْرَ رَحِمَهُ اللَّهُ
+
+هَذَا ذِكْرُ بَيَانِ عَقِيدَةِ أَهْلِ السُّنَّةِ وَالْجَمَاعَةِ عَلَى مَذْهَبِ فُقَهَاءِ الْمِلَّةِ أَبِى حَنِيفَةَ النُّعْمَانِ بنِ ثَابِتٍ الْكُوفِىِّ وَأَبِى يُوسُفَ يَعْقُوبَ بنِ إِبْرَاهِيمَ الأَنْصَارِىِّ وَأَبِى عَبْدِ اللَّهِ مُحَمَّدِ بنِ الْحَسَنِ الشَّيْبَانِىِّ رِضْوَانُ اللَّهِ عَلَيْهِمْ أَجْمَعِينَ وَمَا يَعْتَقِدُونَ مِنْ أُصُولِ الدِّينِ وَيَدِينُونَ بِهِ لِرَبِّ الْعَالَمِينَ نَقُولُ فِى تَوْحِيدِ اللَّهِ مُعْتَقِدِينَ بِتَوْفِيقِ اللَّهِ إِنَّ اللَّهَ وَاحِدٌ لا شَرِيكَ لَهُ وَلا شَىْءَ مِثْلُهُ وَلا شَىْءَ يُعْجِزُهُ وَلا إِلَهَ غَيْرُهُ قَدِيمٌ بِلا ابْتِدَاءٍ دَائِمٌ بِلا انْتِهَاءٌ لا يَفْنَى وَلا يَبِيدُ وَلا يَكُونُ إِلَّا مَا يُرِيدُ لا تَبْلُغُهُ الأَوْهَامُ وَلا تُدْرِكُهُ الأَفْهَامُ وَلا يُشْبِهُ الأَنَامَ حَىٌّ لا يَمُوتُ قَيُّومٌ لا يَنَامُ خَالِقٌ بِلا حَاجَةٍ رَازِقٌ بِلا مُؤْنَةٍ مُمِيتٌ بِلا مَخَافَةٍ بَاعِثٌ بِلا مَشَقَّةٍ مَا زَالَ بِصِفَاتِهِ قَدِيمًا قَبْلَ خَلْقِهِ لَمْ يَزْدَدْ بِكَوْنِهِمْ شَيْئًا لَمْ يَكُنْ قَبْلَهُمْ مِنْ صِفَتِهِ وَكَمَا كَانَ بِصِفَاتِهِ أَزَلِيًّا كَذَلِكَ لا يَزَالُ عَلَيْهَا أَبَدِيًّا لَيْسَ بَعْدَ خَلْقِ الْخَلْقِ اسْتَفَادَ اسْمَ الْخَالِقِ وَلا بِإِحْدَاثِهِ الْبَرِيَّةَ اسْتَفَادَ اسْمَ الْبَارِئِ لَهُ مَعْنَى الرُّبُوبِيَّةِ وَلا مَرْبُوبَ وَمَعْنَى الْخَالِقِ وَلا مَخْلُوقَ وَكَمَا أَنَّهُ مُحْيِى الْمَوْتَى بَعْدَمَا أَحْيَا اسْتَحَقَّ هَذَا الِاسْمَ قَبْلَ إِحْيَائِهِمْ كَذَلِكَ اسْتَحَقَّ اسْمَ الْخَالِقِ قَبْلَ إِنْشَائِهِمْ ذَلِكَ بِأَنَّهُ عَلَى كُلِّ شَىْءٍ قَدِيرٌ وَكُلُّ شَىْءٍ إِلَيْهِ فَقِيرٌ وَكُلُّ أَمْرٍ عَلَيْهِ يَسِيرٌ لا يَحْتَاجُ إِلَى شَىْءٍ لَيْسَ كَمِثْلِهِ شَىْءٌ وَهُوَ السَّمِيعُ الْبَصِيرُ خَلَقَ الْخَلْقَ بِعِلْمِهِ وَقَدَّرَ لَهُمْ أَقْدَارًا وَضَرَبَ لَهُمْ ءَاجَالًا وَلَمْ يَخْفَ عَلَيْهِ شَىْءٌ قَبْلَ أَنْ يَخْلُقَهُمْ وَعَلِمَ مَا هُمْ عَامِلُونَ قَبْلَ أَنْ يَخْلُقَهُمْ وَأَمَرَهُمْ بِطَاعَتِهِ وَنَهَاهُمْ عَنْ مَعْصِيَتِهِ. وَكُلُّ شَىْءٍ يَجْرِى بِتَقْدِيرِهِ وَمَشِيئَتِهِ وَمَشِيئَتُهُ تَنْفُذُ لا مَشِيئَةَ لِلْعِبَادِ إِلَّا مَا شَاءَ لَهُمْ فَمَا شَاءَ لَهُمْ كَانَ وَمَا لَمْ يَشَأْ لَمْ يَكُنْ يَهْدِى مَنْ يَشَاءُ وَيَعْصِمُ وَيُعَافِى فَضْلًا وَيُضِلُّ مَنْ يَشَاءُ وَيَخْذُلُ وَيَبْتَلِى عَدْلًا وَكُلُّهُمْ يَتَقَلَّبُونَ فِى مَشِيئَتِهِ بَيْنَ فَضْلِهِ وَعَدْلِهِ وَهُوَ مُتَعَالٍ عَنِ الأَضْدَادِ وَالأَنْدَادِ لا رَادَّ لِقَضَائِهِ وَلا مُعَقِّبَ لِحُكْمِهِ وَلا غَالِبَ لِأَمْرِهِ ءَامَنَّا بِذَلِكَ كُلِّهِ وَأَيْقَنَّا أَنَّ كُلًّا مِنْ عِنْدِهِ وَإِنَّ مُحَمَّدًا ﷺ عَبْدُهُ الْمُصْطَفَى وَنَبِيُّهُ الْمُجْتَبَى وَرَسُولُهُ الْمُرْتَضَى وَإِنَّهُ خَاتَمُ الأَنْبِيَاءِ وَإِمَامُ الأَتْقِيَاءِ وَسَيِّدُ الْمُرْسَلِينَ وَحَبِيبُ رَبِّ الْعَالَمِينَ وَكُلُّ دَعْوَى نُبُوَّةٍ بَعْدَ نُبُوَّتِهِ فَغَىٌّ وَهَوًى وَهُوَ الْمَبْعُوثُ إِلَى عَامَّةِ الْجِنِّ وَكَافَّةِ الْوَرَى بِالْحَقِّ وَالْهُدَى وَبِالنُّورِ وَالضِّيَاءِ وَإِنَّ الْقُرْءَانَ كَلامُ اللَّهِ مِنْهُ بَدَا بِلا كَيْفِيَّةٍ قَوْلًا وَأَنْزَلَهُ عَلَى رَسُولِهِ وَحَيًا وَصَدَّقَهُ الْمُؤْمِنُونَ عَلَى ذَلِكَ حَقًّا وَأَيْقَنُوا أَنَّهُ كَلامُ اللَّهِ تَعَالَى بِالْحَقِيقَةِ لَيْسَ بِمَخْلُوقٍ كَكَلامِ الْبَرِيَّةِ فَمَنْ سَمِعَهُ فَزَعَمَ أَنَّهُ كَلامُ الْبَشَرِ فَقَدْ كَفَرَ وَقَدْ ذَمَّهُ اللَّهُ وَعَابَهُ وَأَوْعَدَهُ بِسَقَرَ حَيْثُ قَالَ تَعَالَى ﴿سَأُصْلِيهِ سَقَرَ﴾ فَلَمَّا أَوْعَدَ اللَّهُ بِسَقَرَ لِمَنْ قَالَ ﴿إِنْ هَذَا إِلَّا قَوْلُ الْبَشَرِ﴾ عَلِمْنَا وَأَيْقَنَّا أَنَّهُ قَوْلُ خَالِقِ الْبَشَرِ وَلا يُشْبِهُ قَوْلَ الْبَشَرِ وَمَنْ وَصَفَ اللَّهَ بِمَعْنًى مِنْ مَعَانِى الْبَشَرِ فَقَدْ كَفَرَ فَمَنْ أَبْصَرَ هَذَا اعْتَبَرَ وَعَنْ مِثْلِ قَوْلِ الْكُفَّارِ انْزَجَرَ وَعَلِمَ أَنَّهُ بِصِفَاتِهِ لَيْسَ كَالْبَشَرِ وَالرُّؤْيَةُ حَقٌّ لِأَهْلِ الْجَنَّةِ بِغَيْرِ إِحَاطَةٍ وَلا كَيْفِيَّةٍ كَمَا نَطَقَ بِهِ كِتَابُ رَبِّنَا ﴿وُجُوهٌ يَوْمَئِذٍ نَّاضِرَةٌ إِلَى رَبِّهَا نَاظِرَةٌ﴾ وَتَفْسِيرُهُ عَلَى مَا أَرَادَهُ اللَّهُ تَعَالَى وَعَلِمَهُ وَكُلُّ مَا جَاءَ فِى ذَلِكَ مِنَ الْحَدِيثِ الصَّحِيحِ عَنِ الرَّسُولِ ﷺ فَهُوَ كَمَا قَالَ وَمَعْنَاهُ عَلَى مَا أَرَادَ لا نَدْخُلُ فِى ذَلِكَ مُتَأَوِّلِينَ بِآرَائِنَا وَلا مُتَوَهِّمِينَ بِأَهْوَائِنَا فَإِنَّهُ مَا سَلِمَ فِى دِينِهِ إِلَّا مَنْ سَلَّمَ لِلَّهِ عَزَّ وَجَلَّ وَلِرَسُولِهِ ﷺ وَرَدَّ عِلْمَ مَا اشْتَبَهَ عَلَيْهِ إِلَى عَالِمِهِ وَلا تَثْبُتُ قَدَمٌ فِى الإِسْلامِ إِلَّا عَلَى ظَهْرِ التَّسْلِيمِ وَالِاسْتِسْلامِ فَمَنْ رَامَ عِلْمَ مَا حُظِرَ عَنْهُ عِلْمُهُ وَلَمْ يَقْنَعْ بِالتَّسْلِيمِ فَهْمُهُ حَجَبَهُ مَرَامُهُ عَنْ خَالِصِ التَّوْحِيدِ وَصَافِى الْمَعْرِفَةِ وَصَحِيحِ الإِيـمَانِ فَيَتَذَبْذَبُ بَيْنَ الْكُفْرِ وَالإِيـمَانِ وَالتَّصْدِيقِ وَالتَّكْذِيبِ وَالإِقْرَارِ وَالإِنْكَارِ مُوَسْوِسًا تَائِهًا شَاكًّا لا مُؤْمِنًا مُصَدِّقًا وَلا جَاحِدًا مُكَذِّبًا وَلا يَصِحُّ الإِيـمَانُ بِالرُّؤْيَةِ لِأَهْلِ دَارِ السَّلامِ لِمَنِ اعْتَبَرَهَا مِنْهُمْ بِوَهْمٍ أَوْ تَأَوَّلَهَا بِفَهْمٍ إِذْ كَانَ تَأْوِيلُ الرُّؤْيَةِ وَتَأْوِيلُ كُلِّ مَعْنًى يُضَافُ إِلَى الرُّبُوبِيَّةِ بِتَرْكِ التَّأْوِيلِ وَلُزُومِ التَّسْلِيمِ وَعَلَيْهِ دِينُ الْمُسْلِمِينَ وَمَنْ لَمْ يَتَوَقَّ النَّفْىَ وَالتَّشْبِيهَ زَلَّ وَلَمْ يُصِبِ التَّنْزِيهَ فَإِنَّ رَبَّنَا جَلَّ وَعَلا مَوْصُوفٌ بِصِفَاتِ الْوَحْدَانِيَّةِ مَنْعُوتٌ بِنُعُوتِ الْفَرْدَانِيَّةِ لَيْسَ فِى مَعْنَاهُ أَحَدٌ مِنَ الْبَرِيَّةِ وَتَعَالَى عَنِ الْحُدُودِ وَالْغَايَاتِ وَالأَعْضَاءِ وَالأَرْكَانِ وَالأَدَوَاتِ لا تَحْوِيهِ الْجِهَاتُ السِّتُّ كَسَائِرِ الْمُبْتَدَعَاتِ وَالْمِعْرَاجُ حَقٌّ وَقَدْ أُسْرِىَ بِالنَّبِىِّ ﷺ وَعُرِجَ بِشَخْصِهِ فِى الْيَقَظَةِ إِلَى السَّمَاءِ ثُمَّ إِلَى حَيْثُ شَاءَ اللَّهُ مِنَ الْعُلَى وَأَكْرَمَهُ اللَّهُ بِمَا شَاءَ وَأَوْحَى إِلَيْهِ مَا أَوْحَى ﴿مَا كَذَبَ الْفُؤَادُ مَا رَأَى﴾ فَصَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ فِى الآخِرَةِ وَالأُولَى وَالْحَوْضُ الَّذِى أَكْرَمَهُ اللَّهُ تَعَالَى بِهِ غِيَاثًا لِأُمَّتِهِ حَقٌّ وَالشَّفَاعَةُ الَّتِى ادَّخَرَهَا لَهُمْ حَقٌّ كَمَا رُوِىَ فِى الأَخْبَارِ وَالْمِيثَاقُ الَّذِى أَخَذَهُ اللَّهُ تَعَالَى مِنْ ءَادَمَ وَذُرِّيَّتِهِ حَقٌّ وَقَدْ عَلِمَ اللَّهُ تَعَالَى فِيمَا لَمْ يَزَلْ عَدَدَ مَنْ يَدْخُلُ الْجَنَّةَ وَعَدَدَ مَنْ يَدْخُلُ النَّارَ جُمْلَةً وَاحِدَةً فَلا يُزَادُ فِى ذَلِكَ الْعَدَدِ وَلا يُنْقَصُ مِنْهُ وَكَذَلِكَ أَفْعَالُهُمْ فِيمَا عَلِمَ مِنْهُمْ أَنْ يَفْعَلُوهُ وَكُلٌّ مُيَسَّرٌ لِمَا خُلِقَ لَهُ وَالأَعْمَالُ بِالْخَوَاتِيمِ وَالسَّعِيدُ مَنْ سَعِدَ بِقَضَاءِ اللَّهِ تَعَالَى وَالشَّقِىُّ مَنْ شَقِىَ بِقَضَاءِ اللَّهِ تَعَالَى وَأَصْلُ الْقَدَرِ سِرُّ اللَّهِ تَعَالَى فِى خَلْقِهِ لَمْ يَطَّلِعْ عَلَى ذَلِكَ مَلَكٌ مُقَرَّبٌ وَلا نَبِىٌّ مُرْسَلٌ وَالتَّعَمُّقُ وَالنَّظَرُ فِى ذَلِكَ ذَرِيعَةُ الْخِذْلانِ وَسُلَّمُ الْحِرْمَانِ وَدَرَجَةُ الطُّغْيَانِ فَالْحَذَرَ كُلَّ الْحَذَرِ مِنْ ذَلِكَ نَظَرًا وَفِكْرًا وَوَسْوَسَةً فَإِنَّ اللَّهَ تَعَالَى طَوَى عِلْمَ الْقَدَرِ عَنْ أَنَامِهِ وَنَهَاهُمْ عَنْ مَرَامِهِ كَمَا قَالَ تَعَالَى فِى كِتَابِهِ ﴿لا يُسْأَلُ عَمَّا يَفْعَلُ وَهُمْ يُسْأَلُونَ﴾ فَمَنْ سَأَلَ لِمَ فَعَلَ فَقَدْ رَدَّ حُكْمَ الْكِتَابِ وَمَنْ رَدَّ حُكْمَ الْكِتَابِ كَانَ مِنَ الْكَافِرِينَ فَهَذِهِ جُمْلَةُ مَا يَحْتَاجُ إِلَيْهِ مَنْ هُوَ مُنَوَّرٌ قَلْبُهُ مِنْ أَوْلِيَاءِ اللَّهِ تَعَالَى وَهِىَ دَرَجَةُ الرَّاسِخِينَ فِى الْعِلْمِ لِأَنَّ الْعِلْمَ عِلْمَانِ عِلْمٌ فِى الْخَلْقِ مَوْجُودٌ وَعِلْمٌ فِى الْخَلْقِ مَفْقُودٌ فَإِنْكَارُ الْعِلْمِ الْمَوْجُودِ كُفْرٌ وَادِّعَاءُ الْعِلْمِ الْمَفْقُودِ كُفْرٌ وَلا يَثْبُتُ الإِيـمَانُ إِلَّا بِقَبُولِ الْعِلْمِ الْمَوْجُودِ وَتَرْكِ طَلَبِ الْعِلْمِ الْمَفْقُودِ وَنُؤْمِنُ بِاللَّوْحِ وَالْقَلَمِ وَبِجَمِيعِ مَا فِيهِ قَدْ رُقِمَ فَلَوِ اجْتَمَعَ الْخَلْقُ كُلُّهُمْ عَلَى شَىْءٍ كَتَبَهُ اللَّهُ فِيهِ أَنَّهُ كَائِنٌ لِيَجْعَلُوهُ غَيْرَ كَائِنٍ لَمْ يَقْدِرُوا عَلَيْهِ وَلَوِ اجْتَمَعُوا كُلُّهُمْ عَلَى شَىْءٍ لَمْ يَكْتُبْهُ اللَّهُ تَعَالَى فِيهِ لِيَجْعَلُوهُ كَائِنًا لَمْ يَقْدِرُوا عَلَيْهِ جَفَّ الْقَلَمُ بِمَا هُوَ كَائِنٌ إِلَى يَوْمِ الْقِيَامَةِ وَمَا أَخْطَأَ الْعَبْدَ لَمْ يَكُنْ لِيُصِيبَهُ وَمَا أَصَابَهُ لَمْ يَكُنْ لِيُخْطِئَهُ وَعَلَى الْعَبْدِ أَنْ يَعْلَمَ أَنَّ اللَّهَ قَدْ سَبَقَ عِلْمُهُ فِى كُلِّ كَائِنٍ مِنْ خَلْقِهِ فَقَدَّرَ ذَلِكَ تَقْدِيرًا مُحْكَمًا مُبْرَمًا لَيْسَ فِيهِ نَاقِضٌ وَلا مُعَقِّبٌ وَلا مُزِيلٌ وَلا مُغَيِّرٌ وَلا مُحَوِّلٌ وَلا نَاقِصٌ وَلا زَائِدٌ مِنْ خَلْقِهِ فِى سَمَاوَاتِهِ وَأَرْضِهِ وَذَلِكَ مِنْ عَقْدِ الإِيـمَانِ وَأُصُولِ الْمَعْرِفَةِ وَالِاعْتِرَافِ بِتَوْحِيدِ اللَّهِ تَعَالَى وَرُبُوبِيَّتِهِ كَمَا قَالَ تَعَالَى فِى كِتَابِهِ ﴿وَخَلَقَ كُلَّ شَىْءٍ فَقَدَّرَهُ تَقْدِيرًا﴾ وَقَالَ تَعَالَى ﴿وَكَانَ أَمْرُ اللَّهِ قَدَرًا مَّقْدُورًا﴾ فَوَيْلٌ لِمَنْ صَارَ لِلَّهِ تَعَالَى فِى الْقَدَرِ خَصِيمًا وَأَحْضَرَ لِلنَّظَرِ فِيهِ قَلْبًا سَقِيمًا لَقَدِ الْتَمَسَ بِوَهْمِهِ فِى فَحْصِ الْغَيْبِ سِرًّا كَتِيمًا وَعَادَ بِمَا قَالَ فِيهِ أَفَّاكًا أَثِيمًا وَالْعَرْشُ وَالْكُرْسِىُّ حَقٌّ وَهُوَ مُسْتَغْنٍ عَنِ الْعَرْشِ وَمَا دُونَهُ مُحِيطٌ بِكُلِّ شَىْءٍ وَفَوْقَهُ وَقَدْ أَعْجَزَ عَنِ الإِحَاطَةِ خَلْقَهُ وَنَقُولُ إِنَّ اللَّهَ اتَّخَذَ إِبْرَاهِيمَ خَلِيلًا وَكَلَّمَ اللَّهُ مُوسَى تَكْلِيمًا إِيـمَانًا وَتَصْدِيقًا وَتَسْلِيمًا وَنُؤْمِنُ بِالْمَلائِكَةِ وَالنَّبِيِّينَ وَالْكُتُبِ الْمُنَزَّلَةِ عَلَى الْمُرْسَلِينَ وَنَشْهَدُ أَنَّهُمْ كَانُوا عَلَى الْحَقِّ الْمُبِينِ وَنُسَمِّى أَهْلَ قِبْلَتِنَا مُسْلِمِينَ مُؤْمِنِينَ مَا دَامُوا بِمَا جَاءَ بِهِ النَّبِىُّ ﷺ مُعْتَرِفِينَ وَلَهُ بِكُلِّ مَا قَالَهُ وَأَخْبَرَ مُصَدِّقِينَ غَيْرَ مُنْكِرِينَ وَلا نَخُوضُ فِى اللَّهِ وَلا نُمَارِى فِى دِينِ اللَّهِ وَلا نُجَادِلُ فِى الْقُرْءَانِ وَنَشْهَدُ أَنَّهُ كَلامُ رَبِّ الْعَالَمِينَ نَزَلَ بِهِ الرُّوحُ الأَمِينُ فَعَلَّمَهُ سَيِّدَ الْمُرْسَلِينَ مُحَمَّدًا ﷺ وَهُوَ كَلامُ اللَّهِ تَعَالَى لا يُسَاوِيهِ شَىْءٌ مِنْ كَلامِ الْمَخْلُوقِينَ وَلا نَقُولُ بِخَلْقِهِ وَلا نُخَالِفُ جَمَاعَةَ الْمُسْلِمِينَ وَلا نُكَفِّرُ أَحَدًا مِنْ أَهْلِ الْقِبْلَةِ بِذَنْبٍ مَا لَمْ يَسْتَحِلَّهُ وَلا نَقُولُ لا يَضُرُّ مَعَ الإِيـمَانِ ذَنْبٌ لِمَنْ عَمِلَهُ نَرْجُو لِلْمُحْسِنِينَ مِنَ الْمُؤْمِنِينَ أَنْ يَعْفُوَ عَنْهُمْ وَيُدْخِلَهُمُ الْجَنَّةَ بِرَحْمَتِهِ وَلا نَأْمَنُ عَلَيْهِمْ وَلا نَشْهَدُ لَهُمْ بِالْجَنَّةِ وَنَسْتَغْفِرُ لِمُسِيئِهِمْ وَنَخَافُ عَلَيْهِمْ وَلا نُقَنِّطُهُمْ وَالأَمْنُ وَالإِيَاسُ يَنْقُلانِ عَنْ مِلَّةِ الإِسْلامِ وَسَبِيلُ الْحَقِّ بَيْنَهُمَا لِأَهْلِ الْقِبْلَةِ وَلا يَخْرُجُ الْعَبْدُ مِنَ الإِيـمَانِ إِلَّا بِجُحُودِ مَا أَدْخَلَهُ فِيهِ وَالإِيـمَانُ هُوَ الإِقْرَارُ بِاللِّسَانِ وَالتَّصْدِيقُ بِالْجَنَانِ وَجَمِيعُ مَا صَحَّ عَنْ رَسُولِ اللَّهِ ﷺ مِنَ الشَّرْعِ وَالْبَيَانِ كُلُّهُ حَقٌّ وَالإِيـمَانُ وَاحِدٌ وَأَهْلُهُ فِى أَصْلِهِ سَوَاءٌ وَالتَّفَاضُلُ بَيْنَهُمْ بِالْخَشْيَةِ وَالتُّقَى وَمُخَالَفَةِ الْهَوَى وَمُلازَمَةِ الأَوْلَى وَالْمُؤْمِنُونَ كُلُّهُمْ أَوْلِيَاءُ الرَّحْمٰنِ وَأَكْرَمُهُمْ عِنْدَ اللَّهِ أَطْوَعُهُمْ وَأَتْبَعُهُمْ لِلْقُرْءَانِ وَالإِيـمَانُ هُوَ الإِيـمَانُ بِاللَّهِ وَمَلائِكَتِهِ وَكُتُبِهِ وَرُسُلِهِ وَالْيَوْمِ الآخِرِ وَالْقَدَرِ خَيْرِهِ وَشَرِّهِ وَحُلْوِهِ وَمُرِّهِ مِنَ اللَّهِ تَعَالَى وَنَحْنُ مُؤْمِنُونَ بِذَلِكَ كُلِّهِ لا نُفَرِّقُ بَيْنَ أَحَدٍ مِنْ رُسُلِهِ وَنُصَدِّقُهُمْ كُلَّهُمْ عَلَى مَا جَاءُوا بِهِ وَأَهْلُ الْكَبَائِرِ مِنْ أُمَّةِ مُحَمَّدٍ ﷺ فِى النَّارِ لا يَخْلُدُونَ إِذَا مَاتُوا وَهُمْ مُوَحِّدُونَ وَإِنْ لَمْ يَكُونُوا تَائِبِينَ بَعْدَ أَنْ لَقُوا اللَّهَ عَارِفِينَ مُؤْمِنِينَ وَهُمْ فِى مَشِيئَتِهِ وَحُكْمِهِ إِنْ شَاءَ غَفَرَ لَهُمْ وَعَفَا عَنْهُمْ بِفَضْلِهِ كَمَا ذَكَرَ عَزَّ وَجَلَّ فِى كِتَابِهِ ﴿وَيَغْفِرُ مَا دُونَ ذَلِكَ لِمَنْ يَشَاءُ﴾ وَإِنْ شَاءَ عَذَّبَهُمْ فِى النَّارِ بِعَدْلِهِ ثُمَّ يُخْرِجُهُمْ مِنْهَا بِرَحْمَتِهِ وَشَفَاعَةِ الشَّافِعِينَ مِنْ أَهْلِ طَاعَتِهِ ثُمَّ يَبْعَثُهُمْ إِلَى جَنَّتِهِ وَذَلِكَ بِأَنَّ اللَّهَ تَعَالَى تَوَلَّى أَهْلَ مَعْرِفَتِهِ وَلَمْ يَجْعَلْهُمْ فِى الدَّارَيْنِ كَأَهْلِ نُكْرَتِهِ الَّذِينَ خَابُوا مِنْ هِدَايَتِهِ وَلَمْ يَنَالُوا مِنْ وِلايَتِهِ اللَّهُمَّ يَا وَلِىَّ الإِسْلامِ وَأَهْلِهِ ثَبِّتْنَا عَلَى الإِسْلامِ حَتَّى نَلْقَاكَ بِهِ. وَنَرَى الصَّلاةَ خَلْفَ كُلِّ بَرٍّ وَفَاجِرٍ مِنْ أَهْلِ الْقِبْلَةِ وَعَلَى مَنْ مَاتَ مِنْهُمْ وَلا نُنَزِّلُ أَحَدًا مِنْهُمْ جَنَّةً وَلا نَارًا وَلا نَشْهَدُ عَلَيْهِمْ بِكُفْرٍ وَلا بِشِرْكٍ وَلا بِنِفَاقٍ مَا لَمْ يَظْهَرْ مِنْهُمْ شَىْءٌ مِنْ ذَلِكَ وَنَذَرُ سَرَائِرَهُمْ إِلَى اللَّهِ تَعَالَى وَلا نَرَى السَّيْفَ عَلَى أَحَدٍ مِنْ أُمَّةِ مُحَمَّدٍ ﷺ إِلَّا مَنْ وَجَبَ عَلَيْهِ السَّيْفُ وَلا نَرَى الْخُرُوجَ عَلَى أَئِمَّتِنَا وَوُلاةِ أُمُورِنَا وَإِنْ جَارُوا وَلا نَدْعُو عَلَيْهِمْ وَلا نَنْزَعُ يَدًا مِنْ طَاعَتِهِمْ وَنَرَى طَاعَتَهُمْ مِنْ طَاعَةِ اللَّهِ عَزَّ وَجَلَّ فَرِيضَةً مَا لَمْ يَأْمُرُوا بِمَعْصِيَةٍ وَنَدْعُو لَهُمْ بِالصَّلاحِ وَالْمُعَافَاةِ وَنَتْبَعُ السُّنَّةَ وَالْجَمَاعَةَ وَنَجْتَنِبُ الشُّذُوذَ وَالْخِلافَ وَالْفُرْقَةَ وَنُحِبُّ أَهْلَ الْعَدْلِ وَالأَمَانَةِ وَنُبْغِضُ أَهْلَ الْجَوْرِ وَالْخِيَانَةِ وَنَقُولُ اللَّهُ أَعْلَمُ فِيمَا اشْتَبَهَ عَلَيْنَا عِلْمُهُ وَنَرَى الْمَسْحَ عَلَى الْخُفَّيْنِ فِى السَّفَرِ وَالْحَضَرِ كَمَا جَاءَ فِى الأَثَرِ وَالْحَجُّ وَالْجِهَادُ مَاضِيَانِ مَعَ أُولِى الأَمْرِ مِنَ الْمُسْلِمِينَ بَرِّهِمْ وَفَاجِرِهِمْ إِلَى قِيَامِ السَّاعَةِ لا يُبْطِلُهُمَا شَىْءٌ وَلا يَنْقُضُهُمَا وَنُؤْمِنُ بِالْكِرَامِ الْكَاتِبِينَ فَإِنَّ اللَّهَ قَدْ جَعَلَهُمْ عَلَيْنَا حَافِظِينَ وَنُؤْمِنُ بِمَلَكِ الْمَوْتِ الْمُوَكَّلِ بِقَبْضِ أَرْوَاحِ الْعَالَمِينَ وَبِعَذَابِ الْقَبْرِ لِمَنْ كَانَ لَهُ أَهْلًا وَسُؤَالِ مُنْكَرٍ وَنَكِيرٍ فِى قَبْرِهِ عَنْ رَبِّهِ وَدِينِهِ وَنَبِيِّهِ عَلَى مَا جَاءَتْ بِهِ الأَخْبَارُ عَنْ رَسُولِ اللَّهِ ﷺ وَعَنِ الصَّحَابَةِ رِضْوَانُ اللَّهِ عَلَيْهِمْ وَالْقَبْرُ رَوْضَةٌ مِنْ رِيَاضِ الْجَنَّةِ أَوْ حُفْرَةٌ مِنْ حُفَرِ النِّيرَانِ وَنُؤْمِنُ بِالْبَعْثِ وَجَزَاءِ الأَعْمَالِ يَوْمَ الْقِيَامَةِ وَالْعَرْضِ وَالْحِسَابِ وَقِرَاءَةِ الْكِتَابِ وَالثَّوَابِ وَالْعِقَابِ وَالصِّرَاطِ وَالْمِيزَانِ وَالْجَنَّةُ وَالنَّارُ مَخْلُوقَتَانِ لا تَفْنَيَانِ أَبَدًا وَلا تَبِيدَانِ وَإِنَّ اللَّهَ تَعَالَى خَلَقَ الْجَنَّةَ وَالنَّارَ قَبْلَ الْخَلْقِ وَخَلَقَ لَهُمَا أَهْلًا فَمَنْ شَاءَ مِنْهُمْ إِلَى الْجَنَّةِ فَضْلًا مِنْهُ وَمَنْ شَاءَ مِنْهُمْ إِلَى النَّارِ عَدْلًا مِنْهُ وَكُلٌّ يَعْمَلُ لِمَا قَدْ فُرِغَ لَهُ وَصَائِرٌ إِلَى مَا خُلِقَ لَهُ وَالْخَيْرُ وَالشَّرُّ مُقَدَّرَانِ عَلَى الْعِبَادِ وَالِاسْتِطَاعَةُ الَّتِى يَجِبُ بِهَا الْفِعْلُ مِنْ نَحْوِ التَّوْفِيقِ الَّذِى لا يَجُوزُ أَنْ يُوصَفَ الْمَخْلُوقُ بِهِ فَهِىَ مَعَ الْفِعْلِ وَأَمَّا الِاسْتِطَاعَةُ مِنْ جِهَةِ الصِّحَّةِ وَالْوُسْعِ وَالتَّمَكُّنِ وَسَلامَةِ الآلاتِ فَهِىَ قَبْلَ الْفِعْلِ وَبِهَا يَتَعَلَّقُ الْخِطَابُ وَهِىَ كَمَا قَالَ تَعَالَى ﴿لا يُكَلِّفُ اللَّهُ نَفْسًا إِلَّا وُسْعَهَا﴾ وَأَفْعَالُ الْعِبَادِ خَلْقُ اللَّهِ وَكَسْبٌ مِنَ الْعِبَادِ وَلَمْ يُكَلِّفْهُمُ اللَّهُ تَعَالَى إِلَّا مَا يُطِيقُونَ وَلا يُطَيَّقُونَ إِلَّا مَا كَلَّفَهُمْ وَهُوَ تَفْسِيرُ لا حَوْلَ وَلا قُوَّةَ إِلَّا بِاللَّهِ نَقُولُ لا حِيلَةَ لِأَحَدٍ وَلا حَرَكَةَ لِأَحَدٍ وَلا تَحَوُّلَ لِأَحَدٍ عَنْ مَعْصِيَةِ اللَّهِ إِلَّا بِمَعُونَةِ اللَّهِ وَلا قُوَّةَ لِأَحَدٍ عَلَى إِقَامَةِ طَاعَةِ اللَّهِ وَالثَّبَاتِ عَلَيْهَا إِلَّا بِتَوْفِيقِ اللَّهِ وَكُلُّ شَىْءٍ يَجْرِى بِمَشِيئَةِ اللَّهِ تَعَالَى وَعِلْمِهِ وَقَضَائِهِ وَقَدَرِهِ غَلَبَتْ مَشِيئَتُهُ الْمَشِيئَاتِ كُلَّهَا وَغَلَبَ قَضَاؤُهُ الْحِيَلَ كُلَّهَا يَفْعَلُ مَا يَشَاءُ وَهُوَ غَيْرُ ظَالِمٍ أَبَدًا تَقَدَّسَ عَنْ كُلِّ سُوءٍ وَحَيْنٍ وَتَنَزَّهَ عَنْ كُلِّ عَيْبٍ وَشَيْنٍ ﴿لا يُسْئَلُ عَمَّا يَفْعَلُ وَهُمْ يُسْئَلُونَ﴾ وَفِى دُعَاءِ الأَحْيَاءِ وَصَدَقَاتِهِمْ مَنْفَعَةٌ لِلأَمْوَاتِ وَاللَّهُ تَعَالَى يَسْتَجِيبُ الدَّعَوَاتِ وَيَقْضِى الْحَاجَاتِ وَيَمْلِكُ كُلَّ شَىْءٍ وَلا يَمْلِكُهُ شَىْءٌ وَلا غِنَى عَنِ اللَّهِ طَرْفَةَ عَيْنٍ وَمَنْ [زَعَمَ أَنَّهُ] اسْتَغْنَى عَنِ اللَّهِ طَرْفَةَ عَيْنٍ فَقَدْ كَفَرَ وَصَارَ مِنْ أَهْلِ الْحَيْنِ وَاللَّهُ يَغْضَبُ وَيَرْضَى لا كَأَحَدٍ مِنَ الْوَرَى وَنُحِبُّ أَصْحَابَ رَسُولِ اللَّهِ ﷺ وَلا نُفْرِطُ فِى حُبِّ أَحَدٍ مِنْهُمْ وَلا نَتَبَرَّأُ مِنْ أَحَدٍ مِنْهُمْ وَنُبْغِضُ مَنْ يُبْغِضُهُمْ وَبِغَيْرِ الْخَيْرِ يَذْكُرُهُمْ وَلا نَذْكُرُهُمْ إِلَّا بِخَيْرٍ وَحُبُّهُمْ دِينٌ وَإِيـمَانٌ وَإِحْسَانٌ وبُغْضُهُمْ كُفْرٌ وَنِفَاقٌ وَطُغْيَانٌ وَنُثْبِتُ الْخِلافَةَ بَعْدَ رَسُولِ اللَّهِ ﷺ أَوَّلًا لِأَبِى بَكْرٍ الصِّدِّيقِ رَضِىَ اللَّهُ عَنْهُ تَفْضِيلًا لَهُ وَتَقْدِيمًا عَلَى جَمِيعِ الأُمَّةِ ثُمَّ لِعُمَرَ بنِ الْخَطَّابِ رَضِىَ اللَّهُ عَنْهُ ثُمَّ لِعُثْمَانَ رَضِىَ اللَّهُ عَنْهُ ثُمَّ لِعَلِىِّ بنِ أَبِى طَالِبٍ رَضِىَ اللَّهُ عَنْهُ وَهُمُ الْخُلَفَاءُ الرَّاشِدُونَ وَالأَئِمَّةُ الْمُهْتَدُونَ وَإِنَّ الْعَشَرَةَ الَّذِينَ سَمَّاهُمْ رَسُولُ اللَّهِ ﷺ وَبَشَّرَهُمْ بِالْجَنَّةِ نَشْهَدُ لَهُمْ بِالْجَنَّةِ عَلَى مَا شَهِدَ لَهُمْ رَسُولُ اللَّهِ ﷺ وَقَوْلُهُ الْحَقُّ وَهُمْ أَبُو بَكْرٍ وَعُمَرُ وَعُثْمَانُ وَعَلِىٌّ وَطَلْحَةُ وَالزُّبَيْرُ وَسَعْدٌ وَسَعِيدٌ وَعَبْدُ الرَّحْمٰنِ بنُ عَوْفٍ وَأَبُو عُبَيْدَةَ بنُ الْجَرَّاحِ وَهُوَ أَمِينُ هَذِهِ الأُمَّةِ رَضِىَ اللَّهُ عَنْهُمْ أَجْمَعِينَ وَمَنْ أَحْسَنَ الْقَوْلَ فِى أَصْحَابِ رَسُولِ اللَّهِ ﷺ وَأَزْوَاجِهِ الطَّاهِرَاتِ مِنْ كُلِّ دَنَسٍ وَذُرِّيَّاتِهِ الْمُقَدَّسِينَ مِنْ كُلِّ رِجْسٍ فَقَدْ بَرِئَ مِنَ النِّفَاقِ وَعُلَمَاءُ السَّلَفِ مِنَ السَّابِقِينَ وَمَنْ بَعْدَهُمْ مِنَ التَّابِعِينَ أَهْلُ الْخَيْرِ وَالأَثَرِ وَأَهْلُ الْفِقْهِ وَالنَّظَرِ لا يُذْكَرُونَ إِلَّا بِالْجَمِيلِ وَمَنْ ذَكَرَهُمْ بِسُوءٍ فَهُوَ عَلَى غَيْرِ السَّبِيلِ وَلا نُفَضِّلُ أَحَدًا مِنَ الأَوْلِيَاءِ عَلَى أَحَدٍ مِنَ الأَنْبِيَاءِ عَلَيْهِمُ السَّلامُ وَنَقُولُ نَبِىٌّ وَاحِدٌ أَفْضَلُ مِنْ جَمِيعِ الأَوْلِيَاءِ وَنُؤْمِنُ بِمَا جَاءَ مِنْ كَرَامَاتِهِمْ وَصَحَّ عَنِ الثِّقَاتِ مِنْ رِوَايَاتِهِمْ وَنُؤْمِنُ بِأَشْرَاطِ السَّاعَةِ مِنْ خُرُوجِ الدَّجَّالِ وَنُزُولِ عِيسَى ابْنِ مَرْيَمَ عَلَيْهِ السَّلامُ مِنَ السَّمَاءِ وَنُؤْمِنُ بِطُلُوعِ الشَّمْسِ مِنْ مَغْرِبِهَا وَخُرُوجِ دَابَّةِ الأَرْضِ مِنْ مَوْضِعِهَا وَلا نُصَدِّقُ كَاهِنًا وَلا عَرَّافًا وَلا مَنْ يَدَّعِى شَيْئًا يُخَالِفُ الْكِتَابَ وَالسُّنَّةَ وَإِجْمَاعَ الأُمَّةِ وَنَرَى الْجَمَاعَةَ حَقًّا وَصَوَابًا وَالْفُرْقَةَ زَيْغًا وَعَذَابًا وَدِينُ اللَّهِ فِى الأَرْضِ وَالسَّمَاءِ وَاحِدٌ وَهُوَ دِينُ الإِسْلامِ قَالَ اللَّهُ تَعَالَى ﴿إِنَّ الدِّينَ عِنْدَ اللَّهِ الإِسْلامُ﴾ وَقَالَ تَعَالَى ﴿وَرَضِيتُ لَكُمُ الإِسْلامَ دِينًا﴾ وَهُوَ بَيْنَ الْغُلُوِّ وَالتَّقْصِيرِ وَبَيْنَ التَّشْبِيهِ وَالتَّعْطِيلِ وَبَيْنَ الْجَبْرِ وَالْقَدَرِ وَبَيْنَ الأَمْنِ وَالإِيَاسِ فَهَذَا دِينُنَا وَاعْتِقَادُنَا ظَاهِرًا وَبَاطِنًا وَنَحْنُ بُرَءَاءُ إِلَى اللَّهِ مِنْ كُلِّ مَنْ خَالَفَ الَّذِى ذَكَرْنَاهُ وَبَيَّنَّاهُ وَنَسْأَلُ اللَّهَ تَعَالَى أَنْ يُثَبِّتَنَا عَلَى الإِيـمَانِ وَيَخْتِمَ لَنَا بِهِ وَيعْصِمَنَا مِنَ الأَهْوَاءِ الْمُخْتَلِفَةِ وَالآرَاءِ الْمُتَفَرِّقَةِ وَالْمَذَاهِبِ الرَّدِيَّةِ مِثْلِ الْمُشَبِّهَةِ وَالْمُعْتَزِلَةِ وَالْجَهْمِيَّةِ وَالْجَبْرِيَّةِ وَالْقَدَرِيَّةِ وَغَيْرِهِمْ مِنَ الَّذِينَ خَالَفُوا السُّنَّةَ وَالْجَمَاعَةَ وَحَالَفُوا الضَّلالَةَ وَنَحْنُ مِنْهُمْ بَرَاءٌ وَهُمْ عِنْدَنَا ضُلَّالٌ وَأَرْدِيَاءٌ وَبِاللَّهِ الْعِصْمَةُ وَالتَّوْفِيقُ.`,
+    paragraphs: 4,
+    words: 2133
+  },
+];
+
+/* ========== State & Storage ========== */
+const STORAGE_KEY = 'durra_bahiyya_v1';
+const ICONS = [
+  'fa-book','fa-book','fa-book','fa-book',
+  'fa-book','fa-book','fa-book','fa-book',
+  'fa-book','fa-book','fa-book','fa-book',
+  'fa-book','fa-book','fa-book','fa-book','fa-book'
+];
+
+let state = {
+  theme: 'light',
+  font: "'Cairo', sans-serif",
+  fontSize: 17,
+  favorites: [],
+  lastSection: null,
+  lastScroll: 0
+};
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const saved = JSON.parse(raw);
+      state = { ...state, ...saved };
+    }
+  } catch(e) {}
+  applySettings();
+}
+
+function saveState() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch(e) {}
+}
+
+function applySettings() {
+  document.documentElement.setAttribute('data-theme', state.theme === 'dark' ? 'dark' : 'light');
+  document.documentElement.style.setProperty('--font', state.font);
+  document.documentElement.style.setProperty('--font-size-base', state.fontSize + 'px');
+  // Theme icon
+  const ti = document.querySelector('#themeToggle i');
+  if (ti) ti.className = state.theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+  // Dark toggle
+  const dt = document.getElementById('darkToggle');
+  if (dt) dt.classList.toggle('on', state.theme === 'dark');
+  // Font options
+  document.querySelectorAll('.font-opt').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.font === state.font);
+  });
+  // Font size
+  const range = document.getElementById('fontSizeRange');
+  if (range) range.value = state.fontSize;
+  const label = document.getElementById('fontSizeLabel');
+  if (label) label.textContent = state.fontSize + ' بكسل';
+}
+
+/* ========== Theme ========== */
+function toggleTheme() {
+  state.theme = state.theme === 'dark' ? 'light' : 'dark';
+  applySettings();
+  saveState();
+  showToast(state.theme === 'dark' ? 'تم تفعيل الوضع الليلي' : 'تم تفعيل الوضع النهاري');
+}
+
+/* ========== Pages ========== */
+function showPage(name, sectionId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const page = document.getElementById('page-' + name);
+  if (page) page.classList.add('active');
+
+  // Nav active states
+  document.querySelectorAll('.nav-item').forEach(n => {
+    n.classList.toggle('active', n.dataset.page === name);
+  });
+
+  // Progress bar
+  const rp = document.getElementById('readingProgress');
+  if (rp) rp.style.display = name === 'section' ? 'block' : 'none';
+
+  if (name === 'home') renderHome();
+  else if (name === 'favorites') renderFavorites();
+  else if (name === 'section' && sectionId) openSection(sectionId);
+  else if (name === 'settings') applySettings();
+
+  window.scrollTo({ top: 0 });
+}
+
+/* ========== Home Cards ========== */
+function renderHome() {
+  const grid = document.getElementById('cardsGrid');
+  if (!grid) return;
+  grid.innerHTML = SECTIONS.map((s, i) => {
+    const fav = state.favorites.includes(s.id);
+    const icon = 'fa-book';
+    const mins = Math.max(1, Math.ceil(s.words / 200));
+    return `
+    <div class="card" onclick="openSection('${s.id}')" data-id="${s.id}">
+      <button class="card-fav ${fav ? 'favorited' : ''}" onclick="event.stopPropagation();toggleFav('${s.id}')" title="المفضلة">
+        <i class="${fav ? 'fas' : 'far'} fa-star"></i>
+      </button>
+      <div class="card-icon"><i class="fas ${icon}"></i></div>
+      <div class="card-title">${s.title}</div>
+      <div class="card-desc">${s.description}</div>
+      <div class="card-meta">
+        <span><i class="fas fa-paragraph"></i> ${s.paragraphs} فقرة</span>
+        <span><i class="fas fa-clock"></i> ${mins} د</span>
+        <span><i class="fas fa-font"></i> ${s.words.toLocaleString('ar')} كلمة</span>
+      </div>
+    </div>`;
+  }).join('');
+
+  // Ripple on cards
+  grid.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('click', function(e) {
+      const rect = this.getBoundingClientRect();
+      const ripple = document.createElement('span');
+      ripple.className = 'ripple';
+      const size = Math.max(rect.width, rect.height);
+      ripple.style.width = ripple.style.height = size + 'px';
+      ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+      ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+      this.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 600);
+    });
+  });
+}
+
+/* ========== Open Section ========== */
+function openSection(id) {
+  const s = SECTIONS.find(x => x.id === id);
+  if (!s) return;
+
+  state.lastSection = id;
+  saveState();
+
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-section').classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+
+  const mins = Math.max(1, Math.ceil(s.words / 200));
+  const fav = state.favorites.includes(s.id);
+
+  document.getElementById('sectionHeader').innerHTML = `
+    <button class="tool-btn" onclick="showPage('home')" style="margin-bottom:0.8rem">
+      <i class="fas fa-arrow-right"></i> العودة
+    </button>
+    <h1>${s.title}</h1>
+    <div class="section-stats">
+      <span><i class="fas fa-font"></i> ${s.words.toLocaleString('ar')} كلمة</span>
+      <span><i class="fas fa-clock"></i> ≈ ${mins} دقيقة قراءة</span>
+      <span><i class="fas fa-paragraph"></i> ${s.paragraphs} فقرة</span>
+    </div>
+    <div class="section-tools">
+      <button class="tool-btn" onclick="copyContent()"><i class="fas fa-copy"></i> نسخ</button>
+      <button class="tool-btn" onclick="shareContent()"><i class="fas fa-share-alt"></i> مشاركة</button>
+      <button class="tool-btn ${fav ? 'favorited' : ''}" id="secFavBtn" onclick="toggleFav('${s.id}')">
+        <i class="${fav ? 'fas' : 'far'} fa-star"></i> ${fav ? 'إزالة من المفضلة' : 'إضافة للمفضلة'}
+      </button>
+      <button class="tool-btn" onclick="changeFontSize(1)"><i class="fas fa-plus"></i> تكبير</button>
+      <button class="tool-btn" onclick="changeFontSize(-1)"><i class="fas fa-minus"></i> تصغير</button>
+    </div>
+  `;
+
+  // Format content: split by double newlines into paragraphs
+  // Highlight "قال المؤلف" and "الشرح"
+  let html = '';
+  const paras = s.content.split(/\n\n+/).filter(p => p.trim());
+  paras.forEach(p => {
+    let t = p.trim();
+    // Escape HTML
+    t = t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    if (t.startsWith('قَالَ الْمُؤَلِّفُ') || t.startsWith('قَالَ الْمُؤْلِفُ')) {
+      html += `<div class="matn-quote">${t}</div>`;
+    } else {
+      html += `<p>${t}</p>`;
+    }
+  });
+  document.getElementById('contentBody').innerHTML = html;
+
+  document.getElementById('readingProgress').style.display = 'block';
+  window.scrollTo({ top: 0 });
+
+  // Restore scroll if same section
+  if (state.lastSection === id && state.lastScroll > 0) {
+    setTimeout(() => window.scrollTo({ top: state.lastScroll }), 100);
+  }
+}
+
+/* ========== Favorites ========== */
+function toggleFav(id) {
+  const idx = state.favorites.indexOf(id);
+  if (idx >= 0) {
+    state.favorites.splice(idx, 1);
+    showToast('تمت الإزالة من المفضلة');
+  } else {
+    state.favorites.push(id);
+    showToast('تمت الإضافة إلى المفضلة');
+  }
+  saveState();
+  // Update UI
+  const page = document.querySelector('.page.active');
+  if (page && page.id === 'page-home') renderHome();
+  else if (page && page.id === 'page-favorites') renderFavorites();
+  else if (page && page.id === 'page-section') {
+    // Update button
+    const btn = document.getElementById('secFavBtn');
+    if (btn) {
+      const fav = state.favorites.includes(id);
+      btn.classList.toggle('favorited', fav);
+      btn.innerHTML = `<i class="${fav ? 'fas' : 'far'} fa-star"></i> ${fav ? 'إزالة من المفضلة' : 'إضافة للمفضلة'}`;
+    }
+  }
+}
+
+function renderFavorites() {
+  const grid = document.getElementById('favGrid');
+  const empty = document.getElementById('favEmpty');
+  const favs = SECTIONS.filter(s => state.favorites.includes(s.id));
+  if (favs.length === 0) {
+    grid.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+  grid.innerHTML = favs.map((s, i) => {
+    const icon = 'fa-book';
+    const mins = Math.max(1, Math.ceil(s.words / 200));
+    return `
+    <div class="card" onclick="openSection('${s.id}')">
+      <button class="card-fav favorited" onclick="event.stopPropagation();toggleFav('${s.id}')">
+        <i class="fas fa-star"></i>
+      </button>
+      <div class="card-icon"><i class="fas ${icon}"></i></div>
+      <div class="card-title">${s.title}</div>
+      <div class="card-desc">${s.description}</div>
+      <div class="card-meta">
+        <span><i class="fas fa-paragraph"></i> ${s.paragraphs} فقرة</span>
+        <span><i class="fas fa-clock"></i> ${mins} د</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* ========== Search ========== */
+const searchInput = document.getElementById('searchInput');
+const searchResults = document.getElementById('searchResults');
+
+searchInput.addEventListener('input', function() {
+  const q = this.value.trim();
+  if (q.length < 2) {
+    searchResults.classList.remove('show');
+    return;
+  }
+  const results = [];
+  const qLower = q.toLowerCase();
+  SECTIONS.forEach(s => {
+    if (s.title.includes(q) || s.description.includes(q)) {
+      results.push({ section: s, snippet: s.description, score: 2 });
+    } else if (s.content.includes(q)) {
+      // Find snippet
+      const idx = s.content.indexOf(q);
+      const start = Math.max(0, idx - 40);
+      const end = Math.min(s.content.length, idx + q.length + 60);
+      let snip = s.content.slice(start, end).replace(/\n/g, ' ');
+      if (start > 0) snip = '…' + snip;
+      if (end < s.content.length) snip += '…';
+      results.push({ section: s, snippet: snip, score: 1 });
+    }
+  });
+  results.sort((a,b) => b.score - a.score);
+
+  if (results.length === 0) {
+    searchResults.innerHTML = '<div class="search-empty">لا توجد نتائج</div>';
+  } else {
+    searchResults.innerHTML = results.slice(0, 12).map(r => `
+      <div class="search-item" onclick="openSection('${r.section.id}');searchResults.classList.remove('show');searchInput.value='';">
+        <div class="s-title">${r.section.title}</div>
+        <div class="s-snippet">${r.snippet.replace(/</g,'&lt;')}</div>
+      </div>
+    `).join('');
+  }
+  searchResults.classList.add('show');
+});
+
+document.addEventListener('click', e => {
+  if (!document.getElementById('searchWrap').contains(e.target)) {
+    searchResults.classList.remove('show');
+  }
+});
+
+/* ========== Tools ========== */
+function copyContent() {
+  const s = SECTIONS.find(x => x.id === state.lastSection);
+  if (!s) return;
+  navigator.clipboard.writeText(s.content).then(() => {
+    showToast('تم نسخ المحتوى');
+  }).catch(() => showToast('تعذر النسخ'));
+}
+
+function shareContent() {
+  const s = SECTIONS.find(x => x.id === state.lastSection);
+  if (!s) return;
+  if (navigator.share) {
+    navigator.share({ title: s.title, text: s.content.slice(0, 500) + '…' }).catch(() => {});
+  } else {
+    copyContent();
+    showToast('تم نسخ المحتوى للمشاركة');
+  }
+}
+
+function changeFontSize(delta) {
+  state.fontSize = Math.min(24, Math.max(14, state.fontSize + delta));
+  applySettings();
+  saveState();
+}
+
+/* ========== Settings ========== */
+document.getElementById('fontOptions').addEventListener('click', e => {
+  const btn = e.target.closest('.font-opt');
+  if (!btn) return;
+  state.font = btn.dataset.font;
+  applySettings();
+  saveState();
+  showToast('تم تغيير الخط');
+});
+
+document.getElementById('fontSizeRange').addEventListener('input', function() {
+  state.fontSize = parseInt(this.value);
+  applySettings();
+  saveState();
+});
+
+function resetSettings() {
+  state.theme = 'light';
+  state.font = "'Cairo', sans-serif";
+  state.fontSize = 17;
+  applySettings();
+  saveState();
+  showToast('تم إعادة ضبط الإعدادات');
+}
+
+/* ========== Scroll tracking ========== */
+window.addEventListener('scroll', () => {
+  // Progress bar
+  const body = document.getElementById('contentBody');
+  if (body && document.getElementById('page-section').classList.contains('active')) {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    document.getElementById('progressBar').style.width = pct + '%';
+    state.lastScroll = scrollTop;
+  }
+  // Back to top
+  document.getElementById('backTop').classList.toggle('show', window.scrollY > 400);
+});
+
+// Save scroll periodically
+setInterval(() => {
+  if (document.getElementById('page-section').classList.contains('active')) {
+    saveState();
+  }
+}, 3000);
+
+/* ========== Toast ========== */
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+/* ========== Init ========== */
+loadState();
+renderHome();
+
+// Restore last section if wanted (optional - start on home)
+// if (state.lastSection) { openSection(state.lastSection); }
+</script>
+</body>
+</html>
