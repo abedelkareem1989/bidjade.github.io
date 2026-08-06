@@ -1,0 +1,2062 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>المداح أحمد الرفاعي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* ===== المتغيرات والثيمات ===== */
+        :root {
+            --primary: #1a7a3a;
+            --primary-dark: #0f5f2e;
+            --primary-light: #2ecc71;
+            --gold: #d4af37;
+            --gold-dark: #b8860b;
+            --gold-glow: rgba(212, 175, 55, 0.4);
+            --bg-dark: #0b0e12;
+            --bg-card: #14181e;
+            --bg-card-hover: #1c222a;
+            --bg-input: #1e2630;
+            --text-primary: #ecf0f3;
+            --text-secondary: #8f9ba8;
+            --border: #2a323d;
+            --shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
+            --glass: rgba(20, 24, 30, 0.88);
+            --radius: 18px;
+            --radius-sm: 12px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="light"] {
+            --bg-dark: #f2f5f9;
+            --bg-card: #ffffff;
+            --bg-card-hover: #f0f2f6;
+            --bg-input: #e8ecf2;
+            --text-primary: #1e2328;
+            --text-secondary: #5a6878;
+            --border: #d0d7e0;
+            --shadow: 0 12px 48px rgba(0, 0, 0, 0.08);
+            --glass: rgba(255, 255, 255, 0.92);
+        }
+
+        /* ===== إعادة تعيين ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: background var(--transition), color var(--transition);
+        }
+
+        /* ===== خلفية متحركة ===== */
+        .bg-layer {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .bg-layer::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background:
+                radial-gradient(circle at 30% 40%, rgba(26, 122, 58, 0.12) 0%, transparent 60%),
+                radial-gradient(circle at 80% 70%, rgba(212, 175, 55, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 50% 20%, rgba(26, 122, 58, 0.06) 0%, transparent 50%);
+            animation: bgFloat 28s ease-in-out infinite alternate;
+        }
+        @keyframes bgFloat {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            50% { transform: translate(2%, -2%) scale(1.05) rotate(0.5deg); }
+            100% { transform: translate(-2%, 2%) scale(0.95) rotate(-0.5deg); }
+        }
+
+        /* ===== حاوية التطبيق ===== */
+        .app {
+            position: relative;
+            z-index: 1;
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 16px 20px 100px;
+            min-height: 100vh;
+        }
+
+        /* ===== الهيدر ===== */
+        .header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 14px 20px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .header-brand .logo {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-sm);
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(212, 175, 55, 0.35);
+            flex-shrink: 0;
+        }
+        .header-brand .name {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+        .header-brand .sub {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .header-stats {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+        .header-stats span {
+            background: var(--bg-card);
+            padding: 4px 14px;
+            border-radius: 30px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .header-stats i {
+            color: var(--gold);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 8px;
+        }
+        .header-actions button {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            font-size: 16px;
+        }
+        .header-actions button:hover {
+            background: var(--gold);
+            color: #fff;
+            border-color: var(--gold);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        /* ===== البانر ===== */
+        .banner {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            padding: 24px 28px;
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+            align-items: center;
+        }
+        .banner-img {
+            width: 140px;
+            height: 140px;
+            border-radius: var(--radius);
+            object-fit: cover;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+            border: 3px solid var(--gold);
+            flex-shrink: 0;
+        }
+        .banner-info {
+            flex: 1;
+            min-width: 180px;
+        }
+        .banner-info h1 {
+            font-size: 1.7rem;
+            font-weight: 900;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+        .banner-info .desc {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+            line-height: 1.5;
+        }
+        .banner-info .meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 20px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        .banner-info .meta i {
+            color: var(--gold);
+            width: 18px;
+        }
+
+        /* ===== البحث ===== */
+        .search-bar {
+            margin-bottom: 20px;
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 14px 20px 14px 50px;
+            border-radius: 50px;
+            border: 1px solid var(--border);
+            background: var(--bg-input);
+            color: var(--text-primary);
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1rem;
+            outline: none;
+            transition: var(--transition);
+        }
+        .search-bar input:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px var(--gold-glow);
+        }
+        .search-bar input::placeholder {
+            color: var(--text-secondary);
+        }
+        .search-wrap {
+            position: relative;
+        }
+        .search-wrap i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* ===== تخطيط الصفحة الرئيسية ===== */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 360px;
+            gap: 24px;
+        }
+        @media (max-width: 920px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== المشغل ===== */
+        .player-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            padding: 28px 24px 24px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .player-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.06) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .album-wrap {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            margin-bottom: 20px;
+            z-index: 2;
+        }
+        @media (max-width: 500px) {
+            .album-wrap {
+                width: 180px;
+                height: 180px;
+            }
+        }
+        .album-wrap img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 16px 56px rgba(0, 0, 0, 0.5), 0 0 0 4px rgba(212, 175, 55, 0.15);
+            transition: var(--transition);
+            will-change: transform;
+        }
+        .album-wrap img.spinning {
+            animation: spinAlbum 24s linear infinite;
+        }
+        @keyframes spinAlbum {
+            to { transform: rotate(360deg); }
+        }
+        .album-glow {
+            position: absolute;
+            inset: -20%;
+            background: radial-gradient(circle, var(--gold-glow) 0%, transparent 70%);
+            filter: blur(50px);
+            opacity: 0;
+            transition: opacity 0.6s;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .album-glow.active {
+            opacity: 1;
+        }
+
+        .track-info {
+            text-align: center;
+            z-index: 2;
+            width: 100%;
+        }
+        .track-info .title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1.3;
+            margin-bottom: 2px;
+        }
+        .track-info .artist {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        .track-info .badge {
+            display: inline-block;
+            margin-top: 8px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: #0b0e12;
+            padding: 2px 16px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        /* ===== شريط التقدم الاحترافي ===== */
+        .progress-section {
+            width: 100%;
+            margin-top: 16px;
+            z-index: 2;
+        }
+        .progress-track {
+            position: relative;
+            height: 6px;
+            background: var(--border);
+            border-radius: 10px;
+            cursor: pointer;
+            touch-action: none;
+            margin-bottom: 8px;
+        }
+        .progress-track .buffer {
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 100%;
+            background: rgba(212, 175, 55, 0.2);
+            border-radius: 10px;
+            width: 0%;
+            pointer-events: none;
+        }
+        .progress-track .bar {
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold), var(--gold-dark));
+            border-radius: 10px;
+            width: 0%;
+            pointer-events: none;
+            transition: width 0.05s linear;
+        }
+        .progress-track .thumb {
+            position: absolute;
+            top: 50%;
+            transform: translate(50%, -50%);
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle at 35% 35%, #fff, var(--gold));
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.2), 0 4px 20px rgba(212, 175, 55, 0.4);
+            right: 0%;
+            pointer-events: none;
+            transition: transform 0.15s, box-shadow 0.15s;
+            will-change: transform;
+        }
+        .progress-track .thumb.dragging,
+        .progress-track .thumb:hover {
+            transform: translate(50%, -50%) scale(1.35);
+            box-shadow: 0 0 0 8px rgba(212, 175, 55, 0.25), 0 0 40px rgba(212, 175, 55, 0.5);
+        }
+        .progress-track .thumb.dragging {
+            transition: none;
+        }
+        .time-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        /* ===== أزرار التحكم الرئيسية ===== */
+        .controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            margin: 16px 0 12px;
+            z-index: 2;
+        }
+        .controls button {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+        .controls button:hover {
+            color: var(--gold);
+            transform: scale(1.08);
+        }
+        .controls .secondary {
+            width: 44px;
+            height: 44px;
+            font-size: 18px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+        }
+        .controls .secondary:hover {
+            background: var(--gold);
+            color: #fff;
+            border-color: var(--gold);
+        }
+        .controls .primary {
+            width: 72px;
+            height: 72px;
+            font-size: 30px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: #0b0e12;
+            box-shadow: 0 8px 32px rgba(212, 175, 55, 0.4);
+        }
+        .controls .primary:hover {
+            transform: scale(1.06);
+            box-shadow: 0 12px 48px rgba(212, 175, 55, 0.5);
+        }
+        .controls .active {
+            color: var(--gold);
+        }
+
+        /* ===== أزرار إضافية ===== */
+        .extras {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            z-index: 2;
+            width: 100%;
+            margin-top: 4px;
+        }
+        .extras button {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 16px;
+            border-radius: 30px;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .extras button:hover {
+            background: var(--gold);
+            color: #fff;
+            border-color: var(--gold);
+            transform: translateY(-2px);
+        }
+        .extras button i {
+            font-size: 14px;
+        }
+        .extras .liked {
+            background: rgba(218, 54, 51, 0.15);
+            border-color: #da3633;
+            color: #da3633;
+        }
+        .extras .liked:hover {
+            background: #da3633;
+            color: #fff;
+        }
+
+        /* ===== التحكم في الصوت ===== */
+        .volume-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            max-width: 260px;
+            margin-top: 12px;
+            z-index: 2;
+        }
+        .volume-row button {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        .volume-row button:hover {
+            background: var(--gold);
+            color: #fff;
+            border-color: var(--gold);
+        }
+        .volume-row input[type="range"] {
+            flex: 1;
+            height: 4px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: var(--border);
+            border-radius: 10px;
+            outline: none;
+            cursor: pointer;
+        }
+        .volume-row input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 14px;
+            height: 14px;
+            background: var(--gold);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 12px rgba(212, 175, 55, 0.4);
+        }
+        .volume-row .vol-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            min-width: 36px;
+            text-align: center;
+        }
+
+        /* ===== قائمة التشغيل ===== */
+        .playlist-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            max-height: 620px;
+            overflow: hidden;
+        }
+        .playlist-card .head {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        .playlist-card .head h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .playlist-card .head .count {
+            background: var(--gold);
+            color: #0b0e12;
+            padding: 2px 14px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+        .playlist-scroll {
+            overflow-y: auto;
+            padding: 8px 12px;
+            flex: 1;
+        }
+        .playlist-scroll::-webkit-scrollbar {
+            width: 5px;
+        }
+        .playlist-scroll::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 10px;
+        }
+
+        .playlist-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+            margin-bottom: 4px;
+            border: 1px solid transparent;
+            position: relative;
+        }
+        .playlist-item:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border);
+        }
+        .playlist-item.active {
+            background: rgba(212, 175, 55, 0.08);
+            border-color: var(--gold);
+            box-shadow: 0 0 0 1px var(--gold);
+        }
+        .playlist-item.active .pl-title {
+            color: var(--gold);
+            font-weight: 700;
+        }
+        .playlist-item .pl-num {
+            font-weight: 700;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            min-width: 28px;
+            text-align: center;
+        }
+        .playlist-item .pl-img {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-sm);
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+        .playlist-item .pl-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .playlist-item .pl-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .playlist-item .pl-artist {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .playlist-item .pl-dur {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        .playlist-item .pl-play-icon {
+            color: var(--gold);
+            font-size: 14px;
+            display: none;
+            animation: pulseIcon 1.4s ease-in-out infinite;
+        }
+        .playlist-item.active .pl-play-icon {
+            display: block;
+        }
+        @keyframes pulseIcon {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        .playlist-item .pl-actions {
+            display: flex;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+        .playlist-item .pl-actions button {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 4px 6px;
+            border-radius: 8px;
+            transition: var(--transition);
+            font-size: 13px;
+        }
+        .playlist-item .pl-actions button:hover {
+            color: var(--gold);
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        /* ===== المشغل المصغر ===== */
+        .mini-player {
+            position: fixed;
+            bottom: 16px;
+            left: 16px;
+            right: 16px;
+            background: var(--glass);
+            backdrop-filter: blur(24px);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            padding: 10px 16px;
+            display: none;
+            align-items: center;
+            gap: 14px;
+            z-index: 900;
+            animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .mini-player.visible {
+            display: flex;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(80px) scale(0.95); opacity: 0; }
+            to { transform: translateY(0) scale(1); opacity: 1; }
+        }
+        .mini-player .mini-img {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-sm);
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+        .mini-player .mini-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .mini-player .mini-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .mini-player .mini-artist {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+        }
+        .mini-player .mini-controls {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .mini-player .mini-controls button {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: var(--bg-card);
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            font-size: 14px;
+            border: 1px solid var(--border);
+        }
+        .mini-player .mini-controls button:hover {
+            background: var(--gold);
+            color: #fff;
+            border-color: var(--gold);
+        }
+        .mini-player .mini-controls .play {
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: #0b0e12;
+            width: 40px;
+            height: 40px;
+            font-size: 16px;
+            border-color: transparent;
+        }
+        .mini-player .mini-controls .play:hover {
+            background: var(--gold-dark);
+            color: #0b0e12;
+        }
+        .mini-player .mini-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--border);
+            border-radius: 0 0 4px 4px;
+            overflow: hidden;
+        }
+        .mini-player .mini-progress .bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold), var(--gold-dark));
+            width: 0%;
+            border-radius: 0 0 4px 4px;
+        }
+
+        /* ===== المشغل بملء الشاشة ===== */
+        .fullscreen-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-dark);
+            z-index: 2000;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 24px 40px;
+            animation: fadeIn 0.35s ease;
+        }
+        .fullscreen-overlay.active {
+            display: flex;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.96); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .fullscreen-overlay .close-fs {
+            position: absolute;
+            top: 24px;
+            left: 24px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        .fullscreen-overlay .close-fs:hover {
+            background: #da3633;
+            color: #fff;
+            border-color: #da3633;
+        }
+        .fullscreen-overlay .fs-album {
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5), 0 0 0 6px rgba(212, 175, 55, 0.15);
+            margin-bottom: 28px;
+        }
+        @media (max-width: 500px) {
+            .fullscreen-overlay .fs-album {
+                width: 220px;
+                height: 220px;
+            }
+        }
+        .fullscreen-overlay .fs-album.spinning {
+            animation: spinAlbum 24s linear infinite;
+        }
+        .fullscreen-overlay .fs-info {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .fullscreen-overlay .fs-info h2 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+        .fullscreen-overlay .fs-info p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+        .fullscreen-overlay .fs-controls {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin: 8px 0 20px;
+        }
+        .fullscreen-overlay .fs-controls button {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-radius: 50%;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .fullscreen-overlay .fs-controls .secondary {
+            width: 48px;
+            height: 48px;
+            font-size: 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+        }
+        .fullscreen-overlay .fs-controls .secondary:hover {
+            background: var(--gold);
+            color: #fff;
+            border-color: var(--gold);
+        }
+        .fullscreen-overlay .fs-controls .primary {
+            width: 80px;
+            height: 80px;
+            font-size: 32px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: #0b0e12;
+            box-shadow: 0 8px 40px rgba(212, 175, 55, 0.4);
+        }
+        .fullscreen-overlay .fs-controls .primary:hover {
+            transform: scale(1.06);
+        }
+        .fullscreen-overlay .fs-progress {
+            width: 100%;
+            max-width: 500px;
+            margin-top: 4px;
+        }
+        .fullscreen-overlay .fs-progress .track {
+            position: relative;
+            height: 6px;
+            background: var(--border);
+            border-radius: 10px;
+            cursor: pointer;
+            touch-action: none;
+        }
+        .fullscreen-overlay .fs-progress .track .bar {
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold), var(--gold-dark));
+            border-radius: 10px;
+            width: 0%;
+            pointer-events: none;
+        }
+        .fullscreen-overlay .fs-progress .track .thumb {
+            position: absolute;
+            top: 50%;
+            transform: translate(50%, -50%);
+            width: 22px;
+            height: 22px;
+            background: radial-gradient(circle at 35% 35%, #fff, var(--gold));
+            border-radius: 50%;
+            box-shadow: 0 0 0 6px rgba(212, 175, 55, 0.2);
+            right: 0%;
+            pointer-events: none;
+            transition: transform 0.15s;
+        }
+        .fullscreen-overlay .fs-progress .track .thumb.dragging {
+            transform: translate(50%, -50%) scale(1.3);
+        }
+        .fullscreen-overlay .fs-time {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            margin-top: 6px;
+        }
+
+        /* ===== توست ===== */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 5000;
+            pointer-events: none;
+        }
+        .toast {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 12px 24px;
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0;
+            transform: translateY(-20px) scale(0.95);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            pointer-events: auto;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        .toast i {
+            font-size: 18px;
+        }
+        .toast .gold {
+            color: var(--gold);
+        }
+        .toast .green {
+            color: var(--primary-light);
+        }
+        .toast .red {
+            color: #da3633;
+        }
+
+        /* ===== شاشة التحميل ===== */
+        .loader-screen {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-dark);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.6s, visibility 0.6s;
+        }
+        .loader-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .loader-screen .spinner {
+            width: 56px;
+            height: 56px;
+            border: 5px solid var(--border);
+            border-top-color: var(--gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .loader-screen h3 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+        .loader-screen p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 4px;
+        }
+
+        /* ===== استجابة ===== */
+        @media (max-width: 600px) {
+            .app { padding: 10px 12px 100px; }
+            .header { padding: 12px 16px; }
+            .header-brand .name { font-size: 1rem; }
+            .header-stats span { font-size: 0.7rem; padding: 2px 10px; }
+            .banner { padding: 16px; }
+            .banner-img { width: 100px; height: 100px; }
+            .banner-info h1 { font-size: 1.3rem; }
+            .player-card { padding: 20px 16px; }
+            .controls .primary { width: 60px; height: 60px; font-size: 24px; }
+            .controls .secondary { width: 38px; height: 38px; font-size: 15px; }
+            .extras button { font-size: 0.7rem; padding: 4px 12px; }
+            .playlist-item { padding: 8px 10px; }
+            .playlist-item .pl-img { width: 36px; height: 36px; }
+            .fullscreen-overlay .fs-album { width: 180px; height: 180px; }
+            .fullscreen-overlay .fs-controls .primary { width: 64px; height: 64px; font-size: 26px; }
+            .fullscreen-overlay .fs-controls .secondary { width: 40px; height: 40px; font-size: 16px; }
+        }
+        @media (max-width: 400px) {
+            .header-stats span:last-child { display: none; }
+            .banner-img { width: 80px; height: 80px; }
+            .album-wrap { width: 150px; height: 150px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- شاشة التحميل -->
+    <div class="loader-screen" id="loaderScreen">
+        <div class="spinner"></div>
+        <h3>...صَلِّ عَلَى مُحَمَّدٍ</h3>
+        <p>جاري تحميل المشغل المتقدم</p>
+    </div>
+
+    <!-- حاوية التوست -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- الخلفية -->
+    <div class="bg-layer"></div>
+
+    <!-- التطبيق -->
+    <div class="app">
+
+        <!-- الهيدر -->
+        <header class="header">
+            <div class="header-brand">
+                <div class="logo"><i class="fas fa-microphone-alt"></i></div>
+                <div>
+                    <div class="name">المداح أحمد الرفاعي</div>
+                    <div class="sub">مدائح نبوية</div>
+                </div>
+            </div>
+            <div class="header-stats">
+                <span><i class="fas fa-list-ul"></i> <span id="totalCount">37</span></span>
+                <span><i class="fas fa-clock"></i> <span id="totalDuration">0:00</span></span>
+            </div>
+            <div class="header-actions">
+                <button id="themeToggle" title="تبديل السمة"><i class="fas fa-moon"></i></button>
+                <button id="fullscreenToggle" title="ملء الشاشة"><i class="fas fa-expand"></i></button>
+            </div>
+        </header>
+
+        <!-- البانر -->
+        <div class="banner">
+            <img class="banner-img" id="bannerImg" src="https://s5files.mobeasy.com/static/u/722316/file-722316-772927.jpg" alt="غلاف السلسلة">
+            <div class="banner-info">
+                <h1>المداح أحمد الرفاعي</h1>
+                <div class="desc">مجموعة من أجمل المدائح النبوية والأناشيد الدينية بصوت المداح أحمد الرفاعي، بأداء مميز وكلمات تنبض بحب المصطفى ﷺ.</div>
+                <div class="meta">
+                    <span><i class="fas fa-microphone-alt"></i> المداح أحمد الرفاعي</span>
+                    <span><i class="fas fa-book"></i> 37 مقطعاً</span>
+                    <span><i class="fas fa-tag"></i> مدائح · أناشيد</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- البحث -->
+        <div class="search-bar">
+            <div class="search-wrap">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="ابحث عن مقطع ... (رقم أو عنوان)">
+            </div>
+        </div>
+
+        <!-- الشبكة الرئيسية -->
+        <div class="main-grid">
+
+            <!-- المشغل -->
+            <div class="player-card">
+                <div class="album-wrap">
+                    <div class="album-glow" id="albumGlow"></div>
+                    <img id="albumArt" src="https://s5files.mobeasy.com/static/u/722316/file-722316-772927.jpg" alt="الغلاف">
+                </div>
+
+                <div class="track-info">
+                    <div class="title" id="trackTitle">الصبح بدا</div>
+                    <div class="artist" id="trackArtist">المداح أحمد الرفاعي</div>
+                    <div class="badge" id="trackBadge">المقطع 1 / 37</div>
+                </div>
+
+                <!-- شريط التقدم -->
+                <div class="progress-section">
+                    <div class="progress-track" id="progressTrack">
+                        <div class="buffer" id="bufferBar"></div>
+                        <div class="bar" id="progressBar"></div>
+                        <div class="thumb" id="progressThumb"></div>
+                    </div>
+                    <div class="time-row">
+                        <span id="currentTime">00:00</span>
+                        <span id="durationLabel">00:00</span>
+                    </div>
+                </div>
+
+                <!-- أزرار التحكم -->
+                <div class="controls">
+                    <button class="secondary" id="shuffleBtn" title="عشوائي"><i class="fas fa-shuffle"></i></button>
+                    <button class="secondary" id="prevBtn" title="السابق"><i class="fas fa-backward-step"></i></button>
+                    <button class="primary" id="playBtn" title="تشغيل"><i class="fas fa-play"></i></button>
+                    <button class="secondary" id="nextBtn" title="التالي"><i class="fas fa-forward-step"></i></button>
+                    <button class="secondary" id="repeatBtn" title="تكرار"><i class="fas fa-repeat"></i></button>
+                </div>
+
+                <!-- أزرار إضافية -->
+                <div class="extras">
+                    <button id="backwardBtn"><i class="fas fa-rotate-left"></i> 10ث</button>
+                    <button id="forwardBtn"><i class="fas fa-rotate-right"></i> 10ث</button>
+                    <button id="downloadBtn"><i class="fas fa-download"></i> تحميل</button>
+                    <button id="shareBtn"><i class="fas fa-share-nodes"></i> مشاركة</button>
+                    <button id="likeBtn"><i class="far fa-heart"></i> إعجاب</button>
+                </div>
+
+                <!-- التحكم في الصوت -->
+                <div class="volume-row">
+                    <button id="muteBtn" title="كتم"><i class="fas fa-volume-high"></i></button>
+                    <input type="range" id="volumeSlider" min="0" max="100" value="80">
+                    <span class="vol-label" id="volLabel">80%</span>
+                </div>
+            </div>
+
+            <!-- قائمة التشغيل -->
+            <div class="playlist-card">
+                <div class="head">
+                    <h3><i class="fas fa-list" style="color:var(--gold);margin-left:8px;"></i>المقاطع</h3>
+                    <span class="count" id="playlistCount">37</span>
+                </div>
+                <div class="playlist-scroll" id="playlistBody"></div>
+            </div>
+
+        </div><!-- /main-grid -->
+    </div><!-- /app -->
+
+    <!-- المشغل المصغر -->
+    <div class="mini-player" id="miniPlayer">
+        <div class="mini-progress"><div class="bar" id="miniProgressBar"></div></div>
+        <img class="mini-img" id="miniImg" src="https://s5files.mobeasy.com/static/u/722316/file-722316-772927.jpg" alt="">
+        <div class="mini-info">
+            <div class="mini-title" id="miniTitle">الصبح بدا</div>
+            <div class="mini-artist" id="miniArtist">المداح أحمد الرفاعي</div>
+        </div>
+        <div class="mini-controls">
+            <button id="miniPrev"><i class="fas fa-backward-step"></i></button>
+            <button class="play" id="miniPlay"><i class="fas fa-play"></i></button>
+            <button id="miniNext"><i class="fas fa-forward-step"></i></button>
+            <button id="miniClose"><i class="fas fa-times"></i></button>
+        </div>
+    </div>
+
+    <!-- المشغل بملء الشاشة -->
+    <div class="fullscreen-overlay" id="fullscreenOverlay">
+        <button class="close-fs" id="fsClose"><i class="fas fa-compress"></i></button>
+        <img class="fs-album" id="fsAlbum" src="https://s5files.mobeasy.com/static/u/722316/file-722316-772927.jpg" alt="">
+        <div class="fs-info">
+            <h2 id="fsTitle">الصبح بدا</h2>
+            <p id="fsArtist">المداح أحمد الرفاعي</p>
+        </div>
+        <div class="fs-controls">
+            <button class="secondary" id="fsPrev"><i class="fas fa-backward-step"></i></button>
+            <button class="primary" id="fsPlay"><i class="fas fa-play"></i></button>
+            <button class="secondary" id="fsNext"><i class="fas fa-forward-step"></i></button>
+            <button class="secondary" id="fsRepeat"><i class="fas fa-repeat"></i></button>
+        </div>
+        <div class="fs-progress">
+            <div class="track" id="fsProgressTrack">
+                <div class="bar" id="fsProgressBar"></div>
+                <div class="thumb" id="fsProgressThumb"></div>
+            </div>
+            <div class="fs-time">
+                <span id="fsCurrentTime">00:00</span>
+                <span id="fsDuration">00:00</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- عنصر الصوت -->
+    <audio id="audioPlayer" preload="auto"></audio>
+
+    <script>
+        // ============================================================
+        //  البيانات - المداح أحمد الرفاعي (37 مقطعاً)
+        // ============================================================
+        const songs = [
+            { name: "الصبح بدا", iurl: "https://s5files.mobeasy.com/static/u/722316/file-722316-772927.jpg", surl: "https://h.top4top.io/m_3824qs7ts1.mp3", art: "المداح أحمد الرفاعي" },
+            { name: "یا رب بالمصطفى", iurl: "https://s5files.mobeasy.com/static/u/722316/file-722316-772927.jpg", surl: "https://j.top4top.io/m_3824twulm1.mp3", art: "المداح أحمد الرفاعي" },
+            { name: "يا سايق الجمال", iurl: "https://s5files.mobeasy.com/static/u/722316/file-722316-772927.jpg", surl: "https://j.top4top.io/m_3824x21lo1.mp3", art: "المداح أحمد الرفاعي" },
+            { name: "يا خير من دفنت", iurl: "https://s5files.mobeasy.com/static/u/722316/file-722316-772927.jpg", surl: "https://i.top4top.io/m_38247n05p1.mp3", art: "المداح أحمد الرفاعي" },
+            { name: "جدي مسيرك الطيبة 1", iurl: "https://s5files.mobeasy.com/static/u/722316/file-722316-772927.jpg", surl: "https://k.top4top.io/m_3824go5e51.mp3", art: "المداح أحمد الرفاعي" },
+            { name: "لي فيك يا ارض الحجاز", iurl: "https://s5files.mobeasy.com/static/u/722316/file-722316-772927.jpg", surl: "https://b.top4top.io/m_3824puc0r1.mp3", art: "المداح أحمد الرفاعي" },
+            { name: "اني يا طه دخيل", iurl: "https://s5files.mobeasy.com/static/u/722316/file-722316-772927.jpg", surl: "https://g.top4top.io/m_3824nytn41.mp3", art: "المداح أحمد الرفاعي" },
+            { name: "يا صبا الاسحار", iurl: "https://s5files.mobeasy.com/static/u/722316/file-722316-772927.jpg", surl: "https://f.top4top.io/m_3824qhgtx1.mp3", art: "المداح أحمد الرفاعي" },
+            { name: "محياك يا خير البرية", iurl: "https://s5files.mobeasy.com/static/u/722316/file-722316-772927.jpg", surl: "https://c.top4top.io/m_38246u5mb1.mp3", art: "المداح أحمد الرفاعي" },
+            { name: "في روضة التجلي", iurl: "https://s5files.mobeasy.com/static/u/722316/file-722316-772927.jpg", surl: "https://d.top4top.io/m_3824alnzi1.mp3", art: "المداح أحمد الرفاعي" },
+            { name: "حب ال النبي", iurl: "https://s5files.mobeasy.com/static/u/722316/file-722316-772927.jpg", surl: "https://i.top4top.io/m_3824954861.mp3", art: "المداح أحمد الرفاعي" },
+            { name: "محياك يا خير البرية 2", iurl: "https://s5files.mobeasy.com/static/u/722316/file-722316-772927.jpg", surl: "https://l.top4top.io/m_3824pjec71.mp3", art: "المداح أحمد الرفاعي" },
+            { name: "جدي مسيرك الطيبة 2", iurl: "https://s5files.mobeasy.com/static/u/722316/file-722316-772927.jpg", surl: "https://k.top4top.io/m_38248iryp1.mp3", art: "المداح أحمد الرفاعي" },
+            { name: "آل النبي", iurl: "https://s5files.mobeasy.com/static/u/722316/file-722316-772927.jpg", surl: "https://e.top4top.io/m_3824d4baj1.mp3", art: "المداح أحمد الرفاعي" },
+            { name: "نبي صفا وصفه", iurl: "https://s5files.mobeasy.com/static/u/722316/file-722316-772927.jpg", surl: "https://a.top4top.io/m_38249k58j1.mp3", art: "المداح أحمد الرفاعي" },
+            { name: "هذا الذي جاء البئر", iurl: "https://s5files.mobeasy.com/static/u/722316/file-722316-772927.jpg", surl: "https://f.top4top.io/m_38241nqeu1.mp3", art: "المداح أحمد الرفاعي" },
+            { name: "هذا العقيق", iurl: "https://s5files.mobeasy.com/static/u/722316/file-722316-772927.jpg", surl: "https://a.top4top.io/m_3824dwbx21.mp3", art: "المداح أحمد الرفاعي" },
+            { name: "هذا العقيق - يا ربي", iurl: "https://s5files.mobeasy.com/static/u/722316/file-722316-772927.jpg", surl: "https://l.top4top.io/m_3824adcvi1.mp3", art: "المداح أحمد الرفاعي" },
+            { name: "ائمة اهل البيت", iurl: "https://s5files.mobeasy.com/static/u/722316/file-722316-772927.jpg", surl: "https://l.top4top.io/m_382431t3s1.mp3", art: "المداح أحمد الرفاعي" },
+            { name: "اقول والدمع 1", iurl: "https://s5files.mobeasy.com/static/u/722316/file-722316-772927.jpg", surl: "https://h.top4top.io/m_38244q9271.mp3", art: "المداح أحمد الرفاعي" },
+            { name: "اقول والدمع 2", iurl: "https://s5files.mobeasy.com/static/u/722316/file-722316-772927.jpg", surl: "https://d.top4top.io/m_3824rvtwi1.mp3", art: "المداح أحمد الرفاعي" },
+            { name: "الال والاصحاب", iurl: "https://s5files.mobeasy.com/static/u/722316/file-722316-772927.jpg", surl: "https://b.top4top.io/m_3824ya8r11.mp3", art: "المداح أحمد الرفاعي" },
+            { name: "رياح الصبا", iurl: "https://s5files.mobeasy.com/static/u/722316/file-722316-772927.jpg", surl: "https://a.top4top.io/m_3824ql2z51.mp3", art: "المداح أحمد الرفاعي" },
+            { name: "سعد ان جئت", iurl: "https://s5files.mobeasy.com/static/u/722316/file-722316-772927.jpg", surl: "https://a.top4top.io/m_38240vpxu1.mp3", art: "المداح أحمد الرفاعي" },
+            { name: "سهوت وغرني", iurl: "https://s5files.mobeasy.com/static/u/722316/file-722316-772927.jpg", surl: "https://b.top4top.io/m_3824jr71i1.mp3", art: "المداح أحمد الرفاعي" },
+            { name: "شموس تبدت", iurl: "https://s5files.mobeasy.com/static/u/722316/file-722316-772927.jpg", surl: "https://j.top4top.io/m_3824hddl21.mp3", art: "المداح أحمد الرفاعي" },
+            { name: "عند الاله مقرب", iurl: "https://s5files.mobeasy.com/static/u/722316/file-722316-772927.jpg", surl: "https://i.top4top.io/m_3824mdmwb1.mp3", art: "المداح أحمد الرفاعي" },
+            { name: "لاهل البيت بالمزايا", iurl: "https://s5files.mobeasy.com/static/u/722316/file-722316-772927.jpg", surl: "https://k.top4top.io/m_3824vgfll1.mp3", art: "المداح أحمد الرفاعي" },
+            { name: "لو قابل البدر 1", iurl: "https://s5files.mobeasy.com/static/u/722316/file-722316-772927.jpg", surl: "https://g.top4top.io/m_3824qky241.mp3", art: "المداح أحمد الرفاعي" },
+            { name: "لو قابل البدر 2", iurl: "https://s5files.mobeasy.com/static/u/722316/file-722316-772927.jpg", surl: "https://e.top4top.io/m_3824m0tw11.mp3", art: "المداح أحمد الرفاعي" },
+            { name: "لو مشيت على الحصباء", iurl: "https://s5files.mobeasy.com/static/u/722316/file-722316-772927.jpg", surl: "https://h.top4top.io/m_382406d6t1.mp3", art: "المداح أحمد الرفاعي" },
+            { name: "يا رب انت الهي", iurl: "https://s5files.mobeasy.com/static/u/722316/file-722316-772927.jpg", surl: "https://g.top4top.io/m_3824d30ot1.mp3", art: "المداح أحمد الرفاعي" },
+            { name: "يا من يرى", iurl: "https://s5files.mobeasy.com/static/u/722316/file-722316-772927.jpg", surl: "https://f.top4top.io/m_3824dctk51.mp3", art: "المداح أحمد الرفاعي" },
+            { name: "الله ليس كمثله شيء", iurl: "https://s5files.mobeasy.com/static/u/722316/file-722316-772927.jpg", surl: "https://d.top4top.io/m_3824yhobd1.mp3", art: "المداح أحمد الرفاعي" },
+            { name: "غذاء نفوس المؤمنين", iurl: "https://s5files.mobeasy.com/static/u/722316/file-722316-772927.jpg", surl: "https://c.top4top.io/m_3824vzokr1.mp3", art: "المداح أحمد الرفاعي" },
+            { name: "هجم المحرم", iurl: "https://s5files.mobeasy.com/static/u/722316/file-722316-772927.jpg", surl: "https://c.top4top.io/m_38243maqr1.mp3", art: "المداح أحمد الرفاعي" },
+            { name: "ابوكم فارس", iurl: "https://s5files.mobeasy.com/static/u/722316/file-722316-772927.jpg", surl: "https://e.top4top.io/m_3824it9j11.mp3", art: "المداح أحمد الرفاعي" }
+        ];
+
+        // ============================================================
+        //  المراجع
+        // ============================================================
+        const audio = document.getElementById('audioPlayer');
+        const playBtn = document.getElementById('playBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const shuffleBtn = document.getElementById('shuffleBtn');
+        const repeatBtn = document.getElementById('repeatBtn');
+        const progressBar = document.getElementById('progressBar');
+        const bufferBar = document.getElementById('bufferBar');
+        const progressThumb = document.getElementById('progressThumb');
+        const progressTrack = document.getElementById('progressTrack');
+        const currentTimeEl = document.getElementById('currentTime');
+        const durationLabel = document.getElementById('durationLabel');
+        const albumArt = document.getElementById('albumArt');
+        const albumGlow = document.getElementById('albumGlow');
+        const trackTitle = document.getElementById('trackTitle');
+        const trackArtist = document.getElementById('trackArtist');
+        const trackBadge = document.getElementById('trackBadge');
+        const volumeSlider = document.getElementById('volumeSlider');
+        const volLabel = document.getElementById('volLabel');
+        const muteBtn = document.getElementById('muteBtn');
+        const playlistBody = document.getElementById('playlistBody');
+        const searchInput = document.getElementById('searchInput');
+        const themeToggle = document.getElementById('themeToggle');
+        const fullscreenToggle = document.getElementById('fullscreenToggle');
+        const fullscreenOverlay = document.getElementById('fullscreenOverlay');
+        const fsClose = document.getElementById('fsClose');
+        const fsAlbum = document.getElementById('fsAlbum');
+        const fsTitle = document.getElementById('fsTitle');
+        const fsArtist = document.getElementById('fsArtist');
+        const fsPlay = document.getElementById('fsPlay');
+        const fsPrev = document.getElementById('fsPrev');
+        const fsNext = document.getElementById('fsNext');
+        const fsRepeat = document.getElementById('fsRepeat');
+        const fsProgressBar = document.getElementById('fsProgressBar');
+        const fsProgressThumb = document.getElementById('fsProgressThumb');
+        const fsProgressTrack = document.getElementById('fsProgressTrack');
+        const fsCurrentTime = document.getElementById('fsCurrentTime');
+        const fsDuration = document.getElementById('fsDuration');
+        const miniPlayer = document.getElementById('miniPlayer');
+        const miniImg = document.getElementById('miniImg');
+        const miniTitle = document.getElementById('miniTitle');
+        const miniArtist = document.getElementById('miniArtist');
+        const miniPlay = document.getElementById('miniPlay');
+        const miniPrev = document.getElementById('miniPrev');
+        const miniNext = document.getElementById('miniNext');
+        const miniClose = document.getElementById('miniClose');
+        const miniProgressBar = document.getElementById('miniProgressBar');
+        const backwardBtn = document.getElementById('backwardBtn');
+        const forwardBtn = document.getElementById('forwardBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const shareBtn = document.getElementById('shareBtn');
+        const likeBtn = document.getElementById('likeBtn');
+        const loaderScreen = document.getElementById('loaderScreen');
+        const toastContainer = document.getElementById('toastContainer');
+
+        // ============================================================
+        //  الحالة
+        // ============================================================
+        let currentIndex = 0;
+        let isPlaying = false;
+        let isShuffle = false;
+        let repeatMode = 0;
+        let isDragging = false;
+        let isFsDragging = false;
+        let lastVolume = 0.8;
+        let likedSet = new Set();
+        let filteredSongs = [...songs];
+
+        // ============================================================
+        //  التخزين المحلي
+        // ============================================================
+        const STORAGE = {
+            THEME: 'rifai_theme',
+            VOLUME: 'rifai_volume',
+            LAST_TRACK: 'rifai_last_track',
+            LAST_TIME: 'rifai_last_time',
+            SHUFFLE: 'rifai_shuffle',
+            REPEAT: 'rifai_repeat',
+            LIKES: 'rifai_likes'
+        };
+
+        function loadStorage() {
+            const theme = localStorage.getItem(STORAGE.THEME);
+            if (theme === 'light') {
+                document.documentElement.setAttribute('data-theme', 'light');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+            const vol = parseFloat(localStorage.getItem(STORAGE.VOLUME));
+            if (!isNaN(vol) && vol >= 0 && vol <= 1) {
+                audio.volume = vol;
+                volumeSlider.value = vol * 100;
+                volLabel.textContent = Math.round(vol * 100) + '%';
+                lastVolume = vol;
+                updateVolumeIcon(vol);
+            } else {
+                audio.volume = 0.8;
+                volumeSlider.value = 80;
+                volLabel.textContent = '80%';
+                lastVolume = 0.8;
+            }
+            const track = parseInt(localStorage.getItem(STORAGE.LAST_TRACK));
+            if (!isNaN(track) && track >= 0 && track < songs.length) currentIndex = track;
+            const time = parseFloat(localStorage.getItem(STORAGE.LAST_TIME));
+            if (!isNaN(time) && time > 0) audio.currentTime = time;
+            isShuffle = localStorage.getItem(STORAGE.SHUFFLE) === 'true';
+            if (isShuffle) shuffleBtn.classList.add('active');
+            const rep = parseInt(localStorage.getItem(STORAGE.REPEAT));
+            if (!isNaN(rep) && rep >= 0 && rep <= 2) repeatMode = rep;
+            updateRepeatIcon();
+            const likes = localStorage.getItem(STORAGE.LIKES);
+            if (likes) likedSet = new Set(JSON.parse(likes));
+        }
+
+        function saveStorage() {
+            localStorage.setItem(STORAGE.THEME, document.documentElement.getAttribute('data-theme') || 'dark');
+            localStorage.setItem(STORAGE.VOLUME, audio.volume);
+            localStorage.setItem(STORAGE.LAST_TRACK, currentIndex);
+            localStorage.setItem(STORAGE.LAST_TIME, audio.currentTime);
+            localStorage.setItem(STORAGE.SHUFFLE, isShuffle);
+            localStorage.setItem(STORAGE.REPEAT, repeatMode);
+            localStorage.setItem(STORAGE.LIKES, JSON.stringify([...likedSet]));
+        }
+        setInterval(saveStorage, 4000);
+        window.addEventListener('beforeunload', saveStorage);
+
+        // ============================================================
+        //  أدوات
+        // ============================================================
+        function formatTime(sec) {
+            if (isNaN(sec) || !isFinite(sec)) return '00:00';
+            const m = Math.floor(sec / 60);
+            const s = Math.floor(sec % 60);
+            return m.toString().padStart(2, '0') + ':' + s.toString().padStart(2, '0');
+        }
+
+        function showToast(msg, icon = 'fa-check', color = 'gold') {
+            const el = document.createElement('div');
+            el.className = 'toast';
+            el.innerHTML = `<i class="fas ${icon}" style="color:var(--${color})"></i><span>${msg}</span>`;
+            toastContainer.appendChild(el);
+            requestAnimationFrame(() => el.classList.add('show'));
+            setTimeout(() => {
+                el.classList.remove('show');
+                setTimeout(() => el.remove(), 400);
+            }, 2800);
+        }
+
+        function vibrate(ms = 40) {
+            if (navigator.vibrate) navigator.vibrate(ms);
+        }
+
+        // ============================================================
+        //  تحميل المقطع
+        // ============================================================
+        function loadTrack(index, autoplay = false) {
+            if (index < 0) index = songs.length - 1;
+            if (index >= songs.length) index = 0;
+            currentIndex = index;
+            const song = songs[index];
+            audio.src = song.surl;
+            audio.preload = "auto";
+            audio.load();
+
+            albumArt.src = song.iurl;
+            fsAlbum.src = song.iurl;
+            miniImg.src = song.iurl;
+            trackTitle.textContent = song.name;
+            trackArtist.textContent = song.art;
+            trackBadge.textContent = `المقطع ${index+1} / ${songs.length}`;
+            fsTitle.textContent = song.name;
+            fsArtist.textContent = song.art;
+            miniTitle.textContent = song.name;
+            miniArtist.textContent = song.art;
+
+            document.querySelectorAll('.playlist-item').forEach((el, i) => {
+                el.classList.toggle('active', i === index);
+            });
+
+            updateLikeButton();
+            updateMediaSession();
+
+            if (autoplay) {
+                setTimeout(() => {
+                    audio.play().catch(() => {});
+                }, 100);
+            }
+        }
+
+        // ============================================================
+        //  التشغيل / الإيقاف
+        // ============================================================
+        function togglePlay() {
+            vibrate();
+            if (isPlaying) {
+                audio.pause();
+            } else {
+                if (!audio.src || audio.readyState < 1) {
+                    loadTrack(currentIndex, true);
+                    return;
+                }
+                audio.play().catch(() => {
+                    loadTrack(currentIndex, true);
+                });
+            }
+        }
+
+        function updatePlayUI(playing) {
+            isPlaying = playing;
+            const icon = playing ? 'fa-pause' : 'fa-play';
+            playBtn.innerHTML = `<i class="fas ${icon}"></i>`;
+            fsPlay.innerHTML = `<i class="fas ${icon}"></i>`;
+            miniPlay.innerHTML = `<i class="fas ${icon}"></i>`;
+            albumArt.classList.toggle('spinning', playing);
+            fsAlbum.classList.toggle('spinning', playing);
+            albumGlow.classList.toggle('active', playing);
+            if (playing) {
+                miniPlayer.classList.add('visible');
+            }
+        }
+
+        audio.addEventListener('play', () => updatePlayUI(true));
+        audio.addEventListener('pause', () => updatePlayUI(false));
+        audio.addEventListener('ended', handleEnded);
+
+        audio.addEventListener('loadedmetadata', function() {
+            if (audio.duration) {
+                durationLabel.textContent = formatTime(audio.duration);
+                fsDuration.textContent = formatTime(audio.duration);
+                songs[currentIndex].dur = formatTime(audio.duration);
+                renderPlaylist(searchInput.value);
+            }
+        });
+
+        function handleEnded() {
+            if (repeatMode === 2) {
+                audio.currentTime = 0;
+                audio.play().catch(() => {});
+                return;
+            }
+            if (isShuffle) {
+                playNext();
+            } else {
+                if (currentIndex + 1 < songs.length) {
+                    playNext();
+                } else {
+                    if (repeatMode === 1) {
+                        loadTrack(0, true);
+                    } else {
+                        updatePlayUI(false);
+                    }
+                }
+            }
+        }
+
+        // ============================================================
+        //  التنقل
+        // ============================================================
+        function playNext() {
+            let idx;
+            if (isShuffle) {
+                do {
+                    idx = Math.floor(Math.random() * songs.length);
+                } while (idx === currentIndex && songs.length > 1);
+            } else {
+                idx = currentIndex + 1;
+                if (idx >= songs.length) idx = 0;
+            }
+            loadTrack(idx, true);
+        }
+
+        function playPrev() {
+            let idx = currentIndex - 1;
+            if (idx < 0) idx = songs.length - 1;
+            loadTrack(idx, true);
+        }
+
+        // ============================================================
+        //  شريط التقدم
+        // ============================================================
+        function updateProgress() {
+            if (isDragging || isFsDragging) return;
+            const pct = audio.duration ? (audio.currentTime / audio.duration) * 100 : 0;
+            const pctClamped = Math.min(100, Math.max(0, pct));
+            progressBar.style.width = pctClamped + '%';
+            progressThumb.style.right = pctClamped + '%';
+            fsProgressBar.style.width = pctClamped + '%';
+            fsProgressThumb.style.right = pctClamped + '%';
+            miniProgressBar.style.width = pctClamped + '%';
+            currentTimeEl.textContent = formatTime(audio.currentTime);
+            durationLabel.textContent = formatTime(audio.duration);
+            fsCurrentTime.textContent = formatTime(audio.currentTime);
+            fsDuration.textContent = formatTime(audio.duration);
+        }
+
+        audio.addEventListener('timeupdate', updateProgress);
+        audio.addEventListener('loadedmetadata', updateProgress);
+
+        audio.addEventListener('progress', () => {
+            if (audio.buffered.length > 0) {
+                const end = audio.buffered.end(audio.buffered.length - 1);
+                const dur = audio.duration;
+                if (dur > 0) {
+                    const pct = Math.min(100, (end / dur) * 100);
+                    bufferBar.style.width = pct + '%';
+                }
+            }
+        });
+
+        // ---- سحب شريط التقدم ----
+        function setupSeek(track, bar, thumb, timeEl, durationEl, isFs = false) {
+            let dragging = false;
+
+            function getPercent(e) {
+                const rect = track.getBoundingClientRect();
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                let pct = ((rect.right - clientX) / rect.width) * 100;
+                return Math.max(0, Math.min(100, pct));
+            }
+
+            function startDrag(e) {
+                e.preventDefault();
+                dragging = true;
+                if (isFs) isFsDragging = true;
+                else isDragging = true;
+                thumb.classList.add('dragging');
+                const pct = getPercent(e);
+                bar.style.width = pct + '%';
+                thumb.style.right = pct + '%';
+                if (audio.duration) {
+                    audio.currentTime = (pct / 100) * audio.duration;
+                }
+            }
+
+            function moveDrag(e) {
+                if (!dragging) return;
+                e.preventDefault();
+                const pct = getPercent(e);
+                bar.style.width = pct + '%';
+                thumb.style.right = pct + '%';
+                if (audio.duration) {
+                    audio.currentTime = (pct / 100) * audio.duration;
+                }
+                if (timeEl) timeEl.textContent = formatTime(audio.currentTime);
+            }
+
+            function endDrag() {
+                if (dragging) {
+                    dragging = false;
+                    if (isFs) isFsDragging = false;
+                    else isDragging = false;
+                    thumb.classList.remove('dragging');
+                }
+            }
+
+            track.addEventListener('mousedown', startDrag);
+            track.addEventListener('touchstart', startDrag, { passive: false });
+            document.addEventListener('mousemove', moveDrag);
+            document.addEventListener('touchmove', moveDrag, { passive: false });
+            document.addEventListener('mouseup', endDrag);
+            document.addEventListener('touchend', endDrag);
+        }
+
+        setupSeek(progressTrack, progressBar, progressThumb, currentTimeEl, durationLabel, false);
+        setupSeek(fsProgressTrack, fsProgressBar, fsProgressThumb, fsCurrentTime, fsDuration, true);
+
+        // ============================================================
+        //  التحكم في الصوت
+        // ============================================================
+        function updateVolumeIcon(vol) {
+            const icon = muteBtn.querySelector('i');
+            if (audio.muted || vol === 0) {
+                icon.className = 'fas fa-volume-xmark';
+            } else if (vol < 0.4) {
+                icon.className = 'fas fa-volume-low';
+            } else {
+                icon.className = 'fas fa-volume-high';
+            }
+        }
+
+        volumeSlider.addEventListener('input', function() {
+            const val = parseFloat(this.value) / 100;
+            audio.volume = val;
+            audio.muted = false;
+            volLabel.textContent = Math.round(val * 100) + '%';
+            lastVolume = val;
+            updateVolumeIcon(val);
+        });
+
+        muteBtn.addEventListener('click', function() {
+            vibrate();
+            if (audio.muted || audio.volume === 0) {
+                audio.muted = false;
+                audio.volume = lastVolume || 0.8;
+                volumeSlider.value = (lastVolume || 0.8) * 100;
+                volLabel.textContent = Math.round((lastVolume || 0.8) * 100) + '%';
+                updateVolumeIcon(audio.volume);
+                showToast('تم إلغاء الكتم', 'fa-volume-high', 'gold');
+            } else {
+                lastVolume = audio.volume;
+                audio.muted = true;
+                volumeSlider.value = 0;
+                volLabel.textContent = '0%';
+                updateVolumeIcon(0);
+                showToast('تم كتم الصوت', 'fa-volume-xmark', 'red');
+            }
+        });
+
+        // ============================================================
+        //  التكرار والعشوائي
+        // ============================================================
+        function updateRepeatIcon() {
+            const icons = ['fa-repeat', 'fa-repeat', 'fa-1'];
+            repeatBtn.innerHTML = `<i class="fas ${icons[repeatMode]}"></i>`;
+            repeatBtn.classList.toggle('active', repeatMode > 0);
+            fsRepeat.innerHTML = `<i class="fas ${icons[repeatMode]}"></i>`;
+            fsRepeat.classList.toggle('active', repeatMode > 0);
+        }
+
+        repeatBtn.addEventListener('click', () => {
+            vibrate();
+            repeatMode = (repeatMode + 1) % 3;
+            updateRepeatIcon();
+            const msgs = ['إلغاء التكرار', 'تكرار الكل', 'تكرار المقطع الحالي'];
+            showToast(msgs[repeatMode], 'fa-repeat', 'gold');
+        });
+
+        fsRepeat.addEventListener('click', () => repeatBtn.click());
+
+        shuffleBtn.addEventListener('click', () => {
+            vibrate();
+            isShuffle = !isShuffle;
+            shuffleBtn.classList.toggle('active', isShuffle);
+            showToast(isShuffle ? 'تفعيل العشوائي' : 'إلغاء العشوائي', 'fa-shuffle', 'gold');
+        });
+
+        // ============================================================
+        //  أزرار 10 ثوانٍ
+        // ============================================================
+        backwardBtn.addEventListener('click', () => {
+            vibrate();
+            audio.currentTime = Math.max(0, audio.currentTime - 10);
+            showToast('تأخير 10 ثوانٍ', 'fa-rotate-left', 'gold');
+        });
+        forwardBtn.addEventListener('click', () => {
+            vibrate();
+            audio.currentTime = Math.min(audio.duration || Infinity, audio.currentTime + 10);
+            showToast('تقديم 10 ثوانٍ', 'fa-rotate-right', 'gold');
+        });
+
+        // ============================================================
+        //  التحميل والمشاركة والإعجاب
+        // ============================================================
+        downloadBtn.addEventListener('click', () => {
+            vibrate();
+            const song = songs[currentIndex];
+            const a = document.createElement('a');
+            a.href = song.surl;
+            a.download = song.name + '.mp3';
+            a.target = '_blank';
+            a.click();
+            showToast('جاري تحميل الملف...', 'fa-download', 'green');
+        });
+
+        shareBtn.addEventListener('click', () => {
+            vibrate();
+            const song = songs[currentIndex];
+            const text = `🎧 ${song.name}\n🎙️ ${song.art}\n🔗 ${song.surl}`;
+            if (navigator.share) {
+                navigator.share({ title: song.name, text: text, url: song.surl })
+                    .then(() => showToast('تمت المشاركة', 'fa-share-nodes', 'gold'))
+                    .catch(() => copyToClipboard(text));
+            } else {
+                copyToClipboard(text);
+            }
+        });
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('تم نسخ الرابط والنص', 'fa-copy', 'gold');
+            }).catch(() => {
+                showToast('تعذر النسخ', 'fa-exclamation-triangle', 'red');
+            });
+        }
+
+        likeBtn.addEventListener('click', () => {
+            vibrate();
+            if (likedSet.has(currentIndex)) {
+                likedSet.delete(currentIndex);
+                showToast('تم إلغاء الإعجاب', 'fa-heart', 'red');
+            } else {
+                likedSet.add(currentIndex);
+                showToast('تم الإعجاب', 'fa-heart', 'gold');
+            }
+            updateLikeButton();
+        });
+
+        function updateLikeButton() {
+            const liked = likedSet.has(currentIndex);
+            likeBtn.innerHTML = liked ?
+                '<i class="fas fa-heart"></i> أعجبني' :
+                '<i class="far fa-heart"></i> إعجاب';
+            likeBtn.classList.toggle('liked', liked);
+        }
+
+        // ============================================================
+        //  قائمة التشغيل + البحث
+        // ============================================================
+        function renderPlaylist(filter = '') {
+            const q = filter.trim().toLowerCase();
+            filteredSongs = songs.filter((s, i) =>
+                s.name.toLowerCase().includes(q) ||
+                (i + 1).toString().includes(q)
+            );
+            playlistBody.innerHTML = '';
+            filteredSongs.forEach((song, idx) => {
+                const origIndex = songs.indexOf(song);
+                const item = document.createElement('div');
+                item.className = 'playlist-item' + (origIndex === currentIndex ? ' active' : '');
+                item.innerHTML = `
+                    <span class="pl-num">${origIndex+1}</span>
+                    <img class="pl-img" src="${song.iurl}" alt="">
+                    <div class="pl-info">
+                        <div class="pl-title">${song.name}</div>
+                        <div class="pl-artist">${song.art}</div>
+                    </div>
+                    <i class="fas fa-wave-square pl-play-icon"></i>
+                    <div class="pl-dur">${song.dur || '--:--'}</div>
+                    <div class="pl-actions">
+                        <button class="pl-play" data-index="${origIndex}" title="تشغيل"><i class="fas fa-play"></i></button>
+                        <button class="pl-share" data-index="${origIndex}" title="مشاركة"><i class="fas fa-share-nodes"></i></button>
+                    </div>
+                `;
+                playlistBody.appendChild(item);
+
+                item.addEventListener('click', (e) => {
+                    if (e.target.closest('.pl-actions')) return;
+                    vibrate();
+                    loadTrack(origIndex, true);
+                });
+
+                item.querySelector('.pl-play').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    vibrate();
+                    if (origIndex === currentIndex && isPlaying) {
+                        audio.pause();
+                    } else {
+                        loadTrack(origIndex, true);
+                    }
+                });
+
+                item.querySelector('.pl-share').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    vibrate();
+                    const s = songs[origIndex];
+                    const txt = `🎧 ${s.name}\n🎙️ ${s.art}\n🔗 ${s.surl}`;
+                    if (navigator.share) {
+                        navigator.share({ title: s.name, text: txt, url: s.surl })
+                            .catch(() => copyToClipboard(txt));
+                    } else {
+                        copyToClipboard(txt);
+                    }
+                });
+            });
+
+            document.getElementById('playlistCount').textContent = filteredSongs.length;
+        }
+
+        searchInput.addEventListener('input', function() {
+            renderPlaylist(this.value);
+        });
+
+        // ============================================================
+        //  MediaSession
+        // ============================================================
+        function updateMediaSession() {
+            if ('mediaSession' in navigator) {
+                const song = songs[currentIndex];
+                navigator.mediaSession.metadata = new MediaMetadata({
+                    title: song.name,
+                    artist: song.art,
+                    album: 'المداح أحمد الرفاعي',
+                    artwork: [{ src: song.iurl, sizes: '512x512', type: 'image/jpeg' }]
+                });
+                navigator.mediaSession.setActionHandler('play', () => audio.play().catch(() => {}));
+                navigator.mediaSession.setActionHandler('pause', () => audio.pause());
+                navigator.mediaSession.setActionHandler('previoustrack', playPrev);
+                navigator.mediaSession.setActionHandler('nexttrack', playNext);
+                navigator.mediaSession.setActionHandler('seekbackward', () => audio.currentTime = Math.max(0, audio.currentTime - 10));
+                navigator.mediaSession.setActionHandler('seekforward', () => audio.currentTime = Math.min(audio.duration || Infinity, audio.currentTime + 10));
+            }
+        }
+
+        // ============================================================
+        //  أحداث الأزرار
+        // ============================================================
+        playBtn.addEventListener('click', togglePlay);
+        fsPlay.addEventListener('click', togglePlay);
+        miniPlay.addEventListener('click', togglePlay);
+
+        prevBtn.addEventListener('click', () => { vibrate();
+            playPrev(); });
+        fsPrev.addEventListener('click', () => { vibrate();
+            playPrev(); });
+        miniPrev.addEventListener('click', () => { vibrate();
+            playPrev(); });
+
+        nextBtn.addEventListener('click', () => { vibrate();
+            playNext(); });
+        fsNext.addEventListener('click', () => { vibrate();
+            playNext(); });
+        miniNext.addEventListener('click', () => { vibrate();
+            playNext(); });
+
+        miniClose.addEventListener('click', () => {
+            vibrate();
+            miniPlayer.classList.remove('visible');
+        });
+
+        // ============================================================
+        //  ملء الشاشة
+        // ============================================================
+        fullscreenToggle.addEventListener('click', () => {
+            vibrate();
+            fullscreenOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        fsClose.addEventListener('click', () => {
+            vibrate();
+            fullscreenOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        // ============================================================
+        //  تبديل السمة
+        // ============================================================
+        themeToggle.addEventListener('click', () => {
+            vibrate();
+            const current = document.documentElement.getAttribute('data-theme');
+            if (current === 'light') {
+                document.documentElement.removeAttribute('data-theme');
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                showToast('الوضع الليلي', 'fa-moon', 'gold');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                showToast('الوضع النهاري', 'fa-sun', 'gold');
+            }
+        });
+
+        // ============================================================
+        //  اختصارات لوحة المفاتيح
+        // ============================================================
+        document.addEventListener('keydown', (e) => {
+            if (e.target.tagName === 'INPUT') return;
+            if (e.code === 'Space') { e.preventDefault();
+                togglePlay(); }
+            if (e.code === 'ArrowRight') { e.preventDefault();
+                playNext(); }
+            if (e.code === 'ArrowLeft') { e.preventDefault();
+                playPrev(); }
+            if (e.code === 'KeyM') { e.preventDefault();
+                muteBtn.click(); }
+            if (e.code === 'KeyF') { e.preventDefault();
+                fullscreenToggle.click(); }
+            if (e.code === 'ArrowUp') {
+                e.preventDefault();
+                const val = Math.min(100, parseFloat(volumeSlider.value) + 5);
+                volumeSlider.value = val;
+                volumeSlider.dispatchEvent(new Event('input'));
+            }
+            if (e.code === 'ArrowDown') {
+                e.preventDefault();
+                const val = Math.max(0, parseFloat(volumeSlider.value) - 5);
+                volumeSlider.value = val;
+                volumeSlider.dispatchEvent(new Event('input'));
+            }
+        });
+
+        // ============================================================
+        //  إخفاء شاشة التحميل
+        // ============================================================
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                loaderScreen.classList.add('hidden');
+            }, 900);
+        });
+
+        // ============================================================
+        //  حساب المدة الإجمالية (تقديرية)
+        // ============================================================
+        function calcTotalDuration() {
+            if (audio.duration) {
+                const total = songs.length * (audio.duration || 0);
+                document.getElementById('totalDuration').textContent = formatTime(total);
+            } else {
+                document.getElementById('totalDuration').textContent = '--:--';
+            }
+        }
+        audio.addEventListener('loadedmetadata', calcTotalDuration);
+        setTimeout(calcTotalDuration, 2000);
+
+        // ============================================================
+        //  التهيئة
+        // ============================================================
+        loadStorage();
+        
+        const initialSong = songs[currentIndex];
+        audio.src = initialSong.surl;
+        audio.preload = "auto";
+        audio.load();
+        
+        loadTrack(currentIndex, false);
+        renderPlaylist();
+        updateLikeButton();
+        updateRepeatIcon();
+        updateVolumeIcon(audio.volume);
+
+        audio.addEventListener('loadedmetadata', () => {
+            const dur = audio.duration;
+            if (dur) {
+                songs[currentIndex].dur = formatTime(dur);
+                renderPlaylist(searchInput.value);
+            }
+        });
+
+        console.log('🚀 مشغل المداح أحمد الرفاعي جاهز ✅');
+    </script>
+</body>
+</html>
